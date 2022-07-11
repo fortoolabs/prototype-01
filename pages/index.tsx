@@ -1,10 +1,27 @@
 import type { NextPage } from 'next'
+import { useEffect, useState } from 'react'
+
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Heading from '../components/Heading'
 
 const Home: NextPage = () => {
+  const [payload, setData] = useState({ name: 'that who should not be named' })
+  const [isLoading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+
+    fetch('/api/hello')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Just got', data)
+        setData(data)
+        setLoading(false)
+      })
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +32,10 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <Heading title="Roadmap" />
+        <p>
+          This is some dynamic content from the api: 👉🏿{' '}
+          <strong>{payload.name}</strong>
+        </p>
 
         <p className={styles.description}>
           Get started by editing{' '}
