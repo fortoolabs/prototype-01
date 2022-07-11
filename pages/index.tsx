@@ -1,8 +1,43 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
 import { Box, Grommet } from "grommet";
 
-import Heading from "../components/Heading";
+import Code from '../components/Code'
+import { Heading1, Heading2 } from '../components/Heading'
+
+// map available components
+const components = { Heading1, Heading2, Code };
+
+// dummy json
+const json = [
+  {
+    name: "Heading1",
+    content: "This is some heading content for heading 1",
+  },
+  {
+    name: "Heading2",
+    content: "This is some other content for heading 2",
+  },
+  {
+    name: "Code",
+    content: "const test = 123",
+    props: {
+      language: "javascript"
+    }
+  }
+];
+
+// dynamic component
+const DynamicComponent = (component:{ name: string; content: string; props?: {language?:string}}, i:number) => {
+  const Component = components[component.name as keyof typeof components];
+  const _props = component.props ? component.props : {}
+  if (!Component) {
+    console.error(`component ${component.name} was not found in component map`)
+    return <></>;
+  }
+  return <Component key={i} content={component.content} props={_props}/>;
+};
 
 const AppBar = (props: any) => (
   <Box
@@ -36,16 +71,13 @@ const Home: NextPage = () => {
       <Head>
         <title>Formartion.tools</title>
       </Head>
-
       <Grommet theme={theme}>
         <main>
-          <Heading title="Roadmap" />
-
-          <p>
-            Get started by editing <code>pages/index.tsx</code>
-          </p>
         </main>
         <AppBar>Hello Grommet!</AppBar>
+        <h1>Welcome to Formation!</h1>
+        {/* iterate over json, build right component */}
+        <div>{json.map((component,i) => DynamicComponent(component,i))}</div>
       </Grommet>
     </div>
   );
