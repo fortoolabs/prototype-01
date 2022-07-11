@@ -1,26 +1,49 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import useSWR, { Key, Fetcher } from "swr";
 
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Heading from "../components/Heading";
 
+const fetcher: Fetcher<NextApiResponse<HelloData>> = (url) => {
+  return fetch(url)
+    .then(
+      (r) =>
+        // scrappy example of delaying things to demo isLoading
+        new Promise((resolve, reject) => {
+          setTimeout(() => resolve(r), 1000);
+        })
+    )
+    .then((r) => r.json());
+};
+
+type HelloResponse = {
+  hello: HelloData | undefined;
+  isLoading: boolean;
+  isError: Error;
+};
+
+function validName(data: HelloData | undefined): string {
+  console.log("validName", data, data == undefined);
+  if (data == undefined) {
+    return "that which should not be named";
+  }
+  return data.name;
+}
+
+function useHello(): HelloResponse {
+  const { data, error } = useSWR<HelloData>("/api/hello", fetcher);
+
+  return {
+    name: validName(data),
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+
 const Home: NextPage = () => {
-  const [payload, setData] = useState({ name: "that who should not be named" });
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    fetch("/api/hello")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Just got", data);
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
+  const { name, isLoading, isError }: HelloReponse = useHello();
 
   return (
     <div className={styles.container}>
@@ -33,8 +56,8 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Heading title="Roadmap" />
         <p>
-          This is some dynamic content from the api: 👉🏿{" "}
-          <strong>{payload.name}</strong>
+          This is some dynamic content from the api: 👉🏿 <strong>{name}</strong>
+          {isLoading && <span>⏳</span>}
         </p>
 
         <p className={styles.description}>
