@@ -28,7 +28,7 @@ const json = [
 ];
 
 // dynamic component
-const DynamicComponent = (component:{ name: string; content: string; props?: {language?:string}}) => {
+const DynamicComponent = (component:{ name: string; content: string; props?: {language?:string}}, i:number) => {
   const Component = components[component.name];
   const _props = component.props ? component.props : {}
   
@@ -36,7 +36,7 @@ const DynamicComponent = (component:{ name: string; content: string; props?: {la
     console.error(`component ${component.name} was not found in component map`)
     return <></>;
   }
-  return <Component content={component.content} props={_props}/>;
+  return <Component key={i} content={component.content} props={_props}/>;
 };
 
 const Home: NextPage = () => {
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Formation!</h1>
         {/* iterate over json, build right component */}
-        <div>{json.map((component) => DynamicComponent(component))}</div>
+        <div>{json.map((component,i) => DynamicComponent(component,i))}</div>
       </main>
     </div>
   )
