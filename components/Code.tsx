@@ -1,21 +1,15 @@
-import { Box } from 'grommet'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// import { Box } from 'grommet'
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 interface HeadingProps {
   content: string;
+  language: string;
 }
 
-export default function Code({ content }: HeadingProps) {
-    return (<Box>
-      <SyntaxHighlighter
-        tabIndex="0"
-        style={prism.light}
-        wrapLongLines
-        language="javascript"
-      >
-        {content}
-      </SyntaxHighlighter>
-    </Box>);
+export default function Code({ content, language }: HeadingProps) {
+  return (
+    <SyntaxHighlighter tabIndex="0" wrapLongLines language="javascript">
+      {content}
+    </SyntaxHighlighter>
+  );
 }
-
- 
