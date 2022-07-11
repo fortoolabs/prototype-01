@@ -4,7 +4,7 @@ import { Box, Grommet } from "grommet";
 
 import Heading from "../components/Heading";
 
-const AppBar = (props) => (
+const AppBar = (props: any) => (
   <Box
     tag="header"
     direction="row"
