@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Code from '../components/Code'
-import Heading, { Heading1, Heading2 } from '../components/Heading'
+import { Heading1, Heading2 } from '../components/Heading'
 
 // map available components
 const components = { Heading1, Heading2, Code };
@@ -29,9 +29,8 @@ const json = [
 
 // dynamic component
 const DynamicComponent = (component:{ name: string; content: string; props?: {language?:string}}, i:number) => {
-  const Component = components[component.name];
+  const Component = components[component.name as keyof typeof components];
   const _props = component.props ? component.props : {}
-  
   if (!Component) {
     console.error(`component ${component.name} was not found in component map`)
     return <></>;
