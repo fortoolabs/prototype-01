@@ -1,7 +1,7 @@
 interface HeadingProps {
-  title: string
+  title: string;
 }
 
 export default function Heading({ title }: HeadingProps) {
-  return <h1>{title}</h1>
+  return <h1>{title}</h1>;
 }

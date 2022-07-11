@@ -1,26 +1,26 @@
-import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Heading from '../components/Heading'
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Heading from "../components/Heading";
 
 const Home: NextPage = () => {
-  const [payload, setData] = useState({ name: 'that who should not be named' })
-  const [isLoading, setLoading] = useState(false)
+  const [payload, setData] = useState({ name: "that who should not be named" });
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
 
-    fetch('/api/hello')
+    fetch("/api/hello")
       .then((res) => res.json())
       .then((data) => {
-        console.log('Just got', data)
-        setData(data)
-        setLoading(false)
-      })
-  }, [])
+        console.log("Just got", data);
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -33,12 +33,12 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Heading title="Roadmap" />
         <p>
-          This is some dynamic content from the api: 👉🏿{' '}
+          This is some dynamic content from the api: 👉🏿{" "}
           <strong>{payload.name}</strong>
         </p>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -79,14 +79,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
