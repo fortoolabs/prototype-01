@@ -2,7 +2,32 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Heading from '../components/Heading'
+import Heading, { Heading1, Heading2 } from '../components/Heading'
+
+// map available components
+const components = { Heading1, Heading2 };
+
+// dummy json
+const json = [
+  {
+    name: "Heading1",
+    content: "This is some heading content for heading 1",
+  },
+  {
+    name: "Heading3",
+    content: "This is some other content for heading 2",
+  },
+];
+
+// dynamic component
+const DynamicComponent = (component:{ name: string; content: string }) => {
+  const Component = components[component.name];
+  if (!Component) {
+    console.error(`component ${component.name} was not found in component map`)
+    return <></>;
+  }
+  return <Component content={component.content} />;
+};
 
 const Home: NextPage = () => {
   return (
@@ -14,56 +39,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Heading title="Roadmap" />
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <h1 className={styles.title}>Welcome to Formation!</h1>
+        {/* iterate over json, build right component */}
+        <div>{json.map((component) => DynamicComponent(component))}</div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
