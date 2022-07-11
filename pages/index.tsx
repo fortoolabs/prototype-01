@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Heading, { Heading1, Heading2 } from '../components/Heading'
+import { Heading1, Heading2 } from '../components/Heading'
 
 // map available components
 const components = { Heading1, Heading2 };
@@ -20,8 +20,8 @@ const json = [
 ];
 
 // dynamic component
-const DynamicComponent = (component:{ name: string; content: string }) => {
-  const Component = components[component.name];
+const DynamicComponent = (component:{ name: any; content: string }) => {
+  const Component = components[component.name as keyof typeof components];
   if (!Component) {
     console.error(`component ${component.name} was not found in component map`)
     return <></>;
