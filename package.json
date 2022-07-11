@@ -7,14 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "fmt": "prettier --check --ignore-path .gitignore .",
+    "fmt:fix": "prettier --write --ignore-path .gitignore .",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "grommet": "^2.25.0",
+    "grommet-icons": "^4.7.0",
     "next": "12.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
@@ -32,6 +37,7 @@
     "babel-loader": "^8.2.5",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.2",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-storybook": "^0.6.0",
     "typescript": ">= 3.3.1 <4.7.0"
   }
