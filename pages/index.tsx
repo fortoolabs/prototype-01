@@ -1,58 +1,155 @@
-import type { NextPage } from 'next'
+import type { NextPage, NextApiResponse } from 'next'
+import useSWR, { Key, Fetcher } from 'swr'
+
 import Head from 'next/head'
 import Image from 'next/image'
 import { Box, Grommet } from 'grommet'
 
-import Code from '../components/Code'
-import { Heading1, Heading2 } from '../components/Heading'
-import { FallbackBlock } from '../components/FallbackBlock'
+import Code, { CodeProps } from '../components/Code'
+import Heading, { HeadingProps } from '../components/Heading'
+import Paragraph, { ParagraphProps } from '../components/Paragraph'
+import FallbackInline, {
+  FallbackInlineProps,
+} from '../components/FallbackInline'
+import FallbackBlock, { FallbackBlockProps } from '../components/FallbackBlock'
 
-import Par from '../components/Paragraph'
+type HeadingElement = {
+  name: 'Heading'
+  data: HeadingProps
+}
 
-// map available components
-const components = { Heading1, Heading2, Code, Par, FallbackBlock }
+type ParagraphElement = {
+  name: 'Paragraph'
+  data: ParagraphProps
+}
+
+type CodeBlockElement = {
+  name: 'Code'
+  data: CodeProps
+}
+
+type FallbackInlineElement = {
+  name: 'FallbackInline'
+  data: FallbackInlineProps
+}
+
+type FallbackBlockElement = {
+  name: 'FallbackBlock'
+  data: FallbackBlockProps
+}
+
+type DocumentElement =
+  | HeadingElement
+  | ParagraphElement
+  | CodeBlockElement
+  | FallbackInlineElement
+  | FallbackBlockElement
+
+// Dummy API call
+import type { HelloData } from './api/hello'
+
+type User = {
+  name: string
+  age: number
+}
+
+const fetcher: Fetcher<HelloData, string> = (url) =>
+  fetch('./api/hello').then((r) => r.json())
+
+type HelloResponse = {
+  hello: string
+  isLoading: boolean
+  isError: Error
+}
+
+function validName(data: HelloData | undefined): string {
+  console.log('validName', data, data == undefined)
+  if (data == undefined) {
+    return 'that which should not be named'
+  }
+  return data.name
+}
+
+function useHello(): HelloResponse {
+  const { data, error } = useSWR('/api/hello', fetcher)
+
+  return {
+    hello: validName(data),
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
 
 // dummy json
-const json = [
+
+const json: Array<DocumentElement> = [
   {
-    name: 'Heading1',
-    content: 'This is some heading content for heading 1',
+    name: 'Heading',
+    data: {
+      level: 1,
+      title: 'This is some heading content for heading 1',
+    },
   },
   {
-    name: 'Heading2',
-    content: 'This is some other content for heading 2',
+    name: 'Heading',
+    data: {
+      level: 2,
+      title: 'This is some other content for heading 2',
+    },
   },
   {
     name: 'Code',
-    content: 'const test = 123',
-    props: {
+    data: {
+      source: 'const test = 123',
       language: 'javascript',
     },
   },
   {
     name: 'Paragraph',
-    content:
-      'This is some content for the paragraph component. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    data: {
+      children:
+        'This is some content for the paragraph component. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+  },
+  {
+    name: 'FallbackInline',
+    data: {
+      content:
+        'This is some content for the fallback inline component. It is rendered as Grommet Text component, which resolves to a HTML <pre> tag.',
+    },
   },
   {
     name: 'FallbackBlock',
-    content:
-      'This is some content for the fallback block component. The component is similar to the fallback inline component with the only difference of having display: block instead of display: ilnine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    data: {
+      children:
+        'This is some content for the fallback block component. The component is similar to the fallback inline component with the only difference of having display: block instead of display: ilnine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
   },
 ]
 
-// dynamic component
-const DynamicComponent = (
-  component: { name: string; content: string; props?: { language?: string } },
-  i: number,
-) => {
-  const Component = components[component.name as keyof typeof components]
-  const _props = component.props ? component.props : {}
-  if (!Component) {
-    console.error(`component ${component.name} was not found in component map`)
-    return <></>
+export function assertExhaustive(
+  value: never,
+  message: string = 'Reached unexpected case in exhaustive switch',
+): never {
+  throw new Error(message)
+}
+
+function generateComponent(el: DocumentElement, idx: number) {
+  // TODO: De-couple component type from storage type
+  switch (el.name) {
+    case 'Heading':
+      return <Heading title={el.data.title} level={el.data.level} />
+    case 'Code':
+      return <Code language={el.data.language} source={el.data.source} />
+    case 'Paragraph':
+      return <Paragraph>{el.data.children}</Paragraph>
+    case 'FallbackInline':
+      return <FallbackInline content={el.data.content} />
+    case 'FallbackBlock':
+      return <FallbackBlock>{el.data.children}</FallbackBlock>
+    default:
+      return assertExhaustive(el)
   }
-  return <Component key={i} content={component.content} props={_props} />
 }
 
 const AppBar = (props: any) => (
@@ -82,30 +179,24 @@ const Home: NextPage = () => {
       },
     },
   }
+
+  const { hello, isLoading, isError }: HelloResponse = useHello()
+
   return (
     <div>
       <Head>
-        <title>Formartion.tools</title>
+        <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
       <Grommet theme={theme}>
         <AppBar>Hello Grommet!</AppBar>
         <h1>Welcome to Formation!</h1>
+        <p>
+          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
+          {isLoading && <span>⏳</span>}
+        </p>
 
         {/* iterate over json, build right component */}
-        <div>{json.map((component, i) => DynamicComponent(component, i))}</div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
-          voluptatum placeat quibusdam minima id praesentium aut natus
-          distinctio, enim ducimus quam maiores tempore veritatis similique
-          beatae doloremque ex quod rem?
-        </p>
-        <FallbackBlock content="some content in the fallback-block-component" />
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
-          voluptatum placeat quibusdam minima id praesentium aut natus
-          distinctio, enim ducimus quam maiores tempore veritatis similique
-          beatae doloremque ex quod rem?
-        </p>
+        <div>{json.map((component, i) => generateComponent(component, i))}</div>
       </Grommet>
     </div>
   )

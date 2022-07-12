@@ -1,14 +1,14 @@
-import { Grommet, Paragraph } from 'grommet'
+import * as React from 'react'
 
-interface ParagraphProps {
-  content: string
+import { Grommet, Paragraph as GrommetParagraph } from 'grommet'
+
+export type ParagraphProps = {
+  children: string
 }
 
-const Par = ({ content }: ParagraphProps) => {
-  return <Paragraph color="blue">{content}</Paragraph>
+export default function Paragraph({ children }: ParagraphProps) {
+  return <GrommetParagraph color="blue">{children}</GrommetParagraph>
 }
-
-export default Par
 
 // const AppBar = (props: any) => (
 //     <Box

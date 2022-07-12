@@ -1,13 +1,13 @@
 import { Text } from 'grommet'
 
-interface FallbackBlockProps {
-  content: string
+export type FallbackBlockProps = {
+  children: string
 }
 
-export const FallbackBlock = ({ content }: FallbackBlockProps) => {
+export default function FallbackBlock({ children }: FallbackBlockProps) {
   return (
     <Text as="pre" style={{ display: 'block' }}>
-      {content}
+      {children}
     </Text>
   )
 }
