@@ -5,11 +5,12 @@ import { Box, Grommet } from 'grommet'
 
 import Code from '../components/Code'
 import { Heading1, Heading2 } from '../components/Heading'
+import { FallbackBlock } from '../components/FallbackBlock'
 
 import Par from '../components/Paragraph'
 
 // map available components
-const components = { Heading1, Heading2, Code, Par }
+const components = { Heading1, Heading2, Code, Par, FallbackBlock }
 
 // dummy json
 const json = [
@@ -32,6 +33,11 @@ const json = [
     name: 'Paragraph',
     content:
       'This is some content for the paragraph component. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  },
+  {
+    name: 'FallbackBlock',
+    content:
+      'This is some content for the fallback block component. The component is similar to the fallback inline component with the only difference of having display: block instead of display: ilnine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
 ]
 
@@ -87,6 +93,19 @@ const Home: NextPage = () => {
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => DynamicComponent(component, i))}</div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+          voluptatum placeat quibusdam minima id praesentium aut natus
+          distinctio, enim ducimus quam maiores tempore veritatis similique
+          beatae doloremque ex quod rem?
+        </p>
+        <FallbackBlock content="some content in the fallback-block-component" />
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+          voluptatum placeat quibusdam minima id praesentium aut natus
+          distinctio, enim ducimus quam maiores tempore veritatis similique
+          beatae doloremque ex quod rem?
+        </p>
       </Grommet>
     </div>
   )
