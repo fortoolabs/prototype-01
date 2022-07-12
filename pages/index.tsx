@@ -92,6 +92,14 @@ const Home: NextPage = () => {
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => DynamicComponent(component, i))}</div>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
+          veritatis architecto nisi vero accusamus atque dolores eligendi
+          voluptate,{' '}
+          <FallbackInline content="*** some random content in the inline-fallback component ***" />
+          earum mollitia reiciendis sunt praesentium iure incidunt sequi
+          voluptas eum pariatur repellat!
+        </p>
       </Grommet>
     </div>
   )
