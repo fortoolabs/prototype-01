@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Box, TextInput, Button } from "grommet";
 import base64url from "base64url";
 
-import { Heading1, Heading2 } from '../components/Heading'
+import { Heading1, Heading2 } from '../../components/Heading'
 
 
 const Home: NextPage = () => {
