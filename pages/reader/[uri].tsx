@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
 
-const Reader = ({ car }) => {
+interface ReaderProps {
+  uri: string;
+}
+
+const Reader = ({ uri }:ReaderProps) => {
     const router = useRouter();
-    const { uri } = router.query;
 
     return (
         <>
@@ -11,16 +14,16 @@ const Reader = ({ car }) => {
     );
 };
 
-// ran by next at build time.
-// return value is passed to Car component
-export const getStaticProps = async ({ params }) => {
-    const req = await fetch(`http://localhost:3000/${params.id}.json`);
-    const data = await req.json();
+// // ran by next at build time.
+// // return value is passed to Car component
+// export const getStaticProps = async ({ params }) => {
+//     const req = await fetch(`http://localhost:3000/${params.id}.json`);
+//     const data = await req.json();
 
-    return {
-        props: { car: data },
-    };
-};
+//     return {
+//         props: { uri: data },
+//     };
+// };
 
 // for dynamic routes, we must let next know how many
 // and which subpages to render
