@@ -1,10 +1,10 @@
 import { Text } from 'grommet'
 
-interface FallbackInlineProps {
+export type FallbackInlineProps = {
   content: string
 }
 
-export const FallbackInline = ({ content }: FallbackInlineProps) => {
+export default function FallbackInline({ content }: FallbackInlineProps) {
   return (
     <Text as="pre" style={{ display: 'inline' }}>
       {content}

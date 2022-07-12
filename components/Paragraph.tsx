@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Grommet, Paragraph as GrommetParagraph } from 'grommet'
 
-export interface ParagraphProps {
+export type ParagraphProps = {
   children: string
 }
 
