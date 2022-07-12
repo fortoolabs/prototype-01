@@ -5,10 +5,11 @@ import { Box, Grommet } from 'grommet'
 
 import Code from '../components/Code'
 import { Heading1, Heading2 } from '../components/Heading'
-import Paragraph from '../components/Paragraph'
+
+import Par from '../components/Paragraph'
 
 // map available components
-const components = { Heading1, Heading2, Code, Paragraph }
+const components = { Heading1, Heading2, Code, Par }
 
 // dummy json
 const json = [
