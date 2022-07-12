@@ -5,11 +5,11 @@ import { Box, Grommet } from 'grommet'
 
 import Code from '../components/Code'
 import { Heading1, Heading2 } from '../components/Heading'
-
+import { FallbackInline } from '../components/FallbackInline'
 import Par from '../components/Paragraph'
 
 // map available components
-const components = { Heading1, Heading2, Code, Par }
+const components = { Heading1, Heading2, Code, Par, FallbackInline }
 
 // dummy json
 const json = [
@@ -32,6 +32,11 @@ const json = [
     name: 'Paragraph',
     content:
       'This is some content for the paragraph component. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  },
+  {
+    name: 'FallbackInline',
+    content:
+      'This is some content for the fallback inline component. It is rendered as Grommet Text component, which resolves to a HTML <pre> tag.',
   },
 ]
 
