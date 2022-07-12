@@ -54,22 +54,22 @@ const json = [
 ]
 
 // dynamic component
-const DynamicComponent = (
-  component: {
-    name: string
-    content: string
-    props?: { language?: string; level?: string }
-  },
-  i: number,
-) => {
-  const Component = components[component.name as keyof typeof components]
-  const _props = component.props ? component.props : {}
-  if (!Component) {
-    console.error(`component ${component.name} was not found in component map`)
-    return <></>
-  }
-  return <Component key={i} content={component.content} props={_props} />
-}
+// const DynamicComponent = (
+//   component: {
+//     name: string
+//     content: string
+//     props?: { language?: string; level?: any }
+//   },
+//   i: number,
+// ) => {
+//   const Component = components[component.name as keyof typeof components]
+//   const _props = component.props ? component.props : {}
+//   if (!Component) {
+//     console.error(`component ${component.name} was not found in component map`)
+//     return <></>
+//   }
+//   return <Component key={i} content={component.content} props={_props} />
+// }
 
 const AppBar = (props: any) => (
   <Box
@@ -107,8 +107,15 @@ const Home: NextPage = () => {
         <main></main>
         <AppBar>Hello Grommet!</AppBar>
         <h1>Welcome to Formation.tools!</h1>
-        {/* iterate over json, build right component */}
-        <div>{json.map((component, i) => DynamicComponent(component, i))}</div>
+        {/* iterate over json, build right component
+        <div>{json.map((component, i) => DynamicComponent(component, i))}</div> */}
+
+        <HeadingGrommet content="some content for heading 1" level="1" />
+        <HeadingGrommet content="some content for heading 2" level="2" />
+        <HeadingGrommet content="some content for heading 3" level="3" />
+        <HeadingGrommet content="some content for heading 4" level="4" />
+        <HeadingGrommet content="some content for heading 5" level="5" />
+        <HeadingGrommet content="some content for heading 6" level="6" />
       </Grommet>
     </div>
   )
