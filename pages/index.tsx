@@ -80,8 +80,7 @@ function useHello(): HelloResponse {
   }
 }
 
-// dummy json
-
+// Dummy document
 const json: Array<DocumentElement> = [
   {
     name: 'Heading',
@@ -112,6 +111,13 @@ const json: Array<DocumentElement> = [
     },
   },
   {
+    name: 'Heading',
+    data: {
+      level: 6,
+      title: 'This is some other content for heading 2',
+    },
+  },
+  {
     name: 'FallbackInline',
     data: {
       content:
@@ -125,6 +131,14 @@ const json: Array<DocumentElement> = [
         'This is some content for the fallback block component. The component is similar to the fallback inline component with the only difference of having display: block instead of display: ilnine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
   },
+  // TODO: Deeper level headings need to be rendered with Fallback
+  //{
+  //    name: 'Heading',
+  //    data: {
+  //        level: 7,
+  //        title: 'This is some other content for heading 2',
+  //    },
+  //},
 ]
 
 export function assertExhaustive(
@@ -138,6 +152,7 @@ function generateComponent(el: DocumentElement, idx: number) {
   // TODO: De-couple component type from storage type
   switch (el.name) {
     case 'Heading':
+      // TODO: Implement fallback when level>6
       return <Heading title={el.data.title} level={el.data.level} />
     case 'Code':
       return <Code language={el.data.language} source={el.data.source} />
