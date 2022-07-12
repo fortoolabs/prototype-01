@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage, NextApiResponse } from "next";
 import useSWR, { Key, Fetcher } from "swr";
 
 import Head from "next/head";
@@ -6,20 +6,18 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Heading from "../components/Heading";
 
-const fetcher: Fetcher<NextApiResponse<HelloData>> = (url) => {
-  return fetch(url)
-    .then(
-      (r) =>
-        // scrappy example of delaying things to demo isLoading
-        new Promise((resolve, reject) => {
-          setTimeout(() => resolve(r), 1000);
-        })
-    )
-    .then((r) => r.json());
+import type { HelloData } from "./api/hello";
+
+type User = {
+  name: string;
+  age: number;
 };
 
+const fetcher: Fetcher<HelloData, string> = (url) =>
+  fetch("./api/hello").then((r) => r.json());
+
 type HelloResponse = {
-  hello: HelloData | undefined;
+  hello: string;
   isLoading: boolean;
   isError: Error;
 };
@@ -33,17 +31,17 @@ function validName(data: HelloData | undefined): string {
 }
 
 function useHello(): HelloResponse {
-  const { data, error } = useSWR<HelloData>("/api/hello", fetcher);
+  const { data, error } = useSWR("/api/hello", fetcher);
 
   return {
-    name: validName(data),
+    hello: validName(data),
     isLoading: !error && !data,
     isError: error,
   };
 }
 
 const Home: NextPage = () => {
-  const { name, isLoading, isError }: HelloReponse = useHello();
+  const { hello, isLoading, isError }: HelloResponse = useHello();
 
   return (
     <div className={styles.container}>
@@ -56,7 +54,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Heading title="Roadmap" />
         <p>
-          This is some dynamic content from the api: 👉🏿 <strong>{name}</strong>
+          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
           {isLoading && <span>⏳</span>}
         </p>
 
