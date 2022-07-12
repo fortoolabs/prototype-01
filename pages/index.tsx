@@ -1,4 +1,6 @@
-import type { NextPage } from 'next'
+import type { NextPage, NextApiResponse } from "next";
+import useSWR, { Key, Fetcher } from "swr";
+
 import Head from 'next/head'
 import Image from 'next/image'
 import { Box, Grommet } from 'grommet'
@@ -7,6 +9,41 @@ import Code from '../components/Code'
 import { Heading1, Heading2 } from '../components/Heading'
 
 import Par from '../components/Paragraph'
+
+// Dummy API call
+import type { HelloData } from "./api/hello";
+
+type User = {
+  name: string;
+  age: number;
+};
+
+const fetcher: Fetcher<HelloData, string> = (url) =>
+  fetch("./api/hello").then((r) => r.json());
+
+type HelloResponse = {
+  hello: string;
+  isLoading: boolean;
+  isError: Error;
+};
+
+function validName(data: HelloData | undefined): string {
+  console.log("validName", data, data == undefined);
+  if (data == undefined) {
+    return "that which should not be named";
+  }
+  return data.name;
+}
+
+function useHello(): HelloResponse {
+  const { data, error } = useSWR("/api/hello", fetcher);
+
+  return {
+    hello: validName(data),
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
 
 // map available components
 const components = { Heading1, Heading2, Code, Par }
@@ -76,6 +113,9 @@ const Home: NextPage = () => {
       },
     },
   }
+
+  const { hello, isLoading, isError }: HelloResponse = useHello();
+
   return (
     <div>
       <Head>
@@ -84,12 +124,16 @@ const Home: NextPage = () => {
       <Grommet theme={theme}>
         <AppBar>Hello Grommet!</AppBar>
         <h1>Welcome to Formation!</h1>
+        <p>
+          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
+          {isLoading && <span>⏳</span>}
+        </p>
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => DynamicComponent(component, i))}</div>
       </Grommet>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
