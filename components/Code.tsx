@@ -1,14 +1,14 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 
-interface CodeProps {
-  content: string;
-  props?: any;
+export type CodeProps = {
+  language: string
+  source: string
 }
 
-export default function Code({ content, props }: CodeProps) {
+export default function Code({ language, source }: CodeProps) {
   return (
-    <SyntaxHighlighter tabIndex="0" wrapLongLines language={props.language}>
-      {content}
+    <SyntaxHighlighter tabIndex="0" wrapLongLines language={language}>
+      {source}
     </SyntaxHighlighter>
-  );
+  )
 }
