@@ -103,14 +103,9 @@ export function assertExhaustive(
 function generateComponent(el: DocumentElement, idx: number) {
   switch (el.name) {
     case 'Heading':
-      return <Heading title={'hi'} level={1} />
+      return <Heading title={el.data.title} level={el.data.level} />
     case 'Code':
-      return (
-        <Code
-          language={'lisp'}
-          source={'(message " A piece of LISP form to % s" (+ 40 2)'}
-        />
-      )
+      return <Code language={el.data.language} source={el.data.source} />
     case 'Paragraph':
       return <Paragraph>{el.data.children}</Paragraph>
     default:
@@ -151,7 +146,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Formartion.tools</title>
+        <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
       <Grommet theme={theme}>
         <AppBar>Hello Grommet!</AppBar>
