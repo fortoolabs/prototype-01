@@ -5,11 +5,12 @@ import { Box, Grommet } from 'grommet'
 
 import Code from '../components/Code'
 import { Heading1, Heading2 } from '../components/Heading'
+import { FallbackBlock } from '../components/FallbackBlock'
 
 import Par from '../components/Paragraph'
 
 // map available components
-const components = { Heading1, Heading2, Code, Par }
+const components = { Heading1, Heading2, Code, Par, FallbackBlock }
 
 // dummy json
 const json = [
@@ -32,6 +33,11 @@ const json = [
     name: 'Paragraph',
     content:
       'This is some content for the paragraph component. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  },
+  {
+    name: 'FallbackBlock',
+    content:
+      'This is some content for the fallback block component. The component is similar to the fallback inline component with the only difference of having display: block instead of display: ilnine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
 ]
 
