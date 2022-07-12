@@ -4,50 +4,44 @@ import Image from 'next/image'
 import { Box, Grommet } from 'grommet'
 
 import Code from '../components/Code'
-import {
-  Heading1,
-  Heading2,
-  Heading3,
-  Heading4,
-  Heading5,
-  Heading6,
-} from '../components/Heading'
+import { HeadingGrommet } from '../components/Heading'
 
 // map available components
 const components = {
-  Heading1,
-  Heading2,
-  Heading3,
-  Heading4,
-  Heading5,
-  Heading6,
+  HeadingGrommet,
   Code,
 }
 
 // dummy json
 const json = [
   {
-    name: 'Heading1',
+    name: 'HeadingGrommet',
+    props: { level: '1' },
     content: 'This is some heading content for heading 1',
   },
   {
-    name: 'Heading2',
+    name: 'HeadingGrommet',
+    props: { level: '2' },
     content: 'This is some other content for heading 2',
   },
   {
-    name: 'Heading3',
+    name: 'HeadingGrommet',
+    props: { level: '3' },
     content: 'This is some other content for heading 3',
   },
   {
-    name: 'Heading4',
+    name: 'HeadingGrommet',
+    props: { level: '4' },
     content: 'This is some other content for heading 4',
   },
   {
-    name: 'Heading5',
+    name: 'HeadingGrommet',
+    props: { level: '5' },
     content: 'This is some other content for heading 5',
   },
   {
-    name: 'Heading6',
+    name: 'HeadingGrommet',
+    props: { level: '6' },
     content: 'This is some other content for heading 6',
   },
   {
@@ -61,7 +55,11 @@ const json = [
 
 // dynamic component
 const DynamicComponent = (
-  component: { name: string; content: string; props?: { language?: string } },
+  component: {
+    name: string
+    content: string
+    props?: { language?: string; level?: string }
+  },
   i: number,
 ) => {
   const Component = components[component.name as keyof typeof components]
