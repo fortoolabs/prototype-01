@@ -18,6 +18,7 @@
 - Next.js
 - Typescript
 - [Grommet](https://v2.grommet.io/)
+- [SWR](https://swr.vercel.app/)
 
 ## Questions
 
