@@ -19,6 +19,7 @@
 - Typescript
 - [Grommet](https://v2.grommet.io/)
 - [SWR](https://swr.vercel.app/)
+- [react-syntax-highlighter](https://react-syntax-highlighter.github.io/react-syntax-highlighter/), used for the Code component
 
 ## Questions
 
