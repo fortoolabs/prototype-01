@@ -29,7 +29,8 @@ const json = [
   },
   {
     name: 'Paragraph',
-    content: 'This is some content for the paragraph component',
+    content:
+      'This is some content for the paragraph component. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
 ]
 
