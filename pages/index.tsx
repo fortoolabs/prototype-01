@@ -93,6 +93,19 @@ const Home: NextPage = () => {
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => DynamicComponent(component, i))}</div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+          voluptatum placeat quibusdam minima id praesentium aut natus
+          distinctio, enim ducimus quam maiores tempore veritatis similique
+          beatae doloremque ex quod rem?
+        </p>
+        <FallbackBlock content="some content in the fallback-block-component" />
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+          voluptatum placeat quibusdam minima id praesentium aut natus
+          distinctio, enim ducimus quam maiores tempore veritatis similique
+          beatae doloremque ex quod rem?
+        </p>
       </Grommet>
     </div>
   )
