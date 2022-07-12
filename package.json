@@ -13,6 +13,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "base64url": "^3.0.1",
     "grommet": "^2.25.0",
     "grommet-icons": "^4.7.0",
     "next": "12.2.2",
