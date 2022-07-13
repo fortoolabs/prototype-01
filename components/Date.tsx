@@ -6,5 +6,5 @@ export type DateProps = {
 }
 
 export default function Date({ timestamp }: DateProps) {
-  return <Paragraph><b>{formatDate(timestamp)}</b></Paragraph>
+  return <b><Paragraph>{formatDate(timestamp)}</Paragraph></b>
 }
