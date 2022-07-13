@@ -318,65 +318,49 @@ const theme:ThemeType = {
   },
   heading: {
     weight: 700,
+    responsive: true,
+
     level: {
       '1': {
-        small: {
-          size: '1.5rem',
-          height: '2.125rem',
-        },
+        // medium used by default
+        // use <Heading size="small"> for custom behaviour
         medium: {
-          size: '2.5rem',
-          height: '3.125rem',
+          size: '3.5rem',
+          height: '3.8rem'
         },
       },
       '2': {
-        small: {
-          size: '1.25rem',
-          height: '2.125rem',
-        },
         medium: {
-          size: '1.325rem',
-          height: '1.75rem',
+          size: '2.5rem',
+          height: '3rem'
         },
       },
       '3': {
-        small: {
-          size: '1.25rem',
-          height: '2.125rem',
-        },
         medium: {
-          size: '1.325rem',
-          height: '1.75rem',
+          size: '2rem',
+          height: '2.5rem',
+          maxWidth: 'unset',
         },
       },
       '4': {
-        small: {
-          size: '1.25rem',
-          height: '2.125rem',
-        },
         medium: {
-          size: '1.325rem',
+          size: '1.5rem',
           height: '1.75rem',
+          maxWidth: 'unset',
         },
       },
       '5': {
-        small: {
-          size: '1.25rem',
-          height: '2.125rem',
-        },
         medium: {
           size: '1.325rem',
           height: '1.75rem',
+          maxWidth: 'unset',
         },
       },
       '6': {
-        small: {
-          size: '1.25rem',
-          height: '2.125rem',
-        },
         medium: {
-          size: '1.325rem',
+          size: '1.2rem',
           height: '1.75rem',
+          maxWidth: 'unset',
         },
       },
     },
