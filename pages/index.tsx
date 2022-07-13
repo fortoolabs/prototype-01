@@ -99,6 +99,34 @@ const json: Array<DocumentElement> = [
     },
   },
   {
+    name: 'Heading',
+    data: {
+      level: 3,
+      title: 'This is some other content for heading 3',
+    },
+  },
+  {
+    name: 'Heading',
+    data: {
+      level: 4,
+      title: 'This is some other content for heading 4',
+    },
+  },
+  {
+    name: 'Heading',
+    data: {
+      level: 5,
+      title: 'This is some other content for heading 5',
+    },
+  },
+  {
+    name: 'Heading',
+    data: {
+      level: 6,
+      title: 'This is some other content for heading 6',
+    },
+  },
+  {
     name: 'Code',
     data: {
       source: 'const test = 123',
@@ -195,7 +223,7 @@ const Home: NextPage = () => {
         <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
         <MainContent>
-        <h1>Welcome to Formation!</h1>
+        <Heading level="1" title="Welcome to Formation!"/>
         <p>
           This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
           {isLoading && <span>⏳</span>}
