@@ -156,13 +156,6 @@ const json: Array<DocumentElement> = [
     },
   },
   {
-    name: 'Heading',
-    data: {
-      level: 6,
-      title: 'This is some other content for heading 2',
-    },
-  },
-  {
     name: 'FallbackInline',
     data: {
       content:
