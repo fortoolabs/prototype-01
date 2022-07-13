@@ -9,6 +9,8 @@ import Code, { CodeProps } from '../components/Code'
 import Heading, { HeadingProps } from '../components/Heading'
 import Paragraph, { ParagraphProps } from '../components/Paragraph'
 import Date, { DateProps } from '../components/Date'
+import CheckBox, { CheckBoxProps } from '../components/CheckBox'
+
 import FallbackInline, {
   FallbackInlineProps,
 } from '../components/FallbackInline'
@@ -46,6 +48,11 @@ type DateElement = {
   data: DateProps
 }
 
+type CheckBoxElement = {
+  name: 'CheckBox'
+  data: CheckBoxProps
+}
+
 type DocumentElement =
   | HeadingElement
   | ParagraphElement
@@ -53,6 +60,7 @@ type DocumentElement =
   | FallbackInlineElement
   | FallbackBlockElement
   | DateElement
+  | CheckBoxElement
 
 // Dummy API call
 import type { HelloData } from './api/hello'
@@ -246,6 +254,9 @@ const Home: NextPage = () => {
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => generateComponent(component, i))}</div>
+        <CheckBox checked/>
+        <CheckBox />
+        <CheckBox indeterminate/>
         </MainContent>
     </Main>
     </AppContainer>
