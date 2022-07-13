@@ -71,8 +71,7 @@ const theme:ThemeType = {
     },
     font: {
       family: 'Montserrat',
-      height: '28px',
-      maxWidth: '588px',
+      height: '28px'
     },
     active: {
       background: 'active-background',
@@ -331,6 +330,46 @@ const theme:ThemeType = {
         },
       },
       '2': {
+        small: {
+          size: '1.25rem',
+          height: '2.125rem',
+        },
+        medium: {
+          size: '1.325rem',
+          height: '1.75rem',
+        },
+      },
+      '3': {
+        small: {
+          size: '1.25rem',
+          height: '2.125rem',
+        },
+        medium: {
+          size: '1.325rem',
+          height: '1.75rem',
+        },
+      },
+      '4': {
+        small: {
+          size: '1.25rem',
+          height: '2.125rem',
+        },
+        medium: {
+          size: '1.325rem',
+          height: '1.75rem',
+        },
+      },
+      '5': {
+        small: {
+          size: '1.25rem',
+          height: '2.125rem',
+        },
+        medium: {
+          size: '1.325rem',
+          height: '1.75rem',
+        },
+      },
+      '6': {
         small: {
           size: '1.25rem',
           height: '2.125rem',
