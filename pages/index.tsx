@@ -182,18 +182,7 @@ const AppBar = (props: any) => (
 )
 
 const Home: NextPage = () => {
-  const theme = {
-    global: {
-      colors: {
-        brand: '#228BE6',
-      },
-      font: {
-        family: 'Roboto',
-        size: '18px',
-        height: '20px',
-      },
-    },
-  }
+  
 
   const { hello, isLoading, isError }: HelloResponse = useHello()
 
@@ -202,7 +191,6 @@ const Home: NextPage = () => {
       <Head>
         <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
-      <Grommet theme={theme}>
         <AppBar>Hello Grommet!</AppBar>
         <h1>Welcome to Formation!</h1>
         <p>
@@ -212,7 +200,6 @@ const Home: NextPage = () => {
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => generateComponent(component, i))}</div>
-      </Grommet>
     </div>
   )
 }
