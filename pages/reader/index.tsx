@@ -5,14 +5,14 @@ import Link from 'next/link'
 import { Box, TextInput, Button } from "grommet";
 import base64url from "base64url";
 
-import { Heading1, Heading2 } from '../../components/Heading'
+import Heading from '../../components/Heading'
 
 
 const Home: NextPage = () => {
   const [value, setValue] = React.useState('');
   return (
     <Box>
-        <Heading1 content="Welcome to Formation!" />
+        <Heading title="Welcome to Formation!" level="1"/>
         <p>Enter URL to read .org file</p>
         <TextInput
       placeholder="https://...filename.org"
