@@ -25,12 +25,30 @@ One.args = {
 
 export const Two = Template.bind({})
 Two.args = {
-  level: '1',
+  level: '2',
   title: 'My Heading'
 }
 
 export const Three = Template.bind({})
 Three.args = {
-  level: '1',
+  level: '3',
+  title: 'My Heading'
+}
+
+export const Four = Template.bind({})
+Four.args = {
+  level: '4',
+  title: 'My Heading'
+}
+
+export const Five = Template.bind({})
+Five.args = {
+  level: '5',
+  title: 'My Heading'
+}
+
+export const Six = Template.bind({})
+Six.args = {
+  level: '6',
   title: 'My Heading'
 }
