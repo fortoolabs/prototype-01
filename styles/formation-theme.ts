@@ -318,8 +318,9 @@ const theme:ThemeType = {
   },
   heading: {
     weight: 700,
+    // on small screens, heading styling jumps to style
+    // one level lower
     responsive: true,
-
     level: {
       '1': {
         // medium used by default
@@ -332,7 +333,7 @@ const theme:ThemeType = {
       '2': {
         medium: {
           size: '2.5rem',
-          height: '3rem'
+          height: '2.75rem'
         },
       },
       '3': {
