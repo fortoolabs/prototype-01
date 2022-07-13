@@ -182,8 +182,6 @@ const AppBar = (props: any) => (
 )
 
 const Home: NextPage = () => {
-  
-
   const { hello, isLoading, isError }: HelloResponse = useHello()
 
   return (
@@ -191,15 +189,15 @@ const Home: NextPage = () => {
       <Head>
         <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
-        <AppBar>Hello Grommet!</AppBar>
-        <h1>Welcome to Formation!</h1>
-        <p>
-          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
-          {isLoading && <span>⏳</span>}
-        </p>
+      <AppBar>Hello Grommet!</AppBar>
+      <h1>Welcome to Formation!</h1>
+      <p>
+        This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
+        {isLoading && <span>⏳</span>}
+      </p>
 
-        {/* iterate over json, build right component */}
-        <div>{json.map((component, i) => generateComponent(component, i))}</div>
+      {/* iterate over json, build right component */}
+      <div>{json.map((component, i) => generateComponent(component, i))}</div>
     </div>
   )
 }

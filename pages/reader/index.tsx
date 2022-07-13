@@ -16,14 +16,10 @@ const Home: NextPage = () => {
       <TextInput
         placeholder="https://...filename.org"
         value={value}
-        onChange={event => setValue(event.target.value)}
+        onChange={(event) => setValue(event.target.value)}
       />
       <Link href={`/reader/${base64url(value)}`}>
-        <Button
-          primary
-          label="Go!"
-          margin={{vertical:"medium"}}
-        />
+        <Button primary label="Go!" margin={{ vertical: 'medium' }} />
       </Link>
     </Box>
   )

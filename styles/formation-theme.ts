@@ -1,6 +1,6 @@
 import { ThemeType } from 'grommet'
 
-const theme:ThemeType = {
+const theme: ThemeType = {
   global: {
     colors: {
       black: '#000000',
