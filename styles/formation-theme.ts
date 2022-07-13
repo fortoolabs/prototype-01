@@ -326,13 +326,15 @@ const theme:ThemeType = {
         // use <Heading size="small"> for custom behaviour
         medium: {
           size: '3.5rem',
-          height: '3.8rem'
+          height: '3.8rem',
+          maxWidth: 'unset',
         },
       },
       '2': {
         medium: {
           size: '2.5rem',
-          height: '2.75rem'
+          height: '2.75rem',
+          maxWidth: 'unset',
         },
       },
       '3': {
