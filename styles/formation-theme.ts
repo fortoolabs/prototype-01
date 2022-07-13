@@ -320,7 +320,6 @@ const theme:ThemeType = {
     weight: 700,
     // on small screens, heading styling jumps to style
     // one level lower
-    responsive: true,
     level: {
       '1': {
         // medium used by default
