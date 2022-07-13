@@ -223,7 +223,7 @@ const Home: NextPage = () => {
         <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
         <MainContent>
-        <Heading level="1" title="Welcome to Formation!"/>
+        <Heading alignSelf="center" level="1" title="Welcome to Formation!"/>
         <p>
           This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
           {isLoading && <span>⏳</span>}
