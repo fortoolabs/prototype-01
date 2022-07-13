@@ -13,6 +13,8 @@ import FallbackInline, {
 } from '../components/FallbackInline'
 import FallbackBlock, { FallbackBlockProps } from '../components/FallbackBlock'
 
+import { AppContainer, Main, MainContent } from '../components/View'
+
 type HeadingElement = {
   name: 'Heading'
   data: HeadingProps
@@ -187,11 +189,12 @@ const Home: NextPage = () => {
   const { hello, isLoading, isError }: HelloResponse = useHello()
 
   return (
-    <div>
+    <AppContainer>
+    <Main>
       <Head>
         <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
       </Head>
-        <AppBar>Hello Grommet!</AppBar>
+        <MainContent>
         <h1>Welcome to Formation!</h1>
         <p>
           This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
@@ -200,7 +203,9 @@ const Home: NextPage = () => {
 
         {/* iterate over json, build right component */}
         <div>{json.map((component, i) => generateComponent(component, i))}</div>
-    </div>
+        </MainContent>
+    </Main>
+    </AppContainer>
   )
 }
 
