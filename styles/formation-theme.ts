@@ -1,6 +1,6 @@
 import { ThemeType } from 'grommet'
 
-const theme:ThemeType = {
+const theme: ThemeType = {
   global: {
     colors: {
       black: '#000000',
@@ -71,7 +71,7 @@ const theme:ThemeType = {
     },
     font: {
       family: 'Montserrat',
-      height: '28px'
+      height: '28px',
     },
     active: {
       background: 'active-background',
@@ -316,8 +316,22 @@ const theme:ThemeType = {
       },
     },
   },
+  text: {
+    medium: {
+      size: 'unset',
+      height: 'unset',
+    },
+  },
+  paragraph: {
+    medium: {
+      size: '1.2rem',
+      height: '1.8rem',
+      maxWidth: 'unset',
+    },
+  },
   heading: {
     weight: 700,
+    responsiveBreakpoint: 'medium',
     // on small screens, heading styling jumps to style
     // one level lower
     level: {

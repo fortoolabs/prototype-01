@@ -8,7 +8,7 @@ export const AppContainer = props => {
   return (
     <Col
       flex={1}
-      width={{ max: '1366px' }}
+      width={{ max: '780px' }}
       height={{ min: '100%' }}
       alignSelf="center"
       background="white"
