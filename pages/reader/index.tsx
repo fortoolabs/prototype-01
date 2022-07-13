@@ -21,9 +21,8 @@ const Home: NextPage = () => {
       <Link href={`/reader/${base64url(value)}`}>
         <Button
           primary
-          margin={{ vertical: 'medium' }}
-          pad="medium"
           label="Go!"
+          margin={{vertical:"medium"}}
         />
       </Link>
     </Box>
