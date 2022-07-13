@@ -3,8 +3,8 @@ import Paragraph  from './Paragraph'
 import { Row } from './View'
 
 export type CheckBoxProps = {
-  checked: boolean
-  indeterminate: boolean
+  checked?: boolean
+  indeterminate?: boolean
 }
 
 export default function CheckBox({ checked, indeterminate }: CheckBoxProps) {

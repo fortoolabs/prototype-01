@@ -60,7 +60,6 @@ type DocumentElement =
   | FallbackInlineElement
   | FallbackBlockElement
   | DateElement
-  | CheckBoxElement
 
 // Dummy API call
 import type { HelloData } from './api/hello'

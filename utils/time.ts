@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
 // TODO: remove if not required UTC date and custom input string
 const utc = require("dayjs/plugin/utc");
@@ -8,7 +8,7 @@ dayjs.extend(utc);
 
 
 
-export const formatDate = (timestamp) => {
+export const formatDate = (timestamp:number) => {
 	// TODO: add parsing/formatting options:
 	// https://day.js.org/docs/en/display/format
 	return dayjs(timestamp).format('MMM D, YYYY')
