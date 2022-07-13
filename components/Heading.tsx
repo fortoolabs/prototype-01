@@ -1,10 +1,10 @@
-interface HeadingProps {
-  content: string;
+import { Grommet, Heading as HeadingGrommet } from 'grommet'
+
+export type HeadingProps = {
+  level: '1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6 | undefined
+  title: string
 }
 
-export const Heading1 = ({content}: HeadingProps) => {
-  return <h1>{content}</h1>
-}
-export const Heading2 = ({content}: HeadingProps) => {
-  return <h2>{content}</h2>
+export default function Heading({ title, level }: HeadingProps) {
+  return <HeadingGrommet level={level}>{title}</HeadingGrommet>
 }
