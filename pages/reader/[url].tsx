@@ -9,13 +9,13 @@ const Reader = ({ url }: ReaderProps) => {
 
   return (
     <>
-      <h1>Read this uri: {base64url.decode(url)}</h1>
+      <h1>Read this url: {base64url.decode(url)}</h1>
     </>
   )
 }
 
 // This gets called on every request
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const url = context.query.url
 
   // TODO: parse .org 
