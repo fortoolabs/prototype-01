@@ -17,13 +17,13 @@ Go through [[file:style.scss][stylesheet]]
 
 ** TODO Check CSS on main pages
 
-- Index page
-- Quickstart
-- Features
-- Releases
-- Install
-- Manual
-- Contribute
+- [X] Index page
+- [X] Quickstart
+- [] Features
+- [] Releases
+- [X] Install
+- [] Manual
+- [] Contribute
 
 * Learn Org
 
