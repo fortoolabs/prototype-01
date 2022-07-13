@@ -71,7 +71,6 @@ const theme:ThemeType = {
     },
     font: {
       family: 'Montserrat',
-      size: '16px',
       height: '28px',
       maxWidth: '588px',
     },
