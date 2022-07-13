@@ -1,11 +1,18 @@
 import type { AppProps } from 'next/app'
 import { Grommet } from 'grommet'
-import { theme } from '../styles/formation-theme'
+import styled from 'styled-components'
 
-const MyApp = ({ Component, pageProps }:AppProps) => {
+import { Col } from '../components/View'
+import { theme } from '../styles/formation-theme'
+import GlobalStyle from '../styles/global'
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Grommet theme={theme} background="white" full>
-      <Component {...pageProps} />
+    <Grommet theme={theme} background="lightGrey" full>
+    <GlobalStyle/>
+      <Col fill>
+        <Component {...pageProps} />
+      </Col>
     </Grommet>
   )
 }
