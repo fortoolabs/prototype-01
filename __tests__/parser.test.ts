@@ -1,5 +1,10 @@
-import parser from '../core/parser'
+import parse from '../core/parser'
+import { readFileSync } from 'fs'
 
 it('parses', () => {
-  expect(parser('input')).toEqual('output')
+  const f = readFileSync('__fixtures__/Roadmap.org', {
+    encoding: 'utf8',
+    flag: 'r',
+  })
+  expect(parse(f)).toEqual('output')
 })
