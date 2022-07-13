@@ -8,6 +8,7 @@ import { Box, Grommet } from 'grommet'
 import Code, { CodeProps } from '../components/Code'
 import Heading, { HeadingProps } from '../components/Heading'
 import Paragraph, { ParagraphProps } from '../components/Paragraph'
+import Date, { DateProps } from '../components/Date'
 import FallbackInline, {
   FallbackInlineProps,
 } from '../components/FallbackInline'
@@ -40,12 +41,18 @@ type FallbackBlockElement = {
   data: FallbackBlockProps
 }
 
+type DateElement = {
+  name: 'Date'
+  data: DateProps
+}
+
 type DocumentElement =
   | HeadingElement
   | ParagraphElement
   | CodeBlockElement
   | FallbackInlineElement
   | FallbackBlockElement
+  | DateElement
 
 // Dummy API call
 import type { HelloData } from './api/hello'
@@ -161,6 +168,12 @@ const json: Array<DocumentElement> = [
         'This is some content for the fallback block component. The component is similar to the fallback inline component with the only difference of having display: block instead of display: ilnine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
   },
+  {
+    name: 'Date',
+    data: {
+      timestamp: 1657743446788
+    },
+  }
   // TODO: Deeper level headings need to be rendered with Fallback
   //{
   //    name: 'Heading',
@@ -192,6 +205,8 @@ function generateComponent(el: DocumentElement, idx: number) {
       return <FallbackInline content={el.data.content} />
     case 'FallbackBlock':
       return <FallbackBlock>{el.data.children}</FallbackBlock>
+    case 'Date':
+      return <Date timestamp={el.data.timestamp} />
     default:
       return assertExhaustive(el)
   }
