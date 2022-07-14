@@ -36,9 +36,8 @@ export const Main = props => {
 export const MainContent = props => {
   return (
     <Col
-      as="main"
       justify="start"
-      flex="grow"
+      align="start"
       pad="medium"
       {...props}
     />

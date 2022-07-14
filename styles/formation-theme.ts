@@ -10,7 +10,7 @@ const theme: ThemeType = {
         'linear-gradient(180deg, #2D3FAD 0%, #00B3AE 77.97%);',
       lightBlueGrey: '#E4EFF8',
       lightTan: '#FFEFA5',
-      lightGrey: '#F6F6F6',
+      lightGrey: '#DDDDDD',
       darkBlueGrey: '#7C92A2',
       greyBacking: '#FCFCFC',
       orangeYellow: '#FFAA00',
@@ -52,7 +52,7 @@ const theme: ThemeType = {
       },
       border: {
         dark: '#444444',
-        light: '#F6F6F6',
+        light: 'lightGrey',
       },
       control: 'brand',
       'active-background': 'brand',
