@@ -7,7 +7,7 @@ export type BoardCardProps = {
 }
 
 const BoardCard = ({ title, add }:BoardCardProps) => {
-  const background = add ? 'greyE2' : 'white'
+  const background = add ? {light:'greyE2', dark:'black'} : {light:'white', dark:'black'}
   return (
     <Col
       margin={{ bottom: 'medium' }}
