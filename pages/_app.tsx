@@ -10,7 +10,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <Grommet theme={theme} background="white" full>
     <GlobalStyle/>
-      <Col>
+      <Col height={{min:"100%"}}>
         <Component {...pageProps} />
       </Col>
     </Grommet>
