@@ -10,6 +10,7 @@
     "fmt": "prettier --check --ignore-path .gitignore .",
     "fmt:fix": "prettier --write --ignore-path .gitignore .",
     "test": "vitest",
+    "util:viz": "ts-node --esm utils/typeviz.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
