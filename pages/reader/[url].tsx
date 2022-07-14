@@ -4,22 +4,11 @@ import base64url from 'base64url'
 
 import Heading from '../../components/Heading'
 import Board from '../../components/Board'
+import List from '../../components/List'
 import { AppContainer, Main, MainContent, Row } from '../../components/View'
 
 interface ReaderProps {
   url: string
-}
-
-const _ListView = ({ url }: ReaderProps) => {
-  return (
-    <AppContainer>
-      <Main>
-        <MainContent>
-          <h1>Read this url: {base64url.decode(url)}</h1>
-        </MainContent>
-      </Main>
-    </AppContainer>
-  )
 }
 
 const Reader = ({ url }: ReaderProps) => {
@@ -32,7 +21,7 @@ const Reader = ({ url }: ReaderProps) => {
         <span onClick={() => setBoardView(false)}>list</span>
         <span onClick={() => setBoardView(true)}>board</span>
       </Row>
-      {!!boardView ? <Board url={url} /> : <_ListView url={url} />}
+      {!!boardView ? <Board url={url} /> : <List url={url} />}
     </>
   )
 }
