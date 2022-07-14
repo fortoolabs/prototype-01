@@ -42,7 +42,7 @@ export const Card: FC<CardProps> = memo(function Card({ title, add, name, type, 
       pad={{ horizontal: 'small' }}
       width={{ min: '220', max: '220px' }}
       background={background}
-      onClick={()=>alert('hi')}
+      onClick={()=>alert('Todo details')}
     >
       <b>
         <Paragraph>{limit(title, 24)}</Paragraph>
