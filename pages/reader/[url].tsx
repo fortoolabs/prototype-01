@@ -12,7 +12,7 @@ interface ReaderProps {
 }
 
 const Reader = ({ url }: ReaderProps) => {
-  const [boardView, setBoardView] = useState(true)
+  const [boardView, setBoardView] = useState(false)
 
   return (
     <>
