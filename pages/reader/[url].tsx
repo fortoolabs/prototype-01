@@ -21,7 +21,7 @@ const Reader = ({ url }: ReaderProps) => {
         <span onClick={() => setBoardView(false)}>list</span>
         <span onClick={() => setBoardView(true)}>board</span>
       </Row>
-      {!!boardView ? <Board url={url} /> : <List url={url} />}
+      {!!boardView ? <Board /> : <List />}
     </>
   )
 }

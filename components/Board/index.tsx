@@ -60,7 +60,7 @@ const todos: Array<TodoElement> = [
 ]
 
 
-export default function Board({ url }: BoardProps) {
+const BoardView = () => {
 
   // TODO: fix lack of padding on right side when overflow-x
   // TODO: consider data flow. json -> select todos -> pass to column 
@@ -73,3 +73,5 @@ export default function Board({ url }: BoardProps) {
     </Row>
   )
 }
+
+export default BoardView

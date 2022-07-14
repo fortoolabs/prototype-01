@@ -62,7 +62,7 @@ type DocumentElement =
   | DateElement
 
 // Dummy API call
-import type { HelloData } from './api/hello'
+import type { HelloData } from '../../pages/api/hello'
 
 type User = {
   name: string
@@ -70,7 +70,7 @@ type User = {
 }
 
 const fetcher: Fetcher<HelloData, string> = (url) =>
-  fetch('./api/hello').then((r) => r.json())
+  fetch('../../pages/api/hello').then((r) => r.json())
 
 type HelloResponse = {
   hello: string
@@ -226,7 +226,7 @@ const AppBar = (props: any) => (
   />
 )
 
-const Home: NextPage = () => {
+const ListView = () => {
   
 
   const { hello, isLoading, isError }: HelloResponse = useHello()
@@ -255,4 +255,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default ListView
