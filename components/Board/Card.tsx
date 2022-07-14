@@ -1,3 +1,6 @@
+import { memo } from 'react'
+import { useDrag } from 'react-dnd';
+
 import { Col } from '../View'
 import Paragraph from '../Paragraph'
 
