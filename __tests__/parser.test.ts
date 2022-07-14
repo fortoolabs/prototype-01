@@ -9,6 +9,7 @@ test('parses', () => {
     flag: 'r',
   })
   expect(parse(f)).toEqual({
+    todoStates: ['TODO', 'IDEA', 'SCOPE', 'INSKETCH', 'INDEV', 'DONE(d)'],
     content: [],
   })
 })

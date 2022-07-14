@@ -2,7 +2,7 @@ import { unified } from 'unified'
 import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
-import { OrgData, OrgNode } from 'uniorg'
+import { OrgData, OrgNode, Keyword } from 'uniorg'
 
 type FParagraph = {
   type: 'Paragraph'
@@ -19,6 +19,8 @@ type FElement = FParagraph | FHeading
 type FDocument = {
   title?: string
   source?: string
+  // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
+  // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
   content: Array<FElement>
 }
@@ -32,6 +34,15 @@ function assertExhaustive(
   throw new Error(message)
 }
 
+function reduceKeyword(acc: FDocument, x: Keyword): FDocument {
+  switch (x.key) {
+    case 'TODO':
+      return { ...acc, todoStates: x.value.split(' ').filter((x) => x != '|') }
+    default:
+      return acc
+  }
+}
+
 function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
   // check for top-level
   console.log('inside', node.type)
@@ -39,7 +50,7 @@ function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
     case 'org-data':
       return acc // do nothing
     case 'keyword':
-      return acc
+      return reduceKeyword(acc, node)
   }
   return acc
 }
