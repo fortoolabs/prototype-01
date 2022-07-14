@@ -7,11 +7,11 @@ export type BoardColumnProps = {
   todos: any
 }
 
-const BoardColumn = ({title, todos}:BoardColumnProps) => {
+const BoardColumn = ({title, todos }:BoardColumnProps) => {
   return (
-    <Col round="small" pad={{horizontal:"medium"}} width={{min:"252px", max:"252px"}} background="lightBlueGrey">
+    <Col round="small" pad={{horizontal:"medium"}} width={{min:"252px", max:"252px"}} background={{light:"lightBlueGrey",dark:"black28"}}>
     <Heading level={6} title={title.toUpperCase()}></Heading>
-    {todos.map((todo:any, i:number) => <Card key={i} title={todo.data.title} />)}
+    {todos.map((todo:any, i:number) => <Card key={i} title={todo.data.title} name={`card-${i}`} type="CARD"/>)}
     <Card add title="+ Todo" />
   </Col>)
 }
