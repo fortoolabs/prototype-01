@@ -11,7 +11,6 @@ export const AppContainer = props => {
       width={{ max: '780px' }}
       height={{ min: '100%' }}
       alignSelf="center"
-      background="white"
       overflow="hidden"
       fill
       style={{ position: 'relative', width: '100%', zIndex: 1 }} // to fit absolute header inside. default width 100%

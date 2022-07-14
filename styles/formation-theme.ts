@@ -4,9 +4,11 @@ const theme: ThemeType = {
   global: {
     colors: {
       black: '#000000',
+      black28: '#282A2F',
       white: '#ffffff',
       greyE2: '#E2E4E8',
       greyE7: '#E7ECF0',
+      grey6b: '#6b6b6b',
       brand: '#1A1C1F',
       blackFont: '#343633',
       gradientTurqoiseBlue:

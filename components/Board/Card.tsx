@@ -32,7 +32,7 @@ export const Card: FC<CardProps> = memo(function Card({ title, add, name, type, 
   )
 
 
-  const background = add ? 'greyE2' : 'white'
+  const background = add ? {light:'greyE2', dark:'black'} : {light:'white', dark:'black'}
   return (
     <Box
       ref={drag}
