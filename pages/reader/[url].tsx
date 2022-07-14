@@ -1,5 +1,8 @@
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import base64url from "base64url";
+
+import Board from '../../components/Board'
 import { AppContainer, Main, MainContent } from '../../components/View'
 
 interface ReaderProps {
@@ -7,6 +10,10 @@ interface ReaderProps {
 }
 
 const Reader = ({ url }: ReaderProps) => {
+  const [ boardView, setBoardView ] = useState(true)
+
+  if (boardView) return <Board url={url}/>
+
   return (
     <AppContainer>
       <Main>
