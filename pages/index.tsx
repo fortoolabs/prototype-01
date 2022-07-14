@@ -245,7 +245,7 @@ const Home: NextPage = () => {
         </p>
 
         {/* iterate over json, build right component */}
-        <div>{json.map((component, i) => generateComponent(component, i))}</div>
+        {json.map((component, i) => generateComponent(component, i))}
         <CheckBox checked/>
         <CheckBox />
         <CheckBox indeterminate/>
