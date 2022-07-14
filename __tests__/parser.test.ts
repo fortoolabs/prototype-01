@@ -8,6 +8,7 @@ test('parses', () => {
     encoding: 'utf8',
     flag: 'r',
   })
-  expect(parse(f)).toEqual('output')
-  expect(true).toEqual(true)
+  expect(parse(f)).toEqual({
+    content: [],
+  })
 })

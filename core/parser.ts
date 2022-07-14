@@ -1,60 +1,60 @@
 import { unified } from 'unified'
 import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
-import { OrgNode } from 'uniorg'
+// https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
+import { OrgData, OrgNode } from 'uniorg'
 
-//const parse = (text: string) => unified().use(parser).parse(text)
-const parse = (text: string) => {
-  const ast = unified().use(parser).parse(text)
-  return `looking at ${typeof ast}`
-}
-
-type OrgParagraph = {
+type FParagraph = {
   type: 'Paragraph'
   content: string
 }
 
-type OrgHeading = {
+type FHeading = {
   type: 'Heading'
   content: string
 }
 
-type OrgElement = OrgParagraph | OrgHeading
+type FElement = FParagraph | FHeading
 
-type OrgFile = {
+type FDocument = {
   title?: string
+  source?: string
   todoStates: Array<string>
-  content: Array<OrgElement>
+  content: Array<FElement>
 }
 
 const uniorgFilter = (data: OrgNode): boolean => true
 
-export function assertExhaustive(
+function assertExhaustive(
   value: never,
   message: string = 'Reached unexpected case in exhaustive switch',
 ): never {
   throw new Error(message)
 }
 
-const uniorgTranslate = (node: OrgNode) => {
+function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
   // check for top-level
+  console.log('inside', node.type)
   switch (node.type) {
     case 'org-data':
-      return []
-    //case 'section':
-    //    const x = (node as Section).children
-    //    return []
-    //default:
-    //    return assertExhaustive(node)
+      return acc // do nothing
+    case 'keyword':
+      return acc
   }
-  //if (data.type !== "org-data") {
-  //    return {
-  //        error: `${data.type} invalid type`,
-  //        data: OrgFile
-  //    }
-
-  //  return data.children.reduce((acc, cur) => {}, {})
-  return []
+  return acc
 }
 
-export default parse
+export default function parse(text: string): FDocument {
+  const ast = unified().use(parser).parse(text)
+  const empty = {
+    todoStates: [],
+    content: [],
+  }
+  console.log(ast.type)
+  switch (ast.type) {
+    case 'org-data':
+      // acc, cur, idx, xs
+      return (ast as OrgData).children.reduce(r, empty)
+  }
+  return empty
+}
