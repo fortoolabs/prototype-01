@@ -1,12 +1,12 @@
 import { Col } from '../View'
 import Paragraph from '../Paragraph'
 
-export type CheckBoxProps = {
+export type BoardCardProps = {
   title: string
   add?: boolean
 }
 
-const BoardCard = ({ title, add }) => {
+const BoardCard = ({ title, add }:BoardCardProps) => {
   const background = add ? 'greyE2' : 'white'
   return (
     <Col

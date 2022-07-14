@@ -1,13 +1,17 @@
 import { Col, Row } from '../View'
 import Column from './Column'
-
+import { HeadingElement, ParagraphElement } from '../../pages/index'
 export type BoardProps = {
   url?: string
 }
 
 const states = ["idea","todo", "doing", "done"]
 
-const todos: Array<DocumentElement> = [
+type TodoElement =
+  | HeadingElement
+  | ParagraphElement
+
+const todos: Array<TodoElement> = [
   {
     name: 'Heading',
     data: {
@@ -63,8 +67,8 @@ export default function Board({ url }: BoardProps) {
   // QUESTION: how to compose blocks? a code block can not be a todo?
   return (
     <Row flex="grow" gap="medium" justify="start" pad="medium">
-      {states.map(state => (
-        <Column title={state} todos={todos.filter(todo => (!!todo.data.isTodo && todo.data.state === state) )} />
+      {states.map((state,i) => (
+        <Column key={i} title={state} todos={todos.filter(todo => (!!todo.data.isTodo && todo.data.state === state) )} />
         ))}
     </Row>
   )

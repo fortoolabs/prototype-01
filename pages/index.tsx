@@ -18,12 +18,12 @@ import FallbackBlock, { FallbackBlockProps } from '../components/FallbackBlock'
 
 import { AppContainer, Main, MainContent } from '../components/View'
 
-type HeadingElement = {
+export type HeadingElement = {
   name: 'Heading'
   data: HeadingProps
 }
 
-type ParagraphElement = {
+export type ParagraphElement = {
   name: 'Paragraph'
   data: ParagraphProps
 }
