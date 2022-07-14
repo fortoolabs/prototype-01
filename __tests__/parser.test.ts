@@ -10,6 +10,7 @@ test('parses', () => {
   })
   expect(parse(f)).toEqual({
     todoStates: ['TODO', 'IDEA', 'SCOPE', 'INSKETCH', 'INDEV', 'DONE(d)'],
+    title: 'Product Roadmap',
     content: [],
   })
 })

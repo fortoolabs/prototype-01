@@ -36,6 +36,8 @@ function assertExhaustive(
 
 function reduceKeyword(acc: FDocument, x: Keyword): FDocument {
   switch (x.key) {
+    case 'TITLE':
+      return { ...acc, title: x.value }
     case 'TODO':
       return { ...acc, todoStates: x.value.split(' ').filter((x) => x != '|') }
     default:
