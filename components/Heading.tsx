@@ -2,9 +2,10 @@ import { Grommet, Heading as HeadingGrommet } from 'grommet'
 
 export type HeadingProps = {
   level: '1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6 | undefined
-  title: string
+  title: string,
+  [x:string]: any;
 }
 
-export default function Heading({ title, level }: HeadingProps) {
-  return <HeadingGrommet level={level}>{title}</HeadingGrommet>
+export default function Heading({ title, level, ...rest }: HeadingProps) {
+  return <HeadingGrommet level={level} {...rest}>{title}</HeadingGrommet>
 }

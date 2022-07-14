@@ -1,6 +1,6 @@
 import { ThemeType } from 'grommet'
 
-const theme:ThemeType = {
+const theme: ThemeType = {
   global: {
     colors: {
       black: '#000000',
@@ -10,7 +10,7 @@ const theme:ThemeType = {
         'linear-gradient(180deg, #2D3FAD 0%, #00B3AE 77.97%);',
       lightBlueGrey: '#E4EFF8',
       lightTan: '#FFEFA5',
-      lightGrey: '#F6F6F6',
+      lightGrey: '#DDDDDD',
       darkBlueGrey: '#7C92A2',
       greyBacking: '#FCFCFC',
       orangeYellow: '#FFAA00',
@@ -52,7 +52,7 @@ const theme:ThemeType = {
       },
       border: {
         dark: '#444444',
-        light: '#F6F6F6',
+        light: 'lightGrey',
       },
       control: 'brand',
       'active-background': 'brand',
@@ -71,9 +71,7 @@ const theme:ThemeType = {
     },
     font: {
       family: 'Montserrat',
-      size: '16px',
       height: '28px',
-      maxWidth: '588px',
     },
     active: {
       background: 'active-background',
@@ -318,27 +316,67 @@ const theme:ThemeType = {
       },
     },
   },
+  text: {
+    medium: {
+      size: 'unset',
+      height: 'unset',
+    },
+  },
+  paragraph: {
+    medium: {
+      size: '1.2rem',
+      height: '1.8rem',
+      maxWidth: 'unset',
+    },
+  },
   heading: {
     weight: 700,
+    responsiveBreakpoint: 'medium',
+    // on small screens, heading styling jumps to style
+    // one level lower
     level: {
       '1': {
-        small: {
-          size: '1.5rem',
-          height: '2.125rem',
-        },
+        // medium used by default
+        // use <Heading size="small"> for custom behaviour
         medium: {
-          size: '2.5rem',
-          height: '3.125rem',
+          size: '3.5rem',
+          height: '3.8rem',
+          maxWidth: 'unset',
         },
       },
       '2': {
-        small: {
-          size: '1.25rem',
-          height: '2.125rem',
+        medium: {
+          size: '2.5rem',
+          height: '2.75rem',
+          maxWidth: 'unset',
         },
+      },
+      '3': {
+        medium: {
+          size: '2rem',
+          height: '2.5rem',
+          maxWidth: 'unset',
+        },
+      },
+      '4': {
+        medium: {
+          size: '1.5rem',
+          height: '1.75rem',
+          maxWidth: 'unset',
+        },
+      },
+      '5': {
         medium: {
           size: '1.325rem',
           height: '1.75rem',
+          maxWidth: 'unset',
+        },
+      },
+      '6': {
+        medium: {
+          size: '1.2rem',
+          height: '1.75rem',
+          maxWidth: 'unset',
         },
       },
     },

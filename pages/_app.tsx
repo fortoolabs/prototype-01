@@ -8,9 +8,9 @@ import GlobalStyle from '../styles/global'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Grommet theme={theme} background="lightGrey" full>
+    <Grommet theme={theme} background="white" full>
     <GlobalStyle/>
-      <Col fill>
+      <Col>
         <Component {...pageProps} />
       </Col>
     </Grommet>
