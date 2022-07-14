@@ -8,7 +8,7 @@ const theme: ThemeType = {
       brightPink: '#EA00B0',
       gradientTurqoiseBlue:
         'linear-gradient(180deg, #2D3FAD 0%, #00B3AE 77.97%);',
-      lightBlueGrey: '#E4EFF8',
+      lightBlueGrey: '#F6F8FA',
       lightTan: '#FFEFA5',
       lightGrey: '#DDDDDD',
       darkBlueGrey: '#7C92A2',
