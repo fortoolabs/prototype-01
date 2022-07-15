@@ -1,20 +1,28 @@
 import { useRouter } from 'next/router'
-import base64url from "base64url";
-import { AppContainer, Main, MainContent } from '../../components/View'
+import { useState } from 'react'
+import base64url from 'base64url'
+
+import Heading from '../../components/Heading'
+import Board from '../../components/Board'
+import List from '../../components/List'
+import { AppContainer, Main, MainContent, Row } from '../../components/View'
 
 interface ReaderProps {
   url: string
 }
 
 const Reader = ({ url }: ReaderProps) => {
+  const [boardView, setBoardView] = useState(false)
+
   return (
-    <AppContainer>
-      <Main>
-        <MainContent>
-          <h1>Read this url: {base64url.decode(url)}</h1>
-        </MainContent>
-      </Main>
-    </AppContainer>
+    <>
+      <Row align="center" gap="medium" justify="end" pad="medium">
+        <Heading level={3} title={base64url.decode(url)}/>
+        <span onClick={() => setBoardView(false)}>list</span>
+        <span onClick={() => setBoardView(true)}>board</span>
+      </Row>
+      {!!boardView ? <Board /> : <List />}
+    </>
   )
 }
 

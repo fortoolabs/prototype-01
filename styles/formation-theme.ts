@@ -4,20 +4,18 @@ const theme: ThemeType = {
   global: {
     colors: {
       black: '#000000',
+      black28: '#282A2F',
+      white: '#ffffff',
+      greyE2: '#E2E4E8',
+      greyE7: '#E7ECF0',
+      grey6b: '#6b6b6b',
+      brand: '#1A1C1F',
       blackFont: '#343633',
-      brightPink: '#EA00B0',
       gradientTurqoiseBlue:
         'linear-gradient(180deg, #2D3FAD 0%, #00B3AE 77.97%);',
-      lightBlueGrey: '#E4EFF8',
-      lightTan: '#FFEFA5',
+      lightBlueGrey: '#F6F8FA',
       lightGrey: '#DDDDDD',
-      darkBlueGrey: '#7C92A2',
       greyBacking: '#FCFCFC',
-      orangeYellow: '#FFAA00',
-      turqoise: '#00B3AE',
-      sapphire: '#2d3fad',
-      white: '#ffffff',
-      brand: '#1A1C1F',
       background: {
         dark: '#111111',
         light: '#FCFCFC',
@@ -70,8 +68,7 @@ const theme: ThemeType = {
       'overlay-background': 'rgba(9, 15, 51, 0.7)',
     },
     font: {
-      family: 'Montserrat',
-      height: '28px',
+      family: 'Montserrat'
     },
     active: {
       background: 'active-background',

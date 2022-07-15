@@ -3,7 +3,9 @@ import * as React from 'react'
 import { Grommet, Paragraph as GrommetParagraph } from 'grommet'
 
 export type ParagraphProps = {
-  children: string
+  children: string,
+  isTodo?: boolean;
+  state?: string;
 }
 
 export default function Paragraph({ children }: ParagraphProps) {

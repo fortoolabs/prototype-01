@@ -1,22 +1,20 @@
 import type { NextPage, NextApiResponse } from 'next'
 import useSWR, { Key, Fetcher } from 'swr'
-
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Box, Grommet } from 'grommet'
+import { Box, Grommet, ThemeContext } from 'grommet'
 
-import Code, { CodeProps } from '../components/Code'
-import Heading, { HeadingProps } from '../components/Heading'
-import Paragraph, { ParagraphProps } from '../components/Paragraph'
-import Date, { DateProps } from '../components/Date'
-import CheckBox, { CheckBoxProps } from '../components/CheckBox'
+import Code, { CodeProps } from '../Code'
+import Heading, { HeadingProps } from '../Heading'
+import Paragraph, { ParagraphProps } from '../Paragraph'
+import Date, { DateProps } from '../Date'
+import CheckBox, { CheckBoxProps } from '../CheckBox'
 
-import FallbackInline, {
-  FallbackInlineProps,
-} from '../components/FallbackInline'
-import FallbackBlock, { FallbackBlockProps } from '../components/FallbackBlock'
+import FallbackInline, { FallbackInlineProps } from '../FallbackInline'
+import FallbackBlock, { FallbackBlockProps } from '../FallbackBlock'
 
-import { AppContainer, Main, MainContent } from '../components/View'
+import { AppContainer, Main, MainContent } from '../View'
 
 export type HeadingElement = {
   name: 'Heading'
@@ -62,15 +60,15 @@ type DocumentElement =
   | DateElement
 
 // Dummy API call
-import type { HelloData } from './api/hello'
+import type { HelloData } from '../../pages/api/hello'
 
 type User = {
   name: string
   age: number
 }
 
-const fetcher: Fetcher<HelloData, string> = (url) =>
-  fetch('./api/hello').then((r) => r.json())
+const fetcher: Fetcher<HelloData, string> = url =>
+  fetch('../../pages/api/hello').then(r => r.json())
 
 type HelloResponse = {
   hello: string
@@ -171,9 +169,9 @@ const json: Array<DocumentElement> = [
   {
     name: 'Date',
     data: {
-      timestamp: 1657743446788
+      timestamp: 1657743446788,
     },
-  }
+  },
   // TODO: Deeper level headings need to be rendered with Fallback
   //{
   //    name: 'Heading',
@@ -226,33 +224,43 @@ const AppBar = (props: any) => (
   />
 )
 
-const Home: NextPage = () => {
-  
-
+const ListView = () => {
   const { hello, isLoading, isError }: HelloResponse = useHello()
+  const [serif, setSerif] = useState(true)
 
   return (
-    <AppContainer>
-    <Main>
-      <Head>
-        <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
-      </Head>
-        <MainContent>
-        <Heading alignSelf="center" level="1" title="Welcome to Formation!"/>
-        <p>
-          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
-          {isLoading && <span>⏳</span>}
-        </p>
+      <AppContainer>
+        <div>
+          <span onClick={() => setSerif(true)}>serif</span>
+          <span onClick={() => setSerif(false)}>sans-serif</span>
+        </div>
+        <Main style={{ fontFamily: serif ? 'inherit' : 'Times' }}>
+          <Head>
+            <title>
+              formation.tools -- Ideate, collaborate, smile and profit!
+            </title>
+          </Head>
+          <MainContent>
+            <Heading
+              alignSelf="center"
+              level="1"
+              title="Welcome to Formation!"
+            />
+            <p>
+              This is some dynamic content from the api: 👉🏿{' '}
+              <strong>{hello}</strong>
+              {isLoading && <span>⏳</span>}
+            </p>
 
-        {/* iterate over json, build right component */}
-        {json.map((component, i) => generateComponent(component, i))}
-        <CheckBox checked/>
-        <CheckBox />
-        <CheckBox indeterminate/>
-        </MainContent>
-    </Main>
-    </AppContainer>
+            {/* iterate over json, build right component */}
+            {json.map((component, i) => generateComponent(component, i))}
+            <CheckBox checked />
+            <CheckBox />
+            <CheckBox indeterminate />
+          </MainContent>
+        </Main>
+      </AppContainer>
   )
 }
 
-export default Home
+export default ListView
