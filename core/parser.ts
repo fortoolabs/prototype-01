@@ -2,7 +2,17 @@ import { unified } from 'unified'
 import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
-import { OrgData, OrgNode, Keyword } from 'uniorg'
+import {
+  OrgData,
+  OrgNode,
+  ObjectType,
+  Keyword,
+  Paragraph,
+  //Text,
+  //Link,
+} from 'uniorg'
+
+// Link , Bold , Italic , Code , Verbatim , StrikeThrough , Underline , Superscript , Subscript , Text , Timestamp , FootnoteReference , LatexFragment , Entity, TableCell;
 
 type FParagraph = {
   type: 'Paragraph'
@@ -45,6 +55,44 @@ function reduceKeyword(acc: FDocument, x: Keyword): FDocument {
   }
 }
 
+// https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts#L56
+// Link -> RecursiveObject
+//function extractObjectType(x: ObjectType): string {
+//  switch (x.type) {
+//    case 'text':
+//      ;(x as Text).value
+//    case 'link':
+//      ;(x as Link).path
+//    default:
+//      ''
+//  }
+//}
+
+//function extractObjectType(x: ObjectType): string {
+//  switch (x.type) {
+//    case 'link':
+//      return 'LINK'
+//    default:
+//      return assertExhaustive(x)
+//  }
+//}
+//
+//function extractParagraph(x: Paragraph): FParagraph | undefined {
+//  switch (x.children.length) {
+//    case 0:
+//      return undefined
+//    case 1:
+//      return {
+//        type: 'Paragraph',
+//        content: 'TODO: Just a paragraph, figure this out', // x.children[0].value,
+//      }
+//    default:
+//      // TODO: Handle paragraphs consisting of more than 1 part
+//      console.log('Large paragraph', x)
+//      return undefined
+//  }
+//}
+
 function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
   // check for top-level
   console.log('inside', node.type)
@@ -53,7 +101,22 @@ function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
       return acc // do nothing
     case 'keyword':
       return reduceKeyword(acc, node)
+    case 'paragraph':
+      return acc
+    //return { ...acc, children: reduceParagraph(acc.content, node) }
+    //case 'section':
+    //    const x = (node as Section).children
+    //    return []
+    //default:
+    //    return assertexhaustive(node)
   }
+  //if (data.type !== "org-data") {
+  //    return {
+  //        error: `${data.type} invalid type`,
+  //        data: OrgFile
+  //    }
+
+  //  return data.children.reduce((acc, cur) => {}, {})
   return acc
 }
 
