@@ -5,28 +5,34 @@ import FallbackInline, {
   FallbackInlineProps,
 } from '../components/FallbackInline'
 import FallbackBlock, { FallbackBlockProps } from '../components/FallbackBlock'
+import Date, { DateProps } from '../components/Date'
 
-type HeadingElement = {
+export type HeadingElement = {
   name: 'Heading'
   data: HeadingProps
 }
 
-type ParagraphElement = {
+export type ParagraphElement = {
   name: 'Paragraph'
   data: ParagraphProps
 }
 
-type CodeBlockElement = {
+export type DateElement = {
+  name: 'Date'
+  data: DateProps
+}
+
+export type CodeBlockElement = {
   name: 'Code'
   data: CodeProps
 }
 
-type FallbackInlineElement = {
+export type FallbackInlineElement = {
   name: 'FallbackInline'
   data: FallbackInlineProps
 }
 
-type FallbackBlockElement = {
+export type FallbackBlockElement = {
   name: 'FallbackBlock'
   data: FallbackBlockProps
 }
@@ -37,6 +43,7 @@ export type DocumentElement =
   | CodeBlockElement
   | FallbackInlineElement
   | FallbackBlockElement
+  | DateElement
 
 function assertExhaustive(
   value: never,
@@ -55,6 +62,8 @@ export default function generateComponent(el: DocumentElement, idx: number) {
       return <Code language={el.data.language} source={el.data.source} />
     case 'Paragraph':
       return <Paragraph>{el.data.children}</Paragraph>
+    case 'Date':
+      return <Date timestamp={el.data.timestamp} />
     case 'FallbackInline':
       return <FallbackInline content={el.data.content} />
     case 'FallbackBlock':
