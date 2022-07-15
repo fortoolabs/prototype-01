@@ -1,0 +1,253 @@
+#+TITLE: Product Roadmap
+#+TODO: TODO IDEA SCOPE INSKETCH INDEV | DONE(d)
+#+STARTUP: overview
+#+BIBLIOGRAPHY: bibliography.bib
+
+⚠️ All points in this roadmap are listed in their relative order of importance. In case points get reordered in this document, it should be interpreted as a change in prioritization. Points are ordered by highest priority first.
+
+* TODO [#A] Present Org document [0/0] :org:
+:PROPERTIES:
+:COOKIE_DATA: todo checkbox recursive
+:END:
+
+As an Emacs user, I want to be able to obtain a better visual overview of Org-files without too much tinkering in Elisp.
+
+As a non-Emacs user, I want to be able to read Org files with the basic conveniences that tend to be available in vanilla Emacs (e.g.: collapsible sections, highlighed TODO annotations and in-document comments). 🤷🏿‍♂️
+
+Until auth is implemented, the Org files supported are the Org files in *public GitHub repositories*.
+
+🚧 Any syntax for which there is no parsing or rendering logic available will be presented as *fixed-width plaintext*.
+
+** Screenshots
+
+The following screenshots provide an impression of what this page looks like in Emacs. Some headers are folded while other are expanded.
+
+[[file:img/emacs-roadmap.2022.05.16.dark.png]]
+
+[[file:img/emacs-roadmap.2022.05.16.light.png]]
+
+** SCOPE [0/49] Parse Org standard :parser:
+:PROPERTIES:
+:COOKIE_DATA: checkbox recursive
+:END:
+
+:BACKGROUND:
+For all elements of the org standard, we will eventually have to implement parsing and rendering logic. The [[https://orgmode.org/worg/dev/org-syntax.html][syntax reference]] provides a breakdown of the elements that will need to be presented.
+:END:
+
+The [[https://orgmode.org/worg/dev/org-syntax.html][org-syntax reference]] defines:
+- [ ] [0/23] *objects* (see [[https://orgmode.org/worg/dev/org-syntax.html#Objects][reference]]) components that exist with a smaller scope than a paragraph and can be contained therein
+  - most objects cannot contain objects
+  - blank lines often terminate the object (e.g.: paragraph)
+  - [ ] *entities*
+  - [ ] *LaTeX fragements*
+  - [ ] *export snippets*
+  - [ ] *footnote references*
+  - [ ] *citations*
+  - [ ] *citation references*
+  - [ ] *inline Babel calls*
+  - [ ] *inline source blocks*
+  - [ ] *line breaks*
+  - [ ] *radio links*
+  - [ ] *plain links*
+  - [ ] *angle links*
+  - [ ] *regular links*
+  - [ ] *macros*
+  - [ ] *targets*
+  - [ ] *radio targets*
+  - [ ] *statistics cookies*
+  - [ ] *subscript*
+  - [ ] *superscript*
+  - [ ] *table cells*
+  - [ ] *time stamps*
+  - [ ] *text markup*
+  - [ ] *plaintext* 🚧
+- [ ] [0/24] *elements*: components that exist at the same or greater scope than a paragraph
+  - [ ] *headings*
+  - [ ] *sections*: container of non-heading elements
+    - only occurs within headers, with the exception of text before first heading in document (i.e.: zeroth section)
+  - [ ] *zeroth section* (see [[https://orgmode.org/worg/dev/org-syntax.html#Zeroth_section][reference]])
+    - can contain
+      - *property drawer*
+      - *comments*
+      - cannot contain *planning*
+  - [ ] [0/9] greater elements: can contain other greater or lesser elements
+    - [ ] *greater blocks*
+    - [ ] *drawers and property drawers*
+    - [ ] *dynamic blocks*
+    - [ ] *footnote definitions*
+    - [ ] *inlinetasks* (only available after org-inlinetask load ❓)
+    - [ ] *items*
+    - [ ] *plain lists*
+    - [ ] *property lists*
+    - [ ] *tables*
+  - [ ] [0/10] lesser elements: cannot contain other elements (e.g.: paragraph)
+    - [ ] *blocks*
+    - [ ] *clock*
+    - [ ] *diary sexp*
+    - [ ] *planning*
+    - [ ] *comments*
+    - [ ] *fixed width areas*
+    - [ ] *horizontal rules*
+    - [ ] *keywords*
+    - [ ] *LaTeX environments*
+    - [ ] *node properties*
+
+** DONE Figure out difference between *greater blocks* and *dynamic blocks*
+
+See https://orgmode.org/worg/dev/org-syntax.html#Greater_Elements
+
+Greater blocks start with =begin_NAME PARAMS= (name embedded in delimiter) while dynamic blocks start with =begin: NAME PARAMS= where name is an argument to the begin block.
+
+** SCOPE Present text markup :ui:
+
+As a user, I want to be able to view text markup (/italics/, *bold*, +strikethrough+, _underline_, =verbatim= and ~code~) as demonstrated in the snippet below:
+
+#+begin_src org
+- **BOLD**
+- *bold*
+- /ITALICIZED/
+- _underline_
+- +STRIKETHROUGH+
+- ~code~
+- =verbatim=
+#+end_src
+
+** IDEA Present Org heading hierarchies :ui:
+
+As a user, I want to be able to conveniently navigate header hierarchies such as the one demonstrated in the snippet below:
+
+#+begin_src org
+,* Header 1
+
+A line to introduce header 1.
+
+,** Header 2A
+
+Some content for header 2.
+
+,** Header 2B
+
+More content
+
+,*** Header 2B.1
+
+A sub-header to 2B.
+
+,*** Header 2B.2
+,**** Header 2B.2.1
+,**** Header 2B.2.2
+,**** Header 2B.2.3
+#+end_src
+
+** IDEA Present header states for the active file :ui:
+
+#+begin_quote
+Org headers can have a TODO status that is user-defined .e.g: TODO \rightarrow DONE or IDEA \rightarrow SCOPE \rightarrow TODO \rightarrow REVIEW \rightarrow DONE (see [[https://orgmode.org/guide/Multi_002dstate-Workflow.html][Multi-state workflows]]).
+#+end_quote
+
+As a reader, I want a quick overview of the header states that are valid for a given file. Annotation of each state with a different color would be ideal.
+
+In Emacs, the TODO and DONE states are the defaults where "TODO" is displayed in red and "DONE" is displayed in green to provide a simple visual overview.
+
+In Org, the =#+TODO= keyword can be used to indicate the states for a file. Multiple workflows can be described through the TODO keyword.
+
+See [[file:examples/todos.org][demonstrator of multi-state workflows]].
+
+** IDEA Present a TOC of an Org file :ui:
+
+As a reader, I want quick access to a TOC (table of contents) that outlines all sections in a document until the 3rd level of depth.
+
+The TOC should display header state annotations.
+
+*** IDEA TOC-to-section click-through
+
+As a reader, I want to be able to quickly navigate to a section by clicking its corresponding entry in a table of contents view.
+
+** IDEA Present all headers as collapsible sections :ui:
+
+As a reader, I want to be able to collapse sections that I am not currently reading or interested in to focus better on relevant text or overview.
+
+As a reader, I want to be able to expand sections that I am interested in to reveal their content.
+
+** IDEA Emphasize TODO states in Org files :ui:
+
+Within the TOC as well as within the main view, state information should be emphasized in a way that makes it easy to recognize.
+
+** IDEA Show author for part of a document when hovering over it :ui:
+
+As a reader, I want to see who last changed a particular part of a document (line, section or other) in a manner similar to =git blame=.
+
+When hovering over a section, a listing of all who contributed to that section would be expected.
+
+When hovering over a line, a list of the last person to commit that line would be expected.
+
+** IDEA Present in-line comments :ui:
+
+As a user, I want to be able to examine Org comment blocks within the document. Not sure if we want to do this like GitHub or Google Docs so this is something our designers will need to find design candidates for.
+
+** IDEA Present code blocks with syntax highlighting :ui:
+
+As a reader, I want to view all code blocks with the appropriate syntax highlighting.
+
+** IDEA [#B] Present basic Org tables [0/3] :org:ui:
+
+As a user, I want to be able to view tables in Org documents.
+
+*** IDEA Show all data columns and rows for an Org table
+
+As a user, I want to see all data rows and columns
+
+*** IDEA Highlight column and row that mouse hovers over
+
+As a user, I want the row and column that are hovered over by the cursor to be highlighted for easier orientation.
+
+*** IDEA Highlight all computed fields, columns and/or rows
+
+As a user, I want to have a visual cue of all fields, columns or rows that are computed through formulas. A particular background color may suffice to indicate that the content of a particular cell is not entered directly but rather "calculated".
+
+*** IDEA Present special purpose rows
+
+Some rows serve special purposes to:
+- name every column: (symbol =!=)
+- name fields:
+  - name the fields above the naming row (symbol =^=)
+  - name the fields below the naming row (symbol =_=)
+- hide row from being exported (symbol =/=)
+- define formulate parameters (symbol =$=)
+- arm for automatic recalculation when values change (symbol =#= or =*= for global which is more computationally expensive)
+
+* IDEA [#B] Load public GitHub repos :auth:
+
+The flow to be implemented is:
+1. source public GitHub repository name through a text input (see [[https://www.figma.com/file/SAexH1WXviI2TCfN4TCrGn/David-Asabina%3A-UI-Design?node-id=54%3A270][Figma]])
+2. present repo overview, defaulting to the README.org if found (see [[https://www.figma.com/file/SAexH1WXviI2TCfN4TCrGn/David-Asabina%3A-UI-Design?node-id=40%3A256][Figma]])
+
+** TODO Present empty repository view when repo is empty :ui:
+
+To be designed.
+
+* IDEA [#C] Login with GitHub :auth:
+
+As a GitHub user, I want to be able to login with my GitHub handle and just collaborate in a formation.tools space.
+
+Without GitHub auth, users will only be able to use formation.tools against public repositories.
+
+* IDEA Implement edit capability
+
+To be defined. Editing directly on a git tree with edit support for a select view component types may be a most basic way to start. The question here will be how to delineate chunks of changes as submitting commits for minor changes will likely be counterproductive. The branching and merging strategy will need to be thought through. Eventually, collaborative editing may creep into scope but we'll cross that bridge when we reach it (if we even get there 🤷🏿‍♂️).
+
+* COMMENT Bootstrap
+
+Use the formation-tools.el to load the =org-todo-keyword-faces=.
+
+#+begin_src elisp
+(org-property-values "TODO")
+(org-collect-keywords '("BIBLIOGRAPHY"))
+
+(org-get-local-variables)
+#+end_src
+
+# Local Variables:
+# org-todo-keyword-faces: '(("IDEA" . org-formation-tools-state-idea) ("SCOPE" . org-formation-tools-state-scope) ("INSKETCH" . org-formation-tools-state-insketch) ("INDEV" . org-formation-tools-state-indev) ("DONE" . org-done))
+# End:

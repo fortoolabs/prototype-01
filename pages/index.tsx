@@ -227,8 +227,6 @@ const AppBar = (props: any) => (
 )
 
 const Home: NextPage = () => {
-  
-
   const { hello, isLoading, isError }: HelloResponse = useHello()
 
   return (
