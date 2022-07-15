@@ -8,9 +8,10 @@ export type CodeProps = {
 
 export default function Code({ language, source }: CodeProps) {
   return (
-    <Box alignSelf="stretch"><SyntaxHighlighter tabIndex="0" wrapLongLines language={language}>
-      {source}
-    </SyntaxHighlighter>
+    <Box alignSelf="stretch">
+      <SyntaxHighlighter tabIndex="0" wrapLongLines language={language}>
+        {source}
+      </SyntaxHighlighter>
     </Box>
   )
 }

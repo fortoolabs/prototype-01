@@ -67,8 +67,8 @@ type User = {
   age: number
 }
 
-const fetcher: Fetcher<HelloData, string> = url =>
-  fetch('../../pages/api/hello').then(r => r.json())
+const fetcher: Fetcher<HelloData, string> = (url) =>
+  fetch('../../pages/api/hello').then((r) => r.json())
 
 type HelloResponse = {
   hello: string
@@ -229,37 +229,33 @@ const ListView = () => {
   const [serif, setSerif] = useState(true)
 
   return (
-      <AppContainer>
-        <div>
-          <span onClick={() => setSerif(true)}>serif</span>
-          <span onClick={() => setSerif(false)}>sans-serif</span>
-        </div>
-        <Main style={{ fontFamily: serif ? 'inherit' : 'Times' }}>
-          <Head>
-            <title>
-              formation.tools -- Ideate, collaborate, smile and profit!
-            </title>
-          </Head>
-          <MainContent>
-            <Heading
-              alignSelf="center"
-              level="1"
-              title="Welcome to Formation!"
-            />
-            <p>
-              This is some dynamic content from the api: 👉🏿{' '}
-              <strong>{hello}</strong>
-              {isLoading && <span>⏳</span>}
-            </p>
+    <AppContainer>
+      <div>
+        <span onClick={() => setSerif(true)}>serif</span>
+        <span onClick={() => setSerif(false)}>sans-serif</span>
+      </div>
+      <Main style={{ fontFamily: serif ? 'inherit' : 'Times' }}>
+        <Head>
+          <title>
+            formation.tools -- Ideate, collaborate, smile and profit!
+          </title>
+        </Head>
+        <MainContent>
+          <Heading alignSelf="center" level="1" title="Welcome to Formation!" />
+          <p>
+            This is some dynamic content from the api: 👉🏿{' '}
+            <strong>{hello}</strong>
+            {isLoading && <span>⏳</span>}
+          </p>
 
-            {/* iterate over json, build right component */}
-            {json.map((component, i) => generateComponent(component, i))}
-            <CheckBox checked />
-            <CheckBox />
-            <CheckBox indeterminate />
-          </MainContent>
-        </Main>
-      </AppContainer>
+          {/* iterate over json, build right component */}
+          {json.map((component, i) => generateComponent(component, i))}
+          <CheckBox checked />
+          <CheckBox />
+          <CheckBox indeterminate />
+        </MainContent>
+      </Main>
+    </AppContainer>
   )
 }
 

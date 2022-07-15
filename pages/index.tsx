@@ -118,9 +118,9 @@ const json: Array<DocumentElement> = [
   {
     name: 'Date',
     data: {
-      timestamp: 1657743446788
+      timestamp: 1657743446788,
     },
-  }
+  },
   // TODO: Deeper level headings need to be rendered with Fallback
   //{
   //    name: 'Heading',
@@ -151,20 +151,23 @@ const Home: NextPage = () => {
   return (
     <AppContainer>
       <Main>
-      <Head>
-      <title>formation.tools -- Ideate, collaborate, smile and profit!</title>
-      </Head>
-      <MainContent>
-      <p>
-      This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
-    {isLoading && <span>⏳</span>}
-    </p>
+        <Head>
+          <title>
+            formation.tools -- Ideate, collaborate, smile and profit!
+          </title>
+        </Head>
+        <MainContent>
+          <p>
+            This is some dynamic content from the api: 👉🏿{' '}
+            <strong>{hello}</strong>
+            {isLoading && <span>⏳</span>}
+          </p>
 
-    {/* iterate over json, build right component */}
-    {json.map((component, i) => generateComponent(component, i))}
-    </MainContent>
+          {/* iterate over json, build right component */}
+          {json.map((component, i) => generateComponent(component, i))}
+        </MainContent>
       </Main>
-      </AppContainer>
+    </AppContainer>
   )
 }
 

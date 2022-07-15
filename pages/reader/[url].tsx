@@ -17,7 +17,7 @@ const Reader = ({ url }: ReaderProps) => {
   return (
     <>
       <Row align="center" gap="medium" justify="end" pad="medium">
-        <Heading level={3} title={base64url.decode(url)}/>
+        <Heading level={3} title={base64url.decode(url)} />
         <span onClick={() => setBoardView(false)}>list</span>
         <span onClick={() => setBoardView(true)}>board</span>
       </Row>

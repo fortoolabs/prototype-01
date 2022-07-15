@@ -73,7 +73,7 @@ const BoardView = () => {
             key={i}
             title={state}
             todos={todos.filter(
-              todo => !!todo.data.isTodo && todo.data.state === state,
+              (todo) => !!todo.data.isTodo && todo.data.state === state,
             )}
           />
         ))}
