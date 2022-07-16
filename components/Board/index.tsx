@@ -4,7 +4,7 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 
 import { Col, Row } from '../View'
 import Column from './Column'
-import { HeadingElement, ParagraphElement } from '../../pages/index'
+import { HeadingElement, ParagraphElement } from '../../core/renderer'
 export type BoardProps = {
   url?: string
 }
@@ -73,7 +73,7 @@ const BoardView = () => {
             key={i}
             title={state}
             todos={todos.filter(
-              todo => !!todo.data.isTodo && todo.data.state === state,
+              (todo) => !!todo.data.isTodo && todo.data.state === state,
             )}
           />
         ))}

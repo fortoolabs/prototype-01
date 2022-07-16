@@ -1,13 +1,12 @@
 import React from 'react'
 import { Box } from 'grommet'
 
-export const Row = props => <Box direction="row" {...props} />
-export const Col = props => <Box direction="column" {...props} />
+export const Row = (props) => <Box direction="row" {...props} />
+export const Col = (props) => <Box direction="column" {...props} />
 
-export const AppContainer = props => {
+export const AppContainer = (props) => {
   return (
     <Col
-      flex={1}
       width={{ max: '780px' }}
       height={{ min: '100%' }}
       alignSelf="center"
@@ -19,7 +18,7 @@ export const AppContainer = props => {
   )
 }
 
-export const Main = props => {
+export const Main = (props) => {
   return (
     <Col
       as="main"
@@ -32,14 +31,6 @@ export const Main = props => {
   )
 }
 
-export const MainContent = props => {
-  return (
-    <Col
-      justify="start"
-      align="start"
-      pad="medium"
-      {...props}
-    />
-  )
+export const MainContent = (props) => {
+  return <Col justify="start" align="start" pad="medium" {...props} />
 }
-

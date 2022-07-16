@@ -1,8 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Link from 'next/link'
-import { Box, TextInput } from 'grommet'
+import { TextInput } from 'grommet'
 import base64url from 'base64url'
 import { Button } from 'grommet'
 import Heading from '../../components/Heading'
@@ -19,7 +18,7 @@ const Home: NextPage = () => {
           <TextInput
             placeholder="https://...filename.org"
             value={value}
-            onChange={event => setValue(event.target.value)}
+            onChange={(event) => setValue(event.target.value)}
           />
           <Link href={`/reader/${base64url(value)}`}>
             <Button primary label="Go!" margin={{ vertical: 'medium' }} />

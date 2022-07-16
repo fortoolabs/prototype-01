@@ -5,96 +5,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Box, Grommet, ThemeContext } from 'grommet'
 
-import Code, { CodeProps } from '../Code'
-import Heading, { HeadingProps } from '../Heading'
-import Paragraph, { ParagraphProps } from '../Paragraph'
-import Date, { DateProps } from '../Date'
-import CheckBox, { CheckBoxProps } from '../CheckBox'
-
-import FallbackInline, { FallbackInlineProps } from '../FallbackInline'
-import FallbackBlock, { FallbackBlockProps } from '../FallbackBlock'
+import generateComponent, { DocumentElement } from '../../core/renderer'
 
 import { AppContainer, Main, MainContent } from '../View'
 
-export type HeadingElement = {
-  name: 'Heading'
-  data: HeadingProps
-}
-
-export type ParagraphElement = {
-  name: 'Paragraph'
-  data: ParagraphProps
-}
-
-type CodeBlockElement = {
-  name: 'Code'
-  data: CodeProps
-}
-
-type FallbackInlineElement = {
-  name: 'FallbackInline'
-  data: FallbackInlineProps
-}
-
-type FallbackBlockElement = {
-  name: 'FallbackBlock'
-  data: FallbackBlockProps
-}
-
-type DateElement = {
-  name: 'Date'
-  data: DateProps
-}
-
-type CheckBoxElement = {
-  name: 'CheckBox'
-  data: CheckBoxProps
-}
-
-type DocumentElement =
-  | HeadingElement
-  | ParagraphElement
-  | CodeBlockElement
-  | FallbackInlineElement
-  | FallbackBlockElement
-  | DateElement
-
-// Dummy API call
-import type { HelloData } from '../../pages/api/hello'
-
-type User = {
-  name: string
-  age: number
-}
-
-const fetcher: Fetcher<HelloData, string> = url =>
-  fetch('../../pages/api/hello').then(r => r.json())
-
-type HelloResponse = {
-  hello: string
-  isLoading: boolean
-  isError: Error
-}
-
-function validName(data: HelloData | undefined): string {
-  console.log('validName', data, data == undefined)
-  if (data == undefined) {
-    return 'that which should not be named'
-  }
-  return data.name
-}
-
-function useHello(): HelloResponse {
-  const { data, error } = useSWR('/api/hello', fetcher)
-
-  return {
-    hello: validName(data),
-    isLoading: !error && !data,
-    isError: error,
-  }
-}
-
-// Dummy document
+// TODO: Generalize with board data struct
+// TODO: Move out of presentation source
 const json: Array<DocumentElement> = [
   {
     name: 'Heading',
@@ -182,84 +98,29 @@ const json: Array<DocumentElement> = [
   //},
 ]
 
-export function assertExhaustive(
-  value: never,
-  message: string = 'Reached unexpected case in exhaustive switch',
-): never {
-  throw new Error(message)
-}
-
-function generateComponent(el: DocumentElement, idx: number) {
-  // TODO: De-couple component type from storage type
-  switch (el.name) {
-    case 'Heading':
-      // TODO: Implement fallback when level>6
-      return <Heading title={el.data.title} level={el.data.level} />
-    case 'Code':
-      return <Code language={el.data.language} source={el.data.source} />
-    case 'Paragraph':
-      return <Paragraph>{el.data.children}</Paragraph>
-    case 'FallbackInline':
-      return <FallbackInline content={el.data.content} />
-    case 'FallbackBlock':
-      return <FallbackBlock>{el.data.children}</FallbackBlock>
-    case 'Date':
-      return <Date timestamp={el.data.timestamp} />
-    default:
-      return assertExhaustive(el)
-  }
-}
-
-const AppBar = (props: any) => (
-  <Box
-    tag="header"
-    direction="row"
-    align="center"
-    justify="between"
-    background="brand"
-    pad={{ left: 'medium', right: 'small', vertical: 'small' }}
-    elevation="medium"
-    style={{ zIndex: '1' }}
-    {...props}
-  />
-)
-
 const ListView = () => {
-  const { hello, isLoading, isError }: HelloResponse = useHello()
+  // TODO: Use theming context/provider for this or define own
+  // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
   const [serif, setSerif] = useState(true)
 
   return (
-      <AppContainer>
-        <div>
-          <span onClick={() => setSerif(true)}>serif</span>
-          <span onClick={() => setSerif(false)}>sans-serif</span>
-        </div>
-        <Main style={{ fontFamily: serif ? 'inherit' : 'Times' }}>
-          <Head>
-            <title>
-              formation.tools -- Ideate, collaborate, smile and profit!
-            </title>
-          </Head>
-          <MainContent>
-            <Heading
-              alignSelf="center"
-              level="1"
-              title="Welcome to Formation!"
-            />
-            <p>
-              This is some dynamic content from the api: 👉🏿{' '}
-              <strong>{hello}</strong>
-              {isLoading && <span>⏳</span>}
-            </p>
-
-            {/* iterate over json, build right component */}
-            {json.map((component, i) => generateComponent(component, i))}
-            <CheckBox checked />
-            <CheckBox />
-            <CheckBox indeterminate />
-          </MainContent>
-        </Main>
-      </AppContainer>
+    <AppContainer>
+      <div>
+        <span onClick={() => setSerif(true)}>serif</span>
+        <span onClick={() => setSerif(false)}>sans-serif</span>
+      </div>
+      <Main style={{ fontFamily: serif ? 'inherit' : 'Times' }}>
+        <Head>
+          <title>
+            formation.tools -- Ideate, collaborate, smile and profit!
+          </title>
+        </Head>
+        <MainContent>
+          {/* iterate over json, build right component */}
+          {json.map((component, i) => generateComponent(component, i))}
+        </MainContent>
+      </Main>
+    </AppContainer>
   )
 }
 

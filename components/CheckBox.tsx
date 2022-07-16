@@ -1,5 +1,5 @@
 import { CheckBox as GrommetCheckBox } from 'grommet'
-import Paragraph  from './Paragraph'
+import Paragraph from './Paragraph'
 import { Row } from './View'
 
 export type CheckBoxProps = {
@@ -11,7 +11,7 @@ export default function CheckBox({ checked, indeterminate }: CheckBoxProps) {
   return (
     <Row gap="medium">
       <GrommetCheckBox checked={checked} indeterminate={indeterminate} />
-      <Paragraph >Some item</Paragraph>
+      <Paragraph>Some item</Paragraph>
     </Row>
   )
 }

@@ -68,7 +68,7 @@ const theme: ThemeType = {
       'overlay-background': 'rgba(9, 15, 51, 0.7)',
     },
     font: {
-      family: 'Montserrat'
+      family: 'Montserrat',
     },
     active: {
       background: 'active-background',
