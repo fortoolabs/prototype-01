@@ -241,7 +241,7 @@ const ListView = () => {
           </title>
         </Head>
         <MainContent>
-          <Heading alignSelf="center" level="1" title="Welcome to Formation!" />
+          <Heading level="1" title="Welcome to Formation!" />
           <p>
             This is some dynamic content from the api: 👉🏿{' '}
             <strong>{hello}</strong>
