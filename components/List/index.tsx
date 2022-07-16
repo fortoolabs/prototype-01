@@ -118,9 +118,6 @@ const ListView = () => {
         <MainContent>
           {/* iterate over json, build right component */}
           {json.map((component, i) => generateComponent(component, i))}
-          <CheckBox checked />
-          <CheckBox />
-          <CheckBox indeterminate />
         </MainContent>
       </Main>
     </AppContainer>
