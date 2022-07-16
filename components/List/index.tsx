@@ -9,41 +9,6 @@ import generateComponent, { DocumentElement } from '../../core/renderer'
 
 import { AppContainer, Main, MainContent } from '../View'
 
-// Dummy API call
-import type { HelloData } from '../../pages/api/hello'
-
-type User = {
-  name: string
-  age: number
-}
-
-const fetcher: Fetcher<HelloData, string> = (url) =>
-  fetch('../../pages/api/hello').then((r) => r.json())
-
-type HelloResponse = {
-  hello: string
-  isLoading: boolean
-  isError: Error
-}
-
-function validName(data: HelloData | undefined): string {
-  console.log('validName', data, data == undefined)
-  if (data == undefined) {
-    return 'that which should not be named'
-  }
-  return data.name
-}
-
-function useHello(): HelloResponse {
-  const { data, error } = useSWR('/api/hello', fetcher)
-
-  return {
-    hello: validName(data),
-    isLoading: !error && !data,
-    isError: error,
-  }
-}
-
 // Dummy document
 const json: Array<DocumentElement> = [
   {
@@ -133,7 +98,6 @@ const json: Array<DocumentElement> = [
 ]
 
 const ListView = () => {
-  const { hello, isLoading, isError }: HelloResponse = useHello()
   const [serif, setSerif] = useState(true)
 
   return (
@@ -149,13 +113,6 @@ const ListView = () => {
           </title>
         </Head>
         <MainContent>
-          <Heading level="1" title="Welcome to Formation!" />
-          <p>
-            This is some dynamic content from the api: 👉🏿{' '}
-            <strong>{hello}</strong>
-            {isLoading && <span>⏳</span>}
-          </p>
-
           {/* iterate over json, build right component */}
           {json.map((component, i) => generateComponent(component, i))}
           <CheckBox checked />
