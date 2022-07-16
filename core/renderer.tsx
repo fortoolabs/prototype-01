@@ -63,7 +63,9 @@ export default function generateComponent(el: DocumentElement, idx: number) {
       // TODO: Implement fallback when level>6
       return <Heading key={i} title={el.data.title} level={el.data.level} />
     case 'Code':
-      return <Code key={i} language={el.data.language} source={el.data.source} />
+      return (
+        <Code key={i} language={el.data.language} source={el.data.source} />
+      )
     case 'Paragraph':
       return <Paragraph key={i}>{el.data.children}</Paragraph>
     case 'Date':
