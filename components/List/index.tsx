@@ -9,7 +9,8 @@ import generateComponent, { DocumentElement } from '../../core/renderer'
 
 import { AppContainer, Main, MainContent } from '../View'
 
-// Dummy document
+// TODO: Generalize with board data struct
+// TODO: Move out of presentation source
 const json: Array<DocumentElement> = [
   {
     name: 'Heading',
@@ -98,6 +99,8 @@ const json: Array<DocumentElement> = [
 ]
 
 const ListView = () => {
+  // TODO: Use theming context/provider for this or define own
+  // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
   const [serif, setSerif] = useState(true)
 
   return (
