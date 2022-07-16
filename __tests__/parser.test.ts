@@ -1,14 +1,26 @@
 import { expect, test } from 'vitest'
 
 import parse from '../core/parser'
-import { readFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 
-test('parses', () => {
-  const f = readFileSync('__fixtures__/Roadmap.org', {
+const dump = true
+
+const proc = (file, parser) => {
+  const raw = readFileSync(file, {
     encoding: 'utf8',
     flag: 'r',
   })
-  expect(parse(f)).toEqual({
+
+  const data = parse(raw)
+
+  if (dump) {
+    writeFileSync(`${file}.dump.json`, JSON.stringify(data))
+  }
+  return data
+}
+
+test('parses', () => {
+  expect(proc('__fixtures__/Roadmap.org')).toEqual({
     todoStates: ['TODO', 'IDEA', 'SCOPE', 'INSKETCH', 'INDEV', 'DONE(d)'],
     title: 'Product Roadmap',
     content: [],
