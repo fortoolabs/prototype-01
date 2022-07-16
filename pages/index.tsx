@@ -3,7 +3,6 @@ import useSWR, { Key, Fetcher } from 'swr'
 
 import Head from 'next/head'
 import Image from 'next/image'
-import { Box, Grommet } from 'grommet'
 
 import generateComponent, { DocumentElement } from '../core/renderer'
 import { AppContainer, Main, MainContent } from '../components/View'
@@ -130,20 +129,6 @@ const json: Array<DocumentElement> = [
   //    },
   //},
 ]
-
-const AppBar = (props: any) => (
-  <Box
-    tag="header"
-    direction="row"
-    align="center"
-    justify="between"
-    background="brand"
-    pad={{ left: 'medium', right: 'small', vertical: 'small' }}
-    elevation="medium"
-    style={{ zIndex: '1' }}
-    {...props}
-  />
-)
 
 const Home: NextPage = () => {
   const { hello, isLoading, isError }: HelloResponse = useHello()
