@@ -8,7 +8,6 @@ import { Box, Grommet, ThemeContext } from 'grommet'
 import generateComponent, { DocumentElement } from '../../core/renderer'
 
 import { AppContainer, Main, MainContent } from '../View'
-
 // TODO: Generalize with board data struct
 // TODO: Move out of presentation source
 const json: Array<DocumentElement> = [

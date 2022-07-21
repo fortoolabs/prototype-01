@@ -9,7 +9,10 @@ const theme: ThemeType = {
       greyE2: '#E2E4E8',
       greyE7: '#E7ECF0',
       grey6b: '#6b6b6b',
-      brand: '#1A1C1F',
+      brand: {
+        light: '#1A1C1F',
+        dark: 'white'
+      },
       blackFont: '#343633',
       gradientTurqoiseBlue:
         'linear-gradient(180deg, #2D3FAD 0%, #00B3AE 77.97%);',
@@ -49,8 +52,8 @@ const theme: ThemeType = {
         light: '#7C92A2',
       },
       border: {
-        dark: '#444444',
-        light: 'lightGrey',
+        dark: 'white',
+        light: 'brand',
       },
       control: 'brand',
       'active-background': 'brand',
