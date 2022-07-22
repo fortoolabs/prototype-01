@@ -9,6 +9,7 @@ const theme: ThemeType = {
       greyE2: '#E2E4E8',
       greyE7: '#E7ECF0',
       grey6b: '#6b6b6b',
+      grey97: '#979DA6',
       brand: {
         light: '#1A1C1F',
         dark: 'white'
@@ -323,6 +324,11 @@ const theme: ThemeType = {
     },
   },
   paragraph: {
+    small: {
+      size: '0.875rem',
+      height: '1.15rem',
+      maxWidth: 'unset',
+    },
     medium: {
       size: '1.2rem',
       height: '1.8rem',
@@ -352,6 +358,11 @@ const theme: ThemeType = {
         },
       },
       '3': {
+        small: {
+          size: '0.875rem',
+          height: '1.15rem',
+          maxWidth: 'unset'
+        },
         medium: {
           size: '2rem',
           height: '2.5rem',
