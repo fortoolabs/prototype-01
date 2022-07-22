@@ -15,7 +15,6 @@ const Code: FC<CodeProps> = props => {
     <Box alignSelf="stretch">
       <SyntaxHighlighter
         style={theme.dark ? oneDark : oneLight}
-        customStyletabIndex="0"
         wrapLongLines
         language={props.language}
       >
