@@ -1,7 +1,6 @@
 import type { FC } from 'react'
 import { useContext } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Box, ThemeContext } from 'grommet'
 
 export type CodeProps = {
@@ -9,8 +8,15 @@ export type CodeProps = {
   source: string
 }
 
+export type ThemeProps = {
+  dark?: boolean
+  [x: string]: any
+}
+
+const { oneDark, oneLight } = require('react-syntax-highlighter/dist/cjs/styles/prism')
+
 const Code: FC<CodeProps> = props => {
-  const theme = useContext(ThemeContext)
+  const theme:ThemeProps = useContext(ThemeContext)
   return (
     <Box alignSelf="stretch">
       <SyntaxHighlighter

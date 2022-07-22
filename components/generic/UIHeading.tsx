@@ -13,7 +13,7 @@ export type UIHeadingProps = {
 export const UIHeading: FC<UIHeadingProps> = props => {
 
   return (
-    <GrommetHeading margin={{bottom:"0px"}} level={props.level} size="small" {...props}>
+    <GrommetHeading margin={{bottom:"0px"}} size="small" {...props}>
       {props.children.toUpperCase()}
     </GrommetHeading>
   )
@@ -21,7 +21,7 @@ export const UIHeading: FC<UIHeadingProps> = props => {
 
 export const UISubheading: FC<UIHeadingProps> = props => {
   return (
-    <GrommetHeading margin={{top:"0px"}} color={{light:'grey97', dark:'grey97'}} level={props.level} size="small" {...props}>
+    <GrommetHeading margin={{top:"0px"}} color={{light:'grey97', dark:'grey97'}} size="small" {...props}>
       {props.children}
     </GrommetHeading>
   )

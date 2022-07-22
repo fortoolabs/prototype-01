@@ -11,7 +11,7 @@ export type BoardProps = {
 
 const states = ['idea', 'todo', 'doing', 'done']
 
-type TodoElement = HeadingElement | ParagraphElement
+type TodoElement = HeadingElement
 
 const todos: Array<TodoElement> = [
   {

@@ -53,7 +53,7 @@ export const Card: FC<CardProps> = memo(function Card({
   )
 })
 
-export const AddCard:FC<> = () => {
+export const AddCard:FC = () => {
   return (
     <Box
       margin={{ bottom: 'medium' }}
