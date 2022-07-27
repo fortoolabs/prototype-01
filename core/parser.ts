@@ -12,19 +12,115 @@ import {
   //Link,
 } from 'uniorg'
 
-// Link , Bold , Italic , Code , Verbatim , StrikeThrough , Underline , Superscript , Subscript , Text , Timestamp , FootnoteReference , LatexFragment , Entity, TableCell;
+type FRecursiveObject = {
+  content: FObjectType[]
+}
 
-type FParagraph = {
-  type: 'Paragraph'
+type FLink = FRecursiveObject & {
+  type: 'a'
+}
+
+type FBold = FRecursiveObject & {
+  type: 'b'
+}
+
+type FItalic = FRecursiveObject & {
+  type: 'i'
+}
+
+type FCode = {
+  type: 'c'
   content: string
 }
+
+type FVerbatim = {
+  type: 'v'
+  content: string
+}
+
+type FStrikeThrough = FRecursiveObject & {
+  type: '+'
+}
+
+type FUnderline = FRecursiveObject & {
+  type: 'u'
+}
+type FSuperscript = FRecursiveObject & {
+  type: '^'
+}
+type FSubscript = FRecursiveObject & {
+  type: '_'
+}
+type FText = {
+  type: 't'
+  content: string
+}
+type FTimestamp = {
+  type: 'Z'
+  content: string
+}
+type FFootnoteReference = FRecursiveObject & {
+  type: 'f'
+  label: string
+}
+type FLatexFragment = {
+  type: 'X'
+  content: string
+}
+type FEntity = {
+  type: '?'
+  content: string
+  html: string
+}
+type FTableCell = FRecursiveObject & {
+  type: 'C'
+}
+
+type FObjectType =
+  | FLink
+  | FBold
+  | FItalic
+  | FCode
+  | FVerbatim
+  | FStrikeThrough
+  | FUnderline
+  | FSuperscript
+  | FSubscript
+  | FText
+  | FTimestamp
+  | FFootnoteReference
+  | FLatexFragment
+  | FEntity
+  | FTableCell
 
 type FHeading = {
-  type: 'Heading'
+  type: 'h'
   content: string
 }
 
-type FElement = FParagraph | FHeading
+type FParagraph = {
+  type: 'p'
+  content: FObjectType[]
+}
+
+type FElementType =
+  | FHeading
+  //  | FPlanning
+  //  | FNodeProperty
+  //  | FListItemTag
+  //  | FCommentBlock
+  //  | FSrcBlock
+  //  | FExampleBlock
+  //  | FExportBlock
+  //  | FKeyword
+  //  | FTableRow
+  //  | FComment
+  //  | FFixedWidth
+  //  | FClock
+  //  | FLatexEnvironment
+  //  | FHorizontalRule
+  //  | FDiarySexp
+  | FParagraph
 
 type FDocument = {
   title?: string
@@ -32,7 +128,7 @@ type FDocument = {
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
-  content: Array<FElement>
+  content: Array<FElementType>
 }
 
 const uniorgFilter = (data: OrgNode): boolean => true
@@ -55,44 +151,57 @@ function reduceKeyword(acc: FDocument, x: Keyword): FDocument {
   }
 }
 
-function mapParagraphContent(x: ObjectType): string {
+function mapObjectType(x: ObjectType): FObjectType {
   // TODO: Restructure to a list of non-string members
   // A lot of information is lost in just reducing this to strings
   switch (x.type) {
     case 'link':
-      return x.rawLink
+      return { type: 'a', content: x.children.map(mapObjectType) }
     case 'bold':
+      return { type: 'b', content: x.children.map(mapObjectType) }
     case 'italic':
+      return { type: 'i', content: x.children.map(mapObjectType) }
     case 'strike-through':
+      return { type: '+', content: x.children.map(mapObjectType) }
     case 'underline':
+      return { type: 'u', content: x.children.map(mapObjectType) }
     case 'superscript':
+      return { type: '^', content: x.children.map(mapObjectType) }
     case 'subscript':
-      return x.children.map(mapParagraphContent).join('')
+      return { type: '_', content: x.children.map(mapObjectType) }
     case 'code':
+      return { type: 'c', content: x.value }
     case 'verbatim':
+      return { type: 'v', content: x.value }
     case 'text':
-      return x.value
+      return { type: 't', content: x.value }
     case 'timestamp':
-      return x.rawValue
+      return { type: 'Z', content: x.rawValue }
     case 'footnote-reference':
-      return x.label
+      return {
+        type: 'f',
+        label: x.label,
+        content: x.children.map(mapObjectType),
+      }
     case 'latex-fragment':
-      return x.value
+      return { type: 'X', content: x.value }
     case 'entity':
-      return x.name
+      return { type: '?', content: x.name, html: x.html }
     case 'table-cell':
-      return 'CELL'
+      return { type: 'C', content: x.children.map(mapObjectType) }
     default:
-      //return assertExhaustive(x)
-      return ''
+      return assertExhaustive(x)
   }
 }
 
+function mapParagraph(x: Paragraph): FParagraph {
+  return { type: 'p', content: x.children.map(mapObjectType) }
+}
+
 function reduceParagraph(acc: FDocument, x: Paragraph): FDocument {
-  const paragraphText = x.children.map(mapParagraphContent, []).join('')
   return {
     ...acc,
-    content: [...acc.content, { type: 'Paragraph', content: paragraphText }],
+    content: [...acc.content, mapParagraph(x)],
   }
 }
 
@@ -136,7 +245,6 @@ function reduceParagraph(acc: FDocument, x: Paragraph): FDocument {
 
 function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
   // check for top-level
-  console.log('inside', node.type)
   switch (node.type) {
     case 'org-data':
       return acc // do nothing
@@ -144,12 +252,8 @@ function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
       return reduceKeyword(acc, node)
     case 'paragraph':
       return reduceParagraph(acc, node)
-    //return { ...acc, children: reduceParagraph(acc.content, node) }
-    //case 'section':
-    //    const x = (node as Section).children
-    //    return []
-    //default:
-    //    return assertexhaustive(node)
+    default:
+      return assertExhaustive(node)
   }
   //if (data.type !== "org-data") {
   //    return {
@@ -167,11 +271,5 @@ export default function parse(text: string): FDocument {
     todoStates: [],
     content: [],
   }
-  console.log(ast.type)
-  switch (ast.type) {
-    case 'org-data':
-      // acc, cur, idx, xs
-      return (ast as OrgData).children.reduce(r, empty)
-  }
-  return empty
+  return (ast as OrgData).children.reduce(r, empty)
 }
