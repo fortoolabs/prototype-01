@@ -13,10 +13,13 @@ export type ThemeProps = {
   [x: string]: any
 }
 
-const { oneDark, oneLight } = require('react-syntax-highlighter/dist/cjs/styles/prism')
+const {
+  oneDark,
+  oneLight,
+} = require('react-syntax-highlighter/dist/cjs/styles/prism')
 
-const Code: FC<CodeProps> = props => {
-  const theme:ThemeProps = useContext(ThemeContext)
+const Code: FC<CodeProps> = (props) => {
+  const theme: ThemeProps = useContext(ThemeContext)
   return (
     <Box alignSelf="stretch">
       <SyntaxHighlighter

@@ -28,7 +28,7 @@ export const Card: FC<CardProps> = memo(function Card({
     () => ({
       type: 'CARD',
       item: { name: 'CARD' },
-      collect: monitor => ({
+      collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0 : 1,
       }),
     }),
@@ -53,7 +53,7 @@ export const Card: FC<CardProps> = memo(function Card({
   )
 })
 
-export const AddCard:FC = () => {
+export const AddCard: FC = () => {
   return (
     <Box
       margin={{ bottom: 'medium' }}

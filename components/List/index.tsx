@@ -105,8 +105,10 @@ const ListView = () => {
   return (
     <AppContainer>
       <Row gap="small" pad="small" justify="start">
-        <span  onClick={() => setSerif(false)}>sans-serif</span>
-        <span style={{fontFamily:'Times'}} onClick={() => setSerif(true)}>serif</span>
+        <span onClick={() => setSerif(false)}>sans-serif</span>
+        <span style={{ fontFamily: 'Times' }} onClick={() => setSerif(true)}>
+          serif
+        </span>
       </Row>
       <Main style={{ fontFamily: serif ? 'Times' : 'inherit' }}>
         <Head>

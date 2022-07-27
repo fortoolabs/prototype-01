@@ -10,20 +10,23 @@ export type UIHeadingProps = {
 
 // Heading for UI elements, distinct from reader element 'heading'
 // set properties in formation-theme heading.level[level].small
-export const UIHeading: FC<UIHeadingProps> = props => {
-
+export const UIHeading: FC<UIHeadingProps> = (props) => {
   return (
-    <GrommetHeading margin={{bottom:"0px"}} size="small" {...props}>
+    <GrommetHeading margin={{ bottom: '0px' }} size="small" {...props}>
       {props.children.toUpperCase()}
     </GrommetHeading>
   )
 }
 
-export const UISubheading: FC<UIHeadingProps> = props => {
+export const UISubheading: FC<UIHeadingProps> = (props) => {
   return (
-    <GrommetHeading margin={{top:"0px"}} color={{light:'grey97', dark:'grey97'}} size="small" {...props}>
+    <GrommetHeading
+      margin={{ top: '0px' }}
+      color={{ light: 'grey97', dark: 'grey97' }}
+      size="small"
+      {...props}
+    >
       {props.children}
     </GrommetHeading>
   )
 }
-

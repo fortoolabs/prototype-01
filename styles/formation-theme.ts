@@ -12,7 +12,7 @@ const theme: ThemeType = {
       grey97: '#979DA6',
       brand: {
         light: '#1A1C1F',
-        dark: 'white'
+        dark: 'white',
       },
       blackFont: '#343633',
       gradientTurqoiseBlue:
@@ -361,7 +361,7 @@ const theme: ThemeType = {
         small: {
           size: '0.875rem',
           height: '1.15rem',
-          maxWidth: 'unset'
+          maxWidth: 'unset',
         },
         medium: {
           size: '2rem',

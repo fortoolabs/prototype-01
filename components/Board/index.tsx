@@ -36,7 +36,8 @@ const todos: Array<TodoElement> = [
     name: 'Heading',
     data: {
       level: 1,
-      title: 'This is even more heading content with a longer title for heading 1',
+      title:
+        'This is even more heading content with a longer title for heading 1',
       isTodo: true,
       state: 'todo',
     },
