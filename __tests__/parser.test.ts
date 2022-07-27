@@ -25,9 +25,14 @@ test('parses', () => {
     title: 'Product Roadmap',
     content: [
       {
-        type: 'Paragraph',
-        content:
-          '⚠️ All points in this roadmap are listed in their relative order of importance. In case points get reordered in this document, it should be interpreted as a change in prioritization. Points are ordered by highest priority first.\n',
+        type: 'p',
+        content: [
+          {
+            type: 't',
+            content:
+              '⚠️ All points in this roadmap are listed in their relative order of importance. In case points get reordered in this document, it should be interpreted as a change in prioritization. Points are ordered by highest priority first.\n',
+          },
+        ],
       },
     ],
   })
