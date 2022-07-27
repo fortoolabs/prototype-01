@@ -8,6 +8,9 @@ import {
   ObjectType,
   Keyword,
   Paragraph,
+  Section,
+  GreaterElementType,
+  ElementType,
   //Text,
   //Link,
 } from 'uniorg'
@@ -93,9 +96,13 @@ type FObjectType =
   | FEntity
   | FTableCell
 
-type FHeading = {
+type FHeading = FRecursiveObject & {
   type: 'h'
-  content: string
+  level: number
+  todoKeyword: string | null
+  priority: string | null
+  commented: boolean
+  tags: string[]
 }
 
 type FParagraph = {
@@ -205,71 +212,64 @@ function reduceParagraph(acc: FDocument, x: Paragraph): FDocument {
   }
 }
 
-// https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts#L56
-// Link -> RecursiveObject
-//function extractObjectType(x: ObjectType): string {
-//  switch (x.type) {
-//    case 'text':
-//      ;(x as Text).value
-//    case 'link':
-//      ;(x as Link).path
-//    default:
-//      ''
-//  }
-//}
+function reduceSection(acc: FDocument, x: Section): FDocument {
+  // TODO: Implement, just skipping for now
+  return acc
+}
 
-//function extractObjectType(x: ObjectType): string {
-//  switch (x.type) {
-//    case 'link':
-//      return 'LINK'
-//    default:
-//      return assertExhaustive(x)
-//  }
-//}
-//
-//function extractParagraph(x: Paragraph): FParagraph | undefined {
-//  switch (x.children.length) {
-//    case 0:
-//      return undefined
-//    case 1:
-//      return {
-//        type: 'Paragraph',
-//        content: 'TODO: Just a paragraph, figure this out', // x.children[0].value,
-//      }
-//    default:
-//      // TODO: Handle paragraphs consisting of more than 1 part
-//      console.log('Large paragraph', x)
-//      return undefined
-//  }
-//}
-
-function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
-  // check for top-level
+function reduceTopLevel(
+  acc: FDocument,
+  node: GreaterElementType | ElementType,
+  idx: number,
+): FDocument {
+  // Handle top-level top-level
   switch (node.type) {
+    // GreaterElement
     case 'org-data':
+    case 'property-drawer':
+    case 'drawer':
+    case 'plain-list':
+    case 'list-item':
+    case 'quote-block':
+    case 'verse-block':
+    case 'center-block':
+    case 'special-block':
+    case 'footnote-definition':
+    case 'table':
+    // Element
+    case 'headline':
+    case 'planning':
+    case 'node-property':
+    case 'list-item-tag':
+    case 'comment-block':
+    case 'src-block':
+    case 'example-block':
+    case 'export-block':
+    case 'table-row':
+    case 'comment':
+    case 'fixed-width':
+    case 'clock':
+    case 'latex-environment':
+    case 'horizontal-rule':
+    case 'diary-sexp':
       return acc // do nothing
     case 'keyword':
       return reduceKeyword(acc, node)
     case 'paragraph':
       return reduceParagraph(acc, node)
+    case 'section':
+      return reduceSection(acc, node)
     default:
       return assertExhaustive(node)
   }
-  //if (data.type !== "org-data") {
-  //    return {
-  //        error: `${data.type} invalid type`,
-  //        data: OrgFile
-  //    }
-
-  //  return data.children.reduce((acc, cur) => {}, {})
-  return acc
 }
 
 export default function parse(text: string): FDocument {
-  const ast = unified().use(parser).parse(text)
+  const ast = unified().use(parser).parse(text) as OrgData
   const empty = {
     todoStates: [],
     content: [],
   }
-  return (ast as OrgData).children.reduce(r, empty)
+  console.log('AST', ast.children)
+  return ast.children.reduce(reduceTopLevel, empty)
 }
