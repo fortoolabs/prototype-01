@@ -11,7 +11,7 @@ export type BoardProps = {
 
 const states = ['idea', 'todo', 'doing', 'done']
 
-type TodoElement = HeadingElement | ParagraphElement
+type TodoElement = HeadingElement
 
 const todos: Array<TodoElement> = [
   {
@@ -19,6 +19,24 @@ const todos: Array<TodoElement> = [
     data: {
       level: 1,
       title: 'This is some heading content for heading 1',
+      isTodo: true,
+      state: 'todo',
+    },
+  },
+  {
+    name: 'Heading',
+    data: {
+      level: 1,
+      title: 'This is some other heading content for heading 1',
+      isTodo: true,
+      state: 'todo',
+    },
+  },
+  {
+    name: 'Heading',
+    data: {
+      level: 1,
+      title: 'This is even more heading content with a longer title for heading 1',
       isTodo: true,
       state: 'todo',
     },
@@ -64,16 +82,15 @@ const todos: Array<TodoElement> = [
 const BoardView = () => {
   // TODO: fix lack of padding on right side when overflow-x
   // TODO: consider data flow. json -> select todos -> pass to column
-  // QUESTION: how to compose blocks? a code block can not be a todo?
   return (
     <DndProvider backend={HTML5Backend}>
-      <Row flex="grow" gap="medium" justify="start" pad="medium">
+      <Row flex="grow" gap="medium" justify="start" pad="medium" align="start">
         {states.map((state, i) => (
           <Column
             key={i}
             title={state}
             todos={todos.filter(
-              (todo) => !!todo.data.isTodo && todo.data.state === state,
+              (todo) => todo.data.isTodo && todo.data.state === state,
             )}
           />
         ))}
