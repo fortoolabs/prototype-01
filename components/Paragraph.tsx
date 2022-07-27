@@ -4,10 +4,12 @@ import { Grommet, Paragraph as GrommetParagraph } from 'grommet'
 
 export type ParagraphProps = {
   children: string
-  isTodo?: boolean
-  state?: string
 }
 
 export default function Paragraph({ children }: ParagraphProps) {
   return <GrommetParagraph>{children}</GrommetParagraph>
+}
+
+export const ParagraphSmall = ({ children }: ParagraphProps) => {
+  return <GrommetParagraph size="small">{children}</GrommetParagraph>
 }
