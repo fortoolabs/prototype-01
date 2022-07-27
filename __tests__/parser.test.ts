@@ -5,6 +5,11 @@ import { readFileSync, writeFileSync } from 'fs'
 
 const isDebugDumpEnabled = false
 
+const emptyDocument = {
+  content: [],
+  todoStates: [],
+}
+
 function readFixture(file: string, isDebugDumpEnabled: boolean): FDocument {
   const raw = readFileSync(`__fixtures__/${file}`, {
     encoding: 'utf8',
@@ -21,16 +26,20 @@ function readFixture(file: string, isDebugDumpEnabled: boolean): FDocument {
 
 describe('parse', () => {
   it('empty string to return empty document', () => {
-    expect(parse('')).toEqual({
-      content: [],
-      todoStates: [],
-    })
+    expect(parse('')).toEqual(emptyDocument)
   })
 
   it('single word to return document with single text entry', () => {
     expect(parse('word')).toEqual({
       content: [{ content: [{ content: 'word', type: 't' }], type: 'p' }],
       todoStates: [],
+    })
+  })
+
+  describe('single headline', () => {
+    expect(parse('* How are you?')).toEqual({
+      ...emptyDocument,
+      content: [{ type: 'h', content: 'How are you?' }],
     })
   })
 
