@@ -209,7 +209,7 @@ function unpackElementType(
           type: 'h',
           level: x.level,
           todoKeyword: x.todoKeyword,
-          commented: false,
+          commented: x.commented,
           priority: x.priority,
           tags: x.tags,
           content: x.children.map(mapObjectType),
