@@ -62,6 +62,31 @@ describe('headline', () => {
       19,
     )
   })
+
+  describe('priority', () => {
+    const prio = (x) => parse(x).content[0].priority
+
+    it('honors any alphanum single-char cookie', () => {
+      expect(prio('* [#A] High priority :blah:')).toEqual('A')
+      expect(prio('* [#1] High priority :blah:')).toEqual('1')
+      expect(prio('* [#B] Low priority :blah:')).toEqual('B')
+      expect(prio('* [#2] Low priority :blah:')).toEqual('2')
+      expect(prio('* [#9] Purpose project')).toEqual('9')
+      expect(prio('* [#Z] Purpose project')).toEqual('Z')
+    })
+
+    it('ignores multi-char cookie', () => {
+      expect(prio('* [#42] Purpose project')).toEqual(null)
+      expect(prio('* [#AB] Purpose project')).toEqual(null)
+    })
+
+    it('only honors pre-title cookie', () => {
+      expect(prio('* [#C] Low [#B] priority :blah:')).toEqual('C')
+      expect(prio('* [#3] Low [#B] priority :blah:')).toEqual('3')
+      expect(prio('* Low [#B] priority :blah:')).toEqual(null)
+      expect(prio('* Low priority [#A] :blah:')).toEqual(null)
+    })
+  })
 })
 
 describe('Roadmap.org', () => {
