@@ -211,7 +211,7 @@ function unpackElementType(
           todoKeyword: x.todoKeyword,
           commented: false,
           priority: null,
-          tags: [],
+          tags: x.tags,
           content: x.children.map(mapObjectType),
         },
       ]
