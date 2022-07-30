@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest'
+import { beforeAll, expect, describe, it } from 'vitest'
 
 import parse from '../core/parser'
 import { readFileSync, writeFileSync } from 'fs'
@@ -36,10 +36,21 @@ describe('parse', () => {
     })
   })
 
-  describe('single headline', () => {
-    expect(parse('* How are you?')).toEqual({
-      ...emptyDocument,
-      content: [{ type: 'h', content: 'How are you?' }],
+  describe('single 1st level headline', () => {
+    const data = parse('* How are you?')
+
+    it('returns list of a single text element', () => {
+      expect(data.content[0].content).toEqual([
+        { type: 't', content: 'How are you?' },
+      ])
+    })
+
+    it('has zero tags', () => {
+      expect(data.content[0].tags).toHaveLength(0)
+    })
+
+    it('has level 1', () => {
+      expect(data.content[0]).toHaveProperty('level', 1)
     })
   })
 
@@ -61,9 +72,15 @@ describe('parse', () => {
       expect(ast.title).toEqual('Product Roadmap')
     })
 
-    it('to return a list of content', () => {
-      expect(ast.content).toEqual([
-        {
+    describe('top paragraph', () => {
+      const top = ast.content[0]
+
+      it('has matching type', () => {
+        expect(top).toHaveProperty('type', 'p')
+      })
+
+      it('wraps a single text in a paragraph object', () => {
+        expect(top).toEqual({
           type: 'p',
           content: [
             {
@@ -72,8 +89,8 @@ describe('parse', () => {
                 '⚠️ All points in this roadmap are listed in their relative order of importance. In case points get reordered in this document, it should be interpreted as a change in prioritization. Points are ordered by highest priority first.\n',
             },
           ],
-        },
-      ])
+        })
+      })
     })
   })
 })

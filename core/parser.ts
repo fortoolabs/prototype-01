@@ -2,18 +2,7 @@ import { unified } from 'unified'
 import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
-import {
-  OrgData,
-  OrgNode,
-  ObjectType,
-  Keyword,
-  Paragraph,
-  Section,
-  GreaterElementType,
-  ElementType,
-  //Text,
-  //Link,
-} from 'uniorg'
+import { OrgData, ObjectType, GreaterElementType, ElementType } from 'uniorg'
 
 type FRecursiveObject = {
   content: FObjectType[]
@@ -138,24 +127,16 @@ type FDocument = {
   content: Array<FElementType>
 }
 
-const uniorgFilter = (data: OrgNode): boolean => true
+const emptyDocument = {
+  todoStates: [],
+  content: [],
+}
 
 function assertExhaustive(
   value: never,
   message: string = 'Reached unexpected case in exhaustive switch',
 ): never {
   throw new Error(message)
-}
-
-function reduceKeyword(acc: FDocument, x: Keyword): FDocument {
-  switch (x.key) {
-    case 'TITLE':
-      return { ...acc, title: x.value }
-    case 'TODO':
-      return { ...acc, todoStates: x.value.split(' ').filter((x) => x != '|') }
-    default:
-      return acc
-  }
 }
 
 function mapObjectType(x: ObjectType): FObjectType {
@@ -201,31 +182,15 @@ function mapObjectType(x: ObjectType): FObjectType {
   }
 }
 
-function mapParagraph(x: Paragraph): FParagraph {
-  return { type: 'p', content: x.children.map(mapObjectType) }
-}
-
-function reduceParagraph(acc: FDocument, x: Paragraph): FDocument {
-  return {
-    ...acc,
-    content: [...acc.content, mapParagraph(x)],
-  }
-}
-
-function reduceSection(acc: FDocument, x: Section): FDocument {
-  // TODO: Implement, just skipping for now
-  return acc
-}
-
-function reduceTopLevel(
-  acc: FDocument,
-  node: GreaterElementType | ElementType,
-  idx: number,
-): FDocument {
-  // Handle top-level top-level
-  switch (node.type) {
-    // GreaterElement
+function unpackElementType(
+  x: GreaterElementType | ElementType,
+): FElementType[] {
+  switch (x.type) {
+    // GreaterElementType
     case 'org-data':
+      return []
+    case 'section':
+      return x.children.flatMap(unpackElementType)
     case 'property-drawer':
     case 'drawer':
     case 'plain-list':
@@ -236,8 +201,20 @@ function reduceTopLevel(
     case 'special-block':
     case 'footnote-definition':
     case 'table':
-    // Element
+      return []
+    // ElementType
     case 'headline':
+      return [
+        {
+          type: 'h',
+          level: x.level,
+          todoKeyword: x.todoKeyword,
+          commented: false,
+          priority: null,
+          tags: [],
+          content: x.children.map(mapObjectType),
+        },
+      ]
     case 'planning':
     case 'node-property':
     case 'list-item-tag':
@@ -245,6 +222,7 @@ function reduceTopLevel(
     case 'src-block':
     case 'example-block':
     case 'export-block':
+    case 'keyword':
     case 'table-row':
     case 'comment':
     case 'fixed-width':
@@ -252,13 +230,80 @@ function reduceTopLevel(
     case 'latex-environment':
     case 'horizontal-rule':
     case 'diary-sexp':
-      return acc // do nothing
-    case 'keyword':
-      return reduceKeyword(acc, node)
+      return []
     case 'paragraph':
-      return reduceParagraph(acc, node)
+      return [{ type: 'p', content: x.children.map(mapObjectType) }]
+    default:
+      return assertExhaustive(x)
+  }
+}
+
+// Convert document to internal representation
+function convert(
+  acc: FDocument,
+  node: GreaterElementType | ElementType,
+  idx: number,
+): FDocument {
+  switch (node.type) {
+    // GreaterElementType
+    case 'org-data':
+      return node.children.reduce(convert, acc)
     case 'section':
-      return reduceSection(acc, node)
+      return {
+        ...acc,
+        content: [...acc.content, ...node.children.flatMap(unpackElementType)],
+      }
+    case 'property-drawer':
+    case 'drawer':
+    case 'plain-list':
+    case 'list-item':
+    case 'quote-block':
+    case 'verse-block':
+    case 'center-block':
+    case 'special-block':
+    case 'footnote-definition':
+    case 'table':
+      return acc // noop
+    // ElementType
+    case 'headline':
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(node)],
+      }
+    case 'planning':
+    case 'node-property':
+    case 'list-item-tag':
+    case 'comment-block':
+    case 'src-block':
+    case 'example-block':
+    case 'export-block':
+      return acc // noop
+    case 'keyword':
+      switch (node.key) {
+        case 'TITLE':
+          return { ...acc, title: node.value }
+        case 'TODO':
+          // FIXME: Accomodate for multiple swimlanes as per https://orgmode.org/manual/Per_002dfile-keywords.html
+          return {
+            ...acc,
+            todoStates: node.value.split(' ').filter((x) => x != '|'),
+          }
+        default:
+          return acc
+      }
+    case 'table-row':
+    case 'comment':
+    case 'fixed-width':
+    case 'clock':
+    case 'latex-environment':
+    case 'horizontal-rule':
+    case 'diary-sexp':
+      return acc // noop
+    case 'paragraph':
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(node)],
+      }
     default:
       return assertExhaustive(node)
   }
@@ -266,10 +311,5 @@ function reduceTopLevel(
 
 export default function parse(text: string): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  const empty = {
-    todoStates: [],
-    content: [],
-  }
-  console.log('AST', ast.children)
-  return ast.children.reduce(reduceTopLevel, empty)
+  return convert(emptyDocument, ast, 0)
 }
