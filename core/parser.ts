@@ -210,7 +210,7 @@ function unpackElementType(
           level: x.level,
           todoKeyword: x.todoKeyword,
           commented: false,
-          priority: null,
+          priority: x.priority,
           tags: x.tags,
           content: x.children.map(mapObjectType),
         },
