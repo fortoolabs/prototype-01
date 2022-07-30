@@ -35,14 +35,14 @@ it('single word returns document with single text entry', () => {
   })
 })
 
-describe('headline', () => {
-  it('has correct text', () => {
+describe('heading', () => {
+  it('has title as content', () => {
     expect(parse('* How are you?').content[0].content).toEqual([
       { type: 't', content: 'How are you?' },
     ])
   })
 
-  it('without text has empty content', () => {
+  it('without title has empty content', () => {
     expect(parse('* ').content[0].content).toEqual([])
   })
 
