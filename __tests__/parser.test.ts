@@ -54,6 +54,20 @@ describe('heading', () => {
     ).toHaveLength(3)
   })
 
+  it('extract commented status', () => {
+    const isCommented = (x) => parse(x).content[0].commented
+    expect(isCommented('* Basic title')).toEqual(false)
+    expect(isCommented('* COMMENTED Basic title')).toEqual(true)
+    expect(isCommented('* COMMENT Basic title')).toEqual(true)
+    expect(isCommented('* [#A] COMMENT Basic title')).toEqual(true)
+    expect(isCommented('* COMMENT [#A] Basic title')).toEqual(true)
+    expect(isCommented('* TODO [#A] COMMENT Basic title')).toEqual(true)
+    expect(isCommented('* TODO COMMENT [#A] Basic title')).toEqual(true)
+    expect(
+      isCommented(`* TODO [#A] COMMENT headline /italic/ title :some:tags:`),
+    ).toEqual(true)
+  })
+
   it('extracts the level', () => {
     expect(parse('* How are you?').content[0]).toHaveProperty('level', 1)
     expect(parse('**** How are you?').content[0]).toHaveProperty('level', 4)
