@@ -106,6 +106,56 @@ describe('heading', () => {
   })
 })
 
+describe('regular links', () => {
+  const dut = (x) => parse(x).content[0].content[0]
+
+  describe('for id', () => {
+    const link = '[[id:blah-di-blah 12][example]]'
+    it('parses', () => {
+      expect(dut(link)).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": "example",
+              "type": "t",
+            },
+          ],
+          "linkType": "id",
+          "target": "id:blah-di-blah 12",
+          "type": "a",
+        }
+      `)
+    })
+  })
+
+  describe('with description', () => {
+    const link = '[[https://www.example.com][example]]'
+
+    it('extracts URL', () => {
+      expect(dut(link)).toHaveProperty('target', 'https://www.example.com')
+    })
+
+    // We drop the label for now, use function extractLabel if needed
+    it.skip('extracts a link label', () => {
+      expect(dut(link)).toHaveProperty('label', 'example')
+    })
+  })
+
+  describe('without description', () => {
+    const link = '[[https://www.example.com]]'
+    it('parses', () => {
+      expect(dut(link)).toMatchInlineSnapshot(`
+        {
+          "content": [],
+          "linkType": "https",
+          "target": "https://www.example.com",
+          "type": "a",
+        }
+      `)
+    })
+  })
+})
+
 describe('Roadmap.org', () => {
   const ast = readFixture('Roadmap.org')
 
