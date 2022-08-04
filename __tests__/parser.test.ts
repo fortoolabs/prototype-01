@@ -1,27 +1,20 @@
 import { beforeAll, expect, describe, it } from 'vitest'
 
 import parse from '../core/parser'
-import { readFileSync, writeFileSync } from 'fs'
-
-const isDebugDumpEnabled = false
+import { readFileSync } from 'fs'
 
 const emptyDocument = {
   content: [],
   todoStates: [],
 }
 
-function readFixture(file: string, isDebugDumpEnabled: boolean): FDocument {
-  const raw = readFileSync(`__fixtures__/${file}`, {
-    encoding: 'utf8',
-    flag: 'r',
-  })
-
-  const data = parse(raw)
-
-  if (isDebugDumpEnabled) {
-    writeFileSync(`__fixtures__/${file}.dump.json`, JSON.stringify(data))
-  }
-  return data
+function readFixture(file: string): FDocument {
+  return parse(
+    readFileSync(`__fixtures__/${file}`, {
+      encoding: 'utf8',
+      flag: 'r',
+    }),
+  )
 }
 
 it('empty string returns empty document', () => {
@@ -112,7 +105,7 @@ describe('heading', () => {
 })
 
 describe('Roadmap.org', () => {
-  const ast = readFixture('Roadmap.org', isDebugDumpEnabled)
+  const ast = readFixture('Roadmap.org')
 
   it('to return all todo states', () => {
     expect(ast.todoStates).toEqual([
