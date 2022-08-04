@@ -59,6 +59,7 @@
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.1.2",
     "jest-esm-transformer": "^1.0.0",
+    "onchange": "^7.1.0",
     "regenerator-runtime": "^0.13.9",
     "ts-jest": "^28.0.5",
     "ts-morph": "^15.1.0",
