@@ -132,21 +132,8 @@ describe('Roadmap.org', () => {
   describe('top paragraph', () => {
     const top = ast.content[0]
 
-    it('has matching type', () => {
-      expect(top).toHaveProperty('type', 'p')
-    })
-
     it('wraps a single text in a paragraph object', () => {
-      expect(top).toEqual({
-        type: 'p',
-        content: [
-          {
-            type: 't',
-            content:
-              '⚠️ All points in this roadmap are listed in their relative order of importance. In case points get reordered in this document, it should be interpreted as a change in prioritization. Points are ordered by highest priority first.\n',
-          },
-        ],
-      })
+      expect(top).toMatchSnapshot()
     })
   })
 })
