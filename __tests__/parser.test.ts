@@ -101,6 +101,14 @@ describe('heading', () => {
       expect(prio('* Low priority [#A] :blah:')).toEqual(null)
     })
   })
+
+  describe.todo('progress', () => {
+    // Awaiting release of https://github.com/rasendubi/uniorg/commit/da79786f7c3afda29f8fb65052e09ca4fec6d4f3
+    const dut = (x) => parse(x).content[0]
+    it('TBD', () => {
+      expect(dut('* Almost done [4/5]')).toEqual({})
+    })
+  })
 })
 
 describe('Roadmap.org', () => {
