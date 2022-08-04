@@ -17,14 +17,16 @@ function readFixture(file: string): FDocument {
   )
 }
 
-it('empty string returns empty document', () => {
-  expect(parse('')).toEqual(emptyDocument)
-})
+describe('generally', () => {
+  it('empty string returns empty document', () => {
+    expect(parse('')).toEqual(emptyDocument)
+  })
 
-it('single word returns document with single text entry', () => {
-  expect(parse('word')).toEqual({
-    content: [{ content: [{ content: 'word', type: 't' }], type: 'p' }],
-    todoStates: [],
+  it('single word returns document with single text entry', () => {
+    expect(parse('word')).toEqual({
+      content: [{ content: [{ content: 'word', type: 't' }], type: 'p' }],
+      todoStates: [],
+    })
   })
 })
 
@@ -107,7 +109,7 @@ describe('heading', () => {
 describe('Roadmap.org', () => {
   const ast = readFixture('Roadmap.org')
 
-  it('to return all todo states', () => {
+  it('has all todo states', () => {
     expect(ast.todoStates).toEqual([
       'TODO',
       'IDEA',
@@ -118,7 +120,7 @@ describe('Roadmap.org', () => {
     ])
   })
 
-  it('to return the title', () => {
+  it('has the title', () => {
     expect(ast.title).toEqual('Product Roadmap')
   })
 
