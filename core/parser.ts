@@ -10,6 +10,8 @@ type FRecursiveObject = {
 
 type FLink = FRecursiveObject & {
   type: 'a'
+  target: string
+  linkType: string
 }
 
 type FBold = FRecursiveObject & {
@@ -139,12 +141,33 @@ function assertExhaustive(
   throw new Error(message)
 }
 
+export function extractLabel(el: FObjectType): string {
+  if ('content' in el) {
+    switch (typeof el.content) {
+      case 'string':
+        return el.content
+      default:
+        return el.content
+          .map(extractLabel)
+          .reduce((next, acc) => acc.concat(next), '')
+    }
+  } else {
+    assertExhaustive(el)
+  }
+}
+
 function mapObjectType(x: ObjectType): FObjectType {
   // TODO: Restructure to a list of non-string members
   // A lot of information is lost in just reducing this to strings
   switch (x.type) {
     case 'link':
-      return { type: 'a', content: x.children.map(mapObjectType) }
+      // https://orgmode.org/worg/dev/org-syntax.html#Links
+      return {
+        type: 'a',
+        target: x.rawLink,
+        linkType: x.linkType,
+        content: x.children.map(mapObjectType),
+      }
     case 'bold':
       return { type: 'b', content: x.children.map(mapObjectType) }
     case 'italic':
