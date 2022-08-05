@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import { useState } from 'react'
+import useSWR from 'swr'
 import base64url from 'base64url'
 
 import parse, { FDocument } from '../../core/parser'
@@ -12,20 +13,39 @@ import { AppContainer, Main, MainContent, Row } from '../../components/View'
 
 interface ReaderProps {
   url: string
-  doc: FDocument | null
+  doc: FDocument | undefined
   isLoading: boolean
-  isError: Error | null
+  isFailing: Error | undefined
 }
 
-const fetcher = (url: string) => fetch(url).then((r) => r.text())
+const fetcher = (url: string) =>
+  fetch(url)
+    .then((r) => r.text())
+    .then((t) => parse(t))
 
-const Reader = ({ url, doc }: ReaderProps) => {
+const useDoc = (url: string): ReaderProps => {
+  const { data, error, isValidating } = useSWR(url, fetcher)
+
+  return {
+    url,
+    doc: data,
+    isLoading: isValidating,
+    isFailing: error,
+  }
+}
+
+const Reader = (init: ReaderProps) => {
+  const { url, doc, isLoading, isFailing }: ReaderProps = useDoc(init.url)
   const [boardView, setBoardView] = useState(false)
 
   return (
     <>
       <Row align="center" gap="medium" justify="end" pad="medium">
         <Heading level={3} title={url} />
+        <pre>
+          {isLoading ? '⏳' : ''}
+          {isFailing ? '💥' : ''}
+        </pre>
         <span onClick={() => setBoardView(false)}>list</span>
         <span onClick={() => setBoardView(true)}>board</span>
       </Row>
@@ -45,7 +65,7 @@ const getServerSideProps: GetServerSideProps = async (
         url: 'https://dummy.example.com',
         doc: parse(''),
         isLoading: false,
-        isError: new Error('Invalid URL'),
+        isFailing: new Error('Invalid URL'),
       },
     }
   }
@@ -59,18 +79,17 @@ const getServerSideProps: GetServerSideProps = async (
   const url = base64url.decode(x)
 
   const props: ReaderProps = await fetcher(url)
-    .then(parse)
     .then((ast) => ({
       url,
       doc: ast,
       isLoading: false,
-      isError: null,
+      isFailing: undefined,
     }))
     .catch((err) => ({
       url,
       doc: parse(''),
       isLoading: false,
-      isError: err,
+      isFailing: err,
     }))
 
   // Pass data to the page via props
