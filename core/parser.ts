@@ -120,7 +120,7 @@ type FElementType =
   //  | FDiarySexp
   | FParagraph
 
-type FDocument = {
+export type FDocument = {
   title?: string
   source?: string
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
@@ -129,7 +129,7 @@ type FDocument = {
   content: Array<FElementType>
 }
 
-const emptyDocument = {
+const emptyDocument: FDocument = {
   todoStates: [],
   content: [],
 }
