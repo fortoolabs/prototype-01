@@ -1,8 +1,9 @@
 import { Box } from 'grommet'
 import { Col } from '../View'
 import Heading from '../Heading'
-import Paragraph from '../Paragraph'
-import Card from './Card'
+import { ParagraphSmall } from '../Paragraph'
+import Card, { AddCard } from './Card'
+import { UIHeading, UISubheading } from '../generic/UIHeading'
 
 export type BoardColumnProps = {
   title: string
@@ -12,27 +13,17 @@ export type BoardColumnProps = {
 const BoardColumn = ({ title, todos }: BoardColumnProps) => {
   return (
     <Col
-      round="small"
+      round="8px"
       pad={{ horizontal: 'medium' }}
       width={{ min: '252px', max: '252px' }}
-      background={{ light: 'lightBlueGrey', dark: 'black28' }}
+      background={{ light: 'lightBlueGrey', dark: '#494956' }} //TODO: pick darkmode color palette
     >
-      <Heading level={6} title={title.toUpperCase()}></Heading>
+      <UIHeading level={3}>{title}</UIHeading>
+      <UISubheading level={3}>{`${todos.length} cards`}</UISubheading>
       {todos.map((todo: any, i: number) => (
         <Card key={i} title={todo.data.title} name={`card-${i}`} type="CARD" />
       ))}
-      <Box
-        margin={{ bottom: 'medium' }}
-        round="small"
-        pad={{ horizontal: 'small' }}
-        width={{ min: '220', max: '220px' }}
-        background={{ light: 'white', dark: 'black' }}
-        onClick={() => alert('add todo')}
-      >
-        <b>
-          <Paragraph>+ Todo</Paragraph>
-        </b>
-      </Box>
+      <AddCard />
     </Col>
   )
 }
