@@ -1,8 +1,7 @@
 import { Calendar } from 'grommet-icons'
 
 import { formatDate } from '../utils/time'
-import Paragraph from './Paragraph'
-import { Col, Row } from './View'
+import { Row } from './View'
 
 export type DateProps = {
   timestamp: number

@@ -1,10 +1,9 @@
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { NativeTypes } from 'react-dnd-html5-backend'
 
-import { Col, Row } from '../View'
+import { Row } from '../View'
 import Column from './Column'
-import { HeadingElement, ParagraphElement } from '../../core/renderer'
+import { HeadingElement } from '../../core/renderer'
 export type BoardProps = {
   url?: string
 }

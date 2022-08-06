@@ -1,9 +1,6 @@
-import type { NextPage, NextApiResponse } from 'next'
-import useSWR, { Key, Fetcher } from 'swr'
+import type { NextPage } from 'next'
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
-import { Box, Grommet, ThemeContext } from 'grommet'
 
 import generateComponent, { DocumentElement } from '../../core/renderer'
 
@@ -97,7 +94,7 @@ const json: Array<DocumentElement> = [
   //},
 ]
 
-const ListView = () => {
+const ListView: NextPage = () => {
   // TODO: Use theming context/provider for this or define own
   // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
   const [serif, setSerif] = useState(false)

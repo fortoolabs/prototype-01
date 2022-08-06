@@ -1,9 +1,7 @@
 import type { FC } from 'react'
 import { memo } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import { useDrag } from 'react-dnd'
 import { Box } from 'grommet'
-import { CARD } from './ItemTypes'
-import { Col } from '../View'
 import { ParagraphSmall } from '../Paragraph'
 
 export type CardProps = {
@@ -18,13 +16,8 @@ const limit = (string: string, limit: number) => {
   return string.substring(0, limit) + '...'
 }
 
-export const Card: FC<CardProps> = memo(function Card({
-  title,
-  name,
-  type,
-  isDropped,
-}) {
-  const [{ opacity }, drag] = useDrag(
+export const Card: FC<CardProps> = memo(function Card({ title, name, type }) {
+  const [, drag] = useDrag(
     () => ({
       type: 'CARD',
       item: { name: 'CARD' },
