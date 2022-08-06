@@ -136,11 +136,6 @@ const Home: NextPage = () => {
   return (
     <AppContainer>
       <Main>
-        <Head>
-          <title>
-            formation.tools -- Ideate, collaborate, smile and profit!
-          </title>
-        </Head>
         <MainContent>
           <p>
             This is some dynamic content from the api: 👉🏿{' '}

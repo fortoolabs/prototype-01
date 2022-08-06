@@ -2,40 +2,137 @@ import { unified } from 'unified'
 import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
-import {
-  OrgData,
-  OrgNode,
-  ObjectType,
-  Keyword,
-  Paragraph,
-  //Text,
-  //Link,
-} from 'uniorg'
+import { OrgData, ObjectType, GreaterElementType, ElementType } from 'uniorg'
 
-// Link , Bold , Italic , Code , Verbatim , StrikeThrough , Underline , Superscript , Subscript , Text , Timestamp , FootnoteReference , LatexFragment , Entity, TableCell;
+type FRecursiveObject = {
+  content: FObjectType[]
+}
+
+type FLink = FRecursiveObject & {
+  type: 'a'
+  target: string
+  linkType: string
+}
+
+type FBold = FRecursiveObject & {
+  type: 'b'
+}
+
+type FItalic = FRecursiveObject & {
+  type: 'i'
+}
+
+type FCode = {
+  type: 'c'
+  content: string
+}
+
+type FVerbatim = {
+  type: 'v'
+  content: string
+}
+
+type FStrikeThrough = FRecursiveObject & {
+  type: '+'
+}
+
+type FUnderline = FRecursiveObject & {
+  type: 'u'
+}
+type FSuperscript = FRecursiveObject & {
+  type: '^'
+}
+type FSubscript = FRecursiveObject & {
+  type: '_'
+}
+type FText = {
+  type: 't'
+  content: string
+}
+type FTimestamp = {
+  type: 'Z'
+  content: string
+}
+type FFootnoteReference = FRecursiveObject & {
+  type: 'f'
+  label: string
+}
+type FLatexFragment = {
+  type: 'X'
+  content: string
+}
+type FEntity = {
+  type: '?'
+  content: string
+  html: string
+}
+type FTableCell = FRecursiveObject & {
+  type: 'C'
+}
+
+type FObjectType =
+  | FLink
+  | FBold
+  | FItalic
+  | FCode
+  | FVerbatim
+  | FStrikeThrough
+  | FUnderline
+  | FSuperscript
+  | FSubscript
+  | FText
+  | FTimestamp
+  | FFootnoteReference
+  | FLatexFragment
+  | FEntity
+  | FTableCell
+
+type FHeading = FRecursiveObject & {
+  type: 'h'
+  level: number
+  todoKeyword: string | null
+  priority: string | null
+  commented: boolean
+  tags: string[]
+}
 
 type FParagraph = {
-  type: 'Paragraph'
-  content: string
+  type: 'p'
+  content: FObjectType[]
 }
 
-type FHeading = {
-  type: 'Heading'
-  content: string
-}
+type FElementType =
+  | FHeading
+  //  | FPlanning
+  //  | FNodeProperty
+  //  | FListItemTag
+  //  | FCommentBlock
+  //  | FSrcBlock
+  //  | FExampleBlock
+  //  | FExportBlock
+  //  | FKeyword
+  //  | FTableRow
+  //  | FComment
+  //  | FFixedWidth
+  //  | FClock
+  //  | FLatexEnvironment
+  //  | FHorizontalRule
+  //  | FDiarySexp
+  | FParagraph
 
-type FElement = FParagraph | FHeading
-
-type FDocument = {
+export type FDocument = {
   title?: string
   source?: string
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
-  content: Array<FElement>
+  content: Array<FElementType>
 }
 
-const uniorgFilter = (data: OrgNode): boolean => true
+const emptyDocument: FDocument = {
+  todoStates: [],
+  content: [],
+}
 
 function assertExhaustive(
   value: never,
@@ -44,93 +141,198 @@ function assertExhaustive(
   throw new Error(message)
 }
 
-function reduceKeyword(acc: FDocument, x: Keyword): FDocument {
-  switch (x.key) {
-    case 'TITLE':
-      return { ...acc, title: x.value }
-    case 'TODO':
-      return { ...acc, todoStates: x.value.split(' ').filter((x) => x != '|') }
-    default:
-      return acc
+export function extractLabel(el: FObjectType): string {
+  if ('content' in el) {
+    switch (typeof el.content) {
+      case 'string':
+        return el.content
+      default:
+        return el.content
+          .map(extractLabel)
+          .reduce((next, acc) => acc.concat(next), '')
+    }
+  } else {
+    assertExhaustive(el)
   }
 }
 
-// https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts#L56
-// Link -> RecursiveObject
-//function extractObjectType(x: ObjectType): string {
-//  switch (x.type) {
-//    case 'text':
-//      ;(x as Text).value
-//    case 'link':
-//      ;(x as Link).path
-//    default:
-//      ''
-//  }
-//}
-
-//function extractObjectType(x: ObjectType): string {
-//  switch (x.type) {
-//    case 'link':
-//      return 'LINK'
-//    default:
-//      return assertExhaustive(x)
-//  }
-//}
-//
-//function extractParagraph(x: Paragraph): FParagraph | undefined {
-//  switch (x.children.length) {
-//    case 0:
-//      return undefined
-//    case 1:
-//      return {
-//        type: 'Paragraph',
-//        content: 'TODO: Just a paragraph, figure this out', // x.children[0].value,
-//      }
-//    default:
-//      // TODO: Handle paragraphs consisting of more than 1 part
-//      console.log('Large paragraph', x)
-//      return undefined
-//  }
-//}
-
-function r(acc: FDocument, node: OrgNode, idx: number): FDocument {
-  // check for top-level
-  console.log('inside', node.type)
-  switch (node.type) {
-    case 'org-data':
-      return acc // do nothing
-    case 'keyword':
-      return reduceKeyword(acc, node)
-    case 'paragraph':
-      return acc
-    //return { ...acc, children: reduceParagraph(acc.content, node) }
-    //case 'section':
-    //    const x = (node as Section).children
-    //    return []
-    //default:
-    //    return assertexhaustive(node)
+function mapObjectType(x: ObjectType): FObjectType {
+  // TODO: Restructure to a list of non-string members
+  // A lot of information is lost in just reducing this to strings
+  switch (x.type) {
+    case 'link':
+      // https://orgmode.org/worg/dev/org-syntax.html#Links
+      return {
+        type: 'a',
+        target: x.rawLink,
+        linkType: x.linkType,
+        content: x.children.map(mapObjectType),
+      }
+    case 'bold':
+      return { type: 'b', content: x.children.map(mapObjectType) }
+    case 'italic':
+      return { type: 'i', content: x.children.map(mapObjectType) }
+    case 'strike-through':
+      return { type: '+', content: x.children.map(mapObjectType) }
+    case 'underline':
+      return { type: 'u', content: x.children.map(mapObjectType) }
+    case 'superscript':
+      return { type: '^', content: x.children.map(mapObjectType) }
+    case 'subscript':
+      return { type: '_', content: x.children.map(mapObjectType) }
+    case 'code':
+      return { type: 'c', content: x.value }
+    case 'verbatim':
+      return { type: 'v', content: x.value }
+    case 'text':
+      return { type: 't', content: x.value }
+    case 'timestamp':
+      return { type: 'Z', content: x.rawValue }
+    case 'footnote-reference':
+      return {
+        type: 'f',
+        label: x.label,
+        content: x.children.map(mapObjectType),
+      }
+    case 'latex-fragment':
+      return { type: 'X', content: x.value }
+    case 'entity':
+      return { type: '?', content: x.name, html: x.html }
+    case 'table-cell':
+      return { type: 'C', content: x.children.map(mapObjectType) }
+    default:
+      return assertExhaustive(x)
   }
-  //if (data.type !== "org-data") {
-  //    return {
-  //        error: `${data.type} invalid type`,
-  //        data: OrgFile
-  //    }
+}
 
-  //  return data.children.reduce((acc, cur) => {}, {})
-  return acc
+function unpackElementType(
+  x: GreaterElementType | ElementType,
+): FElementType[] {
+  switch (x.type) {
+    // GreaterElementType
+    case 'org-data':
+      return []
+    case 'section':
+      return x.children.flatMap(unpackElementType)
+    case 'property-drawer':
+    case 'drawer':
+    case 'plain-list':
+    case 'list-item':
+    case 'quote-block':
+    case 'verse-block':
+    case 'center-block':
+    case 'special-block':
+    case 'footnote-definition':
+    case 'table':
+      return []
+    // ElementType
+    case 'headline':
+      return [
+        {
+          type: 'h',
+          level: x.level,
+          todoKeyword: x.todoKeyword,
+          commented: x.commented,
+          priority: x.priority,
+          tags: x.tags,
+          content: x.children.map(mapObjectType),
+        },
+      ]
+    case 'planning':
+    case 'node-property':
+    case 'list-item-tag':
+    case 'comment-block':
+    case 'src-block':
+    case 'example-block':
+    case 'export-block':
+    case 'keyword':
+    case 'table-row':
+    case 'comment':
+    case 'fixed-width':
+    case 'clock':
+    case 'latex-environment':
+    case 'horizontal-rule':
+    case 'diary-sexp':
+      return []
+    case 'paragraph':
+      return [{ type: 'p', content: x.children.map(mapObjectType) }]
+    default:
+      return assertExhaustive(x)
+  }
+}
+
+// Convert document to internal representation
+function convert(
+  acc: FDocument,
+  node: GreaterElementType | ElementType,
+  idx: number,
+): FDocument {
+  switch (node.type) {
+    // GreaterElementType
+    case 'org-data':
+      return node.children.reduce(convert, acc)
+    case 'section':
+      return {
+        ...acc,
+        content: [...acc.content, ...node.children.flatMap(unpackElementType)],
+      }
+    case 'property-drawer':
+    case 'drawer':
+    case 'plain-list':
+    case 'list-item':
+    case 'quote-block':
+    case 'verse-block':
+    case 'center-block':
+    case 'special-block':
+    case 'footnote-definition':
+    case 'table':
+      return acc // noop
+    // ElementType
+    case 'headline':
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(node)],
+      }
+    case 'planning':
+    case 'node-property':
+    case 'list-item-tag':
+    case 'comment-block':
+    case 'src-block':
+    case 'example-block':
+    case 'export-block':
+      return acc // noop
+    case 'keyword':
+      switch (node.key) {
+        case 'TITLE':
+          return { ...acc, title: node.value }
+        case 'TODO':
+          // FIXME: Accomodate for multiple swimlanes as per https://orgmode.org/manual/Per_002dfile-keywords.html
+          return {
+            ...acc,
+            todoStates: node.value.split(' ').filter((x) => x != '|'),
+          }
+        default:
+          return acc
+      }
+    case 'table-row':
+    case 'comment':
+    case 'fixed-width':
+    case 'clock':
+    case 'latex-environment':
+    case 'horizontal-rule':
+    case 'diary-sexp':
+      return acc // noop
+    case 'paragraph':
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(node)],
+      }
+    default:
+      return assertExhaustive(node)
+  }
 }
 
 export default function parse(text: string): FDocument {
-  const ast = unified().use(parser).parse(text)
-  const empty = {
-    todoStates: [],
-    content: [],
-  }
-  console.log(ast.type)
-  switch (ast.type) {
-    case 'org-data':
-      // acc, cur, idx, xs
-      return (ast as OrgData).children.reduce(r, empty)
-  }
-  return empty
+  const ast = unified().use(parser).parse(text) as OrgData
+  return convert(emptyDocument, ast, 0)
 }

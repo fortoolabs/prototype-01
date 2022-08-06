@@ -7,8 +7,7 @@ import { Box, Grommet, ThemeContext } from 'grommet'
 
 import generateComponent, { DocumentElement } from '../../core/renderer'
 
-import { AppContainer, Main, MainContent } from '../View'
-
+import { AppContainer, Main, MainContent, Row } from '../View'
 // TODO: Generalize with board data struct
 // TODO: Move out of presentation source
 const json: Array<DocumentElement> = [
@@ -101,15 +100,17 @@ const json: Array<DocumentElement> = [
 const ListView = () => {
   // TODO: Use theming context/provider for this or define own
   // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
-  const [serif, setSerif] = useState(true)
+  const [serif, setSerif] = useState(false)
 
   return (
     <AppContainer>
-      <div>
-        <span onClick={() => setSerif(true)}>serif</span>
+      <Row gap="small" pad="small" justify="start">
         <span onClick={() => setSerif(false)}>sans-serif</span>
-      </div>
-      <Main style={{ fontFamily: serif ? 'inherit' : 'Times' }}>
+        <span style={{ fontFamily: 'Times' }} onClick={() => setSerif(true)}>
+          serif
+        </span>
+      </Row>
+      <Main style={{ fontFamily: serif ? 'Times' : 'inherit' }}>
         <Head>
           <title>
             formation.tools -- Ideate, collaborate, smile and profit!
