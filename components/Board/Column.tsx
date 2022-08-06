@@ -1,7 +1,4 @@
-import { Box } from 'grommet'
 import { Col } from '../View'
-import Heading from '../Heading'
-import { ParagraphSmall } from '../Paragraph'
 import Card, { AddCard } from './Card'
 import { UIHeading, UISubheading } from '../generic/UIHeading'
 

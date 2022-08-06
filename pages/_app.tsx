@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app'
 import { Grommet } from 'grommet'
 import { useState } from 'react'
-import styled from 'styled-components'
 
 import { Col, Row } from '../components/View'
 import { theme } from '../styles/formation-theme'

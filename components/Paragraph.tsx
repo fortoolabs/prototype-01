@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Grommet, Paragraph as GrommetParagraph } from 'grommet'
+import { Paragraph as GrommetParagraph } from 'grommet'
 
 export type ParagraphProps = {
   children: string

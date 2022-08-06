@@ -1,15 +1,13 @@
-import { useRouter } from 'next/router'
-import { NextPage, GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { useState } from 'react'
 import useSWR from 'swr'
 import base64url from 'base64url'
 
 import parse, { FDocument } from '../../core/parser'
 
-import Heading from '../../components/Heading'
 import Board from '../../components/Board'
 import List from '../../components/List'
-import { AppContainer, Main, MainContent, Row } from '../../components/View'
+import { Row } from '../../components/View'
 
 type ReaderProps = {
   url?: string
@@ -46,8 +44,15 @@ const Reader: NextPage<ReaderProps> = (props) => {
     props.url || '',
     props,
   )
-  console.log('props')
-  console.log(props)
+
+  if (doc === undefined) {
+    // TODO: Figure out what to do. Redirect?
+  }
+
+  if (error) {
+    // TODO: Figure out what to do.
+  }
+
   const [boardView, setBoardView] = useState(false)
 
   return (
@@ -97,7 +102,7 @@ export const getServerSideProps: GetServerSideProps = async (
       doc: ast,
       isFailing: false,
     }))
-    .catch((err) => ({
+    .catch(() => ({
       url,
       doc: parse(''),
       isFailing: true,

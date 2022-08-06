@@ -1,4 +1,4 @@
-import { Grommet, Heading as HeadingGrommet } from 'grommet'
+import { Heading as HeadingGrommet } from 'grommet'
 
 export type HeadingProps = {
   level: '1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6 | undefined
