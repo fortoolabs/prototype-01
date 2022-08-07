@@ -1,31 +1,30 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { useState } from 'react'
 import useSWR from 'swr'
-import base64url from 'base64url'
-
-import parse, { FDocument } from '../../core/parser'
 
 import Board from '../../components/Board'
 import List from '../../components/List'
 import { Row } from '../../components/View'
 
+import { FDocument } from '../../core/parser'
+
+import { getDoc } from '../api/doc/index'
+
 type ReaderProps = {
   url?: string
   doc?: FDocument
   isFailing: boolean
+  reason?: string
 }
 
-const fetcher = (url: string) =>
-  fetch(url)
-    .then((r) => r.text())
-    .then((t) => parse(t))
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 const useDoc = (
   url: string,
-  { doc }: ReaderProps,
+  init: ReaderProps,
 ): [ReaderProps, boolean, Error | undefined] => {
   const { data, error, isValidating } = useSWR(url, fetcher, {
-    fallbackData: doc,
+    fallbackData: init,
   })
 
   return [
@@ -77,39 +76,18 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
 // This gets called on every request
 // https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props
-export const getServerSideProps: GetServerSideProps = async (
-  context,
-): Promise<{
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+}): Promise<{
   props: ReaderProps
 }> => {
-  if (context.query.url === undefined) {
-    // TODO: redirect back to URL input
-    return {
-      props: {
-        isFailing: true,
-      },
-    }
+  const [status, payload] = await getDoc(query.url)
+  return {
+    props: {
+      ...payload,
+      isFailing: status !== 200,
+    },
   }
-
-  const id = (id: string | string[]) => id
-  const concat = (acc: string, x: string) => acc.concat(x)
-  const x = [context.query.url].flatMap(id).reduce(concat, '')
-  const url = base64url.decode(x)
-
-  const props: ReaderProps = await fetcher(url)
-    .then((ast) => ({
-      url,
-      doc: ast,
-      isFailing: false,
-    }))
-    .catch(() => ({
-      url,
-      doc: parse(''),
-      isFailing: true,
-    }))
-
-  // Pass data to the page via props
-  return { props }
 }
 
 export default Reader
