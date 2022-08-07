@@ -10,8 +10,10 @@ import { FDocument } from '../../core/parser'
 
 import { getDoc } from '../api/doc/index'
 
+// TODO: DRY this up by unifying with DocResponse
 type ReaderProps = {
   url?: string
+  handle?: string
   doc?: FDocument
   isFailing: boolean
   reason?: string
@@ -40,7 +42,7 @@ const useDoc = (
 
 const Reader: NextPage<ReaderProps> = (props) => {
   const [{ url, doc, isFailing }, isLoading, error] = useDoc(
-    props.url || '',
+    `/api/doc/${props.handle}`,
     props,
   )
 
@@ -65,9 +67,6 @@ const Reader: NextPage<ReaderProps> = (props) => {
         </pre>
         <span onClick={() => setBoardView(false)}>list</span>
         <span onClick={() => setBoardView(true)}>board</span>
-      </Row>
-      <Row align="center" gap="medium" justify="end" pad="medium">
-        <pre>{JSON.stringify(props)}</pre>
       </Row>
       {boardView ? <Board /> : <List />}
     </>

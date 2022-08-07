@@ -10,6 +10,7 @@ export type DocResponse = [
   number,
   {
     url?: string
+    handle?: string
     doc?: FDocument
     reason?: string
   },
@@ -43,30 +44,39 @@ export const getDoc = async (
     return [400, payload]
   }
 
-  const x = [target].flatMap(id).reduce(concat, '')
+  const handle = [target].flatMap(id).reduce(concat, '')
 
   // TODO: Drop this check as we conduct a validURL check later on
-  if (x.trim() === '') {
+  if (handle.trim() === '') {
     const payload = {
       reason: 'The target must be a non-empty string!',
     }
     return [400, payload]
   }
 
-  const url = base64url.decode(x)
+  const url = base64url.decode(handle)
 
   if (!validURL(url)) {
     const payload = {
+      handle,
       reason: 'The target must be a Base64-encoded valid URL',
     }
     return [400, payload]
   }
 
-  const handleSuccess = (doc: FDocument): DocResponse => [200, { url, doc }]
+  const handleSuccess = (doc: FDocument): DocResponse => [
+    200,
+    { url, handle, doc },
+  ]
 
   const handleError = (err: any): DocResponse => {
     console.error(err)
-    return [500, { url }]
+    const payload = {
+      url,
+      handle,
+      reason: 'We have no clue either but we are figuring this out though.',
+    }
+    return [500, payload]
   }
 
   return await fetcher(url).then(handleSuccess).catch(handleError)
