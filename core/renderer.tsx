@@ -54,6 +54,11 @@ function assertExhaustive(
   throw new Error(message)
 }
 
+// TODO: Make this the default export
+export function render(doc: FDocument): JSX.Element {
+  return <span>nope</span>
+}
+
 export default function generateComponent(el: DocumentElement, idx: number) {
   // WARN: Using index as key, which is okay for static listings
   // https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318
@@ -70,13 +75,17 @@ export default function generateComponent(el: DocumentElement, idx: number) {
       )
     case 'Paragraph':
       return <Paragraph key={i}>{el.data.children}</Paragraph>
-    case 'Date':
-      return <Date key={i} timestamp={el.data.timestamp} />
+    // FIXME: Fix error
+    // Error: Parse failure: Unexpected token (4:30)
+    // Contents of line 4: export const Row = (props) => <Box direction="row" {...props} />
+    //case 'Date':
+    //  return <Date key={i} timestamp={el.data.timestamp} />
     case 'FallbackInline':
       return <FallbackInline key={i} content={el.data.content} />
     case 'FallbackBlock':
       return <FallbackBlock key={i}>{el.data.children}</FallbackBlock>
     default:
-      return assertExhaustive(el)
+      return <p>blah</p>
+    //return assertExhaustive(el)
   }
 }
