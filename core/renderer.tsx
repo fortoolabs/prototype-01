@@ -1,3 +1,5 @@
+import { FDocument, FHeading } from './types'
+
 import Code, { CodeProps } from '../components/Code'
 import Heading, { HeadingProps } from '../components/Heading'
 import Paragraph, { ParagraphProps } from '../components/Paragraph'
