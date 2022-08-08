@@ -64,7 +64,7 @@ type FTableCell = FRecursiveObject & {
   type: 'C'
 }
 
-type FObjectType =
+export type FObjectType =
   | FLink
   | FBold
   | FItalic
@@ -81,7 +81,7 @@ type FObjectType =
   | FEntity
   | FTableCell
 
-type FHeading = FRecursiveObject & {
+export type FHeading = FRecursiveObject & {
   type: 'h'
   level: number
   todoKeyword: string | null
@@ -95,7 +95,7 @@ type FParagraph = {
   content: FObjectType[]
 }
 
-type FElementType =
+export type FElementType =
   | FHeading
   //  | FPlanning
   //  | FNodeProperty
@@ -121,4 +121,9 @@ export type FDocument = {
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
   content: Array<FElementType>
+}
+
+export const emptyDocument = {
+  content: [],
+  todoStates: [],
 }
