@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Paragraph as GrommetParagraph } from 'grommet'
 
 export type ParagraphProps = {
-  children: string
+  children: string | JSX.Element[]
 }
 
 export default function Paragraph({ children }: ParagraphProps) {
