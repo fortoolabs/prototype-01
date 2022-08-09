@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { FDocument, FHeading, FElementType, FObjectType } from './types'
+import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 
 import Code, { CodeProps } from '../components/Code'
 import Heading, { HeadingProps } from '../components/Heading'
