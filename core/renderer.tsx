@@ -134,6 +134,7 @@ export function renderObject(el: FObjectType, i: number): JSX.Element[] {
   }
 }
 
+// TODO: Deprecate
 export default function generateComponent(el: DocumentElement, idx: number) {
   // WARN: Using index as key, which is okay for static listings
   // https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318
@@ -160,7 +161,8 @@ export default function generateComponent(el: DocumentElement, idx: number) {
     case 'FallbackBlock':
       return <FallbackBlock key={i}>{el.data.children}</FallbackBlock>
     default:
-      return <p>blah</p>
-    //return assertExhaustive(el)
+      // TODO: Reinstate assertExhaustive(el) and remove empty JSX.Element return
+      //return assertExhaustive(el)
+      return <Fragment></Fragment>
   }
 }
