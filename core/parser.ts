@@ -4,7 +4,7 @@ import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
 import { OrgData, ObjectType, GreaterElementType, ElementType } from 'uniorg'
 
-import { FDocument, FObjectType, FElementType, emptyDocument } from './types'
+import { FDocument, FObjectType, FElementType, emptyDocument } from 'core/types'
 
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }

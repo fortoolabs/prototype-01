@@ -1,14 +1,12 @@
 import { Fragment } from 'react'
 import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 
-import Code, { CodeProps } from '../components/Code'
-import Heading, { HeadingProps } from '../components/Heading'
-import Paragraph, { ParagraphProps } from '../components/Paragraph'
-import FallbackInline, {
-  FallbackInlineProps,
-} from '../components/FallbackInline'
-import FallbackBlock, { FallbackBlockProps } from '../components/FallbackBlock'
-import Date, { DateProps } from '../components/Date'
+import Code, { CodeProps } from 'components/Code'
+import Heading, { HeadingProps } from 'components/Heading'
+import Paragraph, { ParagraphProps } from 'components/Paragraph'
+import FallbackInline, { FallbackInlineProps } from 'components/FallbackInline'
+import FallbackBlock, { FallbackBlockProps } from 'components/FallbackBlock'
+import Date, { DateProps } from 'components/Date'
 
 export type HeadingElement = {
   name: 'Heading'
