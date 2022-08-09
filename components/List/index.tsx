@@ -1,10 +1,11 @@
 import type { NextPage } from 'next'
-import React, { useState } from 'react'
 import Head from 'next/head'
+import React, { useState } from 'react'
 
-import generateComponent, { DocumentElement } from '../../core/renderer'
+import { AppContainer, Main, MainContent, Row } from 'components/View'
 
-import { AppContainer, Main, MainContent, Row } from '../View'
+import generateComponent, { DocumentElement } from 'core/renderer'
+
 // TODO: Generalize with board data struct
 // TODO: Move out of presentation source
 const json: Array<DocumentElement> = [

@@ -1,6 +1,7 @@
 import { CheckBox as GrommetCheckBox } from 'grommet'
-import Paragraph from './Paragraph'
-import { Row } from './View'
+
+import Paragraph from 'components/Paragraph'
+import { Row } from 'components/View'
 
 export type CheckBoxProps = {
   checked?: boolean
