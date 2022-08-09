@@ -120,6 +120,9 @@ export type FDocument = {
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
+
+  // TODO: Compare Array vs Map
+  // TODO: Design Map w/ a key-naming scheme for fast start/end/range lookup
   content: Array<FElementType>
 }
 
