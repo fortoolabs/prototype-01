@@ -1,3 +1,10 @@
 {
-  "extends": ["eslint:recommended", "next/core-web-vitals", "prettier"]
+  "extends": ["eslint:recommended", "next/core-web-vitals", "prettier"],
+
+  // https://nextjs.org/docs/basic-features/eslint#disabling-rules
+  "rules": {
+    // https://stackoverflow.com/a/64197516/685195
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/linting/TROUBLESHOOTING.md#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
+    "no-undef": "off"
+  }
 }

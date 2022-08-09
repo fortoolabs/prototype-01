@@ -1,12 +1,8 @@
 import { beforeAll, expect, describe, it } from 'vitest'
 
+import { emptyDocument } from '../core/types'
 import parse from '../core/parser'
 import { readFileSync } from 'fs'
-
-const emptyDocument = {
-  content: [],
-  todoStates: [],
-}
 
 function readFixture(file: string): FDocument {
   return parse(
