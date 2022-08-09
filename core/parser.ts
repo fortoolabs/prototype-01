@@ -142,6 +142,7 @@ function convert(
   node: GreaterElementType | ElementType,
   idx: number,
 ): FDocument {
+  // TODO: Implement fallback for all NOOPs
   switch (node.type) {
     // GreaterElementType
     case 'org-data':
