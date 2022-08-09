@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import useSWR, { Fetcher } from 'swr'
 
-import { AppContainer, Main, MainContent } from '../components/View'
+import { AppContainer, Main, MainContent } from 'components/View'
 
 // Dummy API call
-import type { HelloData } from './api/hello'
+import type { HelloData } from 'pages/api/hello'
 
 const fetcher: Fetcher<HelloData, string> = (url) =>
   fetch(url).then((r) => r.json())

@@ -1,11 +1,13 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { TextInput } from 'grommet'
+
 import base64url from 'base64url'
-import { Button } from 'grommet'
-import Heading from '../../components/Heading'
-import { AppContainer, Main, MainContent } from '../../components/View'
+
+import { Button, TextInput } from 'grommet'
+
+import Heading from 'components/Heading'
+import { AppContainer, Main, MainContent } from 'components/View'
 
 const Home: NextPage = () => {
   const [value, setValue] = React.useState('')

@@ -2,8 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import base64url from 'base64url'
 
-// TODO: Support absolute imports through baseUrl
-import parse, { FDocument } from '../../../core/parser'
+import parse, { FDocument } from 'core/parser'
 
 // TODO: Move into API d.ts (to be created)
 export type DocResponse = [

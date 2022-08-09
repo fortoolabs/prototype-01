@@ -2,9 +2,9 @@ import type { AppProps } from 'next/app'
 import { Grommet } from 'grommet'
 import { useState } from 'react'
 
-import { Col, Row } from '../components/View'
-import { theme } from '../styles/formation-theme'
-import GlobalStyle from '../styles/global'
+import { Col, Row } from 'components/View'
+import { theme } from 'styles/formation-theme'
+import GlobalStyle from 'styles/global'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [darkMode, setDarkMode] = useState(false)
