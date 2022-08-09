@@ -147,6 +147,7 @@ function convert(
     case 'org-data':
       return node.children.reduce(convert, acc)
     case 'section':
+      // TODO: Evaluate wrapping in section element
       return {
         ...acc,
         content: [...acc.content, ...node.children.flatMap(unpackElementType)],
