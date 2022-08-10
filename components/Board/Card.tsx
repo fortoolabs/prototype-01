@@ -1,8 +1,9 @@
-import type { FC } from 'react'
-import { memo } from 'react'
+import { memo, FC } from 'react'
 import { useDrag } from 'react-dnd'
+
 import { Box } from 'grommet'
-import { ParagraphSmall } from '../Paragraph'
+
+import { ParagraphSmall } from 'components/Paragraph'
 
 export type CardProps = {
   title: string

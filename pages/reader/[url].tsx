@@ -2,13 +2,13 @@ import { NextPage, GetServerSideProps } from 'next'
 import { useState } from 'react'
 import useSWR from 'swr'
 
-import Board from '../../components/Board'
-import List from '../../components/List'
-import { Row } from '../../components/View'
+import Board from 'components/Board'
+import List from 'components/List'
+import { Row } from 'components/View'
 
-import { FDocument } from '../../core/parser'
+import { FDocument } from 'core/parser'
 
-import { getDoc } from '../api/doc/index'
+import { getDoc } from 'pages/api/doc/index'
 
 // TODO: DRY this up by unifying with DocResponse
 type ReaderProps = {

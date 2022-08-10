@@ -1,6 +1,7 @@
-import { Col } from '../View'
 import Card, { AddCard } from './Card'
-import { UIHeading, UISubheading } from '../generic/UIHeading'
+
+import { Col } from 'components/View'
+import { UIHeading, UISubheading } from 'components/generic/UIHeading'
 
 export type BoardColumnProps = {
   title: string

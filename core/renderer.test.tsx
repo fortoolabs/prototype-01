@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest'
 
 import { render as r } from '@testing-library/react'
 
-import { render, renderElement } from '../core/renderer'
+import { render, renderElement } from 'core/renderer'
 
-import { emptyDocument } from '../core/types'
+import { emptyDocument } from 'core/types'
 
 const f = (a) => {
   const { asFragment, getByText } = r(a)
