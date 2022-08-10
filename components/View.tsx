@@ -1,10 +1,14 @@
 import React from 'react'
-import { Box } from 'grommet'
+import { Box, BoxExtendedProps } from 'grommet'
 
-export const Row = (props) => <Box direction="row" {...props} />
-export const Col = (props) => <Box direction="column" {...props} />
+export const Row = (props: BoxExtendedProps) => (
+  <Box direction="row" {...props} />
+)
+export const Col = (props: BoxExtendedProps) => (
+  <Box direction="column" {...props} />
+)
 
-export const AppContainer = (props) => {
+export const AppContainer = (props: BoxExtendedProps) => {
   return (
     <Col
       width={{ max: '780px' }}
@@ -18,7 +22,7 @@ export const AppContainer = (props) => {
   )
 }
 
-export const Main = (props) => {
+export const Main = (props: BoxExtendedProps) => {
   return (
     <Col
       as="main"
@@ -31,6 +35,6 @@ export const Main = (props) => {
   )
 }
 
-export const MainContent = (props) => {
+export const MainContent = (props: BoxExtendedProps) => {
   return <Col justify="start" align="start" pad="medium" {...props} />
 }
