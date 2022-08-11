@@ -6,7 +6,7 @@ import Board from 'components/Board'
 import List from 'components/List'
 import { Row } from 'components/View'
 
-import { FDocument } from 'core/parser'
+import { FDocument } from 'core/types'
 
 import { getDoc } from 'pages/api/doc/index'
 
@@ -46,12 +46,15 @@ const Reader: NextPage<ReaderProps> = (props) => {
     props,
   )
 
-  if (doc === undefined) {
-    // TODO: Figure out what to do. Redirect?
-  }
-
   if (error) {
     // TODO: Figure out what to do.
+    console.error(error)
+    return <span>Failed to load</span>
+  }
+
+  if (doc === undefined) {
+    // TODO: Implement empty loading views
+    return <span>Loading</span>
   }
 
   const [boardView, setBoardView] = useState(false)
@@ -61,14 +64,13 @@ const Reader: NextPage<ReaderProps> = (props) => {
       <Row align="center" gap="medium" justify="end" pad="medium">
         <pre>
           🤔
-          {url}
           {isLoading ? '⏳' : ''}
           {isFailing ? '💥' : ''}
         </pre>
         <span onClick={() => setBoardView(false)}>list</span>
         <span onClick={() => setBoardView(true)}>board</span>
       </Row>
-      {boardView ? <Board /> : <List />}
+      {boardView ? <Board doc={doc} /> : <List />}
     </>
   )
 }
