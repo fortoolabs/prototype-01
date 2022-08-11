@@ -41,7 +41,8 @@ const useDoc = (
 }
 
 const Reader: NextPage<ReaderProps> = (props) => {
-  const [{ url, doc, isFailing }, isLoading, error] = useDoc(
+  const [boardView, setBoardView] = useState(false)
+  const [{ doc, isFailing }, isLoading, error] = useDoc(
     `/api/doc/${props.handle}`,
     props,
   )
@@ -56,8 +57,6 @@ const Reader: NextPage<ReaderProps> = (props) => {
     // TODO: Implement empty loading views
     return <span>Loading</span>
   }
-
-  const [boardView, setBoardView] = useState(false)
 
   return (
     <>
