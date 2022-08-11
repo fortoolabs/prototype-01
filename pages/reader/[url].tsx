@@ -3,7 +3,7 @@ import { useState } from 'react'
 import useSWR from 'swr'
 
 import Board from 'components/Board'
-import List from 'components/List'
+import List from 'components/Linear'
 import { Row } from 'components/View'
 
 import { FDocument } from 'core/types'
