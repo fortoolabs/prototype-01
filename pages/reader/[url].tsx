@@ -1,10 +1,11 @@
 import { NextPage, GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { useState } from 'react'
 import useSWR from 'swr'
 
 import Board from 'components/Board'
-import List from 'components/Linear'
-import { Row } from 'components/View'
+import Linear from 'components/Linear'
+import { AppContainer, Row } from 'components/View'
 
 import { FDocument } from 'core/types'
 
@@ -42,6 +43,8 @@ const useDoc = (
 
 const Reader: NextPage<ReaderProps> = (props) => {
   const [boardView, setBoardView] = useState(false)
+  const [serif, setSerif] = useState(false)
+
   const [{ doc, isFailing }, isLoading, error] = useDoc(
     `/api/doc/${props.handle}`,
     props,
@@ -58,19 +61,26 @@ const Reader: NextPage<ReaderProps> = (props) => {
     return <span>Loading</span>
   }
 
+  const { title } = doc
+
   return (
-    <>
+    <AppContainer>
       <Row align="center" gap="medium" justify="end" pad="medium">
         <pre>
           🤔
           {isLoading ? '⏳' : ''}
           {isFailing ? '💥' : ''}
         </pre>
-        <span onClick={() => setBoardView(false)}>list</span>
-        <span onClick={() => setBoardView(true)}>board</span>
+        <button onClick={() => setBoardView(!boardView)}>toggle view</button>
+        <button onClick={() => setSerif(!serif)}>toggle font</button>
       </Row>
-      {boardView ? <Board doc={doc} /> : <List />}
-    </>
+      {title && (
+        <Head>
+          <title>{title}</title>
+        </Head>
+      )}
+      {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+    </AppContainer>
   )
 }
 
