@@ -39,6 +39,7 @@ export default {
   argTypes: {
     doc: {
       control: 'text',
+      description: 'Raw Org text',
     },
     serif: {
       control: 'boolean',
@@ -55,21 +56,21 @@ const OrgLinear = ({ doc, ...args }: { doc: string }) => (
 )
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof OrgLinear> = (args) => (
+const WrappedTemplate: ComponentStory<typeof OrgLinear> = (args) => (
   <OrgLinear {...args} />
 )
 
-export const PlayableLinear = Template.bind({})
+const Template: ComponentStory<typeof Linear> = (args) => <Linear {...args} />
+
+export const PlayableLinear = WrappedTemplate.bind({})
 PlayableLinear.args = {
   doc: text,
 }
 
+export const UndefinedLinear = Template.bind({})
+
 export const EmptyLinear = Template.bind({})
-EmptyLinear.args = {
-  doc: '',
-}
+EmptyLinear.args = { doc: parse('') }
 
 export const OneLineLinear = Template.bind({})
-OneLineLinear.args = {
-  doc: 'Just a single line',
-}
+OneLineLinear.args = { doc: parse('Just a single line') }
