@@ -47,13 +47,11 @@ const Reader: NextPage<ReaderProps> = (props) => {
   const [boardView, setBoardView] = useState(false)
   const [serif, setSerif] = useState(false)
 
-  console.log('Passing props', props)
-
   const [{ doc, isFailing }, isLoading, error] = useDoc(props.handle, props.doc)
 
   if (error) {
     // TODO: Figure out what to do.
-    console.error(error)
+    console.error('Error in Reader', error)
     return <span>Failed to load</span>
   }
 
@@ -63,7 +61,6 @@ const Reader: NextPage<ReaderProps> = (props) => {
   }
 
   const { title } = doc
-  console.log('Passing doc', doc)
 
   return (
     <AppContainer>
@@ -94,7 +91,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   props: ReaderProps
 }> => {
   if (query.url === undefined) {
-    console.error('Undefined query.url')
     throw new Error('Undefined query.url')
   }
 
@@ -102,7 +98,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { handle } = payload
 
   if (handle === undefined) {
-    console.error('Undefined handle')
     throw new Error('Handle-less document')
   }
 
