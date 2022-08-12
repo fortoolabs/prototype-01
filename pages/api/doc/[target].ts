@@ -10,6 +10,7 @@ const handler = async (
   const {
     query: { target },
   } = req
+
   getDocWithHandler(req, res, target)
 }
 

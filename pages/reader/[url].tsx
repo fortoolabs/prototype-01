@@ -9,12 +9,12 @@ import { AppContainer, Row } from 'components/View'
 
 import { FDocument } from 'core/types'
 
-import { getDoc } from 'pages/api/doc/index'
+import { getDoc, DocResponse } from 'pages/api/doc/index'
 
 // TODO: DRY this up by unifying with DocResponse
 type ReaderProps = {
   url?: string
-  handle?: string
+  handle: string
   doc?: FDocument
   isFailing: boolean
   reason?: string
@@ -23,17 +23,19 @@ type ReaderProps = {
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 const useDoc = (
-  url: string,
-  init: ReaderProps,
+  handle: string,
+  init?: FDocument,
 ): [ReaderProps, boolean, Error | undefined] => {
-  const { data, error, isValidating } = useSWR(url, fetcher, {
-    fallbackData: init,
+  const url = `/api/doc/${handle}`
+  const { data, error, isValidating } = useSWR<DocResponse>(url, fetcher, {
+    fallbackData: { doc: init },
   })
 
   return [
     {
       url,
-      doc: data,
+      handle,
+      doc: data && data.doc,
       isFailing: error ? true : false,
     },
     isValidating,
@@ -45,10 +47,9 @@ const Reader: NextPage<ReaderProps> = (props) => {
   const [boardView, setBoardView] = useState(false)
   const [serif, setSerif] = useState(false)
 
-  const [{ doc, isFailing }, isLoading, error] = useDoc(
-    `/api/doc/${props.handle}`,
-    props,
-  )
+  console.log('Passing props', props)
+
+  const [{ doc, isFailing }, isLoading, error] = useDoc(props.handle, props.doc)
 
   if (error) {
     // TODO: Figure out what to do.
@@ -62,6 +63,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
   }
 
   const { title } = doc
+  console.log('Passing doc', doc)
 
   return (
     <AppContainer>
@@ -74,7 +76,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
         <button onClick={() => setBoardView(!boardView)}>toggle view</button>
         <button onClick={() => setSerif(!serif)}>toggle font</button>
       </Row>
-      {title && (
+      {title !== undefined && (
         <Head>
           <title>{title}</title>
         </Head>
@@ -91,10 +93,23 @@ export const getServerSideProps: GetServerSideProps = async ({
 }): Promise<{
   props: ReaderProps
 }> => {
+  if (query.url === undefined) {
+    console.error('Undefined query.url')
+    throw new Error('Undefined query.url')
+  }
+
   const [status, payload] = await getDoc(query.url)
+  const { handle } = payload
+
+  if (handle === undefined) {
+    console.error('Undefined handle')
+    throw new Error('Handle-less document')
+  }
+
   return {
     props: {
       ...payload,
+      handle,
       isFailing: status !== 200,
     },
   }
