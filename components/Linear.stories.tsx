@@ -1,28 +1,75 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import { emptyDocument } from 'core/types'
+import parse from 'core/parser'
 
 import Linear from 'components/Linear'
+
+const text = `This is just a *sample* text for testing in a Storybook.
+
+* Linear View
+
+The /linear view/ allows one to study a documentation as linear prose. This is probably the more common way to observe a document.
+
+** TODO Inventorize missing capabilities/features
+
+At this point, some untested and definitely missing features are:
+- lists
+- radio links
+- dates
+- footnotes
+- tags
+
+** TODO Determine on sensible name for this
+
+I've struggled with Linear as the name for the view a bit as it was previously called List and I needed to already rename in anticipation of real list that would need that name. Linear is not quite a proper noun for this view when looking at how clear of a name Board is but hey... naming is hard. 🤷🏿‍♂️😅
+
+* Background
+
+The Storybook setup introduced =OrgLinear= which is merely a wrapper around the original =Linear= component which parses Org text and thus allows us to plug in Org raw text into the component directly and thus allowing for a better UX/DX as we can just play with Org text in the control and watch the magic happen. 🪄
+
+This wrapping pattern is demonstrated in the [[https://storybook.js.org/docs/react/essentials/controls#fully-custom-args][Storybook docs on fully custom args]] and hopefully isn't much of an anti-pattern. 😅
+`
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Containers/Linear',
   component: Linear,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  // argTypes: {
-  //   level: { control: 'color' }
-  // },
+  argTypes: {
+    doc: {
+      control: 'text',
+    },
+    serif: {
+      control: 'boolean',
+    },
+  },
 } as ComponentMeta<typeof Linear>
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Linear> = (args) => <Linear {...args} />
+// Wrapper component that parses the doc prop before passing it to Linear which
+// allows us to fiddle with a convenient text control where we enter raw Org
+// text for fast feedback.
+// https://storybook.js.org/docs/react/essentials/controls#fully-custom-args
+const OrgLinear = ({ doc, ...args }: { doc: string }) => (
+  <Linear doc={parse(doc)} {...args} />
+)
 
-export const UndefinedLinear = Template.bind({})
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-UndefinedLinear.args = {}
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+const Template: ComponentStory<typeof OrgLinear> = (args) => (
+  <OrgLinear {...args} />
+)
+
+export const PlayableLinear = Template.bind({})
+PlayableLinear.args = {
+  doc: text,
+}
 
 export const EmptyLinear = Template.bind({})
 EmptyLinear.args = {
-  doc: emptyDocument,
+  doc: '',
+}
+
+export const OneLineLinear = Template.bind({})
+OneLineLinear.args = {
+  doc: 'Just a single line',
 }
