@@ -12,7 +12,7 @@ export default function Date({ timestamp }: DateProps) {
   return (
     <Row
       round="xlarge"
-      border={{ width: 'small' }}
+      border={{ size: 'small' }}
       pad={{ horizontal: 'medium', vertical: 'small' }}
       gap="medium"
     >

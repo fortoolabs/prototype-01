@@ -5,18 +5,27 @@ import base64url from 'base64url'
 import parse, { FDocument } from 'core/parser'
 
 // TODO: Move into API d.ts (to be created)
-export type DocResponse = [
-  number,
-  {
-    url?: string
-    handle?: string
-    doc?: FDocument
-    reason?: string
-  },
-]
+export type DocResponse = {
+  url?: string
+  handle?: string
+  doc?: FDocument
+  reason?: string
+}
 
+// TODO: Determine if fetch options (RequestInit) are sufficient
+// Will this configuration catch a majority of the scenarios that need support?
 const fetcher = (url: string): Promise<FDocument> =>
-  fetch(url)
+  fetch(url, {
+    method: 'GET',
+    // https://fetch.spec.whatwg.org/#concept-request-mode
+    mode: 'no-cors',
+    cache: 'no-cache',
+    // see https://fetch.spec.whatwg.org/#requestredirect
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  })
     .then((r) => r.text())
     .then((t) => parse(t))
 
@@ -32,13 +41,13 @@ const validURL = (x: string) => {
   }
 }
 
-// TODO: Implement non-handler form
 export const getDoc = async (
   target: string | string[] | undefined,
-): Promise<DocResponse> => {
+): Promise<[number, DocResponse]> => {
   if (target === undefined) {
     const payload = {
-      reason: 'The target must be defined!',
+      handle: '',
+      reason: 'Target must be defined!',
     }
     return [400, payload]
   }
@@ -48,7 +57,8 @@ export const getDoc = async (
   // TODO: Drop this check as we conduct a validURL check later on
   if (handle.trim() === '') {
     const payload = {
-      reason: 'The target must be a non-empty string!',
+      handle: '',
+      reason: 'Target must be a non-empty string!',
     }
     return [400, payload]
   }
@@ -58,17 +68,19 @@ export const getDoc = async (
   if (!validURL(url)) {
     const payload = {
       handle,
-      reason: 'The target must be a Base64-encoded valid URL',
+      reason: 'Target must be a Base64-encoded valid URL',
     }
     return [400, payload]
   }
 
-  const handleSuccess = (doc: FDocument): DocResponse => [
+  // TODO: Validate document type such that non-Org raw files are not parsed
+
+  const handleSuccess = (doc: FDocument): [number, DocResponse] => [
     200,
     { url, handle, doc },
   ]
 
-  const handleError = (err: any): DocResponse => {
+  const handleError = (err: any): [number, DocResponse] => {
     console.error(err)
     const payload = {
       url,
@@ -83,7 +95,7 @@ export const getDoc = async (
 
 export const getDocWithHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse<DocResponse>,
   target: string | string[] | undefined,
 ): Promise<void> => {
   const { method } = req

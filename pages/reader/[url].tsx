@@ -1,38 +1,47 @@
 import { NextPage, GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { useState } from 'react'
 import useSWR from 'swr'
 
 import Board from 'components/Board'
-import List from 'components/List'
-import { Row } from 'components/View'
+import Linear from 'components/Linear'
+import { AppContainer, Row } from 'components/View'
 
-import { FDocument } from 'core/parser'
+import { FDocument } from 'core/types'
 
-import { getDoc } from 'pages/api/doc/index'
+import { getDoc, DocResponse } from 'pages/api/doc/index'
 
 // TODO: DRY this up by unifying with DocResponse
 type ReaderProps = {
   url?: string
-  handle?: string
+  handle: string
   doc?: FDocument
   isFailing: boolean
   reason?: string
 }
 
+// TODO: Implement a failure mode when redirected (status 302)
+// Following URL will not redirect (because the repo is open):
+//   https://raw.githubusercontent.com/formation-tools/product/main/Roadmap.org
+// Following URL will redirect (because repo is private and auth is required):
+//   https://gitlab.com/formation.tools/intel/product-vision/-/raw/main/Roadmap.org
+
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 const useDoc = (
-  url: string,
-  init: ReaderProps,
+  handle: string,
+  init?: FDocument,
 ): [ReaderProps, boolean, Error | undefined] => {
-  const { data, error, isValidating } = useSWR(url, fetcher, {
-    fallbackData: init,
+  const url = `/api/doc/${handle}`
+  const { data, error, isValidating } = useSWR<DocResponse>(url, fetcher, {
+    fallbackData: { doc: init },
   })
 
   return [
     {
       url,
-      doc: data,
+      handle,
+      doc: data && data.doc,
       isFailing: error ? true : false,
     },
     isValidating,
@@ -41,35 +50,42 @@ const useDoc = (
 }
 
 const Reader: NextPage<ReaderProps> = (props) => {
-  const [{ url, doc, isFailing }, isLoading, error] = useDoc(
-    `/api/doc/${props.handle}`,
-    props,
-  )
+  const [boardView, setBoardView] = useState(false)
+  const [serif, setSerif] = useState(false)
 
-  if (doc === undefined) {
-    // TODO: Figure out what to do. Redirect?
-  }
+  const [{ doc, isFailing }, isLoading, error] = useDoc(props.handle, props.doc)
 
   if (error) {
     // TODO: Figure out what to do.
+    console.error('Error in Reader', error)
+    return <span>Failed to load</span>
   }
 
-  const [boardView, setBoardView] = useState(false)
+  if (doc === undefined) {
+    // TODO: Implement empty loading views
+    return <span>Loading</span>
+  }
+
+  const { title } = doc
 
   return (
-    <>
+    <AppContainer>
       <Row align="center" gap="medium" justify="end" pad="medium">
         <pre>
           🤔
-          {url}
           {isLoading ? '⏳' : ''}
           {isFailing ? '💥' : ''}
         </pre>
-        <span onClick={() => setBoardView(false)}>list</span>
-        <span onClick={() => setBoardView(true)}>board</span>
+        <button onClick={() => setBoardView(!boardView)}>toggle view</button>
+        <button onClick={() => setSerif(!serif)}>toggle font</button>
       </Row>
-      {boardView ? <Board /> : <List />}
-    </>
+      {title !== undefined && (
+        <Head>
+          <title>{title}</title>
+        </Head>
+      )}
+      {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+    </AppContainer>
   )
 }
 
@@ -80,10 +96,21 @@ export const getServerSideProps: GetServerSideProps = async ({
 }): Promise<{
   props: ReaderProps
 }> => {
+  if (query.url === undefined) {
+    throw new Error('Undefined query.url')
+  }
+
   const [status, payload] = await getDoc(query.url)
+  const { handle } = payload
+
+  if (handle === undefined) {
+    throw new Error('Handle-less document')
+  }
+
   return {
     props: {
       ...payload,
+      handle,
       isFailing: status !== 200,
     },
   }
