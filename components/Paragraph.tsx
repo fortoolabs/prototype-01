@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { Paragraph as GrommetParagraph } from 'grommet'
 
 export type ParagraphProps = {

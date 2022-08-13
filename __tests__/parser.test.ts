@@ -46,7 +46,7 @@ describe('heading', () => {
     ).toHaveLength(3)
   })
 
-  it('extract commented status', () => {
+  it('extracts commented status', () => {
     const isCommented = (x) => parse(x).content[0].commented
     expect(isCommented('* Basic title')).toEqual(false)
     expect(isCommented('* COMMENTED Basic title')).toEqual(true)
