@@ -18,22 +18,17 @@ export default function Board({ doc }: BoardProps) {
   if (doc === undefined) {
     // TODO: Implement empty board view
     return <span>noop</span>
-  } else {
-    const { todoStates } = doc
-    return (
-      <DndProvider backend={HTML5Backend}>
-        <Row
-          flex="grow"
-          gap="medium"
-          justify="start"
-          pad="medium"
-          align="start"
-        >
-          {todoStates.map((state, i) => (
-            <BoardColumn key={i} title={state} todos={[]} />
-          ))}
-        </Row>
-      </DndProvider>
-    )
   }
+
+  const { todoStates } = doc
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <Row flex="grow" gap="medium" justify="start" pad="medium" align="start">
+        {todoStates.map((state, i) => (
+          // TODO: Drill todos down to BoardColumn
+          <BoardColumn key={i} title={state} todos={[]} />
+        ))}
+      </Row>
+    </DndProvider>
+  )
 }

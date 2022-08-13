@@ -18,15 +18,15 @@ export default function Linear({ serif, doc }: LinearProps) {
   if (doc === undefined) {
     // TODO: Implement empty board view
     return <span>noop</span>
-  } else {
-    const { content } = doc
-    return (
-      <Row gap="small" pad="small" justify="start">
-        <Main style={{ fontFamily: serif ? 'Times' : 'inherit' }}>
-          {/* iterate over json, build right component */}
-          {content.flatMap((el, i) => renderElement(el, i))}
-        </Main>
-      </Row>
-    )
   }
+
+  const { content } = doc
+  return (
+    <Row gap="small" pad="small" justify="start">
+      <Main style={{ fontFamily: serif ? 'Times' : 'inherit' }}>
+        {/* iterate over json, build right component */}
+        {content.flatMap((el, i) => renderElement(el, i))}
+      </Main>
+    </Row>
+  )
 }
