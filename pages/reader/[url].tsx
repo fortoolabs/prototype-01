@@ -20,6 +20,12 @@ type ReaderProps = {
   reason?: string
 }
 
+// TODO: Implement a failure mode when redirected (status 302)
+// Following URL will not redirect (because the repo is open):
+//   https://raw.githubusercontent.com/formation-tools/product/main/Roadmap.org
+// Following URL will redirect (because repo is private and auth is required):
+//   https://gitlab.com/formation.tools/intel/product-vision/-/raw/main/Roadmap.org
+
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 const useDoc = (

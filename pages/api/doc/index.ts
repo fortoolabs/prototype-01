@@ -12,8 +12,20 @@ export type DocResponse = {
   reason?: string
 }
 
+// TODO: Determine if fetch options (RequestInit) are sufficient
+// Will this configuration catch a majority of the scenarios that need support?
 const fetcher = (url: string): Promise<FDocument> =>
-  fetch(url)
+  fetch(url, {
+    method: 'GET',
+    // https://fetch.spec.whatwg.org/#concept-request-mode
+    mode: 'no-cors',
+    cache: 'no-cache',
+    // see https://fetch.spec.whatwg.org/#requestredirect
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  })
     .then((r) => r.text())
     .then((t) => parse(t))
 
@@ -60,6 +72,8 @@ export const getDoc = async (
     }
     return [400, payload]
   }
+
+  // TODO: Validate document type such that non-Org raw files are not parsed
 
   const handleSuccess = (doc: FDocument): [number, DocResponse] => [
     200,
