@@ -63,3 +63,46 @@ describe('paragraph', () => {
     `)
   })
 })
+
+describe('fallback', () => {
+  describe('for element', () => {
+    it('renders', () => {
+      expect(
+        f(
+          renderElement({
+            type: 'f',
+            content: 'some random junk',
+          }),
+        ),
+      ).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span
+            style="border: 1px solid pink;"
+          >
+            some random junk
+          </span>
+        </DocumentFragment>
+      `)
+    })
+  })
+  describe('for greater element', () => {
+    it('renders', () => {
+      expect(
+        f(
+          renderElement({
+            type: 'F',
+            content: 'some random junk',
+          }),
+        ),
+      ).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <pre
+            style="border: 1px solid pink;"
+          >
+            some random junk
+          </pre>
+        </DocumentFragment>
+      `)
+    })
+  })
+})
