@@ -196,6 +196,10 @@ function convert(
         content: [...acc.content, ...unpackElementType(text, node)],
       }
 
+    // TODO: Note that we may not need this at a document level, since all
+    // items of type Element items may be contained within a container of type
+    // GreaterElement
+
     // ElementType
     case 'headline':
       return {
