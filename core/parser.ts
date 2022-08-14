@@ -80,7 +80,12 @@ function mapObjectType(x: ObjectType): FObjectType {
   }
 }
 
+function unpackElementWithContext(text: string) {
+  return (x: GreaterElementType | ElementType) => unpackElementType(text, x)
+}
+
 function unpackElementType(
+  text: string,
   x: GreaterElementType | ElementType,
 ): FElementType[] {
   switch (x.type) {
@@ -88,7 +93,7 @@ function unpackElementType(
     case 'org-data':
       return []
     case 'section':
-      return x.children.flatMap(unpackElementType)
+      return x.children.flatMap(unpackElementWithContext(text))
     case 'property-drawer':
     case 'drawer':
     case 'plain-list':
@@ -98,8 +103,18 @@ function unpackElementType(
     case 'center-block':
     case 'special-block':
     case 'footnote-definition':
+      return [
+        { type: 'F', content: text.slice(x.contentsBegin, x.contentsEnd) },
+      ]
     case 'table':
-      return []
+      switch (x.tableType) {
+        case 'org':
+          return [
+            { type: 'F', content: text.slice(x.contentsBegin, x.contentsEnd) },
+          ]
+        case 'table.el':
+          return [{ type: 'F', content: x.value }]
+      }
     // ElementType
     case 'headline':
       return [
@@ -128,6 +143,7 @@ function unpackElementType(
     case 'latex-environment':
     case 'horizontal-rule':
     case 'diary-sexp':
+      // TODO: Implement
       return []
     case 'paragraph':
       return [{ type: 'p', content: x.children.map(mapObjectType) }]
@@ -136,8 +152,17 @@ function unpackElementType(
   }
 }
 
+function convertWithContext(text: string) {
+  return (
+    acc: FDocument,
+    node: GreaterElementType | ElementType,
+    idx: number,
+  ) => convert(text, acc, node, idx)
+}
+
 // Convert document to internal representation
 function convert(
+  text: string,
   acc: FDocument,
   node: GreaterElementType | ElementType,
   idx: number,
@@ -146,12 +171,15 @@ function convert(
   switch (node.type) {
     // GreaterElementType
     case 'org-data':
-      return node.children.reduce(convert, acc)
+      return node.children.reduce(convertWithContext(text), acc)
     case 'section':
       // TODO: Evaluate wrapping in section element
       return {
         ...acc,
-        content: [...acc.content, ...node.children.flatMap(unpackElementType)],
+        content: [
+          ...acc.content,
+          ...node.children.flatMap(unpackElementWithContext(text)),
+        ],
       }
     case 'property-drawer':
     case 'drawer':
@@ -163,12 +191,16 @@ function convert(
     case 'special-block':
     case 'footnote-definition':
     case 'table':
-      return acc // noop
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(text, node)],
+      }
+
     // ElementType
     case 'headline':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(node)],
+        content: [...acc.content, ...unpackElementType(text, node)],
       }
     case 'planning':
     case 'node-property':
@@ -198,11 +230,14 @@ function convert(
     case 'latex-environment':
     case 'horizontal-rule':
     case 'diary-sexp':
-      return acc // noop
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(text, node)],
+      }
     case 'paragraph':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(node)],
+        content: [...acc.content, ...unpackElementType(text, node)],
       }
     default:
       return assertExhaustive(node)
@@ -211,5 +246,5 @@ function convert(
 
 export default function parse(text: string): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return convert(emptyDocument, ast, 0)
+  return convert(text, emptyDocument, ast, 0)
 }
