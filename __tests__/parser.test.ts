@@ -153,6 +153,48 @@ describe('regular links', () => {
   })
 })
 
+describe('lists', () => {
+  describe('unordered', () => {
+    const raw = `
+- fruits
+  - apples
+  - bananas
+  - pears
+  - tomatoes
+- [/] vegetables
+  - [X] spinach
+  - [ ] broccoli
+  - [ ] cauliflower
+  - [X] cabbage
+  - [~] salat
+`
+    it('parses', () => {
+      expect(parse(raw)).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": "- fruits
+          - apples
+          - bananas
+          - pears
+          - tomatoes
+        - [/] vegetables
+          - [X] spinach
+          - [ ] broccoli
+          - [ ] cauliflower
+          - [X] cabbage
+          - [~] salat
+        ",
+              "type": "F",
+            },
+          ],
+          "todoStates": [],
+        }
+      `)
+    })
+  })
+})
+
 describe('Roadmap.org', () => {
   const ast = readFixture('Roadmap.org')
 
