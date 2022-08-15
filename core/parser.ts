@@ -31,7 +31,7 @@ export function extractLabel(el: FObjectType): string {
   }
 }
 
-function mapObjectType(x: ObjectType): FObjectType {
+function unpackObjectType(x: ObjectType): FObjectType {
   // TODO: Restructure to a list of non-string members
   // A lot of information is lost in just reducing this to strings
   switch (x.type) {
@@ -41,20 +41,20 @@ function mapObjectType(x: ObjectType): FObjectType {
         type: 'a',
         target: x.rawLink,
         linkType: x.linkType,
-        content: x.children.map(mapObjectType),
+        content: x.children.map(unpackObjectType),
       }
     case 'bold':
-      return { type: 'b', content: x.children.map(mapObjectType) }
+      return { type: 'b', content: x.children.map(unpackObjectType) }
     case 'italic':
-      return { type: 'i', content: x.children.map(mapObjectType) }
+      return { type: 'i', content: x.children.map(unpackObjectType) }
     case 'strike-through':
-      return { type: '+', content: x.children.map(mapObjectType) }
+      return { type: '+', content: x.children.map(unpackObjectType) }
     case 'underline':
-      return { type: 'u', content: x.children.map(mapObjectType) }
+      return { type: 'u', content: x.children.map(unpackObjectType) }
     case 'superscript':
-      return { type: '^', content: x.children.map(mapObjectType) }
+      return { type: '^', content: x.children.map(unpackObjectType) }
     case 'subscript':
-      return { type: '_', content: x.children.map(mapObjectType) }
+      return { type: '_', content: x.children.map(unpackObjectType) }
     case 'code':
       return { type: 'c', content: x.value }
     case 'verbatim':
@@ -67,14 +67,14 @@ function mapObjectType(x: ObjectType): FObjectType {
       return {
         type: 'f',
         label: x.label,
-        content: x.children.map(mapObjectType),
+        content: x.children.map(unpackObjectType),
       }
     case 'latex-fragment':
       return { type: 'X', content: x.value }
     case 'entity':
       return { type: '?', content: x.name, html: x.html }
     case 'table-cell':
-      return { type: 'C', content: x.children.map(mapObjectType) }
+      return { type: 'C', content: x.children.map(unpackObjectType) }
     default:
       return assertExhaustive(x)
   }
@@ -125,7 +125,7 @@ function unpackElementType(
           commented: x.commented,
           priority: x.priority,
           tags: x.tags,
-          content: x.children.map(mapObjectType),
+          content: x.children.map(unpackObjectType),
         },
       ]
     case 'planning':
@@ -146,7 +146,7 @@ function unpackElementType(
       // TODO: Implement
       return []
     case 'paragraph':
-      return [{ type: 'p', content: x.children.map(mapObjectType) }]
+      return [{ type: 'p', content: x.children.map(unpackObjectType) }]
     default:
       return assertExhaustive(x)
   }
