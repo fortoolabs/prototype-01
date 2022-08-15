@@ -62,4 +62,87 @@ describe('paragraph', () => {
       </DocumentFragment>
     `)
   })
+
+  describe('including timestamp', () => {
+    it('renders', () => {
+      expect(
+        f(
+          renderElement({
+            content: [
+              {
+                content: 'Watching Penelope and Morgan solve crimes on ',
+                type: 't',
+              },
+              {
+                content: '<2022-08-14 Sun>',
+                type: 'Z',
+              },
+              {
+                content: ' while testing fallback components.',
+                type: 't',
+              },
+            ],
+            type: 'p',
+          }),
+        ),
+      ).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <p
+            class="StyledParagraph-sc-tbetod-0 lacipA"
+          >
+            Watching Penelope and Morgan solve crimes on 
+            <time
+              datetime="2015-10-21"
+            >
+              &lt;2022-08-14 Sun&gt;
+            </time>
+             while testing fallback components.
+          </p>
+        </DocumentFragment>
+      `)
+    })
+  })
+})
+
+describe('fallback', () => {
+  describe('for element', () => {
+    it('renders', () => {
+      expect(
+        f(
+          renderElement({
+            type: 'f',
+            content: 'some random junk',
+          }),
+        ),
+      ).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span
+            style="border: 1px solid pink;"
+          >
+            some random junk
+          </span>
+        </DocumentFragment>
+      `)
+    })
+  })
+  describe('for greater element', () => {
+    it('renders', () => {
+      expect(
+        f(
+          renderElement({
+            type: 'F',
+            content: 'some random junk',
+          }),
+        ),
+      ).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <pre
+            style="border: 1px solid pink;"
+          >
+            some random junk
+          </pre>
+        </DocumentFragment>
+      `)
+    })
+  })
 })

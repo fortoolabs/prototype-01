@@ -95,7 +95,12 @@ type FParagraph = {
   content: FObjectType[]
 }
 
-export type FElementType =
+type FFallback = {
+  type: 'f'
+  content: string
+}
+
+export type FElement =
   | FHeading
   //  | FPlanning
   //  | FNodeProperty
@@ -113,6 +118,17 @@ export type FElementType =
   //  | FHorizontalRule
   //  | FDiarySexp
   | FParagraph
+  | FFallback
+
+type FGreaterFallback = {
+  type: 'F'
+  content: string
+}
+
+// TODO: Expand
+export type FGreaterElement = FGreaterFallback
+
+export type FElementType = FElement | FGreaterElement
 
 export type FDocument = {
   title?: string
