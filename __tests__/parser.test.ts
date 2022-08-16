@@ -3,7 +3,7 @@ import { beforeAll, expect, describe, it } from 'vitest'
 import { readFileSync } from 'fs'
 
 import { emptyDocument } from 'core/types'
-import parse from 'core/parser'
+import parse, { extractHeadlines } from 'core/parser'
 
 function readFixture(file: string): FDocument {
   return parse(
@@ -99,6 +99,23 @@ describe('heading', () => {
     const dut = (x) => parse(x).content[0]
     it('TBD', () => {
       expect(dut('* Almost done [4/5]')).toEqual({})
+    })
+  })
+
+  describe('tree', () => {
+    const raw = `#+TITLE: Demonstrating a Heading Tree
+* A
+** A1
+** A2
+* B
+* C
+* D
+*** D1
+********* Dx
+* E
+** E1`
+    it('extracts all headings', () => {
+      expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
     })
   })
 })

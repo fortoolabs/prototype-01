@@ -12,3 +12,5 @@ exports[`Roadmap.org > top paragraph > wraps a single text in a paragraph object
   "type": "p",
 }
 `;
+
+exports[`heading > tree > extracts all headings 1`] = `[]`;

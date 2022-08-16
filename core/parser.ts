@@ -4,7 +4,13 @@ import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
 import { OrgData, ObjectType, GreaterElementType, ElementType } from 'uniorg'
 
-import { FDocument, FObjectType, FElementType, emptyDocument } from 'core/types'
+import {
+  FDocument,
+  FObjectType,
+  FElementType,
+  FHeading,
+  emptyDocument,
+} from 'core/types'
 
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
@@ -29,6 +35,13 @@ export function extractLabel(el: FObjectType): string {
   } else {
     assertExhaustive(el)
   }
+}
+
+export function extractHeadlines(
+  els: FElementType[],
+  depth?: number,
+): FHeading[] {
+  return []
 }
 
 function unpackObjectType(x: ObjectType): FObjectType {
