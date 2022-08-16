@@ -42,7 +42,16 @@ export function extractHeadlines(
   depth?: number,
 ): FHeading[] {
   // TODO: Avoid as-mapping since this may not be a "safe" design
-  return els.filter((val) => val.type === 'h') as FHeading[]
+  return els.filter((val) => {
+    switch (val.type) {
+      case 'h':
+        if (depth) {
+          return val.level <= depth
+        } else return true
+      default:
+        return false
+    }
+  }) as FHeading[]
 }
 
 function unpackObjectType(x: ObjectType): FObjectType {

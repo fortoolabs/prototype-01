@@ -157,3 +157,270 @@ exports[`heading > tree > extracts all headings 1`] = `
   },
 ]
 `;
+
+exports[`heading > tree > extracts top-level headings only 1`] = `
+[
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "A",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "B",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "C",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "D",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "E",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+]
+`;
+
+exports[`heading > tree > extracts up to 2nd-level headings only 1`] = `
+[
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "A",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "A1",
+        "type": "t",
+      },
+    ],
+    "level": 2,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "A2",
+        "type": "t",
+      },
+    ],
+    "level": 2,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "B",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "C",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "D",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "E",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "E1",
+        "type": "t",
+      },
+    ],
+    "level": 2,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+]
+`;
+
+exports[`heading > tree > extracts up to top-level headings only 1`] = `
+[
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "A",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "B",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "C",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "D",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+  {
+    "commented": false,
+    "content": [
+      {
+        "content": "E",
+        "type": "t",
+      },
+    ],
+    "level": 1,
+    "priority": null,
+    "tags": [],
+    "todoKeyword": null,
+    "type": "h",
+  },
+]
+`;

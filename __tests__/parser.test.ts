@@ -117,6 +117,10 @@ describe('heading', () => {
     it('extracts all headings', () => {
       expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
     })
+
+    it('extracts top-level headings only', () => {
+      expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+    })
   })
 })
 
