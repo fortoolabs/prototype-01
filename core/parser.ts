@@ -8,6 +8,7 @@ import {
   FDocument,
   FObjectType,
   FElementType,
+  FRecursiveObject,
   FHeading,
   emptyDocument,
 } from 'core/types'
@@ -22,7 +23,7 @@ function assertExhaustive(
   throw new Error(message)
 }
 
-export function extractLabel(el: FObjectType): string {
+export function extractLabel(el: FObjectType | FRecursiveObject): string {
   if ('content' in el) {
     switch (typeof el.content) {
       case 'string':
@@ -40,18 +41,23 @@ export function extractLabel(el: FObjectType): string {
 export function extractHeadlines(
   els: FElementType[],
   depth?: number,
-): FHeading[] {
+): Array<[FHeading, string]> {
   // TODO: Avoid as-mapping since this may not be a "safe" design
-  return els.filter((val) => {
-    switch (val.type) {
-      case 'h':
-        if (depth) {
-          return val.level <= depth
-        } else return true
-      default:
-        return false
-    }
-  }) as FHeading[]
+  return els
+    .filter((val) => {
+      switch (val.type) {
+        case 'h':
+          if (depth) {
+            return val.level <= depth
+          } else return true
+        default:
+          return false
+      }
+    })
+    .map((x) => {
+      const heading = x as FHeading
+      return [heading, extractLabel(heading)]
+    })
 }
 
 function unpackObjectType(x: ObjectType): FObjectType {
