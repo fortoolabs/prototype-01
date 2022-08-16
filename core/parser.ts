@@ -29,6 +29,11 @@ export function extractLabel(el: FObjectType | FRecursiveObject): string {
       case 'string':
         return el.content
       default:
+        // TODO: Identify which Elements to eliminate from the label
+        // - LatexFragment
+        // - Timestamp
+        // - FootnoteReference
+        // - TableCell
         return el.content
           .map(extractLabel)
           .reduce((next, acc) => acc.concat(next), '')
