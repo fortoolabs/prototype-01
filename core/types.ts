@@ -1,4 +1,4 @@
-type FRecursiveObject = {
+export type FRecursiveObject = {
   content: FObjectType[]
 }
 
@@ -90,9 +90,8 @@ export type FHeading = FRecursiveObject & {
   tags: string[]
 }
 
-type FParagraph = {
+type FParagraph = FRecursiveObject & {
   type: 'p'
-  content: FObjectType[]
 }
 
 type FFallback = {
