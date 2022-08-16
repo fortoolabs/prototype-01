@@ -25,6 +25,53 @@ describe('generally', () => {
       todoStates: [],
     })
   })
+
+  it('extracts entities', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Entities
+    expect(parse('\\cent').content[0].content).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "cent",
+          "html": "&cent;",
+          "type": "?",
+        },
+      ]
+    `)
+  })
+
+  it('extracts table cells', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Table_Cells
+    expect(parse('12 |').content[0].content).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "12 |",
+          "type": "t",
+        },
+      ]
+    `)
+  })
+
+  it('extracts LaTeX Fragments', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#LaTeX_Fragments
+    // TODO: Examine if this is expected behavior
+    expect(parse('enlargethispage{2\\baselineskip}').content[0].content)
+      .toMatchInlineSnapshot(`
+        [
+          {
+            "content": "enlargethispage{2",
+            "type": "t",
+          },
+          {
+            "content": "\\\\baselineskip",
+            "type": "X",
+          },
+          {
+            "content": "}",
+            "type": "t",
+          },
+        ]
+      `)
+  })
 })
 
 describe('heading', () => {
