@@ -41,7 +41,8 @@ export function extractHeadlines(
   els: FElementType[],
   depth?: number,
 ): FHeading[] {
-  return []
+  // TODO: Avoid as-mapping since this may not be a "safe" design
+  return els.filter((val) => val.type === 'h') as FHeading[]
 }
 
 function unpackObjectType(x: ObjectType): FObjectType {
