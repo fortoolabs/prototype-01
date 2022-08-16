@@ -3,7 +3,7 @@ import { beforeAll, expect, describe, it } from 'vitest'
 import { readFileSync } from 'fs'
 
 import { emptyDocument } from 'core/types'
-import parse, { extractHeadlines } from 'core/parser'
+import parse, { extractLabel, extractHeadlines } from 'core/parser'
 
 function readFixture(file: string): FDocument {
   return parse(
@@ -260,6 +260,14 @@ describe('lists', () => {
         }
       `)
     })
+  })
+})
+
+describe('extractLabel', () => {
+  it('displays plaintext', () => {
+    expect(
+      extractLabel(parse('Hello *bold* and /italics/').content[0]),
+    ).toEqual('Hello bold and italics')
   })
 })
 
