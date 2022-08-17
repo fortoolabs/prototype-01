@@ -36,7 +36,7 @@ export function extractLabel(el: FObjectType | FRecursiveObject): string {
         // - TableCell
         return el.content
           .map(extractLabel)
-          .reduce((next, acc) => acc.concat(next), '')
+          .reduce((acc, next) => acc.concat(next), '')
     }
   } else {
     assertExhaustive(el)
