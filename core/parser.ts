@@ -34,9 +34,7 @@ export function extractLabel(el: FObjectType | FRecursiveObject): string {
         // - Timestamp
         // - FootnoteReference
         // - TableCell
-        return el.content
-          .map(extractLabel)
-          .reduce((acc, next) => acc.concat(next), '')
+        return el.content.map(extractLabel).join('')
     }
   } else {
     assertExhaustive(el)
