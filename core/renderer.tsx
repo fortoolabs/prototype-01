@@ -48,13 +48,13 @@ export function renderElement(el: FElementType, i: number): JSX.Element[] {
       }
     case 'p':
       return [<Paragraph key={i}>{el.content.flatMap(renderObject)}</Paragraph>]
-    case 'F':
+    case 'E':
       return [
         <pre key={i} style={{ border: '1px solid pink' }}>
           {el.content}
         </pre>,
       ]
-    case 'f':
+    case 'e':
       return [
         <span key={i} style={{ border: '1px solid pink' }}>
           {el.content}
