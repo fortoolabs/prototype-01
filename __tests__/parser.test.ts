@@ -253,7 +253,7 @@ describe('lists', () => {
           - [X] cabbage
           - [~] salat
         ",
-              "type": "F",
+              "type": "e",
             },
           ],
           "todoStates": [],
