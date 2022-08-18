@@ -332,6 +332,10 @@ describe('extractFormattedText', () => {
       ),
     ).toMatchSnapshot()
   })
+
+  it('returns code', () => {
+    expect(extract('Something ~funny~')).toMatchSnapshot()
+  })
 })
 
 describe('Roadmap.org', () => {

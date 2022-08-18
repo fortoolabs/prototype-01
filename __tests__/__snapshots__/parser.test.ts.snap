@@ -13,6 +13,19 @@ exports[`Roadmap.org > top paragraph > wraps a single text in a paragraph object
 }
 `;
 
+exports[`extractFormattedText > returns code 1`] = `
+[
+  {
+    "content": "Something ",
+    "type": "t",
+  },
+  {
+    "content": "funny",
+    "type": "c",
+  },
+]
+`;
+
 exports[`extractFormattedText > returns with formatting 1`] = `
 [
   {
