@@ -202,11 +202,6 @@ describe('regular links', () => {
     it('extracts URL', () => {
       expect(dut(link)).toHaveProperty('target', 'https://www.example.com')
     })
-
-    // We drop the label for now, use function extractText if needed
-    it.skip('extracts a link label', () => {
-      expect(dut(link)).toHaveProperty('label', 'example')
-    })
   })
 
   describe('without description', () => {
@@ -312,6 +307,14 @@ describe('extractText', () => {
 
     it('returns an empty string when of the diary variety', () => {
       expect(extract('<%%(diary-float t 4 2)>')).toEqual('')
+    })
+  })
+
+  describe('on links', () => {
+    const link = '[[id:blah-di-blah 12][example]]'
+
+    it('extracts a link label', () => {
+      expect(extract(link)).toEqual('example')
     })
   })
 })
