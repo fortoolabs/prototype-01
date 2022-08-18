@@ -340,6 +340,43 @@ describe('extractFormattedText', () => {
   it('returns verbatim text', () => {
     expect(extract('A =verbatim= string')).toMatchSnapshot()
   })
+
+  it('returns LaTeX', () => {
+    expect(extract('That equation $e = mc^2$')).toMatchInlineSnapshot(
+      `
+      [
+        {
+          "content": "That equation ",
+          "type": "t",
+        },
+        {
+          "content": "$e = mc^2$",
+          "type": "X",
+        },
+      ]
+    `,
+    )
+  })
+
+  describe('hides timestamps', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Timestamps
+    // There are seven timestamp patterns
+    it('returns an empty string when of the active variety', () => {
+      expect(extract('<1997-11-03 Mon 19:15>')).toEqual([])
+    })
+    it('returns en empty string when of the active range variety', () => {
+      expect(extract('<2012-02-08 Wed 20:00 ++1d>')).toEqual([])
+      expect(extract('<2030-10-05 Sat +1m -3d>')).toEqual([])
+    })
+
+    it('returns an empty string for the inactive range variety', () => {
+      expect(extract('[2004-08-24 Tue]--[2004-08-26 Thu]')).toEqual([])
+    })
+
+    it('returns an empty string when of the diary variety', () => {
+      expect(extract('<%%(diary-float t 4 2)>')).toEqual([])
+    })
+  })
 })
 
 describe('Roadmap.org', () => {

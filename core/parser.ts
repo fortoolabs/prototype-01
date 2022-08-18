@@ -64,13 +64,12 @@ export function extractFormattedText(
     case '^':
     case '_':
     case 't':
+    case 'X':
       return [el]
     case 'Z':
     // TODO: Implement formatted form for timestamp
     case 'f':
     // Ignore footnote reference
-    case 'X':
-    // Ignore LaTeX fragment
     case '?':
     // Ignore entity
     case 'C':
