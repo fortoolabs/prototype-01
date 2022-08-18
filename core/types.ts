@@ -94,8 +94,8 @@ type FParagraph = FRecursiveObject & {
   type: 'p'
 }
 
-type FFallback = {
-  type: 'f'
+type FElementFallback = {
+  type: 'e'
   content: string
 }
 
@@ -117,15 +117,15 @@ export type FElement =
   //  | FHorizontalRule
   //  | FDiarySexp
   | FParagraph
-  | FFallback
+  | FElementFallback
 
-type FGreaterFallback = {
-  type: 'F'
+type FGreaterElementFallback = {
+  type: 'E'
   content: string
 }
 
 // TODO: Expand
-export type FGreaterElement = FGreaterFallback
+export type FGreaterElement = FGreaterElementFallback
 
 export type FElementType = FElement | FGreaterElement
 

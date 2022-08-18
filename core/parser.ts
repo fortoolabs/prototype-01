@@ -135,17 +135,19 @@ function unpackElementType(
     case 'center-block':
     case 'special-block':
     case 'footnote-definition':
+      // TODO: Implement instead of falling back
       return [
-        { type: 'F', content: text.slice(x.contentsBegin, x.contentsEnd) },
+        { type: 'e', content: text.slice(x.contentsBegin, x.contentsEnd) },
       ]
     case 'table':
+      // TODO: Implement instead of falling back
       switch (x.tableType) {
         case 'org':
           return [
-            { type: 'F', content: text.slice(x.contentsBegin, x.contentsEnd) },
+            { type: 'E', content: text.slice(x.contentsBegin, x.contentsEnd) },
           ]
         case 'table.el':
-          return [{ type: 'F', content: x.value }]
+          return [{ type: 'E', content: x.value }]
       }
     // ElementType
     case 'headline':
