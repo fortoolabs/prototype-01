@@ -10,6 +10,7 @@ import {
   FElementType,
   FRecursiveObject,
   FHeading,
+  FTableOfContents,
   emptyDocument,
 } from 'core/types'
 
@@ -84,10 +85,12 @@ export function extractFormattedText(
   }
 }
 
+// TODO: Refactor as the extraction of text is simple enough to not need a helper func
+// We can use the extractText and extractFormattedText functions in the components directly
 export function extractHeadlines(
   els: FElementType[],
   depth?: number,
-): Array<[FHeading, string]> {
+): FTableOfContents {
   // TODO: Avoid as-mapping since this may not be a "safe" design
   return els
     .filter((val) => {
@@ -102,7 +105,11 @@ export function extractHeadlines(
     })
     .map((x) => {
       const heading = x as FHeading
-      return [heading, extractText(heading)]
+      return {
+        heading,
+        text: extractFormattedText(heading),
+        plaintext: extractText(heading),
+      }
     })
 }
 

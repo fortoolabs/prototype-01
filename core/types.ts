@@ -142,6 +142,14 @@ export type FDocument = {
   content: Array<FElementType>
 }
 
+export type FTableOfContentsEntry = {
+  heading: FHeading
+  // The text field should be rendered as the TOC text
+  text: FObjectType[]
+  plaintext: string
+}
+export type FTableOfContents = FTableOfContentsEntry[]
+
 export const emptyDocument = {
   content: [],
   todoStates: [],
