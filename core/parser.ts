@@ -23,21 +23,26 @@ function assertExhaustive(
   throw new Error(message)
 }
 
-export function extractLabel(el: FObjectType | FRecursiveObject): string {
-  if ('content' in el) {
-    switch (typeof el.content) {
-      case 'string':
-        return el.content
-      default:
-        // TODO: Identify which Elements to eliminate from the label
-        // - LatexFragment
-        // - Timestamp
-        // - FootnoteReference
-        // - TableCell
-        return el.content.map(extractLabel).join('')
-    }
-  } else {
-    assertExhaustive(el)
+// Extract unformatted text (which may be useful to compose ids)
+export function extractText(el: FObjectType | FElementType): string {
+  switch (el.type) {
+    case 'Z':
+      // TODO: Decide on what to return here
+      return ''
+    case 'c':
+    case 'v':
+    case 't':
+    case 'X':
+    case '?':
+      return el.content
+    case 'f':
+      return el.label
+    case 'E':
+      return el.content
+    case 'e':
+      return el.content
+    default:
+      return el.content.map(extractText).join('')
   }
 }
 
@@ -59,7 +64,7 @@ export function extractHeadlines(
     })
     .map((x) => {
       const heading = x as FHeading
-      return [heading, extractLabel(heading)]
+      return [heading, extractText(heading)]
     })
 }
 

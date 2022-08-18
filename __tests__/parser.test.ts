@@ -3,7 +3,10 @@ import { beforeAll, expect, describe, it } from 'vitest'
 import { readFileSync } from 'fs'
 
 import { emptyDocument } from 'core/types'
-import parse, { extractLabel, extractHeadlines } from 'core/parser'
+import parse, {
+  extractText,
+  extractHeadlines,
+} from 'core/parser'
 
 function readFixture(file: string): FDocument {
   return parse(
@@ -200,7 +203,7 @@ describe('regular links', () => {
       expect(dut(link)).toHaveProperty('target', 'https://www.example.com')
     })
 
-    // We drop the label for now, use function extractLabel if needed
+    // We drop the label for now, use function extractText if needed
     it.skip('extracts a link label', () => {
       expect(dut(link)).toHaveProperty('label', 'example')
     })
@@ -263,11 +266,53 @@ describe('lists', () => {
   })
 })
 
-describe('extractLabel', () => {
-  it('displays plaintext', () => {
+describe('extractText', () => {
+  const extract = (x) => extractText(parse(x).content[0])
+
+  it('contains unformatted text', () => {
     expect(
-      extractLabel(parse('Hello *bold* and /italics/').content[0]),
-    ).toEqual('Hello bold and italics')
+      extract('Hello *bold*, /italic/, +strikethrough+ and _underline_'),
+    ).toEqual('Hello bold, italic, strikethrough and underline')
+  })
+
+  it('contains superscripts and subscripts', () => {
+    expect(extract('A^2')).toEqual('A2')
+    expect(extract('A_2')).toEqual('A2')
+    expect(extract('A_{twenty}')).toEqual('Atwenty')
+  })
+
+  it('contains code', () => {
+    expect(extract('Something ~funny~')).toEqual('Something funny')
+  })
+
+  it('contains verbatim text', () => {
+    expect(extract('A =verbatim= string')).toEqual('A verbatim string')
+  })
+
+  it('contains LaTeX', () => {
+    expect(extract('That equation $e = mc^2$')).toEqual(
+      'That equation $e = mc^2$',
+    )
+  })
+
+  describe('on timestamps', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Timestamps
+    // There are seven timestamp patterns
+    it('returns an empty string when of the active variety', () => {
+      expect(extract('<1997-11-03 Mon 19:15>')).toEqual('')
+    })
+    it('returns en empty string when of the active range variety', () => {
+      expect(extract('<2012-02-08 Wed 20:00 ++1d>')).toEqual('')
+      expect(extract('<2030-10-05 Sat +1m -3d>')).toEqual('')
+    })
+
+    it('returns an empty string for the inactive range variety', () => {
+      expect(extract('[2004-08-24 Tue]--[2004-08-26 Thu]')).toEqual('')
+    })
+
+    it('returns an empty string when of the diary variety', () => {
+      expect(extract('<%%(diary-float t 4 2)>')).toEqual('')
+    })
   })
 })
 
