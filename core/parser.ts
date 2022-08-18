@@ -42,6 +42,8 @@ export function extractText(el: FObjectType | FElementType): string {
     case 'e':
       return el.content
     default:
+      // TODO: Deal with empty content scenarios, e.g.: link [[https://www.example.com]]
+      // This will likely warrant changing the return type to: string | undefined
       return el.content.map(extractText).join('')
   }
 }
