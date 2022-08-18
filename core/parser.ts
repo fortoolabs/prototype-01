@@ -23,11 +23,12 @@ function assertExhaustive(
   throw new Error(message)
 }
 
+// TODO: Refactor to include exhaustiveness check
 // Extract unformatted text (which may be useful to compose ids)
 export function extractText(el: FObjectType | FElementType): string {
   switch (el.type) {
     case 'Z':
-      // TODO: Decide on what to return here
+      // TODO: Implement unformatted form for timestamp
       return ''
     case 'c':
     case 'v':
@@ -48,10 +49,40 @@ export function extractText(el: FObjectType | FElementType): string {
   }
 }
 
+// TODO: Refactor to include exhaustiveness check
 export function extractFormattedText(
   el: FObjectType | FElementType,
 ): FObjectType[] {
-  return []
+  switch (el.type) {
+    case 'a':
+    case 'b':
+    case 'i':
+    case 'c':
+    case 'v':
+    case '+':
+    case 'u':
+    case '^':
+    case '_':
+    case 't':
+      return [el]
+    case 'Z':
+    // TODO: Implement formatted form for timestamp
+    case 'f':
+    // Ignore footnote reference
+    case 'X':
+    // Ignore LaTeX fragment
+    case '?':
+    // Ignore entity
+    case 'C':
+      // Ignore table cell
+      return []
+    case 'e':
+    case 'E':
+      // Ignore fallbacks
+      return []
+    default:
+      return el.content.flatMap(extractFormattedText)
+  }
 }
 
 export function extractHeadlines(
