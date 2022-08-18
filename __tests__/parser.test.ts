@@ -377,6 +377,33 @@ describe('extractFormattedText', () => {
       expect(extract('<%%(diary-float t 4 2)>')).toEqual([])
     })
   })
+
+  describe('give a headline', () => {
+    it('returns the headline text', () => {
+      expect(extract('* TODO Calculate a^2 [2004-08-24 Tue]'))
+        .toMatchInlineSnapshot(`
+        [
+          {
+            "content": "Calculate a",
+            "type": "t",
+          },
+          {
+            "content": [
+              {
+                "content": "2",
+                "type": "t",
+              },
+            ],
+            "type": "^",
+          },
+          {
+            "content": " ",
+            "type": "t",
+          },
+        ]
+      `)
+    })
+  })
 })
 
 describe('Roadmap.org', () => {
