@@ -48,6 +48,12 @@ export function extractText(el: FObjectType | FElementType): string {
   }
 }
 
+export function extractFormattedText(
+  el: FObjectType | FElementType,
+): FObjectType[] {
+  return []
+}
+
 export function extractHeadlines(
   els: FElementType[],
   depth?: number,

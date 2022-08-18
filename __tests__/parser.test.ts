@@ -5,6 +5,7 @@ import { readFileSync } from 'fs'
 import { emptyDocument } from 'core/types'
 import parse, {
   extractText,
+  extractFormattedText,
   extractHeadlines,
 } from 'core/parser'
 
@@ -316,6 +317,18 @@ describe('extractText', () => {
     it('extracts a link label', () => {
       expect(extract(link)).toEqual('example')
     })
+  })
+})
+
+describe('extractFormattedText', () => {
+  const extract = (x) => extractFormattedText(parse(x).content[0])
+
+  it('returns with formatting', () => {
+    expect(
+      extract(
+        'Hello *bold_{twelve}*, /italic/, +strikethrough+ and _underline_',
+      ),
+    ).toMatchSnapshot()
   })
 })
 

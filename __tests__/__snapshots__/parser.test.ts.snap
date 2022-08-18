@@ -13,6 +13,72 @@ exports[`Roadmap.org > top paragraph > wraps a single text in a paragraph object
 }
 `;
 
+exports[`extractFormattedText > returns with formatting 1`] = `
+[
+  {
+    "content": "Hello ",
+    "type": "t",
+  },
+  {
+    "content": [
+      {
+        "content": "bold",
+        "type": "t",
+      },
+      {
+        "content": [
+          {
+            "content": "twelve",
+            "type": "t",
+          },
+        ],
+        "type": "_",
+      },
+    ],
+    "type": "b",
+  },
+  {
+    "content": ", ",
+    "type": "t",
+  },
+  {
+    "content": [
+      {
+        "content": "italic",
+        "type": "t",
+      },
+    ],
+    "type": "i",
+  },
+  {
+    "content": ", ",
+    "type": "t",
+  },
+  {
+    "content": [
+      {
+        "content": "strikethrough",
+        "type": "t",
+      },
+    ],
+    "type": "+",
+  },
+  {
+    "content": " and ",
+    "type": "t",
+  },
+  {
+    "content": [
+      {
+        "content": "underline",
+        "type": "t",
+      },
+    ],
+    "type": "u",
+  },
+]
+`;
+
 exports[`heading > tree > extracts all headings 1`] = `
 [
   [
