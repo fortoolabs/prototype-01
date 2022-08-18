@@ -43,6 +43,7 @@ type FText = {
   type: 't'
   content: string
 }
+// TODO: Extend timestamp with relevant fields
 type FTimestamp = {
   type: 'Z'
   content: string

@@ -220,6 +220,8 @@ describe('regular links', () => {
   })
 })
 
+describe.todo('timestamp', () => {})
+
 describe('lists', () => {
   describe('unordered', () => {
     const raw = `
