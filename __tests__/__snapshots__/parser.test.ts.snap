@@ -26,6 +26,23 @@ exports[`extractFormattedText > returns code 1`] = `
 ]
 `;
 
+exports[`extractFormattedText > returns verbatim text 1`] = `
+[
+  {
+    "content": "A ",
+    "type": "t",
+  },
+  {
+    "content": "verbatim",
+    "type": "v",
+  },
+  {
+    "content": " string",
+    "type": "t",
+  },
+]
+`;
+
 exports[`extractFormattedText > returns with formatting 1`] = `
 [
   {

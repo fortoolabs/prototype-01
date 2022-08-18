@@ -336,6 +336,10 @@ describe('extractFormattedText', () => {
   it('returns code', () => {
     expect(extract('Something ~funny~')).toMatchSnapshot()
   })
+
+  it('returns verbatim text', () => {
+    expect(extract('A =verbatim= string')).toMatchSnapshot()
+  })
 })
 
 describe('Roadmap.org', () => {
