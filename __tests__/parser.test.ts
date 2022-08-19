@@ -152,27 +152,6 @@ describe('heading', () => {
       expect(dut('* Almost done [4/5]')).toEqual({})
     })
   })
-
-  describe('tree', () => {
-    const raw = `#+TITLE: Demonstrating a Heading Tree
-* A
-** A1
-** A2
-* B
-* C
-* D
-*** D1
-********* Dx
-* E
-** E1`
-    it('extracts all headings', () => {
-      expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
-    })
-
-    it('extracts top-level headings only', () => {
-      expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
-    })
-  })
 })
 
 describe('regular links', () => {
