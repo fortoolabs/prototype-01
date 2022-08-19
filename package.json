@@ -15,9 +15,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "engines" : {
-    "npm" : "8.x",
-    "node" : "16.x"
+  "engines": {
+    "npm": "8.x",
+    "node": "16.x"
   },
   "dependencies": {
     "base64url": "^3.0.1",
