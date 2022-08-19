@@ -110,7 +110,7 @@ describe('fallback', () => {
       expect(
         f(
           renderElement({
-            type: 'f',
+            type: 'e',
             content: 'some random junk',
           }),
         ),
@@ -130,7 +130,7 @@ describe('fallback', () => {
       expect(
         f(
           renderElement({
-            type: 'F',
+            type: 'E',
             content: 'some random junk',
           }),
         ),

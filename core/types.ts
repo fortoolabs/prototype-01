@@ -1,4 +1,4 @@
-type FRecursiveObject = {
+export type FRecursiveObject = {
   content: FObjectType[]
 }
 
@@ -43,6 +43,7 @@ type FText = {
   type: 't'
   content: string
 }
+// TODO: Extend timestamp with relevant fields
 type FTimestamp = {
   type: 'Z'
   content: string
@@ -90,13 +91,12 @@ export type FHeading = FRecursiveObject & {
   tags: string[]
 }
 
-type FParagraph = {
+type FParagraph = FRecursiveObject & {
   type: 'p'
-  content: FObjectType[]
 }
 
-type FFallback = {
-  type: 'f'
+type FElementFallback = {
+  type: 'e'
   content: string
 }
 
@@ -118,15 +118,15 @@ export type FElement =
   //  | FHorizontalRule
   //  | FDiarySexp
   | FParagraph
-  | FFallback
+  | FElementFallback
 
-type FGreaterFallback = {
-  type: 'F'
+type FGreaterElementFallback = {
+  type: 'E'
   content: string
 }
 
 // TODO: Expand
-export type FGreaterElement = FGreaterFallback
+export type FGreaterElement = FGreaterElementFallback
 
 export type FElementType = FElement | FGreaterElement
 
@@ -141,6 +141,14 @@ export type FDocument = {
   // TODO: Design Map w/ a key-naming scheme for fast start/end/range lookup
   content: Array<FElementType>
 }
+
+export type FTableOfContentsEntry = {
+  heading: FHeading
+  // The text field should be rendered as the TOC text
+  text: FObjectType[]
+  plaintext: string
+}
+export type FTableOfContents = FTableOfContentsEntry[]
 
 export const emptyDocument = {
   content: [],

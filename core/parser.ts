@@ -4,7 +4,15 @@ import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
 import { OrgData, ObjectType, GreaterElementType, ElementType } from 'uniorg'
 
-import { FDocument, FObjectType, FElementType, emptyDocument } from 'core/types'
+import {
+  FDocument,
+  FObjectType,
+  FElementType,
+  FRecursiveObject,
+  FHeading,
+  FTableOfContents,
+  emptyDocument,
+} from 'core/types'
 
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
@@ -16,22 +24,96 @@ function assertExhaustive(
   throw new Error(message)
 }
 
-export function extractLabel(el: FObjectType): string {
-  if ('content' in el) {
-    switch (typeof el.content) {
-      case 'string':
-        return el.content
-      default:
-        return el.content
-          .map(extractLabel)
-          .reduce((next, acc) => acc.concat(next), '')
-    }
-  } else {
-    assertExhaustive(el)
+// TODO: Refactor to include exhaustiveness check
+// Extract unformatted text (which may be useful to compose ids)
+export function extractText(el: FObjectType | FElementType): string {
+  switch (el.type) {
+    case 'Z':
+      // TODO: Implement unformatted form for timestamp
+      return ''
+    case 'c':
+    case 'v':
+    case 't':
+    case 'X':
+    case '?':
+      return el.content
+    case 'f':
+      return el.label
+    case 'E':
+      return el.content
+    case 'e':
+      return el.content
+    default:
+      // TODO: Deal with empty content scenarios, e.g.: link [[https://www.example.com]]
+      // This will likely warrant changing the return type to: string | undefined
+      return el.content.map(extractText).join('')
   }
 }
 
-function mapObjectType(x: ObjectType): FObjectType {
+// TODO: Refactor to include exhaustiveness check
+export function extractFormattedText(
+  el: FObjectType | FElementType,
+): FObjectType[] {
+  switch (el.type) {
+    case 'a':
+    case 'b':
+    case 'i':
+    case 'c':
+    case 'v':
+    case '+':
+    case 'u':
+    case '^':
+    case '_':
+    case 't':
+    case 'X':
+      return [el]
+    case 'Z':
+    // TODO: Implement formatted form for timestamp
+    case 'f':
+    // Ignore footnote reference
+    case '?':
+    // Ignore entity
+    case 'C':
+      // Ignore table cell
+      return []
+    case 'e':
+    case 'E':
+      // Ignore fallbacks
+      return []
+    default:
+      return el.content.flatMap(extractFormattedText)
+  }
+}
+
+// TODO: Refactor as the extraction of text is simple enough to not need a helper func
+// We can use the extractText and extractFormattedText functions in the components directly
+export function extractHeadlines(
+  els: FElementType[],
+  depth?: number,
+): FTableOfContents {
+  // TODO: Avoid as-mapping since this may not be a "safe" design
+  return els
+    .filter((val) => {
+      switch (val.type) {
+        case 'h':
+          if (depth) {
+            return val.level <= depth
+          } else return true
+        default:
+          return false
+      }
+    })
+    .map((x) => {
+      const heading = x as FHeading
+      return {
+        heading,
+        text: extractFormattedText(heading),
+        plaintext: extractText(heading),
+      }
+    })
+}
+
+function unpackObjectType(x: ObjectType): FObjectType {
   // TODO: Restructure to a list of non-string members
   // A lot of information is lost in just reducing this to strings
   switch (x.type) {
@@ -41,20 +123,20 @@ function mapObjectType(x: ObjectType): FObjectType {
         type: 'a',
         target: x.rawLink,
         linkType: x.linkType,
-        content: x.children.map(mapObjectType),
+        content: x.children.map(unpackObjectType),
       }
     case 'bold':
-      return { type: 'b', content: x.children.map(mapObjectType) }
+      return { type: 'b', content: x.children.map(unpackObjectType) }
     case 'italic':
-      return { type: 'i', content: x.children.map(mapObjectType) }
+      return { type: 'i', content: x.children.map(unpackObjectType) }
     case 'strike-through':
-      return { type: '+', content: x.children.map(mapObjectType) }
+      return { type: '+', content: x.children.map(unpackObjectType) }
     case 'underline':
-      return { type: 'u', content: x.children.map(mapObjectType) }
+      return { type: 'u', content: x.children.map(unpackObjectType) }
     case 'superscript':
-      return { type: '^', content: x.children.map(mapObjectType) }
+      return { type: '^', content: x.children.map(unpackObjectType) }
     case 'subscript':
-      return { type: '_', content: x.children.map(mapObjectType) }
+      return { type: '_', content: x.children.map(unpackObjectType) }
     case 'code':
       return { type: 'c', content: x.value }
     case 'verbatim':
@@ -67,14 +149,14 @@ function mapObjectType(x: ObjectType): FObjectType {
       return {
         type: 'f',
         label: x.label,
-        content: x.children.map(mapObjectType),
+        content: x.children.map(unpackObjectType),
       }
     case 'latex-fragment':
       return { type: 'X', content: x.value }
     case 'entity':
       return { type: '?', content: x.name, html: x.html }
     case 'table-cell':
-      return { type: 'C', content: x.children.map(mapObjectType) }
+      return { type: 'C', content: x.children.map(unpackObjectType) }
     default:
       return assertExhaustive(x)
   }
@@ -103,17 +185,19 @@ function unpackElementType(
     case 'center-block':
     case 'special-block':
     case 'footnote-definition':
+      // TODO: Implement instead of falling back
       return [
-        { type: 'F', content: text.slice(x.contentsBegin, x.contentsEnd) },
+        { type: 'e', content: text.slice(x.contentsBegin, x.contentsEnd) },
       ]
     case 'table':
+      // TODO: Implement instead of falling back
       switch (x.tableType) {
         case 'org':
           return [
-            { type: 'F', content: text.slice(x.contentsBegin, x.contentsEnd) },
+            { type: 'E', content: text.slice(x.contentsBegin, x.contentsEnd) },
           ]
         case 'table.el':
-          return [{ type: 'F', content: x.value }]
+          return [{ type: 'E', content: x.value }]
       }
     // ElementType
     case 'headline':
@@ -125,7 +209,7 @@ function unpackElementType(
           commented: x.commented,
           priority: x.priority,
           tags: x.tags,
-          content: x.children.map(mapObjectType),
+          content: x.children.map(unpackObjectType),
         },
       ]
     case 'planning':
@@ -146,7 +230,7 @@ function unpackElementType(
       // TODO: Implement
       return []
     case 'paragraph':
-      return [{ type: 'p', content: x.children.map(mapObjectType) }]
+      return [{ type: 'p', content: x.children.map(unpackObjectType) }]
     default:
       return assertExhaustive(x)
   }

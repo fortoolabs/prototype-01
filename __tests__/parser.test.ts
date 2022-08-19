@@ -3,7 +3,11 @@ import { beforeAll, expect, describe, it } from 'vitest'
 import { readFileSync } from 'fs'
 
 import { emptyDocument } from 'core/types'
-import parse from 'core/parser'
+import parse, {
+  extractText,
+  extractFormattedText,
+  extractHeadlines,
+} from 'core/parser'
 
 function readFixture(file: string): FDocument {
   return parse(
@@ -23,6 +27,74 @@ describe('generally', () => {
     expect(parse('word')).toEqual({
       content: [{ content: [{ content: 'word', type: 't' }], type: 'p' }],
       todoStates: [],
+    })
+  })
+
+  it('extracts entities', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Entities
+    expect(parse('\\cent').content[0].content).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "cent",
+          "html": "&cent;",
+          "type": "?",
+        },
+      ]
+    `)
+  })
+
+  it('extracts table cells', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Table_Cells
+    expect(parse('12 |').content[0].content).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "12 |",
+          "type": "t",
+        },
+      ]
+    `)
+  })
+
+  it('extracts LaTeX Fragments', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#LaTeX_Fragments
+    // TODO: Examine if this is expected behavior
+    expect(parse('enlargethispage{2\\baselineskip}').content[0].content)
+      .toMatchInlineSnapshot(`
+        [
+          {
+            "content": "enlargethispage{2",
+            "type": "t",
+          },
+          {
+            "content": "\\\\baselineskip",
+            "type": "X",
+          },
+          {
+            "content": "}",
+            "type": "t",
+          },
+        ]
+      `)
+  })
+
+  describe('table of contents', () => {
+    const raw = `#+TITLE: Demonstrating a Heading Tree
+* A
+** A1
+** A2
+* B
+* C
+* D
+*** D1
+********* Dx
+* E
+** E1`
+    it('extracts all headings', () => {
+      expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
+    })
+
+    it('extracts top-level headings only', () => {
+      expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
     })
   })
 })
@@ -131,11 +203,6 @@ describe('regular links', () => {
     it('extracts URL', () => {
       expect(dut(link)).toHaveProperty('target', 'https://www.example.com')
     })
-
-    // We drop the label for now, use function extractLabel if needed
-    it.skip('extracts a link label', () => {
-      expect(dut(link)).toHaveProperty('label', 'example')
-    })
   })
 
   describe('without description', () => {
@@ -152,6 +219,8 @@ describe('regular links', () => {
     })
   })
 })
+
+describe.todo('timestamp', () => {})
 
 describe('lists', () => {
   describe('unordered', () => {
@@ -185,11 +254,153 @@ describe('lists', () => {
           - [X] cabbage
           - [~] salat
         ",
-              "type": "F",
+              "type": "e",
             },
           ],
           "todoStates": [],
         }
+      `)
+    })
+  })
+})
+
+describe('extractText', () => {
+  const extract = (x) => extractText(parse(x).content[0])
+
+  it('contains unformatted text', () => {
+    expect(
+      extract('Hello *bold*, /italic/, +strikethrough+ and _underline_'),
+    ).toEqual('Hello bold, italic, strikethrough and underline')
+  })
+
+  it('contains superscripts and subscripts', () => {
+    expect(extract('A^2')).toEqual('A2')
+    expect(extract('A_2')).toEqual('A2')
+    expect(extract('A_{twenty}')).toEqual('Atwenty')
+  })
+
+  it('contains code', () => {
+    expect(extract('Something ~funny~')).toEqual('Something funny')
+  })
+
+  it('contains verbatim text', () => {
+    expect(extract('A =verbatim= string')).toEqual('A verbatim string')
+  })
+
+  it('contains LaTeX', () => {
+    expect(extract('That equation $e = mc^2$')).toEqual(
+      'That equation $e = mc^2$',
+    )
+  })
+
+  describe('on timestamps', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Timestamps
+    // There are seven timestamp patterns
+    it('returns an empty string when of the active variety', () => {
+      expect(extract('<1997-11-03 Mon 19:15>')).toEqual('')
+    })
+    it('returns en empty string when of the active range variety', () => {
+      expect(extract('<2012-02-08 Wed 20:00 ++1d>')).toEqual('')
+      expect(extract('<2030-10-05 Sat +1m -3d>')).toEqual('')
+    })
+
+    it('returns an empty string for the inactive range variety', () => {
+      expect(extract('[2004-08-24 Tue]--[2004-08-26 Thu]')).toEqual('')
+    })
+
+    it('returns an empty string when of the diary variety', () => {
+      expect(extract('<%%(diary-float t 4 2)>')).toEqual('')
+    })
+  })
+
+  describe('on links', () => {
+    const link = '[[id:blah-di-blah 12][example]]'
+
+    it('extracts a link label', () => {
+      expect(extract(link)).toEqual('example')
+    })
+  })
+})
+
+describe('extractFormattedText', () => {
+  const extract = (x) => extractFormattedText(parse(x).content[0])
+
+  it('returns with formatting', () => {
+    expect(
+      extract(
+        'Hello *bold_{twelve}*, /italic/, +strikethrough+ and _underline_',
+      ),
+    ).toMatchSnapshot()
+  })
+
+  it('returns code', () => {
+    expect(extract('Something ~funny~')).toMatchSnapshot()
+  })
+
+  it('returns verbatim text', () => {
+    expect(extract('A =verbatim= string')).toMatchSnapshot()
+  })
+
+  it('returns LaTeX', () => {
+    expect(extract('That equation $e = mc^2$')).toMatchInlineSnapshot(
+      `
+      [
+        {
+          "content": "That equation ",
+          "type": "t",
+        },
+        {
+          "content": "$e = mc^2$",
+          "type": "X",
+        },
+      ]
+    `,
+    )
+  })
+
+  describe('hides timestamps', () => {
+    // https://orgmode.org/worg/dev/org-syntax.html#Timestamps
+    // There are seven timestamp patterns
+    it('returns an empty string when of the active variety', () => {
+      expect(extract('<1997-11-03 Mon 19:15>')).toEqual([])
+    })
+    it('returns en empty string when of the active range variety', () => {
+      expect(extract('<2012-02-08 Wed 20:00 ++1d>')).toEqual([])
+      expect(extract('<2030-10-05 Sat +1m -3d>')).toEqual([])
+    })
+
+    it('returns an empty string for the inactive range variety', () => {
+      expect(extract('[2004-08-24 Tue]--[2004-08-26 Thu]')).toEqual([])
+    })
+
+    it('returns an empty string when of the diary variety', () => {
+      expect(extract('<%%(diary-float t 4 2)>')).toEqual([])
+    })
+  })
+
+  describe('give a headline', () => {
+    it('returns the headline text', () => {
+      expect(extract('* TODO Calculate a^2 [2004-08-24 Tue]'))
+        .toMatchInlineSnapshot(`
+        [
+          {
+            "content": "Calculate a",
+            "type": "t",
+          },
+          {
+            "content": [
+              {
+                "content": "2",
+                "type": "t",
+              },
+            ],
+            "type": "^",
+          },
+          {
+            "content": " ",
+            "type": "t",
+          },
+        ]
       `)
     })
   })
