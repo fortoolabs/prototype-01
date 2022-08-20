@@ -85,32 +85,31 @@ export function extractFormattedText(
   }
 }
 
-// TODO: Refactor as the extraction of text is simple enough to not need a helper func
-// We can use the extractText and extractFormattedText functions in the components directly
 export function extractHeadlines(
   els: FElementType[],
   depth?: number,
 ): FTableOfContents {
-  // TODO: Avoid as-mapping since this may not be a "safe" design
-  return els
-    .filter((val) => {
-      switch (val.type) {
-        case 'h':
-          if (depth) {
-            return val.level <= depth
-          } else return true
-        default:
-          return false
-      }
-    })
-    .map((x) => {
-      const heading = x as FHeading
-      return {
-        heading,
-        text: extractFormattedText(heading),
-        plaintext: extractText(heading),
-      }
-    })
+  return els.reduce((acc: FTableOfContents, val) => {
+    switch (val.type) {
+      case 'S':
+        return [...acc, ...extractHeadlines(val.content, depth)]
+      case 'h':
+        // Return all headings when depth is undefined
+        // Otherwise, if return heading if the level fits the depth constraint
+        if (depth === undefined || (depth && val.level <= depth)) {
+          return [
+            ...acc,
+            {
+              heading: val,
+              text: extractFormattedText(val),
+              plaintext: extractText(val),
+            },
+          ]
+        } else return acc
+      default:
+        return acc
+    }
+  }, [])
 }
 
 function unpackObjectType(x: ObjectType): FObjectType {
@@ -175,7 +174,12 @@ function unpackElementType(
     case 'org-data':
       return []
     case 'section':
-      return x.children.flatMap(unpackElementWithContext(text))
+      return [
+        {
+          type: 'S',
+          content: x.children.flatMap(unpackElementWithContext(text)),
+        },
+      ]
     case 'property-drawer':
     case 'drawer':
     case 'plain-list':
@@ -257,13 +261,9 @@ function convert(
     case 'org-data':
       return node.children.reduce(convertWithContext(text), acc)
     case 'section':
-      // TODO: Evaluate wrapping in section element
       return {
         ...acc,
-        content: [
-          ...acc.content,
-          ...node.children.flatMap(unpackElementWithContext(text)),
-        ],
+        content: [...acc.content, ...unpackElementType(text, node)],
       }
     case 'property-drawer':
     case 'drawer':
@@ -303,7 +303,9 @@ function convert(
         case 'TITLE':
           return { ...acc, title: node.value }
         case 'TODO':
-          // FIXME: Accomodate for multiple swimlanes as per https://orgmode.org/manual/Per_002dfile-keywords.html
+          // FIXME: Accomodate for multiple swimlanes
+          // https://orgmode.org/manual/Per_002dfile-keywords.html
+          // TODO: Adapt for different TODO keyword types e.g.: TYP_TODO
           return {
             ...acc,
             todoStates: node.value.split(' ').filter((x) => x != '|'),

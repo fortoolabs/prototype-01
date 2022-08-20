@@ -2,7 +2,7 @@ import { beforeAll, expect, describe, it } from 'vitest'
 
 import { readFileSync } from 'fs'
 
-import { emptyDocument } from 'core/types'
+import { emptyDocument, FDocument, FHeading } from 'core/types'
 import parse, {
   extractText,
   extractFormattedText,
@@ -100,26 +100,29 @@ describe('generally', () => {
 })
 
 describe('heading', () => {
+  // TODO: Pretty unsafe but this is test code 🤷🏿‍♂️
+  const getFirstAsHeading = (x: FDocument): FHeading => x.content[0].content[0]
+
   it('has title as content', () => {
-    expect(parse('* How are you?').content[0].content).toEqual([
+    expect(getFirstAsHeading(parse('* How are you?')).content).toEqual([
       { type: 't', content: 'How are you?' },
     ])
   })
 
   it('without title has empty content', () => {
-    expect(parse('* ').content[0].content).toEqual([])
+    expect(getFirstAsHeading(parse('* ')).content).toEqual([])
   })
 
   it('extracts tags', () => {
-    expect(parse('* Design share button').content[0].tags).toHaveLength(0)
-    expect(parse('* Design share button :ui:').content[0].tags).toHaveLength(1)
+    expect(getFirstAsHeading(parse('* Design share button')).tags).toHaveLength(0)
+    expect(getFirstAsHeading(parse('* Design share button :ui:')).tags).toHaveLength(1)
     expect(
-      parse('* Design paraphrasing feature :ui:ML:NLP:').content[0].tags,
+      getFirstAsHeading(parse('* Design paraphrasing feature :ui:ML:NLP:')).tags,
     ).toHaveLength(3)
   })
 
   it('extracts commented status', () => {
-    const isCommented = (x) => parse(x).content[0].commented
+    const isCommented = (x) => getFirstAsHeading(parse(x)).commented
     expect(isCommented('* Basic title')).toEqual(false)
     expect(isCommented('* COMMENTED Basic title')).toEqual(true)
     expect(isCommented('* COMMENT Basic title')).toEqual(true)
@@ -133,16 +136,16 @@ describe('heading', () => {
   })
 
   it('extracts the level', () => {
-    expect(parse('* How are you?').content[0]).toHaveProperty('level', 1)
-    expect(parse('**** How are you?').content[0]).toHaveProperty('level', 4)
-    expect(parse('******************* How are you?').content[0]).toHaveProperty(
+    expect(getFirstAsHeading(parse('* How are you?'))).toHaveProperty('level', 1)
+    expect(getFirstAsHeading(parse('**** How are you?'))).toHaveProperty('level', 4)
+    expect(getFirstAsHeading(parse('******************* How are you?'))).toHaveProperty(
       'level',
       19,
     )
   })
 
   describe('priority', () => {
-    const prio = (x) => parse(x).content[0].priority
+    const prio = (x) => getFirstAsHeading(parse(x)).priority
 
     it('honors any alphanum single-char cookie', () => {
       expect(prio('* [#A] High priority :blah:')).toEqual('A')
@@ -168,7 +171,7 @@ describe('heading', () => {
 
   describe.todo('progress', () => {
     // Awaiting release of https://github.com/rasendubi/uniorg/commit/da79786f7c3afda29f8fb65052e09ca4fec6d4f3
-    const dut = (x) => parse(x).content[0]
+    const dut = (x) => getFirstAsHeading(parse(x))
     it('TBD', () => {
       expect(dut('* Almost done [4/5]')).toEqual({})
     })

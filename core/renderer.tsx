@@ -22,6 +22,9 @@ export function render(doc: FDocument): JSX.Element {
 
 export function renderElement(el: FElementType, i: number): JSX.Element[] {
   switch (el.type) {
+    case 'S':
+      // TODO: Render section in collapsible component
+      return el.content.flatMap(renderElement)
     case 'h':
       switch (el.level) {
         case 1:
