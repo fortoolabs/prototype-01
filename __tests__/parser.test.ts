@@ -101,7 +101,7 @@ describe('generally', () => {
 
 describe('heading', () => {
   // TODO: Pretty unsafe but this is test code 🤷🏿‍♂️
-  const getFirstAsHeading = (x: FDocument): FHeading => x.content[0]
+  const getFirstAsHeading = (x: FDocument): FHeading => x.content[0].content[0]
 
   it('has title as content', () => {
     expect(getFirstAsHeading(parse('* How are you?')).content).toEqual([
