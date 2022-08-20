@@ -305,7 +305,9 @@ function convert(
         case 'TITLE':
           return { ...acc, title: node.value }
         case 'TODO':
-          // FIXME: Accomodate for multiple swimlanes as per https://orgmode.org/manual/Per_002dfile-keywords.html
+          // FIXME: Accomodate for multiple swimlanes
+          // https://orgmode.org/manual/Per_002dfile-keywords.html
+          // TODO: Adapt for different TODO keyword types e.g.: TYP_TODO
           return {
             ...acc,
             todoStates: node.value.split(' ').filter((x) => x != '|'),
