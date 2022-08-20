@@ -175,13 +175,12 @@ function unpackElementType(
     case 'org-data':
       return []
     case 'section':
-      return x.children.flatMap(unpackElementWithContext(text))
-    //return [
-    //  {
-    //    type: 'S',
-    //    content: x.children.flatMap(unpackElementWithContext(text)),
-    //  },
-    //]
+      return [
+        {
+          type: 'S',
+          content: x.children.flatMap(unpackElementWithContext(text)),
+        },
+      ]
     case 'property-drawer':
     case 'drawer':
     case 'plain-list':
