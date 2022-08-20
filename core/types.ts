@@ -125,8 +125,13 @@ type FGreaterElementFallback = {
   content: string
 }
 
+type FSection = {
+  type: 'S'
+  content: FElementType[]
+}
+
 // TODO: Expand
-export type FGreaterElement = FGreaterElementFallback
+export type FGreaterElement = FSection | FGreaterElementFallback
 
 export type FElementType = FElement | FGreaterElement
 

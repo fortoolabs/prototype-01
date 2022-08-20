@@ -176,6 +176,12 @@ function unpackElementType(
       return []
     case 'section':
       return x.children.flatMap(unpackElementWithContext(text))
+    //return [
+    //  {
+    //    type: 'S',
+    //    content: x.children.flatMap(unpackElementWithContext(text)),
+    //  },
+    //]
     case 'property-drawer':
     case 'drawer':
     case 'plain-list':
@@ -257,13 +263,9 @@ function convert(
     case 'org-data':
       return node.children.reduce(convertWithContext(text), acc)
     case 'section':
-      // TODO: Evaluate wrapping in section element
       return {
         ...acc,
-        content: [
-          ...acc.content,
-          ...node.children.flatMap(unpackElementWithContext(text)),
-        ],
+        content: [...acc.content, ...unpackElementType(text, node)],
       }
     case 'property-drawer':
     case 'drawer':
