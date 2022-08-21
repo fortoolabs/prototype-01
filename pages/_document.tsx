@@ -1,15 +1,17 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
-export default function Document() {
+function TailwindDocument() {
   return (
-    <Html>
+    <Html className="h-full">
       <Head>
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
-      <body>
+      <body className="h-full overflow-hidden">
         <Main />
         <NextScript />
       </body>
     </Html>
   )
 }
+
+export default TailwindDocument
