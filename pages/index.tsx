@@ -1,8 +1,6 @@
 import type { NextPage } from 'next'
 import useSWR, { Fetcher } from 'swr'
 
-import { AppContainer, Main, MainContent } from 'components/View'
-
 // Dummy API call
 import type { HelloData } from 'pages/api/hello'
 
@@ -37,17 +35,13 @@ const Home: NextPage = () => {
   const { hello, isLoading }: HelloResponse = useHello()
 
   return (
-    <AppContainer>
-      <Main>
-        <MainContent>
-          <p>
-            This is some dynamic content from the api: 👉🏿{' '}
-            <strong>{hello}</strong>
-            {isLoading && <span>⏳</span>}
-          </p>
-        </MainContent>
-      </Main>
-    </AppContainer>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <p>
+        This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
+        {isLoading && <span>⏳</span>}
+      </p>
+    </div>
   )
 }
 
