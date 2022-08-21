@@ -4,6 +4,9 @@ import useSWR, { Fetcher } from 'swr'
 // Dummy API call
 import type { HelloData } from 'pages/api/hello'
 
+import { TwoPaneLayoutWithSidebar as CoreLayout } from 'components/app/Layout'
+import { NavigationBar } from 'components/app/NavigationBar'
+
 const fetcher: Fetcher<HelloData, string> = (url) =>
   fetch(url).then((r) => r.json())
 
@@ -35,12 +38,15 @@ const Home: NextPage = () => {
   const { hello, isLoading }: HelloResponse = useHello()
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <p>
-        This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
-        {isLoading && <span>⏳</span>}
-      </p>
+    <div className="min-h-full">
+      <NavigationBar />
+      <CoreLayout />
+      <div className="py-10">
+        <p>
+          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
+          {isLoading && <span>⏳</span>}
+        </p>
+      </div>
     </div>
   )
 }
