@@ -114,10 +114,15 @@ describe('heading', () => {
   })
 
   it('extracts tags', () => {
-    expect(getFirstAsHeading(parse('* Design share button')).tags).toHaveLength(0)
-    expect(getFirstAsHeading(parse('* Design share button :ui:')).tags).toHaveLength(1)
+    expect(getFirstAsHeading(parse('* Design share button')).tags).toHaveLength(
+      0,
+    )
     expect(
-      getFirstAsHeading(parse('* Design paraphrasing feature :ui:ML:NLP:')).tags,
+      getFirstAsHeading(parse('* Design share button :ui:')).tags,
+    ).toHaveLength(1)
+    expect(
+      getFirstAsHeading(parse('* Design paraphrasing feature :ui:ML:NLP:'))
+        .tags,
     ).toHaveLength(3)
   })
 
@@ -136,12 +141,17 @@ describe('heading', () => {
   })
 
   it('extracts the level', () => {
-    expect(getFirstAsHeading(parse('* How are you?'))).toHaveProperty('level', 1)
-    expect(getFirstAsHeading(parse('**** How are you?'))).toHaveProperty('level', 4)
-    expect(getFirstAsHeading(parse('******************* How are you?'))).toHaveProperty(
+    expect(getFirstAsHeading(parse('* How are you?'))).toHaveProperty(
       'level',
-      19,
+      1,
     )
+    expect(getFirstAsHeading(parse('**** How are you?'))).toHaveProperty(
+      'level',
+      4,
+    )
+    expect(
+      getFirstAsHeading(parse('******************* How are you?')),
+    ).toHaveProperty('level', 19)
   })
 
   describe('priority', () => {
