@@ -4,8 +4,8 @@ import useSWR, { Fetcher } from 'swr'
 // Dummy API call
 import type { HelloData } from 'pages/api/hello'
 
-import { TwoPaneLayoutWithSidebar as CoreLayout } from 'components/app/Layout'
-import { NavigationBar } from 'components/app/NavigationBar'
+import CoreLayout from 'components/app/Layout'
+import NavigationBar from 'components/app/NavigationBar'
 import { MyDropdown } from 'components/app/MyDropdown'
 
 const fetcher: Fetcher<HelloData, string> = (url) =>
