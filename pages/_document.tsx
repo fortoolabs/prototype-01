@@ -6,7 +6,7 @@ function TailwindDocument() {
       <Head>
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
-      <body className="h-full overflow-hidden">
+      <body className="h-full">
         <Main />
         <NextScript />
       </body>
