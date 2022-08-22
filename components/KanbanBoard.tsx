@@ -3,8 +3,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import {
   CheckIcon,
   ClockIcon,
-  ExclamationIcon,
-  PencilAltIcon,
   PhotographIcon,
   PlusIcon,
   XIcon,
@@ -42,6 +40,10 @@ type KanbanBoardProps = {
   data: Array<KanbanColumnProps>
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
   addTask: (visible: boolean) => any
+}
+
+type KanbanSpaceProps = {
+  data: Array<KanbanColumnProps>
 }
 
 export const dummyData: Array<KanbanColumnProps> = [
@@ -411,7 +413,10 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
   )
 }
 
-const KanbanEditTaskModal = React.forwardRef((props, ref) => {
+type EditTaskModalProps = {}
+
+// FIX: Type ref as RefObject-like
+const EditTaskModal = (props: EditTaskModalProps, ref: any) => {
   return (
     <div
       className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -657,9 +662,17 @@ const KanbanEditTaskModal = React.forwardRef((props, ref) => {
       </div>
     </div>
   )
-})
+}
 
-const KanbanAddTaskModal = React.forwardRef(({ show, hide }, ref) => {
+export const KanbanEditTaskModal = React.forwardRef(EditTaskModal)
+
+type AddTaskModalProps = {
+  show: () => any
+  hide: () => any
+}
+
+// FIX: Type ref as RefObject-like
+const AddTaskModal = ({ show, hide }: AddTaskModalProps, ref: any) => {
   return (
     <div
       className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -718,7 +731,7 @@ const KanbanAddTaskModal = React.forwardRef(({ show, hide }, ref) => {
                   </label>
                   <textarea
                     id="product-details"
-                    rows="6"
+                    rows={6}
                     className="block w-full text-gray-900 border border-gray-200 rounded-lg bg-gray-50 sm:text-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                     placeholder="On line 672 you define $table_variants. Each instance of 'color-level' needs to be changed to 'shift-color'."
                   ></textarea>
@@ -759,13 +772,15 @@ const KanbanAddTaskModal = React.forwardRef(({ show, hide }, ref) => {
       </div>
     </div>
   )
-})
+}
 
-export default function KanbanSpace({ data }: KanbanBoardProps) {
+export const KanbanAddTaskModal = React.forwardRef(AddTaskModal)
+
+export default function KanbanSpace({ data }: KanbanSpaceProps) {
   //const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
 
-  const cancelButtonRef = useRef(null)
+  const cancelButtonRef = useRef<HTMLButtonElement>(null)
 
   return (
     <div className="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
@@ -855,7 +870,8 @@ export default function KanbanSpace({ data }: KanbanBoardProps) {
                       Cancel
                     </button>
                   </div>
-                  </Dialog.Panel> */}
+                </Dialog.Panel>
+     */}
               </Transition.Child>
             </div>
           </div>
