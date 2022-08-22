@@ -46,7 +46,7 @@ const Home: NextPage = () => {
           This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
           {isLoading && <span>⏳</span>}
         </p>
-        <a id="test-anchor"/>
+        <a id="test-anchor" />
       </div>
     </div>
   )

@@ -14,9 +14,11 @@ export const TOCStub = [
       },
       {
         heading: 'Part 1.2',
-        children: [{
-            heading: 'Part 1.2.1'
-        }]
+        children: [
+          {
+            heading: 'Part 1.2.1',
+          },
+        ],
       },
     ],
   },
@@ -28,12 +30,21 @@ export const TOCStub = [
   },
 ]
 
-const recurList = (heading: TOCProps, depth:depthProps) => {
-  if (!heading.children) return <li className="py-2 px-4 w-full"><a href="#test-anchor">{heading.heading}</a></li>
+const recurList = (heading: TOCProps, depth: depthProps) => {
+  if (!heading.children)
+    return (
+      <li className="py-2 px-4 w-full">
+        <a href="#test-anchor">{heading.heading}</a>
+      </li>
+    )
   return (
     <>
-      <li className="py-2 px-4 w-full "><a href="#test-anchor">{heading.heading}</a></li>
-      <ul className={`px-${2*depth}`}>{heading.children.map(child => recurList(child, depth+1))}</ul>
+      <li className="py-2 px-4 w-full ">
+        <a href="#test-anchor">{heading.heading}</a>
+      </li>
+      <ul className={`px-${2 * depth}`}>
+        {heading.children.map((child) => recurList(child, depth + 1))}
+      </ul>
     </>
   )
 }
@@ -42,8 +53,8 @@ export default function TOC({ list }: TOCProps[]) {
   if (!list.length) return null
   return (
     <ul className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-      {list.map(item => {
-        return recurList(item,1)
+      {list.map((item) => {
+        return recurList(item, 1)
       })}
     </ul>
   )

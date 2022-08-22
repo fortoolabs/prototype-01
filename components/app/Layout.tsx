@@ -157,7 +157,6 @@ export default function Example() {
                   <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
                     <TOC list={TOCStub} />
                   </div>
-
                 </Dialog.Panel>
               </Transition.Child>
               <div className="flex-shrink-0 w-14" aria-hidden="true">
