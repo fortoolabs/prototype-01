@@ -6,6 +6,7 @@ import type { HelloData } from 'pages/api/hello'
 
 import { TwoPaneLayoutWithSidebar as CoreLayout } from 'components/app/Layout'
 import { NavigationBar } from 'components/app/NavigationBar'
+import { MyDropdown } from 'components/app/MyDropdown'
 
 const fetcher: Fetcher<HelloData, string> = (url) =>
   fetch(url).then((r) => r.json())
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
           {isLoading && <span>⏳</span>}
         </p>
       </div>
+      <MyDropdown />
     </div>
   )
 }
