@@ -26,7 +26,7 @@ const navigation = [
   { name: 'Office Map', href: '#', icon: MapIcon, current: false },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
