@@ -29,7 +29,7 @@ export const TOCStub = [
 ]
 
 const recurList = (heading: TOCProps, depth:depthProps) => {
-  if (!heading.children) return <li class="py-2 px-4 w-full"><a href="#test-anchor">{heading.heading}</a></li>
+  if (!heading.children) return <li className="py-2 px-4 w-full"><a href="#test-anchor">{heading.heading}</a></li>
   return (
     <>
       <li className="py-2 px-4 w-full "><a href="#test-anchor">{heading.heading}</a></li>
