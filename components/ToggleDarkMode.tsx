@@ -9,9 +9,49 @@ export type ToggleSwitchProps = {
   isEnabled: boolean
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
   setEnabled: (params: boolean) => any
+  icons?: { enabled: JSX.Element; disabled: JSX.Element }
 }
 
-export default function Example({ isEnabled, setEnabled }: ToggleSwitchProps) {
+// FIX: Broken: When toggling on, the icon fades out
+export default function Example({
+  isEnabled,
+  setEnabled,
+  icons,
+}: ToggleSwitchProps) {
+  const getIconComponents = (): JSX.Element | undefined => {
+    if (icons === undefined) {
+      return
+    } else {
+      const { enabled, disabled } = icons
+      return (
+        <>
+          <span
+            className={classNames(
+              isEnabled
+                ? 'opacity-0 ease-out duration-100'
+                : 'opacity-100 ease-in duration-200',
+              'absolute inset-0 h-full w-full flex items-center justify-center transition-opacity',
+            )}
+            aria-hidden="true"
+          >
+            {disabled}
+          </span>
+          <span
+            className={classNames(
+              isEnabled
+                ? 'opacity-100 ease-in duration-200'
+                : 'opacity-0 ease-out duration-100',
+              'absolute inset-0 h-full w-full flex items-center justify-center transition-opacity',
+            )}
+            aria-hidden="true"
+          >
+            {enabled}
+          </span>
+        </>
+      )
+    }
+  }
+
   return (
     <Switch
       checked={isEnabled}
@@ -28,52 +68,7 @@ export default function Example({ isEnabled, setEnabled }: ToggleSwitchProps) {
           'pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
         )}
       >
-        <span
-          className={classNames(
-            isEnabled
-              ? 'opacity-0 ease-out duration-100'
-              : 'opacity-100 ease-in duration-200',
-            'absolute inset-0 h-full w-full flex items-center justify-center transition-opacity',
-          )}
-          aria-hidden="true"
-        >
-          <svg
-            className="h-3 w-3 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
-        <span
-          className={classNames(
-            isEnabled
-              ? 'opacity-100 ease-in duration-200'
-              : 'opacity-0 ease-out duration-100',
-            'absolute inset-0 h-full w-full flex items-center justify-center transition-opacity',
-          )}
-          aria-hidden="true"
-        >
-          <svg
-            className="h-3 w-3 text-indigo-600"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
+        {icons && getIconComponents()}
       </span>
     </Switch>
   )
