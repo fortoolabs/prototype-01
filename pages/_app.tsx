@@ -27,7 +27,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     // TODO: Expose this to the children such that they can control dark-mode settings
     <div className="bg-white dark:bg-black dark:text-white">
-      <ToggleDarkMode isDark={isDark} setDarkMode={setDarkMode} />
+      <ToggleDarkMode checked={isDark} onChange={setDarkMode} />
       <Component {...pageProps} />
     </div>
   )
