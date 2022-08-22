@@ -1,38 +1,40 @@
 import type { AppProps } from 'next/app'
-import { Grommet } from 'grommet'
-import { useState } from 'react'
 
-import { Col, Row } from 'components/View'
-import { theme } from 'styles/formation-theme'
-import GlobalStyle from 'styles/global'
+import { useEffect, useState } from 'react'
+import { SunIcon, MoonIcon } from '@heroicons/react/outline'
+
+import '../styles/globals.css'
+
+import ToggleDarkMode from 'components/ToggleDarkMode'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [darkMode, setDarkMode] = useState(false)
+  const [isDark, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    // Check window and document existentce to limit logic to the client-side
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      // https://tailwindcss.com/docs/dark-mode#supporting-system-preference-and-manual-selection
+      if (
+        isDark === true ||
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    }
+  })
+
   return (
-    <Grommet themeMode={darkMode ? 'dark' : 'light'} theme={theme} full>
-      <Row gap="4px" pad="small" justify="start">
-        <Col
-          border={{ size: 'small', color: 'black' }}
-          background="black"
-          width="24px"
-          height="24px"
-          round="12px"
-          onClick={() => setDarkMode(true)}
-        />
-        <Col
-          border={{ color: 'brand', size: 'small' }}
-          background="white"
-          width="24px"
-          height="24px"
-          round="12px"
-          onClick={() => setDarkMode(false)}
-        />
-      </Row>
-      <GlobalStyle />
-      <Col height={{ min: '100%' }}>
-        <Component {...pageProps} />
-      </Col>
-    </Grommet>
+    // TODO: Expose this to the children such that they can control dark-mode settings
+    <div className="bg-white dark:bg-black dark:text-white">
+      <ToggleDarkMode
+        isEnabled={isDark}
+        setEnabled={setDarkMode}
+        icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
+      />
+      <Component {...pageProps} />
+    </div>
   )
 }
 
