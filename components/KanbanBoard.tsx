@@ -40,6 +40,8 @@ type KanbanColumnProps = {
 
 type KanbanBoardProps = {
   data: Array<KanbanColumnProps>
+  /*eslint no-unused-vars: ["error", {"args": "none"}]*/
+  addTask: (visible: boolean) => any
 }
 
 export const dummyData: Array<KanbanColumnProps> = [
@@ -352,6 +354,7 @@ function KanbanTask({
 }
 
 function KanbanColumn({ id, title, tasks }: KanbanColumnProps) {
+  console.log('Render col', id)
   return (
     <div className="min-w-kanban">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
@@ -360,7 +363,6 @@ function KanbanColumn({ id, title, tasks }: KanbanColumnProps) {
 
       <div id={`kanban-list-${id}`} className="mb-4 space-y-4 min-w-kanban">
         {tasks.map((task) => {
-          console.log(id, task.id)
           return <KanbanTask key={task.id} {...task} />
         })}
       </div>
@@ -409,17 +411,7 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
   )
 }
 
-export default function KanbanSpace({ data }: KanbanBoardProps) {
-  return (
-    <div className="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-      <KanbanBoard data={data} />
-      <KanbanEditTaskModal />
-      <KanbanAddTaskModal />
-    </div>
-  )
-}
-
-function KanbanEditTaskModal() {
+const KanbanEditTaskModal = React.forwardRef((props, ref) => {
   return (
     <div
       className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -665,9 +657,9 @@ function KanbanEditTaskModal() {
       </div>
     </div>
   )
-}
+})
 
-export function KanbanAddTaskModal() {
+const KanbanAddTaskModal = React.forwardRef(({ show, hide }, ref) => {
   return (
     <div
       className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -675,15 +667,23 @@ export function KanbanAddTaskModal() {
     >
       <div className="relative w-full h-full max-w-2xl px-4 md:h-auto">
         {/* Modal content */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-800">
+
+        <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+          {/*<div className="relative bg-white rounded-lg shadow dark:bg-gray-800">*/}
           {/* Modal header */}
           <div className="flex items-center justify-between p-4 border-b rounded-t md:px-6 dark:border-gray-700">
-            <div className="text-xl font-semibold dark:text-white">
+            {/* Convert this to heading, maybe h3 */}
+            <Dialog.Title
+              as="div"
+              className="text-xl font-semibold dark:text-white"
+            >
               Add new task
-            </div>
+            </Dialog.Title>
             <button
               type="button"
-              data-modal-toggle="new-card-modal"
+              onClick={() => {
+                hide()
+              }}
               className="text-gray-400 bg-transparent hover:bg-gray-300 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
             >
               <XIcon className="h-5 w-5" />
@@ -746,7 +746,7 @@ export function KanbanAddTaskModal() {
                 </button>
                 <button
                   type="button"
-                  data-modal-toggle="new-card-modal"
+                  ref={ref}
                   className="w-24 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 hover:border-gray-300 font-semibold rounded-lg text-sm py-2.5 text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600"
                 >
                   Close
@@ -754,8 +754,117 @@ export function KanbanAddTaskModal() {
               </div>
             </div>
           </form>
-        </div>
+          {/*</div>*/}
+        </Dialog.Panel>
       </div>
+    </div>
+  )
+})
+
+export default function KanbanSpace({ data }: KanbanBoardProps) {
+  //const [isEdit, setEdit] = useState(false)
+  const [isAdd, setAdd] = useState(false)
+
+  const cancelButtonRef = useRef(null)
+
+  return (
+    <div className="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+      <KanbanBoard
+        data={data}
+        addTask={(isVisible: boolean) => {
+          setAdd(isVisible)
+        }}
+      />
+      <Transition.Root show={isAdd} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          initialFocus={cancelButtonRef}
+          onClose={setAdd}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed z-10 inset-0 overflow-y-auto">
+            <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              >
+                {/* Switch to KanbanAddGroupModal */}
+                <KanbanAddTaskModal
+                  show={() => setAdd(true)}
+                  hide={() => setAdd(false)}
+                  ref={cancelButtonRef}
+                />
+                {/*
+                <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div className="sm:flex sm:items-start">
+                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <ExclamationIcon
+                          className="h-6 w-6 text-red-600"
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <Dialog.Title
+                          as="h3"
+                          className="text-lg leading-6 font-medium text-gray-900"
+                        >
+                          Deactivate account
+                        </Dialog.Title>
+                        <div className="mt-2">
+                          <p className="text-sm text-gray-500">
+                            Are you sure you want to deactivate your account?
+                            All of your data will be permanently removed. This
+                            action cannot be undone.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button
+                      type="button"
+                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                      onClick={() => setAdd(false)}
+                    >
+                      Deactivate
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                      onClick={() => setAdd(false)}
+                      ref={cancelButtonRef}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  </Dialog.Panel> */}
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+        {/*<KanbanAddTaskModal />*/}
+      </Transition.Root>
+      {/*<Transition.Root show={isEdit} as={Fragment}>
+        <KanbanEditTaskModal />
+        </Transition.Root>*/}
     </div>
   )
 }
