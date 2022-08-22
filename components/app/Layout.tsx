@@ -16,6 +16,7 @@ import {
   UserGroupIcon,
   XIcon,
 } from '@heroicons/react/outline'
+import TOC, { TOCStub } from './TOC'
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -153,6 +154,10 @@ export default function Example() {
                       </div>
                     </a>
                   </div>
+                  <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+                    <TOC list={TOCStub} />
+                  </div>
+
                 </Dialog.Panel>
               </Transition.Child>
               <div className="flex-shrink-0 w-14" aria-hidden="true">
@@ -223,6 +228,9 @@ export default function Example() {
                     </div>
                   </div>
                 </a>
+              </div>
+              <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
+                <TOC list={TOCStub} />
               </div>
             </div>
           </div>

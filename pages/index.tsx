@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import useSWR, { Fetcher } from 'swr'
-import { Alert } from 'flowbite-react'
 
 // Dummy API call
 import type { HelloData } from 'pages/api/hello'
@@ -47,7 +46,7 @@ const Home: NextPage = () => {
           This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
           {isLoading && <span>⏳</span>}
         </p>
-        <Alert color="info">Alert!</Alert>;
+        <a id="test-anchor"/>
       </div>
     </div>
   )
