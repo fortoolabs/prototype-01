@@ -18,6 +18,7 @@ module.exports = {
     builder: '@storybook/builder-webpack5',
     disableTelemetry: true,
   },
+  typescript: { reactDocgen: false },
   webpackFinal: async (config, { configType }) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
     return config
