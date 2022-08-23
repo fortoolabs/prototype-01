@@ -7,7 +7,7 @@ export type TOCProps = {
     headings: Array<TOCHeading>
 }
 
-type depthProps = number
+export type depthProp = number
 
 export const TOCStub = [
   {
@@ -34,7 +34,7 @@ export const TOCStub = [
   },
 ]
 
-const recurList = (heading: TOCHeading, depth: depthProps) => {
+const recurList = (heading: TOCHeading, depth: depthProp) => {
   if (!heading.children || depth > 2)
     return (
       <li className="py-2 w-full">
@@ -47,7 +47,9 @@ const recurList = (heading: TOCHeading, depth: depthProps) => {
         <a href="#test-anchor">{heading.heading}</a>
       </li>
       <ul className={`px-${2 * depth}`}>
-        {heading.children.map((child:TOCHeading, depth:depthProps) => recurList(child, depth + 1))}
+        {heading.children.map((child:TOCHeading) => {
+          return recurList(child, depth + 1)
+        })}
       </ul>
     </>
   )
