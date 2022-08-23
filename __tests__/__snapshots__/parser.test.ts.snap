@@ -463,3 +463,128 @@ exports[`generally > table of contents > flat extraction > extracts top-level he
   },
 ]
 `;
+
+exports[`generally > table of contents > nested extraction > extracts top-level headings only 1`] = `
+[
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "A",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "A",
+    "text": [
+      {
+        "content": "A",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "B",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "B",
+    "text": [
+      {
+        "content": "B",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "C",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "C",
+    "text": [
+      {
+        "content": "C",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "D",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "D",
+    "text": [
+      {
+        "content": "D",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "E",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "E",
+    "text": [
+      {
+        "content": "E",
+        "type": "t",
+      },
+    ],
+  },
+]
+`;
