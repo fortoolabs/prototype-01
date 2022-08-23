@@ -1,0 +1,72 @@
+// Vitest Snapshot v1
+
+exports[`toc > renders 1`] = `
+<DocumentFragment>
+  <ul
+    class="text-sm font-medium text-gray-700 group-hover:text-gray-900"
+  >
+    <li
+      class="py-2 w-full "
+    >
+      <a
+        href="#test-anchor"
+      >
+        Part 1
+      </a>
+    </li>
+    <ul
+      class="px-2"
+    >
+      <li
+        class="py-2 w-full"
+      >
+        <a
+          href="#test-anchor"
+        >
+          Part 1.1 with a very long title that requires space
+        </a>
+      </li>
+      <li
+        class="py-2 w-full "
+      >
+        <a
+          href="#test-anchor"
+        >
+          Part 1.2
+        </a>
+      </li>
+      <ul
+        class="px-4"
+      >
+        <li
+          class="py-2 w-full"
+        >
+          <a
+            href="#test-anchor"
+          >
+            Part 1.2.1
+          </a>
+        </li>
+      </ul>
+    </ul>
+    <li
+      class="py-2 w-full"
+    >
+      <a
+        href="#test-anchor"
+      >
+        Part 2
+      </a>
+    </li>
+    <li
+      class="py-2 w-full"
+    >
+      <a
+        href="#test-anchor"
+      >
+        Part 3
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
