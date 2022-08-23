@@ -1,61 +1,34 @@
+import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
+
 type TOCHeading = {
   heading: string
   children?: Array<TOCHeading>
 }
 
 export type TOCProps = {
-    headings: Array<TOCHeading>
+  headings: FNestedTableOfContents
 }
 
-export type depthProp = number
-
-export const TOCStub = [
-  {
-    heading: 'Part 1',
-    children: [
-      {
-        heading: 'Part 1.1 with a very long title that requires space',
-      },
-      {
-        heading: 'Part 1.2',
-        children: [
-          {
-            heading: 'Part 1.2.1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    heading: 'Part 2',
-  },
-  {
-    heading: 'Part 3',
-  },
-]
-
-const recurList = (heading: TOCHeading, depth: depthProp) => {
-  if (!heading.children || depth > 2)
-    return (
-      <li className="py-2 w-full">
-        <a href="#test-anchor">{heading.heading}</a>
-      </li>
-    )
+const recurList = (
+  { plaintext, children }: FNestedTableOfContentsEntry,
+  depth: number,
+) => {
+  console.log('children', children, 'depth', depth)
   return (
     <>
-      <li className="py-2 w-full ">
-        <a href="#test-anchor">{heading.heading}</a>
+      <li className="py-2 w-full">
+        <a href="#test-anchor">{plaintext}</a>
       </li>
-      <ul className={`px-${2 * depth}`}>
-        {heading.children.map((child:TOCHeading) => {
-          return recurList(child, depth + 1)
-        })}
-      </ul>
+      {children !== [] && (
+        <ul className={`px-${2 * depth}`}>
+          {children.map((child) => recurList(child, depth + 1))}
+        </ul>
+      )}
     </>
   )
 }
 
-export default function TOC({headings}: TOCProps) {
+export default function TOC({ headings }: TOCProps) {
   if (!headings.length) return null
   return (
     <ul className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
