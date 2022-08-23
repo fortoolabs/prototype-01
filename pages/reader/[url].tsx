@@ -69,7 +69,6 @@ const Reader: NextPage<ReaderProps> = (props) => {
   }
 
   const { title, content } = doc
-  console.log(content)
 
   return (
     <AppContainer>
