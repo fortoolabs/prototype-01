@@ -9,22 +9,21 @@ export type TOCProps = {
   headings: FNestedTableOfContents
 }
 
+// TODO: Refactor into React Component and key mapped elements
+// TODO: Use Disclosure to support folding
 const recurList = (
   { plaintext, children }: FNestedTableOfContentsEntry,
   depth: number,
 ) => {
-  console.log('children', children, 'depth', depth)
   return (
-    <>
-      <li className="py-2 w-full">
-        <a href="#test-anchor">{plaintext}</a>
-      </li>
+    <li className="py-2 w-full">
+      <a href="#test-anchor">{plaintext}</a>
       {children !== [] && (
         <ul className={`px-${2 * depth}`}>
           {children.map((child) => recurList(child, depth + 1))}
         </ul>
       )}
-    </>
+    </li>
   )
 }
 

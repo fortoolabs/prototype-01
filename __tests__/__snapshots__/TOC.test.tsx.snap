@@ -13,33 +13,8 @@ exports[`toc > renders 1`] = `
       >
         Part 1
       </a>
-    </li>
-    <ul
-      class="px-2"
-    >
-      <li
-        class="py-2 w-full"
-      >
-        <a
-          href="#test-anchor"
-        >
-          Part 1.1 with a very long title that requires space
-        </a>
-      </li>
       <ul
-        class="px-4"
-      />
-      <li
-        class="py-2 w-full"
-      >
-        <a
-          href="#test-anchor"
-        >
-          Part 1.2
-        </a>
-      </li>
-      <ul
-        class="px-4"
+        class="px-2"
       >
         <li
           class="py-2 w-full"
@@ -47,14 +22,39 @@ exports[`toc > renders 1`] = `
           <a
             href="#test-anchor"
           >
-            Part 1.2.1
+            Part 1.1 with a very long title that requires space
           </a>
+          <ul
+            class="px-4"
+          />
         </li>
-        <ul
-          class="px-6"
-        />
+        <li
+          class="py-2 w-full"
+        >
+          <a
+            href="#test-anchor"
+          >
+            Part 1.2
+          </a>
+          <ul
+            class="px-4"
+          >
+            <li
+              class="py-2 w-full"
+            >
+              <a
+                href="#test-anchor"
+              >
+                Part 1.2.1
+              </a>
+              <ul
+                class="px-6"
+              />
+            </li>
+          </ul>
+        </li>
       </ul>
-    </ul>
+    </li>
     <li
       class="py-2 w-full"
     >
@@ -63,10 +63,10 @@ exports[`toc > renders 1`] = `
       >
         Part 2
       </a>
+      <ul
+        class="px-2"
+      />
     </li>
-    <ul
-      class="px-2"
-    />
     <li
       class="py-2 w-full"
     >
@@ -75,10 +75,10 @@ exports[`toc > renders 1`] = `
       >
         Part 3
       </a>
+      <ul
+        class="px-2"
+      />
     </li>
-    <ul
-      class="px-2"
-    />
   </ul>
 </DocumentFragment>
 `;
