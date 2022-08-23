@@ -1,41 +1,27 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
+import parse, { extractNestedHeadlines } from 'core/parser'
+
 import TOC from './TOC'
 
-const TestHeadings = [
-  {
-    heading: 'Part 1',
-    children: [
-      {
-        heading: 'Part 1.1 with a very long title that requires space',
-      },
-      {
-        heading: 'Part 1.2',
-        children: [
-          {
-            heading: 'Part 1.2.1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    heading: 'Part 2',
-  },
-  {
-    heading: 'Part 3',
-  },
-]
+const text = [
+  '* Part 1',
+  '** Part 1.1 with a very long title that requires space',
+  '** Part 1.2',
+  '*** Part 1.2.1',
+  '* Part 2',
+  '* Part 3',
+].join('\n')
 
 export default {
   title: 'TOC',
-  component: TOC
+  component: TOC,
 } as ComponentMeta<typeof TOC>
 
 const Template: ComponentStory<typeof TOC> = (args) => <TOC {...args} />
 
 export const BareTOC = Template.bind({})
 BareTOC.args = {
-  headings: TestHeadings
+  headings: extractNestedHeadlines(parse(text).content),
 }
