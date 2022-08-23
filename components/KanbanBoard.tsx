@@ -663,7 +663,6 @@ const EditTaskModal = (props: EditTaskModalProps, ref: any) => {
     </div>
   )
 }
-
 export const KanbanEditTaskModal = React.forwardRef(EditTaskModal)
 
 type AddTaskModalProps = {
@@ -674,106 +673,48 @@ type AddTaskModalProps = {
 // FIX: Type ref as RefObject-like
 const AddTaskModal = ({ show, hide }: AddTaskModalProps, ref: any) => {
   return (
-    <div
-      className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
-      id="new-card-modal"
-    >
-      <div className="relative w-full h-full max-w-2xl px-4 md:h-auto">
-        {/* Modal content */}
-
-        <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
-          {/*<div className="relative bg-white rounded-lg shadow dark:bg-gray-800">*/}
-          {/* Modal header */}
-          <div className="flex items-center justify-between p-4 border-b rounded-t md:px-6 dark:border-gray-700">
-            {/* Convert this to heading, maybe h3 */}
-            <Dialog.Title
-              as="div"
-              className="text-xl font-semibold dark:text-white"
-            >
-              Add new task
-            </Dialog.Title>
-            <button
-              type="button"
-              onClick={() => {
-                hide()
-              }}
-              className="text-gray-400 bg-transparent hover:bg-gray-300 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <XIcon className="h-5 w-5" />
-            </button>
+    <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+      <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div className="sm:flex sm:items-start">
+          <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+            <XIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
           </div>
-          <form action="#">
-            {/* Modal body */}
-            <div className="p-4 space-y-6 md:px-6">
-              <div className="grid grid-cols-2 gap-6 mb-4">
-                <div className="col-span-6 sm:col-span-3">
-                  <label
-                    htmlFor="product-name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Task Name
-                  </label>
-                  <input
-                    type="text"
-                    name="product-name"
-                    id="product-name"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                    placeholder="Redesign Homepage"
-                    required
-                  />
-                </div>
-                <div className="col-span-6 sm:col-span-3">
-                  <label
-                    htmlFor="product-details"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Enter a description
-                  </label>
-                  <textarea
-                    id="product-details"
-                    rows={6}
-                    className="block w-full text-gray-900 border border-gray-200 rounded-lg bg-gray-50 sm:text-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                    placeholder="On line 672 you define $table_variants. Each instance of 'color-level' needs to be changed to 'shift-color'."
-                  ></textarea>
-                </div>
-              </div>
-              <div className="flex items-center justify-center w-full">
-                <label className="flex items-center justify-center w-full h-32 text-gray-500 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-100 hover:border-gray-300 hover:text-gray-900 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white">
-                  <div className="flex items-center justify-center space-x-2">
-                    <PhotographIcon className="w-8 h-8" />
-                    <p className="text-base">Drop files to upload</p>
-                  </div>
-                  <input type="file" className="hidden" />
-                </label>
-              </div>
-              {/* this div seems to be wrong
-                </div> */}
-              {/* Modal footer */}
-              <div className="flex items-center p-4 space-x-3 border-t border-gray-200 rounded-b md:p-6 dark:border-gray-700">
-                <button
-                  type="submit"
-                  className="w-32 inline-flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 border border-primary-700 hover:border-primary-800 font-semibold rounded-lg text-sm py-2.5 text-center"
-                >
-                  <PlusIcon className="w-5 h-5 mr-2" />
-                  Add Card
-                </button>
-                <button
-                  type="button"
-                  ref={ref}
-                  className="w-24 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 hover:border-gray-300 font-semibold rounded-lg text-sm py-2.5 text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600"
-                >
-                  Close
-                </button>
-              </div>
+          <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <Dialog.Title
+              as="h3"
+              className="text-lg leading-6 font-medium text-gray-900"
+            >
+              Deactivate account
+            </Dialog.Title>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">
+                Are you sure you want to deactivate your account? All of your
+                data will be permanently removed. This action cannot be undone.
+              </p>
             </div>
-          </form>
-          {/*</div>*/}
-        </Dialog.Panel>
+          </div>
+        </div>
       </div>
-    </div>
+      <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button
+          type="button"
+          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+          onClick={() => setAdd(false)}
+        >
+          Deactivate
+        </button>
+        <button
+          type="button"
+          className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+          onClick={() => setAdd(false)}
+          ref={ref}
+        >
+          Cancel
+        </button>
+      </div>
+    </Dialog.Panel>
   )
 }
-
 export const KanbanAddTaskModal = React.forwardRef(AddTaskModal)
 
 export default function KanbanSpace({ data }: KanbanSpaceProps) {
@@ -820,58 +761,11 @@ export default function KanbanSpace({ data }: KanbanSpaceProps) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                {/* Switch to KanbanAddGroupModal */}
                 <KanbanAddTaskModal
                   show={() => setAdd(true)}
                   hide={() => setAdd(false)}
                   ref={cancelButtonRef}
                 />
-                {/*
-                <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
-                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div className="sm:flex sm:items-start">
-                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                        <ExclamationIcon
-                          className="h-6 w-6 text-red-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <Dialog.Title
-                          as="h3"
-                          className="text-lg leading-6 font-medium text-gray-900"
-                        >
-                          Deactivate account
-                        </Dialog.Title>
-                        <div className="mt-2">
-                          <p className="text-sm text-gray-500">
-                            Are you sure you want to deactivate your account?
-                            All of your data will be permanently removed. This
-                            action cannot be undone.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button
-                      type="button"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => setAdd(false)}
-                    >
-                      Deactivate
-                    </button>
-                    <button
-                      type="button"
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => setAdd(false)}
-                      ref={cancelButtonRef}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </Dialog.Panel>
-     */}
               </Transition.Child>
             </div>
           </div>
