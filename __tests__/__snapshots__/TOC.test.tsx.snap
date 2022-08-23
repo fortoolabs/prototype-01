@@ -6,7 +6,7 @@ exports[`toc > renders 1`] = `
     class="text-sm font-medium text-gray-700 group-hover:text-gray-900"
   >
     <li
-      class="py-2 w-full "
+      class="py-2 w-full"
     >
       <a
         href="#test-anchor"
@@ -26,8 +26,11 @@ exports[`toc > renders 1`] = `
           Part 1.1 with a very long title that requires space
         </a>
       </li>
+      <ul
+        class="px-4"
+      />
       <li
-        class="py-2 w-full "
+        class="py-2 w-full"
       >
         <a
           href="#test-anchor"
@@ -47,6 +50,9 @@ exports[`toc > renders 1`] = `
             Part 1.2.1
           </a>
         </li>
+        <ul
+          class="px-6"
+        />
       </ul>
     </ul>
     <li
@@ -58,6 +64,9 @@ exports[`toc > renders 1`] = `
         Part 2
       </a>
     </li>
+    <ul
+      class="px-2"
+    />
     <li
       class="py-2 w-full"
     >
@@ -67,6 +76,9 @@ exports[`toc > renders 1`] = `
         Part 3
       </a>
     </li>
+    <ul
+      class="px-2"
+    />
   </ul>
 </DocumentFragment>
 `;
