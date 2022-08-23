@@ -1,5 +1,7 @@
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 
+import { renderObject } from 'core/renderer'
+
 type TOCHeading = {
   heading: string
   children?: Array<TOCHeading>
@@ -16,12 +18,12 @@ type TableOfContentsEntryProps = {
 }
 
 function TableOfContentsEntry({
-  entry: { children, plaintext },
+  entry: { children, text },
   depth,
 }: TableOfContentsEntryProps) {
   return (
     <li className="py-2 w-full">
-      <a href="#test-anchor">{plaintext}</a>
+      <a href="#test-anchor">{text.flatMap(renderObject)}</a>
       {children !== [] && (
         <ul className={`px-${2 * depth}`}>
           {children.map((heading, idx) => (
