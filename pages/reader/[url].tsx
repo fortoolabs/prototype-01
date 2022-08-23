@@ -6,8 +6,10 @@ import useSWR from 'swr'
 import Board from 'components/Board'
 import Linear from 'components/Linear'
 import { AppContainer, Row } from 'components/View'
+import TOC from 'components/app/TOC'
 
 import { FDocument } from 'core/types'
+import { extractNestedHeadlines } from 'core/parser'
 
 import { getDoc, DocResponse } from 'pages/api/doc/index'
 
@@ -66,7 +68,8 @@ const Reader: NextPage<ReaderProps> = (props) => {
     return <span>Loading</span>
   }
 
-  const { title } = doc
+  const { title, content } = doc
+  console.log(content)
 
   return (
     <AppContainer>
@@ -79,6 +82,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
         <button onClick={() => setBoardView(!boardView)}>toggle view</button>
         <button onClick={() => setSerif(!serif)}>toggle font</button>
       </Row>
+      <TOC headings={extractNestedHeadlines(content)} />
       {title !== undefined && (
         <Head>
           <title>{title}</title>
