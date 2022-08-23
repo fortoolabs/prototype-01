@@ -155,7 +155,7 @@ export default function Example() {
                     </a>
                   </div>
                   <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-                    <TOC list={TOCStub} />
+                    <TOC headings={TOCStub} />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -229,7 +229,7 @@ export default function Example() {
                 </a>
               </div>
               <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-                <TOC list={TOCStub} />
+                <TOC headings={TOCStub} />
               </div>
             </div>
           </div>

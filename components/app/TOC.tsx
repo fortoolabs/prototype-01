@@ -4,7 +4,7 @@ type TOCHeading = {
 }
 
 export type TOCProps = {
-    list: Array<TOCHeading>
+    headings: Array<TOCHeading>
 }
 
 type depthProps = number
@@ -53,11 +53,11 @@ const recurList = (heading: TOCHeading, depth: depthProps) => {
   )
 }
 
-export default function TOC({list}: TOCProps) {
-  if (!list.length) return null
+export default function TOC({headings}: TOCProps) {
+  if (!headings.length) return null
   return (
     <ul className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-      {list.map((item) => {
+      {headings.map((item) => {
         return recurList(item, 1)
       })}
     </ul>
