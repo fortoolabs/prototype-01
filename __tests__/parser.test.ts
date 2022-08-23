@@ -101,10 +101,8 @@ describe('generally', () => {
     })
 
     describe('nested extraction', () => {
-      it.skip('extracts all headings', () => {
-        expect(
-          extractNestedHeadlines(parse(raw).content),
-        ).toMatchInlineSnapshot('[]')
+      it('extracts all headings', () => {
+        expect(extractNestedHeadlines(parse(raw).content)).toMatchSnapshot()
       })
       it('extracts top-level headings only', () => {
         expect(extractNestedHeadlines(parse(raw).content, 1)).toMatchSnapshot()
