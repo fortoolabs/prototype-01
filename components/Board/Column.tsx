@@ -1,29 +1,45 @@
-import Card, { AddCard } from './Card'
-
+import KanbanTask, { AddCard } from './Card'
 import { Col } from 'components/View'
 import { UIHeading, UISubheading } from 'components/generic/UIHeading'
+
+import {
+  PlusIcon as SolidPlusIcon
+} from '@heroicons/react/solid'
 
 export type BoardColumnProps = {
   title: string
   todos: any
 }
 
-const BoardColumn = ({ title, todos }: BoardColumnProps) => {
+type KanbanColumnProps = {
+  id: number
+  title: string
+  tasks: Array<KanbanTaskProps>
+}
+
+function KanbanColumn({ id, title, tasks }: KanbanColumnProps) {
+  console.log("mytasks,", tasks)
   return (
-    <Col
-      round="8px"
-      pad={{ horizontal: 'medium' }}
-      width={{ min: '252px', max: '252px' }}
-      background={{ light: 'lightBlueGrey', dark: '#494956' }} //TODO: pick darkmode color palette
-    >
-      <UIHeading level={3}>{title}</UIHeading>
-      <UISubheading level={3}>{`${todos.length} cards`}</UISubheading>
-      {todos.map((todo: any, i: number) => (
-        <Card key={i} title={todo.data.title} name={`card-${i}`} type="CARD" />
-      ))}
-      <AddCard />
-    </Col>
+    <div className="min-w-kanban">
+      <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
+        {title}
+      </div>
+
+      <div id={`kanban-list-${id}`} className="mb-4 space-y-4 min-w-kanban">
+        {tasks.map((task, index) => {
+          return <KanbanTask key={task.id} index={index} task={task} />
+        })}
+      </div>
+
+      <button
+        type="button"
+        data-modal-toggle="new-card-modal"
+        className="flex items-center justify-center w-full py-2 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
+      >
+        <SolidPlusIcon className="w-6 h-6" /> Add another card
+      </button>
+    </div>
   )
 }
 
-export default BoardColumn
+export default KanbanColumn
