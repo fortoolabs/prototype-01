@@ -413,10 +413,15 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
   )
 }
 
-type EditTaskModalProps = {}
+type KanbanModalProps = {
+  show: () => any
+  hide: () => any
+  submit: () => any
+  isVisible: boolean
+}
 
-// FIX: Type ref as RefObject-like
-const EditTaskModal = (props: EditTaskModalProps, ref: any) => {
+// FIXME: Look at KanbanAddTaskModal for inspiration
+export function KanbanEditTaskModal(props: KanbanModalProps) {
   return (
     <div
       className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -663,25 +668,16 @@ const EditTaskModal = (props: EditTaskModalProps, ref: any) => {
     </div>
   )
 }
-export const KanbanEditTaskModal = React.forwardRef(EditTaskModal)
 
-type AddTaskModalProps = {
-  show: () => any
-  hide: () => any
-  submit: () => any
-  isVisible: boolean
-}
-
-// FIX: Type ref as RefObject-like
 export function KanbanAddTaskModal({
   isVisible,
   show,
   hide,
   submit,
-}: AddTaskModalProps) {
+}: KanbanModalProps) {
   const cancelButtonRef = useRef<HTMLButtonElement>(null)
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     submit()
   }
@@ -809,7 +805,7 @@ export function KanbanAddTaskModal({
 }
 
 export default function KanbanSpace({ data }: KanbanSpaceProps) {
-  //const [isEdit, setEdit] = useState(false)
+  const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
 
   return (
@@ -826,9 +822,12 @@ export default function KanbanSpace({ data }: KanbanSpaceProps) {
         isVisible={isAdd}
         submit={() => console.log('submitting')}
       />
-      {/*<Transition.Root show={isEdit} as={Fragment}>
-        <KanbanEditTaskModal />
-        </Transition.Root>*/}
+      <KanbanEditTaskModal
+        show={() => setEdit(true)}
+        hide={() => setEdit(false)}
+        isVisible={isEdit}
+        submit={() => console.log('')}
+      />
     </div>
   )
 }
