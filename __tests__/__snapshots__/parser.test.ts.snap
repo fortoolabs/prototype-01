@@ -109,7 +109,7 @@ exports[`extractFormattedText > returns with formatting 1`] = `
 ]
 `;
 
-exports[`generally > table of contents > extracts all headings 1`] = `
+exports[`generally > table of contents > flat extraction > extracts all headings 1`] = `
 [
   {
     "heading": {
@@ -344,7 +344,7 @@ exports[`generally > table of contents > extracts all headings 1`] = `
 ]
 `;
 
-exports[`generally > table of contents > extracts top-level headings only 1`] = `
+exports[`generally > table of contents > flat extraction > extracts top-level headings only 1`] = `
 [
   {
     "heading": {

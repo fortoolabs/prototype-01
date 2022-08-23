@@ -89,12 +89,16 @@ describe('generally', () => {
 ********* Dx
 * E
 ** E1`
-    it('extracts all headings', () => {
-      expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
+    describe('flat extraction', () => {
+      it('extracts all headings', () => {
+        expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
+      })
+
+      it('extracts top-level headings only', () => {
+        expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+      })
     })
 
-    it('extracts top-level headings only', () => {
-      expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
     })
   })
 })
