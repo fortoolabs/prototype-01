@@ -7,6 +7,7 @@ import parse, {
   extractText,
   extractFormattedText,
   extractHeadlines,
+  extractNestedHeadlines,
 } from 'core/parser'
 
 function readFixture(file: string): FDocument {
@@ -99,6 +100,17 @@ describe('generally', () => {
       })
     })
 
+    describe('nested extraction', () => {
+      it('extracts all headings', () => {
+        expect(
+          extractNestedHeadlines(parse(raw).content),
+        ).toMatchInlineSnapshot('[]')
+      })
+      it('extracts top-level headings only', () => {
+        expect(
+          extractNestedHeadlines(parse(raw).content, 1),
+        ).toMatchInlineSnapshot('[]')
+      })
     })
   })
 })

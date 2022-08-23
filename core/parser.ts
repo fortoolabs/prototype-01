@@ -11,6 +11,7 @@ import {
   FRecursiveObject,
   FHeading,
   FTableOfContents,
+  FNestedTableOfContents,
   emptyDocument,
 } from 'core/types'
 
@@ -110,6 +111,13 @@ export function extractHeadlines(
         return acc
     }
   }, [])
+}
+
+export function extractNestedHeadlines(
+  els: FElementType[],
+  depth?: number,
+): FNestedTableOfContents {
+  return []
 }
 
 function unpackObjectType(x: ObjectType): FObjectType {
