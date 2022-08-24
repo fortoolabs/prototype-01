@@ -209,7 +209,6 @@ export function KanbanModal({
   )
 }
 
-// FIXME: Look at KanbanAddTaskModal for inspiration
 export function KanbanEditTaskModal({
   isVisible,
   show,
@@ -533,9 +532,8 @@ export function KanbanAddTaskModal({
 }
 
 export default function KanbanSpace({ data }: KanbanSpaceProps) {
-  const [isEdit, setEdit] = useState(true)
+  const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
-  console.log('state,', isEdit)
 
   return (
     <div className="flex pt-16 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
