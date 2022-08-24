@@ -1,21 +1,7 @@
-import { memo, FC, useRef } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import Window from './Window'
-import ITEM_TYPES from './types'
-import { Box } from 'grommet'
 
 import { CheckIcon, ClockIcon } from '@heroicons/react/outline'
 import { PencilAltIcon as SolidPencilAltIcon } from '@heroicons/react/solid'
-
-import { ParagraphSmall } from 'components/Paragraph'
-
-// export type CardProps = {
-//   id: string
-//   title: string
-//   name: string
-//   type: string
-//   isDropped?: boolean
-// }
 
 type KanbanTaskProps = {
   index: number
@@ -30,47 +16,16 @@ type KanbanTaskProps = {
   }
 }
 
-const limit = (string: string, limit: number) => {
-  if (string.length <= limit) return string
-  return string.substring(0, limit) + '...'
-}
+// const limit = (string: string, limit: number) => {
+//   if (string.length <= limit) return string
+//   return string.substring(0, limit) + '...'
+// }
 
-export const Card: FC<CardProps> = memo(function Card({
-  item,
+export default function KanbanTask({
   index,
+  task,
   onEditTask,
-}) {
-  return (
-    <Draggable key={item.id} draggableId={item.id} index={index}>
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <Box
-            margin={{ bottom: 'small' }}
-            border={{
-              size: 'xsmall',
-              color: { light: 'greyE2', dark: 'black' },
-            }}
-            round="4px"
-            pad={{ horizontal: 'small' }}
-            width={{ min: '220', max: '220px' }}
-            background={{ light: 'white', dark: '#707581' }} //TODO: pick darkmode color palette
-            onClick={() => alert('Todo details')}
-          >
-            <b>
-              <ParagraphSmall>{limit(item.data.title, 48)}</ParagraphSmall>
-            </b>
-          </Box>
-        </div>
-      )}
-    </Draggable>
-  )
-})
-
-function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
+}: KanbanTaskProps) {
   const taskId = task.id
   return (
     <Draggable key={taskId} draggableId={taskId} index={index}>
@@ -160,5 +115,3 @@ function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
     </Draggable>
   )
 }
-
-export default KanbanTask

@@ -1,4 +1,4 @@
-import KanbanTask, { AddCard } from './Card'
+import KanbanTask from './Task'
 import { Col } from 'components/View'
 import { UIHeading, UISubheading } from 'components/generic/UIHeading'
 
