@@ -13,6 +13,7 @@ type KanbanColumnProps = {
   id: number
   title: string
   tasks: Array<KanbanTaskProps>
+  placeholder: any
 }
 
 function KanbanColumn({
@@ -21,6 +22,7 @@ function KanbanColumn({
   tasks,
   onAddTask,
   onEditTask,
+  placeholder,
 }: KanbanColumnProps) {
   console.log('handle id', id)
   return (
@@ -41,6 +43,7 @@ function KanbanColumn({
           )
         })}
       </div>
+      {placeholder}
 
       <button
         type="button"

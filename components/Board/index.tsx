@@ -108,6 +108,7 @@ export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
                             tasks={column.tasks}
                             onAddTask={(columnId) => handleAddTask(columnId)}
                             onEditTask={(taskId) => handleEditTask(taskId)}
+                            placeholder={provided.placeholder}
                           />
                         </div>
                       )}
