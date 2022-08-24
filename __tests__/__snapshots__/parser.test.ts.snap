@@ -109,7 +109,7 @@ exports[`extractFormattedText > returns with formatting 1`] = `
 ]
 `;
 
-exports[`generally > table of contents > extracts all headings 1`] = `
+exports[`generally > table of contents > flat extraction > extracts all headings 1`] = `
 [
   {
     "heading": {
@@ -344,7 +344,7 @@ exports[`generally > table of contents > extracts all headings 1`] = `
 ]
 `;
 
-exports[`generally > table of contents > extracts top-level headings only 1`] = `
+exports[`generally > table of contents > flat extraction > extracts top-level headings only 1`] = `
 [
   {
     "heading": {
@@ -439,6 +439,380 @@ exports[`generally > table of contents > extracts top-level headings only 1`] = 
     ],
   },
   {
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "E",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "E",
+    "text": [
+      {
+        "content": "E",
+        "type": "t",
+      },
+    ],
+  },
+]
+`;
+
+exports[`generally > table of contents > nested extraction > extracts all headings 1`] = `
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "heading": {
+          "commented": false,
+          "content": [
+            {
+              "content": "A1",
+              "type": "t",
+            },
+          ],
+          "level": 2,
+          "priority": null,
+          "tags": [],
+          "todoKeyword": null,
+          "type": "h",
+        },
+        "plaintext": "A1",
+        "text": [
+          {
+            "content": "A1",
+            "type": "t",
+          },
+        ],
+      },
+      {
+        "children": [],
+        "heading": {
+          "commented": false,
+          "content": [
+            {
+              "content": "A2",
+              "type": "t",
+            },
+          ],
+          "level": 2,
+          "priority": null,
+          "tags": [],
+          "todoKeyword": null,
+          "type": "h",
+        },
+        "plaintext": "A2",
+        "text": [
+          {
+            "content": "A2",
+            "type": "t",
+          },
+        ],
+      },
+    ],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "A",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "A",
+    "text": [
+      {
+        "content": "A",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "B",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "B",
+    "text": [
+      {
+        "content": "B",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "C",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "C",
+    "text": [
+      {
+        "content": "C",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [],
+            "heading": {
+              "commented": false,
+              "content": [
+                {
+                  "content": "Dx",
+                  "type": "t",
+                },
+              ],
+              "level": 9,
+              "priority": null,
+              "tags": [],
+              "todoKeyword": null,
+              "type": "h",
+            },
+            "plaintext": "Dx",
+            "text": [
+              {
+                "content": "Dx",
+                "type": "t",
+              },
+            ],
+          },
+        ],
+        "heading": {
+          "commented": false,
+          "content": [
+            {
+              "content": "D1",
+              "type": "t",
+            },
+          ],
+          "level": 3,
+          "priority": null,
+          "tags": [],
+          "todoKeyword": null,
+          "type": "h",
+        },
+        "plaintext": "D1",
+        "text": [
+          {
+            "content": "D1",
+            "type": "t",
+          },
+        ],
+      },
+    ],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "D",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "D",
+    "text": [
+      {
+        "content": "D",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "heading": {
+          "commented": false,
+          "content": [
+            {
+              "content": "E1",
+              "type": "t",
+            },
+          ],
+          "level": 2,
+          "priority": null,
+          "tags": [],
+          "todoKeyword": null,
+          "type": "h",
+        },
+        "plaintext": "E1",
+        "text": [
+          {
+            "content": "E1",
+            "type": "t",
+          },
+        ],
+      },
+    ],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "E",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "E",
+    "text": [
+      {
+        "content": "E",
+        "type": "t",
+      },
+    ],
+  },
+]
+`;
+
+exports[`generally > table of contents > nested extraction > extracts top-level headings only 1`] = `
+[
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "A",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "A",
+    "text": [
+      {
+        "content": "A",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "B",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "B",
+    "text": [
+      {
+        "content": "B",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "C",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "C",
+    "text": [
+      {
+        "content": "C",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
+    "heading": {
+      "commented": false,
+      "content": [
+        {
+          "content": "D",
+          "type": "t",
+        },
+      ],
+      "level": 1,
+      "priority": null,
+      "tags": [],
+      "todoKeyword": null,
+      "type": "h",
+    },
+    "plaintext": "D",
+    "text": [
+      {
+        "content": "D",
+        "type": "t",
+      },
+    ],
+  },
+  {
+    "children": [],
     "heading": {
       "commented": false,
       "content": [

@@ -11,6 +11,7 @@ import {
   FRecursiveObject,
   FHeading,
   FTableOfContents,
+  FNestedTableOfContents,
   emptyDocument,
 } from 'core/types'
 
@@ -103,6 +104,36 @@ export function extractHeadlines(
               heading: val,
               text: extractFormattedText(val),
               plaintext: extractText(val),
+            },
+          ]
+        } else return acc
+      default:
+        return acc
+    }
+  }, [])
+}
+
+export function extractNestedHeadlines(
+  els: FElementType[],
+  depth?: number,
+): FNestedTableOfContents {
+  return els.reduce((acc: FNestedTableOfContents, val) => {
+    switch (val.type) {
+      case 'S':
+        const [entry, ...rest] = extractNestedHeadlines(val.content, depth)
+        if (entry !== undefined) {
+          return [...acc, { ...entry, children: rest }]
+        }
+        return acc
+      case 'h':
+        if (depth === undefined || (depth && val.level <= depth)) {
+          return [
+            ...acc,
+            {
+              heading: val,
+              text: extractFormattedText(val),
+              plaintext: extractText(val),
+              children: [],
             },
           ]
         } else return acc

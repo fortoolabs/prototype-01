@@ -155,6 +155,15 @@ export type FTableOfContentsEntry = {
 }
 export type FTableOfContents = FTableOfContentsEntry[]
 
+export type FNestedTableOfContentsEntry = {
+  heading: FHeading
+  // The text field should be rendered as the TOC text
+  text: FObjectType[]
+  plaintext: string
+  children: FNestedTableOfContentsEntry[]
+}
+export type FNestedTableOfContents = FNestedTableOfContentsEntry[]
+
 export const emptyDocument = {
   content: [],
   todoStates: [],
