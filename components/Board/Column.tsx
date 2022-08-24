@@ -24,7 +24,7 @@ function KanbanColumn({
 }: KanbanColumnProps) {
   console.log('handle id', id)
   return (
-    <div className="min-w-kanban">
+    <div className="w-72">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
         {title}
       </div>

@@ -115,7 +115,7 @@ export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
                   )
                 })}
 
-                <div className="min-w-kanban">
+                <div className="w-72">
                   <div className="py-4 text-base font-semibold text-gray-900">
                     Add another group
                   </div>
@@ -536,7 +536,7 @@ export default function KanbanSpace({ data }: KanbanSpaceProps) {
   const [isAdd, setAdd] = useState(false)
 
   return (
-    <div className="flex pt-16 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
+    <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden bg-gray-50 dark:bg-gray-900">
       <KanbanBoard
         data={data}
         addTask={(isVisible: boolean) => {
