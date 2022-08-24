@@ -33,14 +33,14 @@ type KanbanBoardProps = {
   data: Array<KanbanColumnProps>
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
   addTask: (visible: boolean) => any
+  editTask: (visible: boolean) => any
 }
 
 
 type TodoElement = HeadingElement
 
-export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
+export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
   const [columns, setColumns] = useState(columnsFromBackend)
-  console.log("my columns, new state", columns)
 
   // todo: include beautiful-dnd -----
   const onDragEnd = (result, columns, setColumns) => {
@@ -86,6 +86,14 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
   //   // TODO: Implement empty board view
   //   return <span>noop</span>
   // }
+  const handleAddTask = (columnId) => {
+    console.log("add task in column with id: ", columnId)
+    addTask(true)
+  }
+  const handleEditTask = (taskId) => {
+    console.log("edit task with id: ", taskId)
+    editTask(true)
+  }
 
   // const { todoStates } = doc
   return (
@@ -106,9 +114,12 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
                   {...provided.droppableProps}>
                 <BoardColumn
                   key={index}
+                  id={columnId}
                   index={index}
                   title={column.title}
                   tasks={column.tasks}
+                  onAddTask={(columnId) => handleAddTask(columnId)}
+                  onEditTask={(taskId) => handleEditTask(taskId)}
                 />
                 </div>
               )}
@@ -123,7 +134,6 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
                 <button
                   type="button"
                   onClick={() => {
-                    console.log('click')
                     addTask(true)
                   }}
                   className="flex items-center justify-center w-full h-32 py-2 m-0 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
@@ -525,8 +535,9 @@ export function KanbanAddTaskModal({
 }
 
 export default function KanbanSpace({ data }: KanbanSpaceProps) {
-  const [isEdit, setEdit] = useState(false)
+  const [isEdit, setEdit] = useState(true)
   const [isAdd, setAdd] = useState(false)
+  console.log("state,", isEdit)
 
   return (
     <div className="flex pt-16 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
@@ -534,6 +545,9 @@ export default function KanbanSpace({ data }: KanbanSpaceProps) {
         data={data}
         addTask={(isVisible: boolean) => {
           setAdd(isVisible)
+        }}
+        editTask={(isVisible: boolean) => {
+          setEdit(isVisible)
         }}
       />
       <KanbanAddTaskModal

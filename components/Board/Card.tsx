@@ -35,7 +35,7 @@ const limit = (string: string, limit: number) => {
   return string.substring(0, limit) + '...'
 }
 
-export const Card: FC<CardProps> = memo(function Card({ item, index }) {
+export const Card: FC<CardProps> = memo(function Card({ item, index, onEditTask }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {provided => (
@@ -66,10 +66,10 @@ export const Card: FC<CardProps> = memo(function Card({ item, index }) {
   )
 })
 
-function KanbanTask({ index, task }: KanbanTaskProps) {
+function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
   const taskId = task.id
   return (
-    <Draggable key={task.id} draggableId={task.id} index={index}>
+    <Draggable key={taskId} draggableId={taskId} index={index}>
       {provided => (
         <div
           ref={provided.innerRef}
@@ -86,6 +86,9 @@ function KanbanTask({ index, task }: KanbanTaskProps) {
                 type="button"
                 data-modal-toggle="kanban-card-modal"
                 className="p-2 text-sm text-gray-500 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+                onClick={() => {
+                    onEditTask(taskId)
+                  }}
               >
                 <SolidPencilAltIcon className="w-5 h-5" />
               </button>

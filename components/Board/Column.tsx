@@ -17,8 +17,9 @@ type KanbanColumnProps = {
   tasks: Array<KanbanTaskProps>
 }
 
-function KanbanColumn({ id, title, tasks }: KanbanColumnProps) {
-  return (
+function KanbanColumn({ id, title, tasks, onAddTask, onEditTask }: KanbanColumnProps) {
+  console.log("handle id", id)
+    return (
     <div className="min-w-kanban">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
         {title}
@@ -26,13 +27,16 @@ function KanbanColumn({ id, title, tasks }: KanbanColumnProps) {
 
       <div id={`kanban-list-${id}`} className="mb-4 space-y-4 min-w-kanban">
         {tasks.map((task, index) => {
-          return <KanbanTask key={task.id} index={index} task={task} />
+          return <KanbanTask key={task.id} index={index} task={task} onEditTask={onEditTask} />
         })}
       </div>
 
       <button
         type="button"
         data-modal-toggle="new-card-modal"
+        onClick={() => {
+                    onAddTask(id)
+                  }}
         className="flex items-center justify-center w-full py-2 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
       >
         <SolidPlusIcon className="w-6 h-6" /> Add another card
