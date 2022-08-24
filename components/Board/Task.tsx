@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
 import { CheckIcon, ClockIcon } from '@heroicons/react/outline'
@@ -64,10 +65,10 @@ export default function KanbanTask({
 
               <div className="flex justify-between">
                 <div className="flex items-center justify-start">
-                  {task.members.map((member) => {
+                  {task.members.map((member, index) => {
                     const { id, avatar, name } = member
                     return (
-                      <>
+                      <Fragment key={index}>
                         <a
                           href="#"
                           data-tooltip-target={`user_${taskId}_${id}`}
@@ -87,7 +88,7 @@ export default function KanbanTask({
                           {name}
                           <div className="tooltip-arrow" data-popper-arrow />
                         </div>
-                      </>
+                      </Fragment>
                     )
                   })}
                 </div>
