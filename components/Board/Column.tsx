@@ -1,12 +1,13 @@
 import KanbanTask from './Task'
 
-import type { KanbanTaskProps } from './Task'
+import type { TaskDataProps } from './data'
 import { PlusIcon as SolidPlusIcon } from '@heroicons/react/solid'
 
 export type KanbanColumnProps = {
   id: string
+  index: number
   title: string
-  tasks: Array<KanbanTaskProps>
+  tasks: Array<TaskDataProps>
   onAddTask: any
   onEditTask: any
   placeholder: any

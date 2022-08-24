@@ -1,4 +1,4 @@
-import type { KanbanModalProps } from './Modal'
+// import type { KanbanModalProps } from './Modal'
 import KanbanModal from './Modal'
 
 import {
@@ -17,7 +17,7 @@ export default function KanbanEditTaskModal({
   isVisible,
   show,
   hide,
-}: KanbanModalProps) {
+}: {isVisible: boolean, show: any, hide: any, submit: any}) {
   // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault()
   //   submit()

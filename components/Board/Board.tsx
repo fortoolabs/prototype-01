@@ -5,13 +5,13 @@ import { PlusIcon } from '@heroicons/react/outline'
 
 import { columnsFromBackend } from './data'
 
-import type { KanbanColumnProps } from './Column'
+// import type { KanbanColumnProps } from './Column'
 import KanbanColumn from './Column'
 
 // import { FDocument } from 'core/types'
 
 type KanbanBoardProps = {
-  data: Array<KanbanColumnProps>
+  data: string // Array<KanbanColumnProps>
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
   addTask: (visible: boolean) => any
   editTask: (visible: boolean) => any

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-type KanbanTaskProps = {
+export type TaskDataProps = {
   id: string
   columnId: string
   name: string
@@ -10,13 +10,14 @@ type KanbanTaskProps = {
   members: Array<{ id: number; name: string; avatar: string }>
 }
 
-type KanbanColumnProps = {
-  id: string
-  title: string
-  tasks: Array<KanbanTaskProps>
+export interface ColumnDataProps {
+  [key: string]: {
+    title: string
+    tasks: Array<TaskDataProps>
+  }
 }
 
-export const tasks: Array<KanbanColumnProps> = [
+export const tasks: Array<TaskDataProps> = [
   {
     id: uuidv4(),
     columnId: '1',
@@ -229,17 +230,17 @@ export const tasks: Array<KanbanColumnProps> = [
   },
 ]
 
-export const columnsFromBackend = {
+export const columnsFromBackend: ColumnDataProps = {
   ['1']: {
     title: 'To-do',
-    tasks: tasks.filter((task) => task.columnId === '1'),
+    tasks: tasks.filter(task => task.columnId === '1'),
   },
   ['2']: {
     title: 'In Progress',
-    tasks: tasks.filter((task) => task.columnId === '2'),
+    tasks: tasks.filter(task => task.columnId === '2'),
   },
   ['3']: {
     title: 'Done',
-    tasks: tasks.filter((task) => task.columnId === '3'),
+    tasks: tasks.filter(task => task.columnId === '3'),
   },
 }

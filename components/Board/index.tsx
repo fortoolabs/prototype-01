@@ -1,17 +1,22 @@
 import { useState } from 'react'
 
+import { FDocument } from 'core/types'
+
 import KanbanBoard from './Board'
 import KanbanAddTaskModal from './AddTaskModal'
 import KanbanEditTaskModal from './EditTaskModal'
 
-export default function KanbanSpace({ data }: KanbanSpaceProps) {
+export default function KanbanSpace({ doc }:{doc:FDocument}) {
   const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
+
+  // TODO: use doc as basis for kanban board
+  console.log(doc)
 
   return (
     <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden bg-gray-50 dark:bg-gray-900">
       <KanbanBoard
-        data={data}
+        data={''}
         addTask={(isVisible: boolean) => {
           setAdd(isVisible)
         }}

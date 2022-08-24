@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import type { KanbanModalProps } from './Modal'
+// import type { KanbanModalProps } from './Modal'
 import KanbanModal from './Modal'
 
 import { PhotographIcon } from '@heroicons/react/outline'
@@ -11,7 +11,7 @@ export default function KanbanAddTaskModal({
   show,
   hide,
   submit,
-}: KanbanModalProps) {
+}: {isVisible: boolean, show: any, hide: any, submit: any}) {
   const cancelButtonRef = useRef<HTMLButtonElement>(null)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
