@@ -2,6 +2,15 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
+export type KanbanModalProps = {
+  title: string,
+  children: any,
+  isVisible: boolean,
+  hide: any,
+  show: any,
+  submit?: any
+}
+
 export default function KanbanModal({
   title,
   children,

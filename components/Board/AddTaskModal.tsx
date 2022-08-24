@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 
+import type { KanbanModalProps } from './Modal'
 import KanbanModal from './Modal'
+
 import { PhotographIcon } from '@heroicons/react/outline'
 import { PlusIcon as SolidPlusIcon } from '@heroicons/react/solid'
 

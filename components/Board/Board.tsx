@@ -4,7 +4,9 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { PlusIcon } from '@heroicons/react/outline'
 
 import { columnsFromBackend } from './data'
-import BoardColumn from './Column'
+
+import type { KanbanColumnProps } from './Column'
+import KanbanColumn from './Column'
 
 // import { FDocument } from 'core/types'
 
@@ -22,7 +24,7 @@ export default function KanbanBoard({
 }: KanbanBoardProps) {
   const [columns, setColumns] = useState(columnsFromBackend)
 
-  const onDragEnd = (result, columns, setColumns) => {
+  const onDragEnd = (result:any, columns:any, setColumns:any) => {
     if (!result.destination) return
     const { source, destination } = result
     if (source.droppableId !== destination.droppableId) {
@@ -57,12 +59,12 @@ export default function KanbanBoard({
       })
     }
   }
-  const handleAddTask = (columnId) => {
-    console.log('add task in column with id: ', columnId)
+  const handleAddTask = (columnId: string) => {
+    console.log('add task in column with id: ', columnId, typeof columnId)
     addTask(true)
   }
-  const handleEditTask = (taskId) => {
-    console.log('edit task with id: ', taskId)
+  const handleEditTask = (taskId: string) => {
+    console.log('edit task with id: ', taskId, typeof taskId)
     editTask(true)
   }
 
@@ -77,7 +79,7 @@ export default function KanbanBoard({
 
   return (
     <DragDropContext
-      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+      onDragEnd={(result:any) => onDragEnd(result, columns, setColumns)}
     >
       <div className="flex flex-col mt-2">
         <div className="overflow-x-auto">
@@ -88,19 +90,18 @@ export default function KanbanBoard({
                   return (
                     <Droppable key={columnId} droppableId={columnId}>
                       {(provided, snapshot) => (
-                        // TODO: Drill todos down to BoardColumn
                         <div
                           ref={provided.innerRef}
                           {...provided.droppableProps}
                         >
-                          <BoardColumn
+                          <KanbanColumn
                             key={index}
                             id={columnId}
                             index={index}
                             title={column.title}
                             tasks={column.tasks}
-                            onAddTask={(columnId) => handleAddTask(columnId)}
-                            onEditTask={(taskId) => handleEditTask(taskId)}
+                            onAddTask={(columnId:string) => handleAddTask(columnId)}
+                            onEditTask={(taskId:string) => handleEditTask(taskId)}
                             placeholder={provided.placeholder}
                           />
                         </div>

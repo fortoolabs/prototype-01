@@ -1,18 +1,14 @@
 import KanbanTask from './Task'
-import { Col } from 'components/View'
-import { UIHeading, UISubheading } from 'components/generic/UIHeading'
 
+import type { KanbanTaskProps } from './Task'
 import { PlusIcon as SolidPlusIcon } from '@heroicons/react/solid'
 
-export type BoardColumnProps = {
-  title: string
-  todos: any
-}
-
-type KanbanColumnProps = {
-  id: number
+export type KanbanColumnProps = {
+  id: string
   title: string
   tasks: Array<KanbanTaskProps>
+  onAddTask: any
+  onEditTask: any
   placeholder: any
 }
 

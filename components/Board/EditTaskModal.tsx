@@ -1,3 +1,4 @@
+import type { KanbanModalProps } from './Modal'
 import KanbanModal from './Modal'
 
 import {

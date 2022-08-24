@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { CheckIcon, ClockIcon } from '@heroicons/react/outline'
 import { PencilAltIcon as SolidPencilAltIcon } from '@heroicons/react/solid'
 
-type KanbanTaskProps = {
+export type KanbanTaskProps = {
   index: number
   task: {
     id: number
@@ -14,6 +14,7 @@ type KanbanTaskProps = {
     daysLeft: number
     members: Array<{ id: number; name: string; avatar: string }>
   }
+  onEditTask: any
 }
 
 // const limit = (string: string, limit: number) => {
