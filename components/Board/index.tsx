@@ -22,7 +22,7 @@ import {
   SelectorIcon as SolidSelectorIcon,
 } from '@heroicons/react/solid'
 
-import { columnsFromBackend} from './data'
+import { columnsFromBackend } from './data'
 import BoardColumn from './Column'
 
 import { Row } from 'components/View'
@@ -35,7 +35,6 @@ type KanbanBoardProps = {
   addTask: (visible: boolean) => any
   editTask: (visible: boolean) => any
 }
-
 
 type TodoElement = HeadingElement
 
@@ -86,93 +85,159 @@ export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
   //   // TODO: Implement empty board view
   //   return <span>noop</span>
   // }
-  const handleAddTask = (columnId) => {
-    console.log("add task in column with id: ", columnId)
+  const handleAddTask = columnId => {
+    console.log('add task in column with id: ', columnId)
     addTask(true)
   }
-  const handleEditTask = (taskId) => {
-    console.log("edit task with id: ", taskId)
+  const handleEditTask = taskId => {
+    console.log('edit task with id: ', taskId)
     editTask(true)
   }
 
   // const { todoStates } = doc
   return (
-    <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
+    <DragDropContext
+      onDragEnd={result => onDragEnd(result, columns, setColumns)}
+    >
       <div className="flex flex-col mt-2">
-      <div className="overflow-x-auto">
-        <div className="inline-block min-w-full align-middle">
-          <div className="overflow-hidden shadow">
-            <div className="flex items-start justify-start px-4 mb-6 space-x-4">
-        
-        {Object.entries(columns).map(([columnId, column], index) => {
-          return (
-            <Droppable key={columnId} droppableId={columnId}>
-              {(provided, snapshot) => (
-                // TODO: Drill todos down to BoardColumn
-                < div
-                ref={provided.innerRef}
-                  {...provided.droppableProps}>
-                <BoardColumn
-                  key={index}
-                  id={columnId}
-                  index={index}
-                  title={column.title}
-                  tasks={column.tasks}
-                  onAddTask={(columnId) => handleAddTask(columnId)}
-                  onEditTask={(taskId) => handleEditTask(taskId)}
-                />
-                </div>
-              )}
-            </Droppable>
-          )
-        })}
+        <div className="overflow-x-auto">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden shadow">
+              <div className="flex items-start justify-start px-4 mb-6 space-x-4">
+                {Object.entries(columns).map(([columnId, column], index) => {
+                  return (
+                    <Droppable key={columnId} droppableId={columnId}>
+                      {(provided, snapshot) => (
+                        // TODO: Drill todos down to BoardColumn
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                        >
+                          <BoardColumn
+                            key={index}
+                            id={columnId}
+                            index={index}
+                            title={column.title}
+                            tasks={column.tasks}
+                            onAddTask={columnId => handleAddTask(columnId)}
+                            onEditTask={taskId => handleEditTask(taskId)}
+                          />
+                        </div>
+                      )}
+                    </Droppable>
+                  )
+                })}
 
-      <div className="min-w-kanban">
-                <div className="py-4 text-base font-semibold text-gray-900">
-                  Add another group
+                <div className="min-w-kanban">
+                  <div className="py-4 text-base font-semibold text-gray-900">
+                    Add another group
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      addTask(true)
+                    }}
+                    className="flex items-center justify-center w-full h-32 py-2 m-0 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
+                  >
+                    <PlusIcon className="w-10 h-10" fill="none" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    addTask(true)
-                  }}
-                  className="flex items-center justify-center w-full h-32 py-2 m-0 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
-                >
-                  <PlusIcon className="w-10 h-10" fill="none" />
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </DragDropContext>
+  )
+}
+export function KanbanModal({
+  title,
+  children,
+  isVisible,
+  show,
+  hide,
+}: KanbanModalProps) {
+  const cancelButtonRef = useRef<HTMLButtonElement>(null)
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    submit()
+  }
+
+  return (
+    <Transition.Root show={isVisible} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={hide}
+      >
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all max-w-2xl sm:my-8 sm:max-w-xl sm:w-full">
+                <div className="flex items-center justify-between p-4 border-b rounded-t md:px-6 dark:border-gray-700">
+                  <Dialog.Title
+                    as="div"
+                    className="text-xl font-semibold dark:text-white"
+                  >
+                    {title}
+                  </Dialog.Title>
+                  <button
+                    type="button"
+                    className="text-gray-400 bg-transparent hover:bg-gray-300 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
+                    ref={cancelButtonRef}
+                    onClick={() => hide()}
+                  >
+                    <XIcon className="w-5 h-5" />
+                  </button>
+                </div>
+                { children }
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
   )
 }
 
 // FIXME: Look at KanbanAddTaskModal for inspiration
-export function KanbanEditTaskModal(props: KanbanModalProps) {
+export function KanbanEditTaskModal({
+  isVisible,
+  show,
+  hide,
+  submit,
+}: KanbanModalProps) {
+  const cancelButtonRef = useRef<HTMLButtonElement>(null)
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    submit()
+  }
+
   return (
-    <div
-      className="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
-      id="kanban-card-modal"
-    >
-      <div className="relative w-full h-full max-w-2xl px-4 md:h-auto">
-        {/* Modal content */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-800">
-          {/* Modal header */}
-          <div className="flex items-center justify-between p-4 border-b rounded-t md:px-6 dark:border-gray-700">
-            <div className="text-xl font-semibold text-gray-900 dark:text-white">
-              Edit task
-            </div>
-            <button
-              type="button"
-              data-modal-toggle="kanban-card-modal"
-              className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
-            >
-              <XIcon className="w-5 h-5" />
-            </button>
-          </div>
+    <KanbanModal title="Edit task" isVisible={isVisible} show={show} hide={hide}>
           {/* Modal body */}
           <div className="p-4 md:p-6">
             <div className="mb-3 text-2xl font-semibold leading-none text-gray-900 dark:text-white">
@@ -195,7 +260,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                   >
                     <img
                       className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
-                      src="/images/users/bonnie-green.png"
+                      src="https://flowbite.com/application-ui/demo/images/users/bonnie-green.png"
                       alt="Bonnie Green"
                     />
                   </a>
@@ -205,7 +270,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                     className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
                   >
                     Bonnie Green
-                    <div className="tooltip-arrow" data-popper-arrow></div>
+                    <div className="tooltip-arrow" data-popper-arrow />
                   </div>
                   <a
                     href="#"
@@ -214,7 +279,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                   >
                     <img
                       className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
-                      src="/images/users/roberta-casas.png"
+                      src="https://flowbite.com/application-ui/demo/images/users/roberta-casas.png"
                       alt="Roberta Casas"
                     />
                   </a>
@@ -224,7 +289,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                     className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
                   >
                     Roberta Casas
-                    <div className="tooltip-arrow" data-popper-arrow></div>
+                    <div className="tooltip-arrow" data-popper-arrow />
                   </div>
                   <a
                     href="#"
@@ -233,7 +298,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                   >
                     <img
                       className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
-                      src="/images/users/michael-gough.png"
+                      src="https://flowbite.com/application-ui/demo/images/users/michael-gough.png"
                       alt="Michael Gough"
                     />
                   </a>
@@ -243,7 +308,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                     className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
                   >
                     Michael Gough
-                    <div className="tooltip-arrow" data-popper-arrow></div>
+                    <div className="tooltip-arrow" data-popper-arrow />
                   </div>
                 </div>
                 <button
@@ -293,7 +358,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                   rows={4}
                   className="block w-full px-0 text-base text-gray-900 bg-gray-100 border-0 focus:ring-0 dark:text-white dark:bg-gray-700 dark:placeholder-gray-400"
                   placeholder="Write a comment..."
-                ></textarea>
+                />
               </div>
               <div className="flex items-center justify-between p-4 border-t dark:border-gray-600">
                 <button
@@ -325,7 +390,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
                 <a href="#" className="flex-shrink-0">
                   <img
                     className="rounded-full h-7 w-7"
-                    src="/images/users/michael-gough.png"
+                    src="https://flowbite.com/application-ui/demo/images/users/michael-gough.png"
                     alt="Micheal Gough"
                   />
                 </a>
@@ -359,7 +424,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
           <div className="grid grid-flow-col grid-rows-2 gap-2 p-4 border-t border-gray-200 rounded-b sm:grid-rows-1 md:p-6 dark:border-gray-600">
             <button
               type="button"
-              className="inline-flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 border border-primary-700 hover:border-primary-800 font-semibold rounded-lg text-sm py-2.5 text-center"
+              className="inline-flex items-center justify-center text-white bg-blue-700 hover:bg-primary-800 border border-primary-700 hover:border-primary-800 font-semibold rounded-lg text-sm py-2.5 text-center"
             >
               <SolidClipboardListIcon className="w-5 h-5 mr-2" />
               Save
@@ -393,9 +458,7 @@ export function KanbanEditTaskModal(props: KanbanModalProps) {
               Watch
             </button>
           </div>
-        </div>
-      </div>
-    </div>
+    </KanbanModal>
   )
 }
 
@@ -413,53 +476,7 @@ export function KanbanAddTaskModal({
   }
 
   return (
-    <Transition.Root show={isVisible} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10"
-        initialFocus={cancelButtonRef}
-        onClose={hide}
-      >
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all max-w-2xl sm:my-8 sm:max-w-xl sm:w-full">
-                <div className="flex items-center justify-between p-4 border-b rounded-t md:px-6 dark:border-gray-700">
-                  <Dialog.Title
-                    as="div"
-                    className="text-xl font-semibold dark:text-white"
-                  >
-                    Add new task
-                  </Dialog.Title>
-                  <button
-                    type="button"
-                    className="text-gray-400 bg-transparent hover:bg-gray-300 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
-                    ref={cancelButtonRef}
-                    onClick={() => hide()}
-                  >
-                    <XIcon className="w-5 h-5" />
-                  </button>
-                </div>
+    <KanbanModal title="Add task" isVisible={isVisible} show={show} hide={hide}>
                 <form onSubmit={onSubmit}>
                   <div className="p-4 space-y-6 md:px-6">
                     <div className="grid grid-cols-2 gap-6 mb-4">
@@ -491,7 +508,7 @@ export function KanbanAddTaskModal({
                           rows={6}
                           className="block w-full text-gray-900 border border-gray-200 rounded-lg bg-gray-50 sm:text-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                           placeholder="On line 672 you define $table_variants. Each instance of 'color-level' needs to be changed to 'shift-color'."
-                        ></textarea>
+                        />
                       </div>
                     </div>
                     <div className="flex items-center justify-center w-full">
@@ -525,19 +542,14 @@ export function KanbanAddTaskModal({
                     </button>
                   </div>
                 </form>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
+              </KanbanModal>
   )
 }
 
 export default function KanbanSpace({ data }: KanbanSpaceProps) {
   const [isEdit, setEdit] = useState(true)
   const [isAdd, setAdd] = useState(false)
-  console.log("state,", isEdit)
+  console.log('state,', isEdit)
 
   return (
     <div className="flex pt-16 w-full overflow-hidden bg-gray-50 dark:bg-gray-900">
