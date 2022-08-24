@@ -36,7 +36,6 @@ const limit = (string: string, limit: number) => {
 }
 
 export const Card: FC<CardProps> = memo(function Card({ item, index }) {
-  console.log('myDraggable', index, item.id)
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {provided => (

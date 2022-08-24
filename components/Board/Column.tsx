@@ -18,7 +18,6 @@ type KanbanColumnProps = {
 }
 
 function KanbanColumn({ id, title, tasks }: KanbanColumnProps) {
-  console.log("mytasks,", tasks)
   return (
     <div className="min-w-kanban">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">

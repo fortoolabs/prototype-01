@@ -22,7 +22,7 @@ import {
   SelectorIcon as SolidSelectorIcon,
 } from '@heroicons/react/solid'
 
-import { columnsStub } from './data'
+import { columnsFromBackend} from './data'
 import BoardColumn from './Column'
 
 import { Row } from 'components/View'
@@ -39,7 +39,8 @@ type KanbanBoardProps = {
 type TodoElement = HeadingElement
 
 export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
-  const [columns, setColumns] = useState(columnsStub)
+  const [columns, setColumns] = useState(columnsFromBackend)
+  console.log("my columns, new state", columns)
 
   // todo: include beautiful-dnd -----
   const onDragEnd = (result, columns, setColumns) => {
@@ -48,7 +49,6 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId]
       const destColumn = columns[destination.droppableId]
-      console.log("mycolumn", source, destination, columns, sourceColumn, destColumn)
       const sourceItems = [...sourceColumn.tasks]
       const destItems = [...destColumn.tasks]
       const [removed] = sourceItems.splice(source.index, 1)
@@ -57,11 +57,11 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
         ...columns,
         [source.droppableId]: {
           ...sourceColumn,
-          items: sourceItems,
+          tasks: sourceItems,
         },
         [destination.droppableId]: {
           ...destColumn,
-          items: destItems,
+          tasks: destItems,
         },
       })
     } else {
@@ -73,7 +73,7 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
         ...columns,
         [source.droppableId]: {
           ...column,
-          items: copiedItems,
+          tasks: copiedItems,
         },
       })
     }
@@ -96,9 +96,9 @@ export function KanbanBoard({ data, addTask }: KanbanBoardProps) {
           <div className="overflow-hidden shadow">
             <div className="flex items-start justify-start px-4 mb-6 space-x-4">
         
-        {columnsStub.map((column, index) => {
+        {Object.entries(columns).map(([columnId, column], index) => {
           return (
-            <Droppable key={column.id} droppableId={column.id}>
+            <Droppable key={columnId} droppableId={columnId}>
               {(provided, snapshot) => (
                 // TODO: Drill todos down to BoardColumn
                 < div
