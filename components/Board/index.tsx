@@ -72,11 +72,11 @@ export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
   //   // TODO: Implement empty board view
   //   return <span>noop</span>
   // }
-  const handleAddTask = columnId => {
+  const handleAddTask = (columnId) => {
     console.log('add task in column with id: ', columnId)
     addTask(true)
   }
-  const handleEditTask = taskId => {
+  const handleEditTask = (taskId) => {
     console.log('edit task with id: ', taskId)
     editTask(true)
   }
@@ -84,7 +84,7 @@ export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
   // const { todoStates } = doc
   return (
     <DragDropContext
-      onDragEnd={result => onDragEnd(result, columns, setColumns)}
+      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
     >
       <div className="flex flex-col mt-2">
         <div className="overflow-x-auto">
@@ -106,8 +106,8 @@ export function KanbanBoard({ data, addTask, editTask }: KanbanBoardProps) {
                             index={index}
                             title={column.title}
                             tasks={column.tasks}
-                            onAddTask={columnId => handleAddTask(columnId)}
-                            onEditTask={taskId => handleEditTask(taskId)}
+                            onAddTask={(columnId) => handleAddTask(columnId)}
+                            onEditTask={(taskId) => handleEditTask(taskId)}
                           />
                         </div>
                       )}

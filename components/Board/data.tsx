@@ -232,14 +232,14 @@ export const tasks: Array<KanbanColumnProps> = [
 export const columnsFromBackend = {
   ['1']: {
     title: 'To-do',
-    tasks: tasks.filter(task=> task.columnId === '1'),
+    tasks: tasks.filter((task) => task.columnId === '1'),
   },
   ['2']: {
     title: 'In Progress',
-    tasks: tasks.filter(task=> task.columnId === '2'),
+    tasks: tasks.filter((task) => task.columnId === '2'),
   },
   ['3']: {
     title: 'Done',
-    tasks: tasks.filter(task=> task.columnId === '3')
+    tasks: tasks.filter((task) => task.columnId === '3'),
   },
 }

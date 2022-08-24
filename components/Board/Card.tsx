@@ -35,10 +35,14 @@ const limit = (string: string, limit: number) => {
   return string.substring(0, limit) + '...'
 }
 
-export const Card: FC<CardProps> = memo(function Card({ item, index, onEditTask }) {
+export const Card: FC<CardProps> = memo(function Card({
+  item,
+  index,
+  onEditTask,
+}) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
-      {provided => (
+      {(provided) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -70,7 +74,7 @@ function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
   const taskId = task.id
   return (
     <Draggable key={taskId} draggableId={taskId} index={index}>
-      {provided => (
+      {(provided) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -87,8 +91,8 @@ function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
                 data-modal-toggle="kanban-card-modal"
                 className="p-2 text-sm text-gray-500 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
                 onClick={() => {
-                    onEditTask(taskId)
-                  }}
+                  onEditTask(taskId)
+                }}
               >
                 <SolidPencilAltIcon className="w-5 h-5" />
               </button>
@@ -97,9 +101,7 @@ function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
               <div className="flex items-center justify-center pb-4">
                 <img
                   className="bg-contain rounded-lg"
-                  src={`https://flowbite.com/application-ui/demo${
-                    task.attachment
-                  }`}
+                  src={`https://flowbite.com/application-ui/demo${task.attachment}`}
                   alt="attachment"
                 />
               </div>
@@ -112,7 +114,7 @@ function KanbanTask({ index, task, onEditTask }: KanbanTaskProps) {
 
               <div className="flex justify-between">
                 <div className="flex items-center justify-start">
-                  {task.members.map(member => {
+                  {task.members.map((member) => {
                     const { id, avatar, name } = member
                     return (
                       <>
