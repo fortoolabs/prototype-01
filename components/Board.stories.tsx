@@ -62,7 +62,7 @@ const WrappedTemplate: ComponentStory<typeof OrgBoard> = (args) => (
   <OrgBoard {...args} />
 )
 
-const Template: ComponentStory<typeof Board> = (args) => <Board {...args} />
+// const Template: ComponentStory<typeof Board> = (args) => <Board {...args} />
 
 export const MockBoard = WrappedTemplate.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
