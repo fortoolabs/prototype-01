@@ -23,6 +23,8 @@ type ReaderProps = {
   doc?: FDocument
   isFailing: boolean
   reason?: string
+  isDark?: boolean | undefined
+  setDarkMode?: any
 }
 
 // TODO: Implement a failure mode when redirected (status 302)
@@ -76,7 +78,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
   return (
     <AppContainer>
-      <NavigationBar serif={serif} setSerif={setSerif} isDark={props.isDark} setDarkMode={props.setDarkMode} />
+      <NavigationBar serif={serif} setSerif={setSerif} isDark={props.isDark || false} setDarkMode={props.setDarkMode} />
       <PaneBar isLoading={isLoading} isFailing={isFailing} boardView={boardView} setBoardView={setBoardView} />
       <Row>
         <SideBar>

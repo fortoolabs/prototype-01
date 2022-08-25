@@ -28,7 +28,7 @@ export const Main = (props: BoxExtendedProps) => {
       width={{ max: '780px' }}
       align="stretch" // stretch items perpendicular to main axis
       justify="start"
-      alignSelf="middle"
+      alignSelf="center"
       flex="grow"
       overflow="hidden"
       {...props}

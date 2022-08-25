@@ -1,7 +1,11 @@
 import React from 'react'
 import { Breadcrumb as FBreadcrumb } from 'flowbite-react'
 
-const Breadcrumb = ({ boardView }) => {
+type BreadcrumbProps = {
+  boardView: boolean
+}
+
+const Breadcrumb = ({ boardView }:BreadcrumbProps) => {
   return (
     <FBreadcrumb aria-label="Breadcrumb" className="self-center">
       <FBreadcrumb.Item href="#">

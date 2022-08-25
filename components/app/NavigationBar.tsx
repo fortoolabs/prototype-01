@@ -6,8 +6,16 @@ import ToggleDarkMode from 'components/ToggleDarkMode'
 
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
 import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+
+
+type NavigationBarProps = {
+  isDark: boolean
+  setDarkMode: any
+  serif: boolean
+  setSerif: any
+}
 
 const user = {
   name: 'Tom Cook',
@@ -31,7 +39,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example({isDark, setDarkMode, serif, setSerif }) {
+export default function Example({isDark, setDarkMode, serif, setSerif }:NavigationBarProps) {
   /* This example requires updating your template:
 
      ```
@@ -86,7 +94,6 @@ export default function Example({isDark, setDarkMode, serif, setSerif }) {
             {/* todo: add hover menu for font settings */}
                 <button className="pr-4" onClick={() => setSerif(!serif)}>Aa</button>
                 <ToggleDarkMode
-                  className="px-4"
                   isEnabled={isDark}
                   setEnabled={setDarkMode}
                   icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
