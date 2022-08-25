@@ -1,5 +1,8 @@
 import type { NextPage } from 'next'
 import useSWR, { Fetcher } from 'swr'
+import { SunIcon, MoonIcon } from '@heroicons/react/outline'
+
+import ToggleDarkMode from 'components/ToggleDarkMode'
 
 // Dummy API call
 import type { HelloData } from 'pages/api/hello'
@@ -34,12 +37,17 @@ function useHello(): HelloResponse {
   }
 }
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ onToggleDarkMode, isDark }) => {
   const { hello, isLoading }: HelloResponse = useHello()
 
   return (
     <div className="min-h-full">
       <NavigationBar />
+      <ToggleDarkMode
+        isEnabled={isDark}
+        setEnabled={onToggleDarkMode}
+        icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
+      />
       <CoreLayout />
       <div className="py-10">
         <p>

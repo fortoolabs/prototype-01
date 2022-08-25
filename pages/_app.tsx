@@ -1,11 +1,8 @@
 import type { AppProps } from 'next/app'
 
 import { useEffect, useState } from 'react'
-import { SunIcon, MoonIcon } from '@heroicons/react/outline'
 
 import '../styles/globals.css'
-
-import ToggleDarkMode from 'components/ToggleDarkMode'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [isDark, setDarkMode] = useState(false)
@@ -28,12 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     // TODO: Expose this to the children such that they can control dark-mode settings
     <div className="bg-white dark:bg-black dark:text-white">
-      <ToggleDarkMode
-        isEnabled={isDark}
-        setEnabled={setDarkMode}
-        icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
-      />
-      <Component {...pageProps} />
+      <Component {...pageProps} onToggleDarkMode={setDarkMode} isDark={isDark}/>
     </div>
   )
 }
