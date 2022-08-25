@@ -41,7 +41,6 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-full">
-      <KanbanLayout data={dummyData} />
       <NavigationBar />
       <CoreLayout />
       <div className="py-10">
