@@ -41,11 +41,6 @@ const Home: NextPage = ({ onToggleDarkMode, isDark }) => {
 
   return (
     <div className="min-h-full">
-      <ToggleDarkMode
-        isEnabled={isDark}
-        setEnabled={onToggleDarkMode}
-        icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
-      />
       <CoreLayout />
       <div className="py-10">
         <p>

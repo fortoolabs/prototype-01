@@ -1,5 +1,9 @@
 import React from 'react'
 
+import { SunIcon, MoonIcon } from '@heroicons/react/outline'
+
+import ToggleDarkMode from 'components/ToggleDarkMode'
+
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
@@ -27,7 +31,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Example({isDark, setDarkMode}) {
   /* This example requires updating your template:
 
      ```
@@ -77,14 +81,13 @@ export default function Example() {
                 </div>
                end lg navigation */}
               </div>
+              {/* start right side of navbar*/}
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                <button
-                  type="button"
-                  className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <ToggleDarkMode
+                  isEnabled={isDark}
+                  setEnabled={setDarkMode}
+                  icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
+                />
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
@@ -108,7 +111,7 @@ export default function Example() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {userNavigation.map((item) => (
+                      {userNavigation.map(item => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
                             <a
@@ -143,7 +146,7 @@ export default function Example() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
+              {navigation.map(item => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
@@ -186,7 +189,7 @@ export default function Example() {
                 </button>
               </div>
               <div className="mt-3 space-y-1">
-                {userNavigation.map((item) => (
+                {userNavigation.map(item => (
                   <Disclosure.Button
                     key={item.name}
                     as="a"

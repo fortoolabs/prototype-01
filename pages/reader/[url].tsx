@@ -5,9 +5,11 @@ import useSWR from 'swr'
 
 import Board from 'components/Board'
 import Linear from 'components/Linear'
-import { AppContainer, Row } from 'components/View'
+import { AppContainer, Row, Col } from 'components/View'
 import TOC from 'components/app/TOC'
 import NavigationBar from 'components/app/NavigationBar'
+import SideBar from 'components/app/SideBar'
+import PaneBar from 'components/app/PaneBar'
 
 import { FDocument } from 'core/types'
 import { extractNestedHeadlines } from 'core/parser'
@@ -53,9 +55,10 @@ const useDoc = (
 }
 
 const Reader: NextPage<ReaderProps> = (props) => {
-  const [boardView, setBoardView] = useState(false)
   const [serif, setSerif] = useState(false)
+  const [boardView, setBoardView] = useState(false)
 
+  console.log("myprops,", props)
   const [{ doc, isFailing }, isLoading, error] = useDoc(props.handle, props.doc)
 
   if (error) {
@@ -73,23 +76,23 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
   return (
     <AppContainer>
-      <NavigationBar />
-      <Row align="center" gap="medium" justify="end" pad="medium">
-        <pre>
-          🤔
-          {isLoading ? '⏳' : ''}
-          {isFailing ? '💥' : ''}
-        </pre>
-        <button onClick={() => setBoardView(!boardView)}>toggle view</button>
+      <NavigationBar isDark={props.isDark} setDarkMode={props.setDarkMode} />
+      <PaneBar isLoading={isLoading} isFailing={isFailing} boardView={boardView} setBoardView={setBoardView} />
+      <Row justify="between">
+        <SideBar>
+          <TOC headings={extractNestedHeadlines(content)} />
+        </SideBar>
+        <Col>
         <button onClick={() => setSerif(!serif)}>toggle font</button>
+        {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+        </Col>
       </Row>
-      <TOC headings={extractNestedHeadlines(content)} />
       {title !== undefined && (
         <Head>
           <title>{title}</title>
         </Head>
       )}
-      {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+
     </AppContainer>
   )
 }
