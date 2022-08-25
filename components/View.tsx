@@ -11,7 +11,6 @@ export const Col = (props: BoxExtendedProps) => (
 export const AppContainer = (props: BoxExtendedProps) => {
   return (
     <Col
-      width={{ max: '780px' }}
       height={{ min: '100%' }}
       alignSelf="center"
       overflow="hidden"
@@ -26,6 +25,7 @@ export const Main = (props: BoxExtendedProps) => {
   return (
     <Col
       as="main"
+      width={{ max: '780px' }}
       align="stretch" // stretch items perpendicular to main axis
       justify="start"
       flex="grow"

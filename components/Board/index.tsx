@@ -1,34 +1,41 @@
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-
-import BoardColumn from './Column'
-
-import { Row } from 'components/View'
+import { useState } from 'react'
 
 import { FDocument } from 'core/types'
 
-export type BoardProps = {
-  // TODO: Revert to make this mandatory, optional doc is a hack to move this forward
-  doc?: FDocument
-}
+import KanbanBoard from './Board'
+import KanbanAddTaskModal from './AddTaskModal'
+import KanbanEditTaskModal from './EditTaskModal'
 
-export default function Board({ doc }: BoardProps) {
-  // TODO: fix lack of padding on right side when overflow-x
-  // TODO: consider data flow. json -> select todos -> pass to column
-  if (doc === undefined) {
-    // TODO: Implement empty board view
-    return <span>noop</span>
-  }
+export default function KanbanSpace({ doc }:{doc:FDocument}) {
+  const [isEdit, setEdit] = useState(false)
+  const [isAdd, setAdd] = useState(false)
 
-  const { todoStates } = doc
+  // TODO: use doc as basis for kanban board
+  console.log(doc)
+
   return (
-    <DndProvider backend={HTML5Backend}>
-      <Row flex="grow" gap="medium" justify="start" pad="medium" align="start">
-        {todoStates.map((state, i) => (
-          // TODO: Drill todos down to BoardColumn
-          <BoardColumn key={i} title={state} todos={[]} />
-        ))}
-      </Row>
-    </DndProvider>
+    <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden bg-gray-50 dark:bg-gray-900">
+      <KanbanBoard
+        data={''}
+        addTask={(isVisible: boolean) => {
+          setAdd(isVisible)
+        }}
+        editTask={(isVisible: boolean) => {
+          setEdit(isVisible)
+        }}
+      />
+      <KanbanAddTaskModal
+        show={() => setAdd(true)}
+        hide={() => setAdd(false)}
+        isVisible={isAdd}
+        submit={() => console.log('submitting')}
+      />
+      <KanbanEditTaskModal
+        show={() => setEdit(true)}
+        hide={() => setEdit(false)}
+        isVisible={isEdit}
+        submit={() => console.log('')}
+      />
+    </div>
   )
 }
