@@ -64,24 +64,24 @@ const WrappedTemplate: ComponentStory<typeof OrgBoard> = (args) => (
 
 const Template: ComponentStory<typeof Board> = (args) => <Board {...args} />
 
-export const PlayableBoard = WrappedTemplate.bind({})
+export const MockBoard = WrappedTemplate.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-PlayableBoard.args = {
+MockBoard.args = {
   doc: text,
 }
 
-export const UndefinedBoard = Template.bind({})
-UndefinedBoard.args = {
-  doc: undefined,
-}
+// export const UndefinedBoard = Template.bind({})
+// UndefinedBoard.args = {
+//   doc: undefined,
+// }
 
-export const EmptyBoard = Template.bind({})
-EmptyBoard.args = { doc: parse('') }
+// export const EmptyBoard = Template.bind({})
+// EmptyBoard.args = { doc: parse('') }
 
-export const OneLineBoard = Template.bind({})
-OneLineBoard.args = { doc: parse('Just a single line') }
+// export const OneLineBoard = Template.bind({})
+// OneLineBoard.args = { doc: parse('Just a single line') }
 
-export const ManyStagesBoard = Template.bind({})
-ManyStagesBoard.args = {
-  doc: parse('#+TODO: BACKLOG SCOPING IMPLEMENTING TESTING | CANCELLED DONE'),
-}
+// export const ManyStagesBoard = Template.bind({})
+// ManyStagesBoard.args = {
+//   doc: parse('#+TODO: BACKLOG SCOPING IMPLEMENTING TESTING | CANCELLED DONE'),
+// }
