@@ -4,7 +4,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { CheckIcon, ClockIcon } from '@heroicons/react/outline'
 import { PencilAltIcon as SolidPencilAltIcon } from '@heroicons/react/solid'
 
-import type {TaskDataProps} from './data'
+import type { TaskDataProps } from './data'
 
 export type KanbanTaskProps = {
   index: number

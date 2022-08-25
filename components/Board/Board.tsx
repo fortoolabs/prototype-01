@@ -24,7 +24,7 @@ export default function KanbanBoard({
 }: KanbanBoardProps) {
   const [columns, setColumns] = useState(columnsFromBackend)
 
-  const onDragEnd = (result:any, columns:any, setColumns:any) => {
+  const onDragEnd = (result: any, columns: any, setColumns: any) => {
     if (!result.destination) return
     const { source, destination } = result
     if (source.droppableId !== destination.droppableId) {
@@ -79,7 +79,7 @@ export default function KanbanBoard({
 
   return (
     <DragDropContext
-      onDragEnd={(result:any) => onDragEnd(result, columns, setColumns)}
+      onDragEnd={(result: any) => onDragEnd(result, columns, setColumns)}
     >
       <div className="flex flex-col mt-2">
         <div className="overflow-x-auto">
@@ -100,8 +100,12 @@ export default function KanbanBoard({
                             index={index}
                             title={column.title}
                             tasks={column.tasks}
-                            onAddTask={(columnId:string) => handleAddTask(columnId)}
-                            onEditTask={(taskId:string) => handleEditTask(taskId)}
+                            onAddTask={(columnId: string) =>
+                              handleAddTask(columnId)
+                            }
+                            onEditTask={(taskId: string) =>
+                              handleEditTask(taskId)
+                            }
                             placeholder={provided.placeholder}
                           />
                         </div>

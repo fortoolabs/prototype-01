@@ -6,7 +6,7 @@ import KanbanBoard from './Board'
 import KanbanAddTaskModal from './AddTaskModal'
 import KanbanEditTaskModal from './EditTaskModal'
 
-export default function KanbanSpace({ doc }:{doc:FDocument}) {
+export default function KanbanSpace({ doc }: { doc: FDocument }) {
   const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
 
