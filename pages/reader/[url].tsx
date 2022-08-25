@@ -60,7 +60,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
   const [serif, setSerif] = useState(false)
   const [boardView, setBoardView] = useState(false)
 
-  console.log("myprops,", props)
+  console.log('myprops,', props)
   const [{ doc, isFailing }, isLoading, error] = useDoc(props.handle, props.doc)
 
   if (error) {
@@ -78,14 +78,24 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
   return (
     <AppContainer>
-      <NavigationBar serif={serif} setSerif={setSerif} isDark={props.isDark || false} setDarkMode={props.setDarkMode} />
-      <PaneBar isLoading={isLoading} isFailing={isFailing} boardView={boardView} setBoardView={setBoardView} />
+      <NavigationBar
+        serif={serif}
+        setSerif={setSerif}
+        isDark={props.isDark || false}
+        setDarkMode={props.setDarkMode}
+      />
+      <PaneBar
+        isLoading={isLoading}
+        isFailing={isFailing}
+        boardView={boardView}
+        setBoardView={setBoardView}
+      />
       <Row>
         <SideBar>
           <TOC headings={extractNestedHeadlines(content)} />
         </SideBar>
         <Col fill>
-        {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+          {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
         </Col>
       </Row>
       {title !== undefined && (
@@ -93,7 +103,6 @@ const Reader: NextPage<ReaderProps> = (props) => {
           <title>{title}</title>
         </Head>
       )}
-
     </AppContainer>
   )
 }

@@ -9,7 +9,6 @@ import { Fragment } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-
 type NavigationBarProps = {
   isDark: boolean
   setDarkMode: any
@@ -39,7 +38,12 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example({isDark, setDarkMode, serif, setSerif }:NavigationBarProps) {
+export default function Example({
+  isDark,
+  setDarkMode,
+  serif,
+  setSerif,
+}: NavigationBarProps) {
   /* This example requires updating your template:
 
      ```
@@ -48,7 +52,10 @@ export default function Example({isDark, setDarkMode, serif, setSerif }:Navigati
      ```
   */
   return (
-    <Disclosure as="nav" className="bg-white border-b border-gray-200  shadow-sm">
+    <Disclosure
+      as="nav"
+      className="bg-white border-b border-gray-200  shadow-sm dark:bg-black dark:border-gray-700"
+    >
       {({ open }) => (
         <>
           {/* large view */}
@@ -91,8 +98,10 @@ export default function Example({isDark, setDarkMode, serif, setSerif }:Navigati
               </div>
               {/* start right side of navbar*/}
               <div className="sm:ml-6 sm:flex sm:items-center">
-            {/* todo: add hover menu for font settings */}
-                <button className="pr-4" onClick={() => setSerif(!serif)}>Aa</button>
+                {/* todo: add hover menu for font settings */}
+                <button className="pr-4" onClick={() => setSerif(!serif)}>
+                  Aa
+                </button>
                 <ToggleDarkMode
                   isEnabled={isDark}
                   setEnabled={setDarkMode}
@@ -115,7 +124,7 @@ export default function Example({isDark, setDarkMode, serif, setSerif }:Navigati
 
           <Disclosure.Panel className="sm:hidden">
             <div className="pt-2 pb-3 space-y-1">
-              {navigation.map(item => (
+              {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
@@ -158,7 +167,7 @@ export default function Example({isDark, setDarkMode, serif, setSerif }:Navigati
                 </button>
               </div>
               <div className="mt-3 space-y-1">
-                {userNavigation.map(item => (
+                {userNavigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}
                     as="a"

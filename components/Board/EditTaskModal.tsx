@@ -17,7 +17,12 @@ export default function KanbanEditTaskModal({
   isVisible,
   show,
   hide,
-}: {isVisible: boolean, show: any, hide: any, submit: any}) {
+}: {
+  isVisible: boolean
+  show: any
+  hide: any
+  submit: any
+}) {
   // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault()
   //   submit()

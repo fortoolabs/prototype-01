@@ -11,7 +11,12 @@ export default function KanbanAddTaskModal({
   show,
   hide,
   submit,
-}: {isVisible: boolean, show: any, hide: any, submit: any}) {
+}: {
+  isVisible: boolean
+  show: any
+  hide: any
+  submit: any
+}) {
   const cancelButtonRef = useRef<HTMLButtonElement>(null)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
