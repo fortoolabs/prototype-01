@@ -6,17 +6,22 @@ import KanbanBoard from './Board'
 import KanbanAddTaskModal from './AddTaskModal'
 import KanbanEditTaskModal from './EditTaskModal'
 
+// TODO: Remove when addressing the next (state) TODO
+import { columnsFromBackend } from './data'
+
 export default function KanbanSpace({ doc }: { doc: FDocument }) {
   const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
 
-  // TODO: use doc as basis for kanban board
-  console.log(doc)
+  // TODO: Compute this from doc.todoStates and doc.content
+  console.log('Use or lose doc', doc)
+  const [columns, setColumns] = useState(columnsFromBackend)
 
   return (
     <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden bg-gray-50 dark:bg-gray-900">
       <KanbanBoard
-        data={''}
+        columns={columns}
+        setColumns={setColumns}
         addTask={(isVisible: boolean) => {
           setAdd(isVisible)
         }}
