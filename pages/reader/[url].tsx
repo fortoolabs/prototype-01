@@ -7,6 +7,7 @@ import Board from 'components/Board'
 import Linear from 'components/Linear'
 import { AppContainer, Row } from 'components/View'
 import TOC from 'components/app/TOC'
+import NavigationBar from 'components/app/NavigationBar'
 
 import { FDocument } from 'core/types'
 import { extractNestedHeadlines } from 'core/parser'
@@ -72,6 +73,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
   return (
     <AppContainer>
+      <NavigationBar />
       <Row align="center" gap="medium" justify="end" pad="medium">
         <pre>
           🤔

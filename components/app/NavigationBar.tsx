@@ -39,9 +39,12 @@ export default function Example() {
     <Disclosure as="nav" className="bg-white shadow-sm">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* large view */}
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
+              {/* lg left part */}
               <div className="flex">
+                {/* lg logo */}
                 <div className="flex-shrink-0 flex items-center">
                   <img
                     className="block lg:hidden h-8 w-auto"
@@ -49,11 +52,12 @@ export default function Example() {
                     alt="Workflow"
                   />
                   <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                    className="hidden lg:block h-10 w-auto"
+                    src="/logo-formation.svg"
                     alt="Workflow"
                   />
                 </div>
+                {/* lg navigation
                 <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                   {navigation.map((item) => (
                     <a
@@ -67,10 +71,11 @@ export default function Example() {
                       )}
                       aria-current={item.current ? 'page' : undefined}
                     >
-                      {item.name}
+                      {item.name} lg
                     </a>
                   ))}
                 </div>
+               end lg navigation */}
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
                 <button

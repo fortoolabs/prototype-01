@@ -8,7 +8,6 @@ import ToggleDarkMode from 'components/ToggleDarkMode'
 import type { HelloData } from 'pages/api/hello'
 
 import CoreLayout from 'components/app/Layout'
-import NavigationBar from 'components/app/NavigationBar'
 
 const fetcher: Fetcher<HelloData, string> = (url) =>
   fetch(url).then((r) => r.json())
@@ -42,7 +41,6 @@ const Home: NextPage = ({ onToggleDarkMode, isDark }) => {
 
   return (
     <div className="min-h-full">
-      <NavigationBar />
       <ToggleDarkMode
         isEnabled={isDark}
         setEnabled={onToggleDarkMode}
