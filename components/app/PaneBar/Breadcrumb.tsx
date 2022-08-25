@@ -3,7 +3,7 @@ import { Breadcrumb as FBreadcrumb } from 'flowbite-react'
 
 const Breadcrumb = ({ boardView }) => {
   return (
-    <FBreadcrumb aria-label="Breadcrumb" className="px-4 self-center">
+    <FBreadcrumb aria-label="Breadcrumb" className="self-center">
       <FBreadcrumb.Item href="#">
         My Document
       </FBreadcrumb.Item>

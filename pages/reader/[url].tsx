@@ -76,14 +76,13 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
   return (
     <AppContainer>
-      <NavigationBar isDark={props.isDark} setDarkMode={props.setDarkMode} />
+      <NavigationBar serif={serif} setSerif={setSerif} isDark={props.isDark} setDarkMode={props.setDarkMode} />
       <PaneBar isLoading={isLoading} isFailing={isFailing} boardView={boardView} setBoardView={setBoardView} />
-      <Row justify="between">
+      <Row>
         <SideBar>
           <TOC headings={extractNestedHeadlines(content)} />
         </SideBar>
-        <Col>
-        <button onClick={() => setSerif(!serif)}>toggle font</button>
+        <Col fill>
         {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
         </Col>
       </Row>

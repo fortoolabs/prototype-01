@@ -14,7 +14,7 @@ export default function KanbanSpace({ doc }:{doc:FDocument}) {
   console.log(doc)
 
   return (
-    <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden bg-gray-50 dark:bg-gray-900">
+    <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden">
       <KanbanBoard
         data={''}
         addTask={(isVisible: boolean) => {

@@ -7,14 +7,16 @@ import Breadcrumb from './Breadcrumb'
 
 const PaneBar = ({ isLoading, isFailing, boardView, setBoardView }) => {
 	return (
-		<Row justify="between" align="middle" className="h-14">
+		<Row justify="between" align="middle" className="h-14 shadow-md border-b border-gray-200">
+		 <Row className="px-8">
 		 <Breadcrumb boardView={boardView} />
-         <pre>
+         <pre className="self-center px-4">
           🤔
           {isLoading ? '⏳' : ''}
           {isFailing ? '💥' : ''}
         </pre>
-        <button onClick={() => setBoardView(!boardView)}>toggle view</button>
+        </Row>
+        <button className="px-8" onClick={() => setBoardView(!boardView)}>toggle view</button>
       </Row>
 	)
 }
