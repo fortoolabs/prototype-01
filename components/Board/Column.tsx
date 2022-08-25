@@ -41,7 +41,7 @@ function KanbanColumn({
         })}
       </div>
       {placeholder}
-
+      {/* TODO: Remove data-modal-toggle */}
       <button
         type="button"
         data-modal-toggle="new-card-modal"

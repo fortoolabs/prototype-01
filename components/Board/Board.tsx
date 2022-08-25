@@ -3,6 +3,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { PlusIcon } from '@heroicons/react/outline'
 
+// TODO: Remove
 import { columnsFromBackend } from './data'
 
 // import type { KanbanColumnProps } from './Column'
@@ -13,8 +14,8 @@ import KanbanColumn from './Column'
 type KanbanBoardProps = {
   data: string // Array<KanbanColumnProps>
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
-  addTask: (visible: boolean) => any
-  editTask: (visible: boolean) => any
+  addTask: (visible: boolean) => void
+  editTask: (visible: boolean) => void
 }
 
 export default function KanbanBoard({
@@ -22,6 +23,7 @@ export default function KanbanBoard({
   addTask,
   editTask,
 }: KanbanBoardProps) {
+  // TODO: Remove
   const [columns, setColumns] = useState(columnsFromBackend)
 
   const onDragEnd = (result: any, columns: any, setColumns: any) => {
