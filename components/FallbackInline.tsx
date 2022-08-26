@@ -1,13 +1,19 @@
-import { Text } from 'grommet'
-
 export type FallbackInlineProps = {
   content: string
+  border?: boolean
 }
 
-export default function FallbackInline({ content }: FallbackInlineProps) {
+export default function FallbackInline({
+  content,
+  border,
+}: FallbackInlineProps) {
   return (
-    <Text as="pre" style={{ display: 'inline' }}>
+    <code
+      className={`p-2 rounded bg-gray-300/30 ${
+        border ? 'border border-gray-400/40' : ''
+      }`}
+    >
       {content}
-    </Text>
+    </code>
   )
 }
