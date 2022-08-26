@@ -336,7 +336,7 @@ function convert(
         case 'TODO':
           // FIXME: Accomodate for multiple swimlanes
           // https://orgmode.org/manual/Per_002dfile-keywords.html
-          // TODO: Adapt for different TODO keyword types e.g.: TYP_TODO
+          // TODO: Adapt for different TODO keyword types such as TYP_TODO and SEQ_TODO
           return {
             ...acc,
             todoStates: node.value.split(' ').filter((x) => x != '|'),

@@ -6,10 +6,6 @@ import KanbanBoard from './Board'
 import KanbanAddTaskModal from './AddTaskModal'
 import KanbanEditTaskModal from './EditTaskModal'
 
-// TODO: Remove when addressing the next (state) TODO
-import { columnsFromBackend } from './data'
-
-import { v4 as uuidv4 } from 'uuid'
 import parse, { extractHeadlines } from 'core/parser'
 
 // Extraction of Kanban data is component-specific so it belongs in the component implementation
@@ -22,7 +18,7 @@ function extractKanbanData({ todoStates, content }: FDocument) {
   const headlines = extractHeadlines(content, 1)
 
   return docStates.reduce(
-    (acc, state, idx) => ({
+    (acc, state) => ({
       ...acc,
 
       // Populate workflow state structure
@@ -52,16 +48,11 @@ function extractKanbanData({ todoStates, content }: FDocument) {
 }
 
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest
+  const { describe, it, expect } = import.meta.vitest
 
   it('extracts columns structure from a listing of todos', () => {
     const x = extractKanbanData(
-      parse(
-        [
-          '#+TITLE: Just a test doc',
-          '* DONE Stub function',
-        ].join('\n'),
-      ),
+      parse(['#+TITLE: Just a test doc', '* DONE Stub function'].join('\n')),
     )
     expect(x).toMatchInlineSnapshot(`
       {
