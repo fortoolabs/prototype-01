@@ -86,15 +86,47 @@ if (import.meta.vitest) {
       }
     `)
   })
+
+  describe('given file-specific keywords', () => {
+    const text = [
+      '#+TITLE: Just a test doc',
+      '#+TODO: TODO(t) | DONE(d)',
+      '* DONE Stub function',
+    ].join('\n')
+    it('extracts data', () => {
+      expect(extractKanbanData(parse(text))).toMatchInlineSnapshot(`
+      {
+        "DONE": {
+          "tasks": [
+            {
+              "columnId": "DONE",
+              "completed": false,
+              "daysLeft": 0,
+              "description": "",
+              "id": "stub-function",
+              "members": [],
+              "name": "Stub function",
+            },
+          ],
+          "title": "DONE",
+        },
+        "TODO": {
+          "tasks": [],
+          "title": "TODO",
+        },
+      }
+    `)
+    })
+  })
 }
 
 export default function KanbanSpace({ doc }: { doc: FDocument }) {
   const [isEdit, setEdit] = useState(false)
   const [isAdd, setAdd] = useState(false)
 
-  // TODO: Compute this from doc.todoStates and doc.content
-  console.log('Use or lose doc', doc)
-  const [columns, setColumns] = useState(columnsFromBackend)
+  const data = extractKanbanData(doc)
+  console.log('data', data)
+  const [columns, setColumns] = useState(data)
 
   return (
     <div className="flex pt-16 w-full overflow-x-scroll overflow-y-hidden bg-gray-50 dark:bg-gray-900">
