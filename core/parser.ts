@@ -143,6 +143,31 @@ export function extractNestedHeadlines(
   }, [])
 }
 
+type WorkflowStateTransitionConfig = {
+  isAnnotated: boolean
+  isTimestamped: boolean
+}
+export type WorkflowStateConfig = {
+  name: string
+  shortcut: string
+  onEntry: WorkflowStateTransitionConfig
+  onExit: WorkflowStateTransitionConfig
+}
+export function unpackTodoKeyword(raw: string): WorkflowStateConfig {
+  return {
+    name: raw,
+    shortcut: '',
+    onEntry: {
+      isAnnotated: false,
+      isTimestamped: false,
+    },
+    onExit: {
+      isAnnotated: false,
+      isTimestamped: false,
+    },
+  }
+}
+
 function unpackObjectType(x: ObjectType): FObjectType {
   // TODO: Restructure to a list of non-string members
   // A lot of information is lost in just reducing this to strings
