@@ -25,32 +25,28 @@ if (import.meta.vitest) {
       parse(
         [
           '#+TITLE: Just a test doc',
-          '* Background',
-          '* Research',
-          '** TODO Collect information',
-          '* Implementation',
-          '** Build prototype',
+          '* DONE Stub function',
         ].join('\n'),
       ),
     )
     expect(x).toMatchInlineSnapshot(`
       {
         "DONE": {
-          "tasks": [],
-          "title": "DONE",
-        },
-        "TODO": {
           "tasks": [
             {
               "columnId": "TODO",
               "completed": false,
               "daysLeft": 0,
               "description": "",
-              "id": "research-collect-information",
+              "id": "stub-function",
               "members": [],
-              "name": "Collect information",
+              "name": "Stub function",
             },
           ],
+          "title": "DONE",
+        },
+        "TODO": {
+          "tasks": [],
           "title": "TODO",
         },
       }
