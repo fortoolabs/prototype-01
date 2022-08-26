@@ -9,5 +9,6 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
     environment: 'jsdom',
+    includeSource: ['components/**/*.{js,jsx,ts,tsx}']
   },
 })
