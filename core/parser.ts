@@ -154,16 +154,37 @@ export type WorkflowStateConfig = {
   onExit: WorkflowStateTransitionConfig
 }
 export function unpackTodoKeyword(raw: string): WorkflowStateConfig {
+  const split = raw.split('(', 2)
+
+  const name = split && split[0] && split[0] !== '' ? split[0] : ''
+  const settings =
+    split && split[1] && split[1] !== ''
+      ? split[1].replaceAll(')', '').replaceAll('(', '')
+      : ''
+
+  const [entryString, exitString] = settings.split('/', 2)
+
+  const shortcut =
+    entryString && entryString !== ''
+      ? entryString.replaceAll('!').replaceAll('@').trim().charAt(0)
+      : ''
+
   return {
-    name: raw,
-    shortcut: '',
+    name,
+    shortcut,
     onEntry: {
-      isAnnotated: false,
-      isTimestamped: false,
+      isAnnotated: entryString && entryString.includes('@') ? true : false,
+      isTimestamped:
+        entryString && (entryString.includes('@') || entryString.includes('!'))
+          ? true
+          : false,
     },
     onExit: {
-      isAnnotated: false,
-      isTimestamped: false,
+      isAnnotated: exitString && exitString.includes('@') ? true : false,
+      isTimestamped:
+        exitString && (exitString.includes('@') || exitString.includes('!'))
+          ? true
+          : false,
     },
   }
 }
