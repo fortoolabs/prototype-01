@@ -166,7 +166,7 @@ export function unpackTodoKeyword(raw: string): WorkflowStateConfig {
 
   const shortcut =
     entryString && entryString !== ''
-      ? entryString.replaceAll('!').replaceAll('@').trim().charAt(0)
+      ? entryString.replaceAll('!', '').replaceAll('@', '').trim().charAt(0)
       : ''
 
   return {
