@@ -7,8 +7,11 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  define: {
+    'import.meta.vitest': 'undefined',
+  },
   test: {
     environment: 'jsdom',
-    includeSource: ['components/**/*.{js,jsx,ts,tsx}']
+    includeSource: ['components/**/*.{js,jsx,ts,tsx}'],
   },
 })
