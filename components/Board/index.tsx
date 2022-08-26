@@ -10,11 +10,45 @@ import KanbanEditTaskModal from './EditTaskModal'
 import { columnsFromBackend } from './data'
 
 import { v4 as uuidv4 } from 'uuid'
-import parse from 'core/parser'
+import parse, { extractHeadlines } from 'core/parser'
 
 // Extraction of Kanban data is component-specific so it belongs in the component implementation
-function extractKanbanData(doc: FDocument) {
-  return {}
+function extractKanbanData({ todoStates, content }: FDocument) {
+  // TODO: Source default states from settings
+  const defaultStates = ['TODO', 'DONE']
+
+  const docStates = todoStates.length === 0 ? defaultStates : todoStates
+
+  const headlines = extractHeadlines(content, 1)
+
+  return docStates.reduce(
+    (acc, state, idx) => ({
+      ...acc,
+
+      // Populate workflow state structure
+      [state]: {
+        title: state,
+        tasks: headlines
+          .filter((entry) => entry.heading.todoKeyword === state)
+          .map((entry) => ({
+            // TODO: Abstract id generation into dedicated function
+            id: entry.plaintext
+              .replace(/\s+/, '-')
+              .replace(/[^0-9a-z-]/i, '')
+              .toLowerCase(),
+            columnId: state,
+            name: entry.plaintext,
+
+            // TODO: Add title containing entry.text :: FObjectType[]
+            description: '', // TODO: Convert to FObjectType[] and list non-heading section content
+            completed: false,
+            daysLeft: 0, // TODO: Make optional
+            members: [],
+          })),
+      },
+    }),
+    {},
+  )
 }
 
 if (import.meta.vitest) {
@@ -34,7 +68,7 @@ if (import.meta.vitest) {
         "DONE": {
           "tasks": [
             {
-              "columnId": "TODO",
+              "columnId": "DONE",
               "completed": false,
               "daysLeft": 0,
               "description": "",
