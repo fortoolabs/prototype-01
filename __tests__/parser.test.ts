@@ -434,19 +434,19 @@ describe('extractFormattedText', () => {
 
 describe('unpackTodoKeyword', () => {
   it('reads the keyword name', () => {
-    unpackTodoKeyword('TODO').toHaveProperty('name', 'TODO')
+    expect(unpackTodoKeyword('TODO')).toHaveProperty('name', 'TODO')
   })
 
   it('reads the shortcut', () => {
-    unpackTodoKeyword('TODO(t)').toHaveProperty('shortcut', 't')
+    expect(unpackTodoKeyword('TODO(t)')).toHaveProperty('shortcut', 't')
   })
 
-  describe('with only an entry setting', () => {
-    const emptyTransitionConfig = {
-      isAnnotated: false,
-      isTimestamped: false,
-    }
+  const emptyTransitionConfig = {
+    isAnnotated: false,
+    isTimestamped: false,
+  }
 
+  describe('with only an entry setting', () => {
     it('reads timestamp setting', () => {
       expect(unpackTodoKeyword('TODO(!)').onEntry).toEqual({
         isAnnotated: false,
@@ -496,7 +496,7 @@ describe('unpackTodoKeyword', () => {
     it('reads annotate setting', () => {
       expect(unpackTodoKeyword('TODO(t/@)').onExit).toEqual({
         isAnnotated: true,
-        isTimestamped: false,
+        isTimestamped: true,
       })
       expect(unpackTodoKeyword('TODO(t/@)').onEntry).toEqual(
         emptyTransitionConfig,
