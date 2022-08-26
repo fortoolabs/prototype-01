@@ -6,7 +6,7 @@ import KanbanBoard from './Board'
 import KanbanAddTaskModal from './AddTaskModal'
 import KanbanEditTaskModal from './EditTaskModal'
 
-import parse, { extractHeadlines } from 'core/parser'
+import parse, { extractHeadlines, unpackTodoKeyword } from 'core/parser'
 
 // Extraction of Kanban data is component-specific so it belongs in the component implementation
 function extractKanbanData({ todoStates, content }: FDocument) {
@@ -17,22 +17,23 @@ function extractKanbanData({ todoStates, content }: FDocument) {
 
   const headlines = extractHeadlines(content, 1)
 
-  return docStates.reduce(
-    (acc, state) => ({
+  return docStates.reduce((acc, state) => {
+    const { name } = unpackTodoKeyword(state)
+    return {
       ...acc,
 
       // Populate workflow state structure
-      [state]: {
-        title: state,
+      [name]: {
+        title: name,
         tasks: headlines
-          .filter((entry) => entry.heading.todoKeyword === state)
+          .filter((entry) => entry.heading.todoKeyword === name)
           .map((entry) => ({
             // TODO: Abstract id generation into dedicated function
             id: entry.plaintext
               .replace(/\s+/, '-')
               .replace(/[^0-9a-z-]/i, '')
               .toLowerCase(),
-            columnId: state,
+            columnId: name,
             name: entry.plaintext,
 
             // TODO: Add title containing entry.text :: FObjectType[]
@@ -42,9 +43,8 @@ function extractKanbanData({ todoStates, content }: FDocument) {
             members: [],
           })),
       },
-    }),
-    {},
-  )
+    }
+  }, {})
 }
 
 if (import.meta.vitest) {
