@@ -5,7 +5,6 @@ import useSWR, { Fetcher } from 'swr'
 import type { HelloData } from 'pages/api/hello'
 
 import CoreLayout from 'components/app/Layout'
-import NavigationBar from 'components/app/NavigationBar'
 
 const fetcher: Fetcher<HelloData, string> = (url) =>
   fetch(url).then((r) => r.json())
@@ -39,7 +38,6 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-full">
-      <NavigationBar />
       <CoreLayout />
       <div className="py-10">
         <p>

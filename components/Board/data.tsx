@@ -233,14 +233,14 @@ export const tasks: Array<TaskDataProps> = [
 export const columnsFromBackend: ColumnDataProps = {
   ['1']: {
     title: 'To-do',
-    tasks: tasks.filter(task => task.columnId === '1'),
+    tasks: tasks.filter((task) => task.columnId === '1'),
   },
   ['2']: {
     title: 'In Progress',
-    tasks: tasks.filter(task => task.columnId === '2'),
+    tasks: tasks.filter((task) => task.columnId === '2'),
   },
   ['3']: {
     title: 'Done',
-    tasks: tasks.filter(task => task.columnId === '3'),
+    tasks: tasks.filter((task) => task.columnId === '3'),
   },
 }

@@ -5,8 +5,11 @@ import useSWR from 'swr'
 
 import Board from 'components/Board'
 import Linear from 'components/Linear'
-import { AppContainer, Row } from 'components/View'
+import { AppContainer, Row, Col } from 'components/View'
 import TOC from 'components/app/TOC'
+import NavigationBar from 'components/app/NavigationBar'
+import SideBar from 'components/app/SideBar'
+import PaneBar from 'components/app/PaneBar'
 
 import { FDocument } from 'core/types'
 import { extractNestedHeadlines } from 'core/parser'
@@ -20,6 +23,8 @@ type ReaderProps = {
   doc?: FDocument
   isFailing: boolean
   reason?: string
+  isDark?: boolean | undefined
+  setDarkMode?: any
 }
 
 // TODO: Implement a failure mode when redirected (status 302)
@@ -52,9 +57,10 @@ const useDoc = (
 }
 
 const Reader: NextPage<ReaderProps> = (props) => {
-  const [boardView, setBoardView] = useState(false)
   const [serif, setSerif] = useState(false)
+  const [boardView, setBoardView] = useState(false)
 
+  console.log('myprops,', props)
   const [{ doc, isFailing }, isLoading, error] = useDoc(props.handle, props.doc)
 
   if (error) {
@@ -72,22 +78,31 @@ const Reader: NextPage<ReaderProps> = (props) => {
 
   return (
     <AppContainer>
-      <Row align="center" gap="medium" justify="end" pad="medium">
-        <pre>
-          🤔
-          {isLoading ? '⏳' : ''}
-          {isFailing ? '💥' : ''}
-        </pre>
-        <button onClick={() => setBoardView(!boardView)}>toggle view</button>
-        <button onClick={() => setSerif(!serif)}>toggle font</button>
+      <NavigationBar
+        serif={serif}
+        setSerif={setSerif}
+        isDark={props.isDark || false}
+        setDarkMode={props.setDarkMode}
+      />
+      <PaneBar
+        isLoading={isLoading}
+        isFailing={isFailing}
+        boardView={boardView}
+        setBoardView={setBoardView}
+      />
+      <Row>
+        <SideBar>
+          <TOC headings={extractNestedHeadlines(content)} />
+        </SideBar>
+        <Col fill>
+          {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+        </Col>
       </Row>
-      <TOC headings={extractNestedHeadlines(content)} />
       {title !== undefined && (
         <Head>
           <title>{title}</title>
         </Head>
       )}
-      {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
     </AppContainer>
   )
 }

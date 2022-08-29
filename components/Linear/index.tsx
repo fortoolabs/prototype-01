@@ -22,7 +22,7 @@ export default function Linear({ serif, doc }: LinearProps) {
 
   const { content } = doc
   return (
-    <Row gap="small" pad="small" justify="start">
+    <Row gap="small" pad="small" alignSelf="center">
       <Main style={{ fontFamily: serif ? 'Times' : 'inherit' }}>
         {/* iterate over json, build right component */}
         {content.flatMap((el, i) => renderElement(el, i))}
