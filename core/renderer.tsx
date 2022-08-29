@@ -4,6 +4,7 @@ import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 import Code, { CodeProps } from 'components/Code'
 import Heading, { HeadingProps } from 'components/Heading'
 import Paragraph, { ParagraphProps } from 'components/Paragraph'
+import Anchor, { AnchorProps } from 'components/Anchor'
 import FallbackInline, { FallbackInlineProps } from 'components/FallbackInline'
 import FallbackBlock, { FallbackBlockProps } from 'components/FallbackBlock'
 import Date, { DateProps } from 'components/Date'
@@ -72,9 +73,10 @@ export function renderObject(el: FObjectType, i: number): JSX.Element[] {
   switch (el.type) {
     case 'a':
       return [
-        <a key={i} href={el.target}>
-          {el.content.flatMap(renderObject)}
-        </a>,
+        <Anchor key={i} url={el.target} label={el.content.flatMap(renderObject)}/>
+        // <a key={i} href={el.target}>
+        //   {el.content.flatMap(renderObject)}
+        // </a>,
       ]
     case 'b':
       return [<b key={i}>{el.content.flatMap(renderObject)}</b>]
