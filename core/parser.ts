@@ -143,6 +143,52 @@ export function extractNestedHeadlines(
   }, [])
 }
 
+type WorkflowStateTransitionConfig = {
+  isAnnotated: boolean
+  isTimestamped: boolean
+}
+export type WorkflowStateConfig = {
+  name: string
+  shortcut: string
+  onEntry: WorkflowStateTransitionConfig
+  onExit: WorkflowStateTransitionConfig
+}
+export function unpackTodoKeyword(raw: string): WorkflowStateConfig {
+  const split = raw.split('(', 2)
+
+  const name = split && split[0] && split[0] !== '' ? split[0] : ''
+  const settings =
+    split && split[1] && split[1] !== ''
+      ? split[1].replaceAll(')', '').replaceAll('(', '')
+      : ''
+
+  const [entryString, exitString] = settings.split('/', 2)
+
+  const shortcut =
+    entryString && entryString !== ''
+      ? entryString.replaceAll('!', '').replaceAll('@', '').trim().charAt(0)
+      : ''
+
+  return {
+    name,
+    shortcut,
+    onEntry: {
+      isAnnotated: entryString && entryString.includes('@') ? true : false,
+      isTimestamped:
+        entryString && (entryString.includes('@') || entryString.includes('!'))
+          ? true
+          : false,
+    },
+    onExit: {
+      isAnnotated: exitString && exitString.includes('@') ? true : false,
+      isTimestamped:
+        exitString && (exitString.includes('@') || exitString.includes('!'))
+          ? true
+          : false,
+    },
+  }
+}
+
 function unpackObjectType(x: ObjectType): FObjectType {
   // TODO: Restructure to a list of non-string members
   // A lot of information is lost in just reducing this to strings
@@ -336,7 +382,7 @@ function convert(
         case 'TODO':
           // FIXME: Accomodate for multiple swimlanes
           // https://orgmode.org/manual/Per_002dfile-keywords.html
-          // TODO: Adapt for different TODO keyword types e.g.: TYP_TODO
+          // TODO: Adapt for different TODO keyword types such as TYP_TODO and SEQ_TODO
           return {
             ...acc,
             todoStates: node.value.split(' ').filter((x) => x != '|'),

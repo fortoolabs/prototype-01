@@ -1,31 +1,31 @@
-import { useState } from 'react'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { PlusIcon } from '@heroicons/react/outline'
 
-import { columnsFromBackend } from './data'
+// TODO: Remove
+import type { ColumnDataProps } from './data'
 
 // import type { KanbanColumnProps } from './Column'
 import KanbanColumn from './Column'
 
-// import { FDocument } from 'core/types'
-
 type KanbanBoardProps = {
-  data: string // Array<KanbanColumnProps>
+  columns: ColumnDataProps
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
-  addTask: (visible: boolean) => any
-  editTask: (visible: boolean) => any
+  setColumns: (col: any) => void
+  /*eslint no-unused-vars: ["error", {"args": "none"}]*/
+  addTask: (visible: boolean) => void
+  editTask: (visible: boolean) => void
 }
 
 export default function KanbanBoard({
-  data,
+  columns,
+  setColumns,
   addTask,
   editTask,
 }: KanbanBoardProps) {
-  const [columns, setColumns] = useState(columnsFromBackend)
-
   const onDragEnd = (result: any, columns: any, setColumns: any) => {
     if (!result.destination) return
+
     const { source, destination } = result
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId]
