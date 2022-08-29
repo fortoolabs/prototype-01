@@ -76,6 +76,7 @@ export function renderObject(el: FObjectType, i: number): JSX.Element[] {
         <Anchor
           key={i}
           url={el.target}
+          linkType={el.linkType}
           label={el.content.flatMap(renderObject)}
         />,
       ]
