@@ -4,14 +4,14 @@ import {
   ArrowTopRightOnSquareIcon as ExternalIcon,
 } from '@heroicons/react/20/solid'
 
-export type AnchorProps = {
+export type LinkProps = {
   url: string
   linkType: string
   label: string | JSX.Element[]
 }
 
 // TODO: Generalize text-COLOR-VAL and hover:text-COLOR-VAL
-export default function Anchor({ url, linkType, label }: AnchorProps) {
+export default function Link({ url, linkType, label }: LinkProps) {
   const getExternalFlag = (t: string): boolean => {
     switch (t) {
       case 'http':

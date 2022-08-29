@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import Anchor from './Anchor'
+import Link from './Link'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Example/Link',
-  component: Anchor,
-} as ComponentMeta<typeof Anchor>
+  component: Link,
+} as ComponentMeta<typeof Link>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Anchor> = (args) => <Anchor {...args} />
+const Template: ComponentStory<typeof Link> = (args) => <Link {...args} />
 
 // TODO: Demonstrate presentation of different PATHREG options:
 // https://orgmode.org/worg/dev/org-syntax.html#Links
