@@ -1,10 +1,10 @@
 export type TagProps = {
   content: string
-  color?: string 
+  color?: string
   size?: 'small' | 'medium' | 'large'
 }
 type colorsProps = {
-  [key: string] : string,
+  [key: string]: string
 }
 
 export default function Tag({
@@ -12,12 +12,11 @@ export default function Tag({
   color = 'blue',
   size = 'small',
 }: TagProps) {
-
   const sizes = {
-  small: 'py-0.5 px-2.5 text-xs',
-  medium: 'py-1 px-3 text-base',
-  large: 'py-1.5 px-3.5 text-lg',
-}
+    small: 'py-0.5 px-2.5 text-xs',
+    medium: 'py-1 px-3 text-base',
+    large: 'py-1.5 px-3.5 text-lg',
+  }
 
   const colors: colorsProps = {
     blue: 'bg-blue-100 text-blue-800',
@@ -34,7 +33,9 @@ export default function Tag({
   const sizeClasses = sizes[size]
 
   return (
-    <span className={`font-semibold rounded-full mx-2 ${colorClasses} ${sizeClasses}`} >
+    <span
+      className={`font-semibold rounded-full mx-2 ${colorClasses} ${sizeClasses}`}
+    >
       {content}
     </span>
   )

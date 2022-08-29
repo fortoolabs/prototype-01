@@ -9,8 +9,20 @@ export default {
   component: Tag,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    color: { control: 'select', options:['blue', 'gray', 'red', 'green', 'yellow', 'indigo', 'purple', 'pink'], },
-    size: {control: 'select', options:['small', 'medium', 'large'],}
+    color: {
+      control: 'select',
+      options: [
+        'blue',
+        'gray',
+        'red',
+        'green',
+        'yellow',
+        'indigo',
+        'purple',
+        'pink',
+      ],
+    },
+    size: { control: 'select', options: ['small', 'medium', 'large'] },
   },
 } as ComponentMeta<typeof Tag>
 
@@ -35,7 +47,7 @@ export const Medium = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Medium.args = {
   content: 'medium',
-  size: 'medium'
+  size: 'medium',
 }
 
 export const Large = Template.bind({})
@@ -44,5 +56,3 @@ Large.args = {
   content: 'large',
   size: 'large',
 }
-
-
