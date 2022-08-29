@@ -10,9 +10,7 @@ export default {
 } as ComponentMeta<typeof Anchor>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Anchor> = (args) => (
-  <Anchor {...args} />
-)
+const Template: ComponentStory<typeof Anchor> = (args) => <Anchor {...args} />
 
 export const SingleWordLink = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
@@ -34,4 +32,3 @@ ExternalLink.args = {
   label: 'This is an external Link',
   externalLink: true,
 }
-

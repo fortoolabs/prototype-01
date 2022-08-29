@@ -73,10 +73,11 @@ export function renderObject(el: FObjectType, i: number): JSX.Element[] {
   switch (el.type) {
     case 'a':
       return [
-        <Anchor key={i} url={el.target} label={el.content.flatMap(renderObject)}/>
-        // <a key={i} href={el.target}>
-        //   {el.content.flatMap(renderObject)}
-        // </a>,
+        <Anchor
+          key={i}
+          url={el.target}
+          label={el.content.flatMap(renderObject)}
+        />,
       ]
     case 'b':
       return [<b key={i}>{el.content.flatMap(renderObject)}</b>]
