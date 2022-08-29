@@ -3,7 +3,7 @@
 exports[`toc > renders 1`] = `
 <DocumentFragment>
   <ul
-    class="text-sm font-medium text-gray-700 group-hover:text-gray-900"
+    class="text-sm text-gray-300 group-hover:text-gray-900"
   >
     <li
       class="py-2 w-full"
