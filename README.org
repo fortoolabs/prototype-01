@@ -1,0 +1,81 @@
+* Formation.tools App
+:PROPERTIES:
+:CUSTOM_ID: formation.tools-app
+:END:
+
+** Development
+:PROPERTIES:
+:CUSTOM_ID: development
+:END:
+
+1. Run =npm ci= to install dependencies.
+2. Run =npm run dev= for UI development (and find the port to which to navigate your browser in the console output)
+3. Run =npm run fmt:fix= before committing to ensure that your changes are are compatible with the styleguide.
+
+*** Install dependencies
+:PROPERTIES:
+:CUSTOM_ID: install-dependencies
+:END:
+
+#+begin_quote
+💡 We only want to use =npm install= when we are installing new packages and have the express intention of making changes to the package-lock.json file.
+#+end_quote
+
+Using =npm ci= as opposed to =npm install= will ensure that we do not casually update the package-lock.json file (in case one is using an older version of npm that specificied in the package.json engines property). Casual changes to the package-lock.json file can complicate merging since the package-lock.json file can get quite noisy, resulting to many changes that one needs to painstakingly isolate in a merge conflict.
+
+*** Start development session
+:PROPERTIES:
+:CUSTOM_ID: start-development-session
+:END:
+When working on the UI, running =npm run dev= is helpful. When working on logic it may actually be more helpful to watch core logic source files and run =npm run build= as this recompiles the code on every change and communicates compiler errors more clearly.
+
+#+begin_src shell
+ls core/**/*.ts core/**/*.tsx pages/**/*.tsx components/**/*.tsx  | entr  npm run build
+#+end_src
+
+#+begin_quote
+💡 While working on the parsing or rendering logic, the =npm run build= tool may be the tool to use.
+#+end_quote
+
+*** Format code (according to project styleguide)
+:PROPERTIES:
+:CUSTOM_ID: format-code-according-to-project-styleguide
+:END:
+This is important because some editors fudge the source files a bit which produces a lot of changes that don't really affect the UI or the logic at all and are therefore just noise. Running everything through the same formatter will ensure that the only thing ending up in the commit are changes to UI or logic and not just editor opinions. 😅
+
+#+begin_quote
+💡 Run =npm run fmt:fix:watch= in a separate terminal to not have to think about this. It will watch relevant source files and rerun the formatter whenever they change and offering us less thing to think about while developing.
+#+end_quote
+
+*** Test code
+:PROPERTIES:
+:CUSTOM_ID: test-code
+:END:
+Run =npm run test= in order to run the tests. The test runner is pretty convenient and will provide facilities to do the following from within the test running TUI:
+
+- narrow down tests based on patterns
+- generate or update snapshots when changes are detected
+- retrigger complete test re-runs
+
+** Resources
+:PROPERTIES:
+:CUSTOM_ID: resources
+:END:
+[[https://gitlab.com/formation.tools/intel/product-vision][Product respository]]: it contains all relevant information and the [[https://gitlab.com/formation.tools/intel/product-vision/-/blob/main/Roadmap.org][ROADMAP.org]] file.
+
+- [[https://gitlab.com/formation.tools/app/formation.tools-app][App respository GitLab]]
+- [[https://www.figma.com/file/DenroEWfValwUxKZJdtLW7/formation.tools-(Copy)][Figma file]]
+- [[https://gitlab.com/formation.tools/app/formation.tools-app/-/boards/4514126][Issues Board]]
+- [[https://app-formation-tools-app-three.vercel.app/][Vercel app]]
+- [[https://vercel.com/formation-tools/app-formation-tools-app][Vercel dashboard]]
+
+** Technologies
+:PROPERTIES:
+:CUSTOM_ID: technologies
+:END:
+
+- Next.js
+- Typescript
+- [[https://v2.grommet.io/][Grommet]]
+- [[https://swr.vercel.app/][SWR]]
+- [[https://react-syntax-highlighter.github.io/react-syntax-highlighter/][react-syntax-highlighter]], used for the Code component
