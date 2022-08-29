@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.0.0",
     "base64url": "^3.0.1",
     "dayjs": "^1.11.3",
     "flowbite": "^1.5.2",
