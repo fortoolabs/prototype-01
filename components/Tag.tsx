@@ -1,12 +1,16 @@
 export type TagProps = {
   content: string
-  color?: string
-  size?: 'small' | 'medium' | 'large'
+  color:
+    | 'blue'
+    | 'gray'
+    | 'red'
+    | 'green'
+    | 'yellow'
+    | 'indigo'
+    | 'purple'
+    | 'pink'
+  size: 'small' | 'medium' | 'large'
 }
-type colorsProps = {
-  [key: string]: string
-}
-
 export default function Tag({
   content,
   color = 'blue',
@@ -18,7 +22,7 @@ export default function Tag({
     large: 'py-1.5 px-3.5 text-lg',
   }
 
-  const colors: colorsProps = {
+  const colors = {
     blue: 'bg-blue-100 text-blue-800',
     gray: 'bg-gray-100 text-gray-800',
     red: 'bg-red-100 text-red-800',
@@ -29,12 +33,15 @@ export default function Tag({
     pink: 'bg-pink-100 text-pink-800',
   }
 
-  const colorClasses = colors[color] ? colors[color] : colors['blue']
-  const sizeClasses = sizes[size]
-
   return (
     <span
-      className={`font-semibold rounded-full mx-2 ${colorClasses} ${sizeClasses}`}
+      className={[
+        'font-semibold',
+        'rounded-full',
+        'mx-2',
+        colors[color] ? colors[color] : colors['blue'],
+        sizes[size],
+      ].join(' ')}
     >
       {content}
     </span>

@@ -29,30 +29,36 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />
 
-export const Success = Template.bind({})
+export const DefaultTag = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Success.args = {
+DefaultTag.args = {
+  content: 'default',
+}
+
+export const SuccessTag = Template.bind({})
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+SuccessTag.args = {
   content: 'done',
   color: 'green',
 }
 
-export const Error = Template.bind({})
+export const ErrorTag = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Error.args = {
+ErrorTag.args = {
   content: 'fail',
   color: 'red',
 }
 
-export const Medium = Template.bind({})
+export const MediumTag = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Medium.args = {
+MediumTag.args = {
   content: 'medium',
   size: 'medium',
 }
 
-export const Large = Template.bind({})
+export const LargeTag = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Large.args = {
+LargeTag.args = {
   content: 'large',
   size: 'large',
 }
