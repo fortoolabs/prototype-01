@@ -3,8 +3,8 @@ import { useRef } from 'react'
 // import type { KanbanModalProps } from './Modal'
 import KanbanModal from './Modal'
 
-import { PhotographIcon } from '@heroicons/react/outline'
-import { PlusIcon as SolidPlusIcon } from '@heroicons/react/solid'
+import { PhotoIcon as PhotographIcon } from '@heroicons/react/24/outline'
+import { PlusIcon as SolidPlusIcon } from '@heroicons/react/20/solid'
 
 export default function KanbanAddTaskModal({
   isVisible,

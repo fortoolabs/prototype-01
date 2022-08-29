@@ -6,16 +6,17 @@ import React from 'react'
 // https://tailwindui.com/components/application-ui/application-shells/multi-column#component-aa0e4b496e24d741e984c820f5e938ba
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+
 import {
   CalendarIcon,
   HomeIcon,
   MapIcon,
-  MenuIcon,
-  SearchCircleIcon,
-  SpeakerphoneIcon,
+  Bars3Icon as MenuIcon,
+  MagnifyingGlassCircleIcon as SearchCircleIcon,
+  MegaphoneIcon as SpeakerphoneIcon,
   UserGroupIcon,
-  XIcon,
-} from '@heroicons/react/outline'
+  XMarkIcon as XIcon,
+} from '@heroicons/react/24/outline'
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
