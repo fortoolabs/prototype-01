@@ -1,13 +1,18 @@
 import React from 'react'
 
-import { SunIcon, MoonIcon } from '@heroicons/react/outline'
-
 import ToggleDarkMode from 'components/ToggleDarkMode'
 
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
 import { Fragment } from 'react'
 import { Disclosure } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+
+import {
+  SunIcon,
+  MoonIcon,
+  BellIcon,
+  Bars3Icon as MenuIcon,
+  XMarkIcon as XIcon,
+} from '@heroicons/react/24/outline'
 
 type NavigationBarProps = {
   isDark: boolean

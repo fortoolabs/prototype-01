@@ -2,16 +2,16 @@
 import KanbanModal from './Modal'
 
 import {
-  ArchiveIcon as SolidArchiveIcon,
-  ClipboardListIcon as SolidClipboardListIcon,
+  ArchiveBoxIcon as SolidArchiveIcon,
+  ClipboardDocumentListIcon as SolidClipboardListIcon,
   DocumentDuplicateIcon as SolidDocumentDuplicateIcon,
-  DotsHorizontalIcon as SolidDotsHorizontalIcon,
+  EllipsisHorizontalIcon as SolidDotsHorizontalIcon,
   EyeIcon as SolidEyeIcon,
   PaperClipIcon as SolidPaperClipIcon,
-  PhotographIcon as SolidPhotographIcon,
+  PhotoIcon as SolidPhotographIcon,
   PlusIcon as SolidPlusIcon,
-  SelectorIcon as SolidSelectorIcon,
-} from '@heroicons/react/solid'
+  ChevronUpDownIcon as SolidSelectorIcon,
+} from '@heroicons/react/20/solid'
 
 export default function KanbanEditTaskModal({
   isVisible,

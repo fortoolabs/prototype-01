@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
-import { CheckIcon, ClockIcon } from '@heroicons/react/outline'
-import { PencilAltIcon as SolidPencilAltIcon } from '@heroicons/react/solid'
+import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
 
 import type { TaskDataProps } from './data'
 

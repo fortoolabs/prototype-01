@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
-import { PlusIcon } from '@heroicons/react/outline'
+import { PlusIcon } from '@heroicons/react/24/outline'
 
 // TODO: Remove
 import type { ColumnDataProps } from './data'

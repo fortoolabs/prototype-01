@@ -1,7 +1,7 @@
 import KanbanTask from './Task'
 
 import type { TaskDataProps } from './data'
-import { PlusIcon as SolidPlusIcon } from '@heroicons/react/solid'
+import { PlusIcon as SolidPlusIcon } from '@heroicons/react/20/solid'
 
 export type KanbanColumnProps = {
   id: string
