@@ -8,26 +8,22 @@ export default function LogoIcon() {
       id="svg5"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs id="defs2" />
       <rect
-        style="fill:currentColor"
-        id="rect286"
+        fill="none"
         width="10.583333"
         height="5.2916665"
         x="11.90625"
         y="3.96875"
       />
       <rect
-        style="fill:currentColor"
-        id="rect288"
+        fill="none"
         width="5.2916665"
         height="10.583333"
         x="3.96875"
         y="11.90625"
       />
       <rect
-        style="fill:currentColor"
-        id="rect450"
+        fill="none"
         width="5.2916665"
         height="5.2916665"
         x="11.90625"
