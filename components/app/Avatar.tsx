@@ -2,23 +2,27 @@ import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/24/outline'
 
-type UserProps = {
+type SessionProps = {
   name: string
   handle: string
   avatarPath: string
 }
 
-//type UserMenuEntry = {
-//  name: string
-//  target: string
-//}
+type SessionMenuOption = {
+  name: string
+  target: string
+}
+
+type SessionMenuProps = {
+  sessionOptions: SessionMenuOption[]
+}
 
 export function Avatar({
   name,
   handle,
   avatarPath,
   className,
-}: UserProps & React.HTMLAttributes<HTMLImageElement>) {
+}: SessionProps & React.HTMLAttributes<HTMLImageElement>) {
   const sizeClasses = className ? className : 'h-8 w-8'
 
   return (
@@ -30,7 +34,12 @@ export function Avatar({
   )
 }
 
-export function DesktopAvatar({ name, handle, avatarPath }: UserProps) {
+export function DesktopMenu({
+  name,
+  handle,
+  avatarPath,
+  sessionOptions,
+}: SessionProps & SessionMenuProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
@@ -49,37 +58,23 @@ export function DesktopAvatar({ name, handle, avatarPath }: UserProps) {
       >
         <Menu.Items className="absolute right-0 z-30 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                /* TODO: Rename active to isActive */
-                <a
-                  href="#"
-                  className={[
-                    active && 'bg-gray-100',
-                    'block px-4 py-2 text-sm text-gray-700',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  Your Profile
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={[
-                    active && 'bg-gray-100',
-                    'block px-4 py-2 text-sm text-gray-700',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  Sign Out
-                </a>
-              )}
-            </Menu.Item>
+            {sessionOptions.map((opt, idx) => (
+              <Menu.Item key={idx}>
+                {({ active }) => (
+                  <a
+                    href={opt.target}
+                    className={[
+                      active && 'bg-gray-100',
+                      'block px-4 py-2 text-sm text-gray-700',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    {opt.name}
+                  </a>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>
@@ -88,13 +83,12 @@ export function DesktopAvatar({ name, handle, avatarPath }: UserProps) {
 }
 
 // TODO: Renable menu
-export function MobileAvatar({
+export function MobileMenu({
   name,
   handle,
   avatarPath,
-}: //menuOptions,
-//MenuProps &
-UserProps) {
+  sessionOptions,
+}: SessionProps & SessionMenuProps) {
   return (
     <div className="border-t border-gray-200 pt-4 pb-3">
       <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">
@@ -123,15 +117,15 @@ UserProps) {
         </a>
       </div>
       <div className="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
-        {/*menuOptions.map((item) => (
+        {sessionOptions.map((item, idx) => (
           <a
-            key={item.name}
-            href={item.href}
+            key={idx}
+            href={item.target}
             className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50"
           >
             {item.name}
           </a>
-        ))*/}
+        ))}
       </div>
     </div>
   )
