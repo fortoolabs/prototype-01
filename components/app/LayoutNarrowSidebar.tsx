@@ -358,23 +358,16 @@ function TopNav({
 }: MobileNavProps &
   MenuProps & {
     mobileMenu?: React.ReactNode
-    picker: PickerProps
+    picker: JSX.Element
   }) {
-  const { defaultOptionId, options } = picker
-
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
       <LogoElement />
-      {options.length > 0 && (
-        <Picker defaultOptionId={defaultOptionId} options={options} />
-      )}
-
+      {picker}
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 sm:pr-6 md:hidden">
         <MobileMenuButton onClick={() => setIsOpen(true)} />
       </div>
-
       <DesktopNav menuOptions={navigation} />
-
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
           <a href="#">
@@ -496,13 +489,15 @@ export default function Layout() {
         menuOptions={navigation}
         // TODO: Determine if this is suboptimal, passing an object prop as a field
         // Perhaps we have to pass our props as pickerDefaultId and pickerOptions instead
-        picker={{
-          defaultOptionId: defaultNavbarOption && defaultNavbarOption.name,
-          options: sidebarNavigation.map((x) => ({
-            label: x.name,
-            id: x.name,
-          })),
-        }}
+        picker={
+          <Picker
+            defaultOptionId={defaultNavbarOption && defaultNavbarOption.name}
+            options={sidebarNavigation.map((x) => ({
+              label: x.name,
+              id: x.name,
+            }))}
+          />
+        }
       />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <Sidebar menuOptions={sidebarNavigation} />
