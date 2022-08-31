@@ -1,0 +1,138 @@
+import React from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { BellIcon } from '@heroicons/react/24/outline'
+
+type UserProps = {
+  name: string
+  handle: string
+  avatarPath: string
+}
+
+//type UserMenuEntry = {
+//  name: string
+//  target: string
+//}
+
+export function Avatar({
+  name,
+  handle,
+  avatarPath,
+  className,
+}: UserProps & React.HTMLAttributes<HTMLImageElement>) {
+  const sizeClasses = className ? className : 'h-8 w-8'
+
+  return (
+    <img
+      className={`${sizeClasses} rounded-full`}
+      src={avatarPath}
+      alt={`Avatar for user ${name} with handle ${handle}`}
+    />
+  )
+}
+
+export function DesktopAvatar({ name, handle, avatarPath }: UserProps) {
+  return (
+    <Menu as="div" className="relative inline-block text-left">
+      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+        <span className="sr-only">Open user menu</span>
+        <Avatar name={name} handle={handle} avatarPath={avatarPath} />
+      </Menu.Button>
+
+      <Transition
+        as={React.Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className="absolute right-0 z-30 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+            <Menu.Item>
+              {({ active }) => (
+                /* TODO: Rename active to isActive */
+                <a
+                  href="#"
+                  className={[
+                    active && 'bg-gray-100',
+                    'block px-4 py-2 text-sm text-gray-700',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  Your Profile
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={[
+                    active && 'bg-gray-100',
+                    'block px-4 py-2 text-sm text-gray-700',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  Sign Out
+                </a>
+              )}
+            </Menu.Item>
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
+  )
+}
+
+// TODO: Renable menu
+export function MobileAvatar({
+  name,
+  handle,
+  avatarPath,
+}: //menuOptions,
+//MenuProps &
+UserProps) {
+  return (
+    <div className="border-t border-gray-200 pt-4 pb-3">
+      <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">
+        <div className="flex-shrink-0">
+          <Avatar
+            className="h-10 w-10"
+            name={name}
+            handle={handle}
+            avatarPath={avatarPath}
+          />
+        </div>
+        <div className="ml-3 min-w-0 flex-1">
+          <div className="truncate text-base font-medium text-gray-800">
+            {name}
+          </div>
+          <div className="truncate text-sm font-medium text-gray-500">
+            {handle}
+          </div>
+        </div>
+        <a
+          href="#"
+          className="ml-auto flex-shrink-0 bg-white p-2 text-gray-400 hover:text-gray-500"
+        >
+          <span className="sr-only">View notifications</span>
+          <BellIcon className="h-6 w-6" aria-hidden="true" />
+        </a>
+      </div>
+      <div className="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
+        {/*menuOptions.map((item) => (
+          <a
+            key={item.name}
+            href={item.href}
+            className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50"
+          >
+            {item.name}
+          </a>
+        ))*/}
+      </div>
+    </div>
+  )
+}
