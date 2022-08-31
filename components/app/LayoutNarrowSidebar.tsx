@@ -495,8 +495,6 @@ export default function Layout() {
         isOpen={mobileMenuOpen}
         setIsOpen={(x) => setMobileMenuOpen(x)}
         menuOptions={navigation}
-        // TODO: Determine if this is suboptimal, passing an object prop as a field
-        // Perhaps we have to pass our props as pickerDefaultId and pickerOptions instead
         picker={
           <Picker
             defaultOptionId={defaultNavbarOption && defaultNavbarOption.name}
