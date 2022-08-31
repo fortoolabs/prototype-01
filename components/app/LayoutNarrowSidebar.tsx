@@ -168,30 +168,28 @@ function DesktopNav({
             ))}
           </nav>
         )}
-        <div className="flex items-center space-x-8">
-          <span className="inline-flex">
-            <a
-              href="#"
-              className="-mx-1 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500"
-            >
-              <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true" />
-            </a>
-          </span>
 
-          <DesktopSessionMenu
-            name={name}
-            handle={handle}
-            avatarPath={avatarPath}
-            sessionOptions={
-              // FIX: Do not reference top-scope variable userNavigation like this
-              userNavigation.map(({ name, href }) => ({
-                name,
-                target: href,
-              }))
-            }
-          />
-        </div>
+        <DesktopSessionMenu
+          name={name}
+          handle={handle}
+          avatarPath={avatarPath}
+          sessionOptions={
+            // FIX: Do not reference top-scope variable userNavigation like this
+            userNavigation.map(({ name, href }) => ({
+              name,
+              target: href,
+            }))
+          }
+          //sessionToggle={
+          //  <a
+          //    href="#"
+          //    className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500"
+          //  >
+          //    <span className="sr-only">View notifications</span>
+          //    <BellIcon className="h-6 w-6" aria-hidden="true" />
+          //  </a>
+          //}
+        />
       </div>
     </div>
   )
@@ -251,7 +249,7 @@ function LogoElement() {
     <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
       <a
         href="#"
-        className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20 bg-pink-100"
+        className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
       >
         <LogoIcon />
       </a>
@@ -373,6 +371,15 @@ function TopNav({
             name,
             target: href,
           }))}
+          //sessionToggle={
+          //  <a
+          //    href="#"
+          //    className="rounded-full bg-white p-2 text-gray-400 hover:text-gray-500"
+          //  >
+          //    <span className="sr-only">View notifications</span>
+          //    <BellIcon className="h-6 w-6" aria-hidden="true" />
+          //  </a>
+          //}
         />
       </MobileMenu>
     </header>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { BellIcon } from '@heroicons/react/24/outline'
 
 type SessionProps = {
   name: string
@@ -15,6 +14,10 @@ type SessionMenuOption = {
 
 type SessionMenuProps = {
   sessionOptions: SessionMenuOption[]
+}
+
+type SessionToggleProps = {
+  sessionToggle?: JSX.Element
 }
 
 export function Avatar({
@@ -39,46 +42,50 @@ export function DesktopMenu({
   handle,
   avatarPath,
   sessionOptions,
-}: SessionProps & SessionMenuProps) {
+  sessionToggle,
+}: SessionProps & SessionMenuProps & SessionToggleProps) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
-        <span className="sr-only">Open user menu</span>
-        <Avatar name={name} handle={handle} avatarPath={avatarPath} />
-      </Menu.Button>
+    <div className="flex items-center space-x-2">
+      {sessionToggle}
+      <Menu as="div" className="relative inline-block text-left">
+        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+          <span className="sr-only">Open user menu</span>
+          <Avatar name={name} handle={handle} avatarPath={avatarPath} />
+        </Menu.Button>
 
-      <Transition
-        as={React.Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="absolute right-0 z-30 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            {sessionOptions.map((opt, idx) => (
-              <Menu.Item key={idx}>
-                {({ active }) => (
-                  <a
-                    href={opt.target}
-                    className={[
-                      active && 'bg-gray-100',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    {opt.name}
-                  </a>
-                )}
-              </Menu.Item>
-            ))}
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
+        <Transition
+          as={React.Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 z-30 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1">
+              {sessionOptions.map((opt, idx) => (
+                <Menu.Item key={idx}>
+                  {({ active }) => (
+                    <a
+                      href={opt.target}
+                      className={[
+                        active && 'bg-gray-100',
+                        'block px-4 py-2 text-sm text-gray-700',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                    >
+                      {opt.name}
+                    </a>
+                  )}
+                </Menu.Item>
+              ))}
+            </div>
+          </Menu.Items>
+        </Transition>
+      </Menu>
+    </div>
   )
 }
 
@@ -88,7 +95,8 @@ export function MobileMenu({
   handle,
   avatarPath,
   sessionOptions,
-}: SessionProps & SessionMenuProps) {
+  sessionToggle,
+}: SessionProps & SessionMenuProps & SessionToggleProps) {
   return (
     <div className="border-t border-gray-200 pt-4 pb-3">
       <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">
@@ -108,13 +116,7 @@ export function MobileMenu({
             {handle}
           </div>
         </div>
-        <a
-          href="#"
-          className="ml-auto flex-shrink-0 bg-white p-2 text-gray-400 hover:text-gray-500"
-        >
-          <span className="sr-only">View notifications</span>
-          <BellIcon className="h-6 w-6" aria-hidden="true" />
-        </a>
+        {sessionToggle}
       </div>
       <div className="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
         {sessionOptions.map((item, idx) => (
