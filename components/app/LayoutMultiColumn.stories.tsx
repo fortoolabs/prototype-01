@@ -11,7 +11,4 @@ export default {
   },
 } as ComponentMeta<typeof Layout>
 
-const Template: ComponentStory<typeof Layout> = (args) => <Layout {...args} />
-
-export const Basic = Template.bind({})
-Basic.args = {}
+export const Primary: ComponentStory<typeof Layout> = () => <Layout />
