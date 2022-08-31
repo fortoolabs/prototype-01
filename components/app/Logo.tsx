@@ -1,10 +1,16 @@
+import React from 'react'
+
 type LogoIconProps = { id?: string }
 
-export default function LogoIcon({ id }: LogoIconProps) {
+export default function LogoIcon({
+  className,
+  id,
+}: LogoIconProps & React.HTMLAttributes<SVGElement>) {
   const logoId = id || 'formation-tools-logo'
   // Based on https://css-tricks.com/accessible-svgs/#aa-2-inline-svg
   return (
     <svg
+      className={className}
       id={logoId}
       width="24"
       height="24"
