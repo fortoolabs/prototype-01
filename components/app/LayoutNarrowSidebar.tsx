@@ -78,9 +78,17 @@ type PickerProps = {
   }[]
 }
 
-function Picker({ defaultOptionId, options }: PickerProps) {
+type Stylable = {
+  className?: string
+}
+
+function Picker({
+  className,
+  defaultOptionId,
+  options,
+}: PickerProps & Stylable) {
   return (
-    <div className="mx-auto md:hidden">
+    <div className={'mx-auto'.concat(className ? ` ${className}` : '')}>
       <div className="relative">
         <label htmlFor="inbox-select" className="sr-only">
           Choose inbox
@@ -496,6 +504,7 @@ export default function Layout() {
               label: x.name,
               id: x.name,
             }))}
+            className="md:hidden"
           />
         }
       />
