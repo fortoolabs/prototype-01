@@ -6,6 +6,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 export type ToggleSwitchProps = {
+  feature?: string
   isEnabled: boolean
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
   setEnabled: (params: boolean) => any
@@ -14,6 +15,7 @@ export type ToggleSwitchProps = {
 
 // FIX: Broken: When toggling on, the icon fades out
 export default function Example({
+  feature,
   isEnabled,
   setEnabled,
   icons,
@@ -61,7 +63,10 @@ export default function Example({
         'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
       )}
     >
-      <span className="sr-only">Use setting</span>
+      {/* TODO: i18n-ize */}
+      <span className="sr-only">
+        {feature ? `Toggle ${feature}` : 'Toggle'}
+      </span>
       <span
         className={classNames(
           isEnabled ? 'translate-x-5' : 'translate-x-0',
