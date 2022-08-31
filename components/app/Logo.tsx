@@ -1,12 +1,23 @@
-export default function LogoIcon() {
+type LogoIconProps = { id?: string }
+
+export default function LogoIcon({ id }: LogoIconProps) {
+  const logoId = id || 'formation-tools-logo'
+  // Based on https://css-tricks.com/accessible-svgs/#aa-2-inline-svg
   return (
     <svg
+      id={logoId}
       width="24"
       height="24"
       viewBox="0 0 24 24"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-labelledby={`${logoId}Title`}
     >
+      <title id={`${logoId}Title`}>Formation.tools logo</title>
+      <desc id={`${logoId}Description`}>
+        A north-west moving formation with two front flanks.
+      </desc>
       <rect
         fill="currentColor"
         id="logo-flank-top"
