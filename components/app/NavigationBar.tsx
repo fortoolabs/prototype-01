@@ -16,10 +16,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 type NavigationBarProps = {
+  // TODO: Consistently rename state-props to match isVAL setVAL scheme
   isDark: boolean
-  setDarkMode: any
+  /*eslint no-unused-vars: ["error", {"args": "none"}]*/
+  setDarkMode: (x: boolean) => void
   serif: boolean
-  setSerif: any
+  /*eslint no-unused-vars: ["error", {"args": "none"}]*/
+  setSerif: (x: boolean) => void
 }
 
 const user = {
