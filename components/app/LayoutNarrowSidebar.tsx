@@ -15,7 +15,10 @@ import {
 } from '@heroicons/react/24/outline'
 
 import LogoIcon from 'components/app/Logo'
-import { DesktopAvatar, MobileAvatar } from 'components/app/Avatar'
+import {
+  DesktopMenu as DesktopSessionMenu,
+  MobileMenu as MobileSessionMenu,
+} from 'components/app/Avatar'
 
 type UserProps = {
   name: string
@@ -49,11 +52,10 @@ const sidebarNavigation = [
   { name: 'Spam', href: '#', icon: NoSymbolIcon, current: false },
   { name: 'Drafts', href: '#', icon: PencilSquareIcon, current: false },
 ]
-// TODO: Reinstitute
-//const userNavigation = [
-//  { name: 'Your Profile', href: '#' },
-//  { name: 'Sign out', href: '#' },
-//]
+const userNavigation = [
+  { name: 'Your Profile', href: '#' },
+  { name: 'Sign out', href: '#' },
+]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -177,7 +179,18 @@ function DesktopNav({
             </a>
           </span>
 
-          <DesktopAvatar name={name} handle={handle} avatarPath={avatarPath} />
+          <DesktopSessionMenu
+            name={name}
+            handle={handle}
+            avatarPath={avatarPath}
+            sessionOptions={
+              // FIX: Do not reference top-scope variable userNavigation like this
+              userNavigation.map(({ name, href }) => ({
+                name,
+                target: href,
+              }))
+            }
+          />
         </div>
       </div>
     </div>
@@ -351,11 +364,15 @@ function TopNav({
             </React.Fragment>
           ))}
         </div>
-        <MobileAvatar
+        <MobileSessionMenu
           name={userName}
           handle={userHandle}
           avatarPath={userAvatarPath}
-          //menuOptions={userNavigation}
+          // FIX: Remove referencing of top-scope var userNavigation
+          sessionOptions={userNavigation.map(({ name, href }) => ({
+            name,
+            target: href,
+          }))}
         />
       </MobileMenu>
     </header>
