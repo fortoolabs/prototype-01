@@ -7,9 +7,9 @@ import Logo from 'components/app/Logo'
 import { Fragment } from 'react'
 import { Disclosure } from '@headlessui/react'
 
+import { SunIcon, MoonIcon } from '@heroicons/react/20/solid'
+
 import {
-  SunIcon,
-  MoonIcon,
   BellIcon,
   Bars3Icon as MenuIcon,
   XMarkIcon as XIcon,
@@ -111,7 +111,8 @@ export default function Example({
                 <ToggleDarkMode
                   isEnabled={isDark}
                   setEnabled={setDarkMode}
-                  icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
+                  enabledIcon={SunIcon}
+                  disabledIcon={MoonIcon}
                 />
               </div>
               <div className="-mr-2 flex items-center sm:hidden">

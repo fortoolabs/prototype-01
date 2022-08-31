@@ -9,24 +9,54 @@ export type ToggleSwitchProps = {
   feature?: string
   isEnabled: boolean
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
-  setEnabled: (params: boolean) => any
-  icons?: { enabled: JSX.Element; disabled: JSX.Element }
+  setEnabled: (params: boolean) => void
+  enabledIcon?: React.ElementType
+  disabledIcon?: React.ElementType
+  activeColor?: 'pink' | 'blue' | 'green' | 'yellow'
 }
 
-// FIX: Broken: When toggling on, the icon fades out
-export default function Example({
+export default function Toggle({
   feature,
   isEnabled,
   setEnabled,
-  icons,
+  enabledIcon: EnabledIcon,
+  disabledIcon: DisabledIcon,
+  activeColor,
 }: ToggleSwitchProps) {
-  const getIconComponents = (): JSX.Element | undefined => {
-    if (icons === undefined) {
-      return
-    } else {
-      const { enabled, disabled } = icons
-      return (
-        <>
+  const color = activeColor ? `${activeColor}-400` : 'pink-400'
+
+  return (
+    <Switch
+      checked={isEnabled}
+      onChange={setEnabled}
+      className={classNames(
+        isEnabled ? `bg-${color}` : 'bg-gray-200',
+        'relative inline-flex flex-shrink-0',
+        'h-6 w-11',
+        'border-2 border-transparent rounded-full',
+        'cursor-pointer',
+        'transition-colors ease-in-out duration-200',
+        'focus:outline-none',
+        'focus:ring-2 focus:ring-offset-2',
+        `focus:ring-${color}`,
+      )}
+    >
+      <span className="sr-only">
+        {/* TODO: i18n-ize */}
+        {feature ? `Toggle ${feature}` : 'Toggle'}
+      </span>
+      <span
+        className={classNames(
+          isEnabled ? 'translate-x-5' : 'translate-x-0',
+          'pointer-events-none',
+          'relative inline-block',
+          'h-5 w-5',
+          'rounded-full',
+          'bg-white shadow',
+          'transform ring-0 transition ease-in-out duration-200',
+        )}
+      >
+        {DisabledIcon && (
           <span
             className={classNames(
               isEnabled
@@ -36,8 +66,10 @@ export default function Example({
             )}
             aria-hidden="true"
           >
-            {disabled}
+            <DisabledIcon className="h-3 w-3" />
           </span>
+        )}
+        {EnabledIcon && (
           <span
             className={classNames(
               isEnabled
@@ -47,33 +79,9 @@ export default function Example({
             )}
             aria-hidden="true"
           >
-            {enabled}
+            <EnabledIcon className="h-3 w-3" />
           </span>
-        </>
-      )
-    }
-  }
-
-  return (
-    <Switch
-      checked={isEnabled}
-      onChange={setEnabled}
-      className={classNames(
-        isEnabled ? 'bg-indigo-600' : 'bg-gray-200',
-        'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
-      )}
-    >
-      {/* TODO: i18n-ize */}
-      <span className="sr-only">
-        {feature ? `Toggle ${feature}` : 'Toggle'}
-      </span>
-      <span
-        className={classNames(
-          isEnabled ? 'translate-x-5' : 'translate-x-0',
-          'pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
         )}
-      >
-        {icons && getIconComponents()}
       </span>
     </Switch>
   )
