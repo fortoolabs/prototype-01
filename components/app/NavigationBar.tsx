@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ToggleDarkMode from 'components/ToggleDarkMode'
+import Logo from 'components/app/Logo'
 
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
 import { Fragment } from 'react'
@@ -64,21 +65,18 @@ export default function Example({
       {({ open }) => (
         <>
           {/* large view */}
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-4">
             <div className="flex justify-between h-16">
               {/* lg left part */}
               <div className="flex">
                 {/* lg logo */}
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-10 w-auto"
-                    src="/logo-formation.svg"
-                    alt="Workflow"
+                  <Logo
+                    className={[
+                      'block w-auto',
+                      'h-8 md:h-[24px]', // h-8 or 24px for medium (md) screens and greater
+                      //'bg-blue-200 md:bg-red-200',
+                    ].join(' ')}
                   />
                 </div>
                 {/* lg navigation
