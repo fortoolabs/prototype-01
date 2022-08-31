@@ -15,11 +15,16 @@ import {
 
 import LogoIcon from 'components/app/Logo'
 
-const user = {
-  name: 'Whitney Francis',
-  email: 'whitney.francis@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+type UserProps = {
+  name: string
+  handle: string
+  avatarPath: string
+}
+const user: UserProps = {
+  name: 'David Asabina',
+  handle: 'vid@bina.me',
+  avatarPath:
+    'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
 }
 const navigation = [
   {
@@ -134,12 +139,16 @@ function DesktopSearchInput() {
     </div>
   )
 }
-function DesktopNavUserProfileWidget() {
+function DesktopAvatar({ name, handle, avatarPath }: UserProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
         <span className="sr-only">Open user menu</span>
-        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+        <img
+          className="h-8 w-8 rounded-full"
+          src={avatarPath}
+          alt={`Avatar for user ${name} with handle ${handle}`}
+        />
       </Menu.Button>
 
       <Transition
@@ -186,7 +195,12 @@ function DesktopNavUserProfileWidget() {
   )
 }
 
-function DesktopNav({ menuOptions }: MenuProps) {
+function DesktopNav({
+  name,
+  handle,
+  avatarPath,
+  menuOptions,
+}: MenuProps & UserProps) {
   return (
     <div className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between">
       <DesktopSearchInput />
@@ -215,7 +229,7 @@ function DesktopNav({ menuOptions }: MenuProps) {
             </a>
           </span>
 
-          <DesktopNavUserProfileWidget />
+          <DesktopAvatar name={name} handle={handle} avatarPath={avatarPath} />
         </div>
       </div>
     </div>
@@ -320,19 +334,24 @@ function MobileMenuSearchInput() {
   )
 }
 
-function MobileMenuUserBlock({ menuOptions }: MenuProps) {
+function MobileAvatar({
+  name,
+  handle,
+  avatarPath,
+  menuOptions,
+}: MenuProps & UserProps) {
   return (
     <div className="border-t border-gray-200 pt-4 pb-3">
       <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">
         <div className="flex-shrink-0">
-          <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+          <img className="h-10 w-10 rounded-full" src={avatarPath} alt="" />
         </div>
         <div className="ml-3 min-w-0 flex-1">
           <div className="truncate text-base font-medium text-gray-800">
-            {user.name}
+            {name}
           </div>
           <div className="truncate text-sm font-medium text-gray-500">
-            {user.email}
+            {handle}
           </div>
         </div>
         <a
@@ -344,7 +363,7 @@ function MobileMenuUserBlock({ menuOptions }: MenuProps) {
         </a>
       </div>
       <div className="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
-        {userNavigation.map((item) => (
+        {menuOptions.map((item) => (
           <a
             key={item.name}
             href={item.href}
@@ -357,6 +376,7 @@ function MobileMenuUserBlock({ menuOptions }: MenuProps) {
     </div>
   )
 }
+
 function TopNav({
   isOpen,
   setIsOpen,
@@ -368,14 +388,25 @@ function TopNav({
     mobileMenu?: React.ReactNode
     picker: JSX.Element
   }) {
+  // TODO: Source user
+  const {
+    name: userName,
+    handle: userHandle,
+    avatarPath: userAvatarPath,
+  } = user
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
       <LogoElement />
+      <DesktopNav
+        name={userName}
+        handle={userHandle}
+        avatarPath={userAvatarPath}
+        menuOptions={menuOptions}
+      />
       {picker}
       <div className="absolute inset-y-0 right-0 flex items-center pr-4 sm:pr-6 md:hidden">
         <MobileMenuButton onClick={() => setIsOpen(true)} />
       </div>
-      <DesktopNav menuOptions={navigation} />
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
           <a href="#">
@@ -415,7 +446,12 @@ function TopNav({
             </React.Fragment>
           ))}
         </div>
-        <MobileMenuUserBlock menuOptions={userNavigation} />
+        <MobileAvatar
+          name={userName}
+          handle={userHandle}
+          avatarPath={userAvatarPath}
+          menuOptions={userNavigation}
+        />
       </MobileMenu>
     </header>
   )
