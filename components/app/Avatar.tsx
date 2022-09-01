@@ -1,31 +1,33 @@
 import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
-type SessionProps = {
-  name: string
-  handle: string
-  avatarPath: string
-}
-
 type SessionMenuOption = {
   name: string
   target: string
 }
 
-type SessionMenuProps = {
-  sessionOptions: SessionMenuOption[]
+type SessionMemberProps = {
+  name: string
+  handle: string
+  avatarPath: string
 }
 
-type SessionToggleProps = {
+type SessionOptionProps = {
+  sessionOptions: SessionMenuOption[]
   sessionToggle?: JSX.Element
 }
+
+export type SessionProps = SessionMemberProps & SessionOptionProps
+
+type SessionAvatarProps = SessionMemberProps &
+  React.HTMLAttributes<HTMLImageElement>
 
 export function Avatar({
   name,
   handle,
   avatarPath,
   className,
-}: SessionProps & React.HTMLAttributes<HTMLImageElement>) {
+}: SessionAvatarProps) {
   const sizeClasses = className ? className : 'h-8 w-8'
 
   return (
@@ -43,7 +45,7 @@ export function DesktopMenu({
   avatarPath,
   sessionOptions,
   sessionToggle,
-}: SessionProps & SessionMenuProps & SessionToggleProps) {
+}: SessionProps) {
   return (
     <div className="flex items-center space-x-2">
       {sessionToggle}
@@ -96,7 +98,7 @@ export function MobileMenu({
   avatarPath,
   sessionOptions,
   sessionToggle,
-}: SessionProps & SessionMenuProps & SessionToggleProps) {
+}: SessionProps) {
   return (
     <div className="border-t border-gray-200 pt-4 pb-3">
       <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">

@@ -16,6 +16,7 @@ import {
 
 import LogoIcon from 'components/app/Logo'
 import {
+  SessionProps,
   DesktopMenu as DesktopSessionMenu,
   MobileMenu as MobileSessionMenu,
 } from 'components/app/Avatar'
@@ -150,7 +151,8 @@ function DesktopNav({
   handle,
   avatarPath,
   menuOptions,
-}: MenuProps & UserProps) {
+  sessionOptions,
+}: MenuProps & SessionProps) {
   return (
     <div className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between">
       <DesktopSearchInput />
@@ -168,18 +170,11 @@ function DesktopNav({
             ))}
           </nav>
         )}
-
         <DesktopSessionMenu
           name={name}
           handle={handle}
           avatarPath={avatarPath}
-          sessionOptions={
-            // FIX: Do not reference top-scope variable userNavigation like this
-            userNavigation.map(({ name, href }) => ({
-              name,
-              target: href,
-            }))
-          }
+          sessionOptions={sessionOptions}
           sessionToggle={
             <a
               href="#"
@@ -201,7 +196,8 @@ function MobileNav({
   handle,
   avatarPath,
   menuOptions,
-}: UserProps & MenuProps) {
+  sessionOptions,
+}: MenuProps & SessionProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -376,6 +372,7 @@ function NavigationBar({
   mobileMenu,
 }: MenuProps & {
   mobileMenu?: React.ReactNode
+  // TODO: Provide as children?
   picker: JSX.Element
 }) {
   // TODO: Source user
@@ -384,6 +381,12 @@ function NavigationBar({
     handle: userHandle,
     avatarPath: userAvatarPath,
   } = user
+  // FIX: Do not reference top-scope variable userNavigation like this
+  const sessionOptions = userNavigation.map(({ name, href }) => ({
+    name,
+    target: href,
+  }))
+
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
       <LogoElement />
@@ -392,6 +395,7 @@ function NavigationBar({
         handle={userHandle}
         avatarPath={userAvatarPath}
         menuOptions={menuOptions}
+        sessionOptions={sessionOptions}
       />
       {picker}
       <MobileNav
@@ -399,6 +403,7 @@ function NavigationBar({
         handle={userHandle}
         avatarPath={userAvatarPath}
         menuOptions={menuOptions}
+        sessionOptions={sessionOptions}
       />
     </header>
   )
@@ -435,7 +440,7 @@ function Sidebar({ menuOptions }: MenuProps) {
   )
 }
 
-function Main({
+function Content({
   left,
   right,
 }: {
@@ -465,6 +470,7 @@ function Main({
 export default function Layout() {
   const defaultNavbarOption = sidebarNavigation.find((x) => x.current)
 
+  // Note that Picker is for mobile, Sidebar is for desktop
   return (
     <div className="flex h-full flex-col">
       <NavigationBar
@@ -482,7 +488,7 @@ export default function Layout() {
       />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <Sidebar menuOptions={sidebarNavigation} />
-        <Main
+        <Content
           left={
             <>
               <h1 id="primary-heading" className="sr-only">
