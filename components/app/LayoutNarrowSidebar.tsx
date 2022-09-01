@@ -26,19 +26,6 @@ type UserProps = {
   handle: string
   avatarPath: string
 }
-const navigation = [
-  {
-    name: 'Inboxes',
-    href: '#',
-    children: [
-      { name: 'Technical Support', href: '#' },
-      { name: 'Sales', href: '#' },
-      { name: 'General', href: '#' },
-    ],
-  },
-  { name: 'Reporting', href: '#', children: [] },
-  { name: 'Settings', href: '#', children: [] },
-]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -412,6 +399,19 @@ export default function Layout() {
     avatarPath:
       'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
   }
+  const navigation = [
+    {
+      name: 'Inboxes',
+      href: '#',
+      children: [
+        { name: 'Technical Support', href: '#' },
+        { name: 'Sales', href: '#' },
+        { name: 'General', href: '#' },
+      ],
+    },
+    { name: 'Reporting', href: '#', children: [] },
+    { name: 'Settings', href: '#', children: [] },
+  ]
   const sidebarNavigation = [
     { name: 'Open', href: '#', icon: InboxIcon, current: true },
     { name: 'Archive', href: '#', icon: ArchiveBoxIcon, current: false },
