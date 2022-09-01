@@ -327,6 +327,10 @@ function NavigationBar(props: NavigationBarProps) {
 }
 
 function DesktopSidebar({ menuOptions }: MenuProps) {
+  if (menuOptions.length === 0) {
+    return null
+  }
+
   return (
     <nav
       aria-label="Sidebar"
