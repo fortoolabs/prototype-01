@@ -293,7 +293,7 @@ function MobileMenuSearchInput() {
   )
 }
 
-function TopNav({
+function NavigationBar({
   isOpen,
   setIsOpen,
   picker,
@@ -451,7 +451,7 @@ export default function Layout() {
 
   return (
     <div className="flex h-full flex-col">
-      <TopNav
+      <NavigationBar
         isOpen={mobileMenuOpen}
         setIsOpen={(x) => setMobileMenuOpen(x)}
         menuOptions={navigation}
