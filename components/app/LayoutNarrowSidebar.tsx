@@ -317,19 +317,6 @@ function MobileMenu({
   )
 }
 
-function LogoElement() {
-  return (
-    <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
-      <a
-        href="#"
-        className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
-      >
-        <LogoIcon />
-      </a>
-    </div>
-  )
-}
-
 type ButtonProps = {
   onClick: React.MouseEventHandler<HTMLButtonElement>
 }
@@ -369,9 +356,7 @@ function MobileMenuSearchInput() {
 function NavigationBar({
   picker,
   menuOptions,
-  mobileMenu,
 }: MenuProps & {
-  mobileMenu?: React.ReactNode
   // TODO: Provide as children?
   picker: JSX.Element
 }) {
@@ -389,7 +374,15 @@ function NavigationBar({
 
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
-      <LogoElement />
+      <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
+        <a
+          href="#"
+          className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
+        >
+          <LogoIcon />
+        </a>
+      </div>
+
       <DesktopNav
         name={userName}
         handle={userHandle}
