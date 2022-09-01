@@ -2,17 +2,7 @@ import React, { useState } from 'react'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import {
-  ArchiveBoxIcon,
-  Bars3Icon,
-  BellIcon,
-  FlagIcon,
-  InboxIcon,
-  NoSymbolIcon,
-  PencilSquareIcon,
-  UserCircleIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import LogoIcon from 'components/app/Logo'
 import {
@@ -20,12 +10,6 @@ import {
   DesktopMenu as DesktopSessionMenu,
   MobileMenu as MobileSessionMenu,
 } from 'components/app/Avatar'
-
-type UserProps = {
-  name: string
-  handle: string
-  avatarPath: string
-}
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -39,7 +23,7 @@ type MobileNavProps = {
 
 type MenuOption = {
   name: string
-  href: string
+  target: string
   /*eslint no-unused-vars: ["error", {"args": "none"}]*/
   icon?: React.ElementType
   current?: boolean
@@ -120,10 +104,10 @@ function DesktopNav({
       <div className="ml-10 flex flex-shrink-0 items-center space-x-10 pr-4">
         {menuOptions.length > 0 && (
           <nav aria-label="Global" className="flex space-x-10">
-            {menuOptions.map(({ name, href }, idx) => (
+            {menuOptions.map(({ name, target }, idx) => (
               <a
                 key={idx}
-                href={href}
+                href={target}
                 className="text-sm font-medium text-gray-900"
               >
                 {name}
@@ -138,6 +122,7 @@ function DesktopNav({
           sessionOptions={sessionOptions}
           sessionToggle={
             <a
+              // TODO: Set href
               href="#"
               className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500"
             >
@@ -168,6 +153,7 @@ function MobileNav({
       </div>
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
+          {/* TODO: Set href */}
           <a href="#">
             <LogoIcon />
           </a>
@@ -184,22 +170,22 @@ function MobileNav({
           <MobileMenuSearchInput />
         </div>
         <div className="max-w-8xl mx-auto py-3 px-2 sm:px-4">
-          {menuOptions.map((item) => (
-            <React.Fragment key={item.name}>
+          {menuOptions.map(({ name, target, children }) => (
+            <React.Fragment key={name}>
               <a
-                href={item.href}
+                href={target}
                 className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100"
               >
-                {item.name}
+                {name}
               </a>
-              {item.children &&
-                item.children.map((child) => (
+              {children &&
+                children.map(({ name: childName, target: childTarget }) => (
                   <a
-                    key={child.name}
-                    href={child.href}
+                    key={childName}
+                    href={childTarget}
                     className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100"
                   >
-                    {child.name}
+                    {childName}
                   </a>
                 ))}
             </React.Fragment>
@@ -320,6 +306,7 @@ function NavigationBar(props: NavigationBarProps) {
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
       <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
+        {/* TODO: Set href */}
         <a
           href="#"
           className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
@@ -347,7 +334,7 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
           return (
             <a
               key={item.name}
-              href={item.href}
+              href={item.target}
               className={classNames(
                 item.current
                   ? 'bg-gray-900 text-white'
@@ -392,50 +379,23 @@ function Content({
   )
 }
 
-export default function Layout() {
-  const user: UserProps = {
-    name: 'David Asabina',
-    handle: 'vid@bina.me',
-    avatarPath:
-      'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
-  }
-  const navigation = [
-    {
-      name: 'Inboxes',
-      href: '#',
-      children: [
-        { name: 'Technical Support', href: '#' },
-        { name: 'Sales', href: '#' },
-        { name: 'General', href: '#' },
-      ],
-    },
-    { name: 'Reporting', href: '#', children: [] },
-    { name: 'Settings', href: '#', children: [] },
-  ]
-  const sidebarNavigation = [
-    { name: 'Open', href: '#', icon: InboxIcon, current: true },
-    { name: 'Archive', href: '#', icon: ArchiveBoxIcon, current: false },
-    { name: 'Customers', href: '#', icon: UserCircleIcon, current: false },
-    { name: 'Flagged', href: '#', icon: FlagIcon, current: false },
-    { name: 'Spam', href: '#', icon: NoSymbolIcon, current: false },
-    { name: 'Drafts', href: '#', icon: PencilSquareIcon, current: false },
-  ]
-  const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Sign out', href: '#' },
-  ]
-
-  const {
-    name: userName,
-    handle: userHandle,
-    avatarPath: userAvatarPath,
-  } = user
-
-  // FIX: Do not reference top-scope variable userNavigation like this
-  const sessionOptions = userNavigation.map(({ name, href }) => ({
-    name,
-    target: href,
-  }))
+type LayoutProps = SessionProps & {
+  menuOptions: MenuOption[]
+  navigationOptions: MenuOption[]
+}
+export default function Layout({
+  name: userName,
+  handle: userHandle,
+  avatarPath: userAvatarPath,
+  menuOptions,
+  navigationOptions,
+  sessionOptions,
+}: LayoutProps) {
+  //// FIX: Do not reference top-scope variable userNavigation like this
+  //const sessionOptions = userNavigation.map(({ name, href }) => ({
+  //  name,
+  //  target: href,
+  //}))
 
   // Note that Picker is for mobile, Sidebar is for desktop
   return (
@@ -445,12 +405,12 @@ export default function Layout() {
         handle={userHandle}
         avatarPath={userAvatarPath}
         sessionOptions={sessionOptions}
-        menuOptions={navigation}
+        menuOptions={navigationOptions}
       >
-        <MobilePicker menuOptions={sidebarNavigation} className="md:hidden" />
+        <MobilePicker menuOptions={menuOptions} className="md:hidden" />
       </NavigationBar>
       <div className="flex min-h-0 flex-1 overflow-hidden">
-        <DesktopSidebar menuOptions={sidebarNavigation} />
+        <DesktopSidebar menuOptions={menuOptions} />
         <Content
           left={
             <>
