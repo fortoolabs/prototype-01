@@ -417,7 +417,13 @@ function Sidebar({ menuOptions }: MenuProps) {
   )
 }
 
-function Main() {
+function Main({
+  left,
+  right,
+}: {
+  left: React.ReactNode
+  right: React.ReactNode
+}) {
   return (
     <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
       {/* Primary column */}
@@ -425,24 +431,13 @@ function Main() {
         aria-labelledby="primary-heading"
         className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last"
       >
-        <h1 id="primary-heading" className="sr-only">
-          Home
-        </h1>
-        {/* Your content */}
-        first
-        {[...Array(100).keys()].map((i) => (
-          <p key={i}>here</p>
-        ))}
+        {left}
       </section>
 
       {/* Secondary column (hidden on smaller screens) */}
       <aside className="hidden lg:order-first lg:block lg:flex-shrink-0">
         <div className="relative flex h-full w-96 flex-col overflow-y-auto border-r border-gray-200 bg-gray-100">
-          aside
-          {[...Array(100).keys()].map((i) => (
-            <p key={i}>here</p>
-          ))}
-          {/* Your content */}
+          {right}
         </div>
       </aside>
     </main>
@@ -473,7 +468,29 @@ export default function Layout() {
       />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <Sidebar menuOptions={sidebarNavigation} />
-        <Main />
+        <Main
+          left={
+            <>
+              <h1 id="primary-heading" className="sr-only">
+                Home
+              </h1>
+              {/* Your content */}
+              first
+              {[...Array(100).keys()].map((i) => (
+                <p key={i}>here</p>
+              ))}
+            </>
+          }
+          right={
+            <>
+              aside
+              {[...Array(100).keys()].map((i) => (
+                <p key={i}>here</p>
+              ))}
+              {/* Your content */}
+            </>
+          }
+        />
       </div>
     </div>
   )
