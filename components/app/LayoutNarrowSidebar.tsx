@@ -180,15 +180,15 @@ function DesktopNav({
               target: href,
             }))
           }
-          //sessionToggle={
-          //  <a
-          //    href="#"
-          //    className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500"
-          //  >
-          //    <span className="sr-only">View notifications</span>
-          //    <BellIcon className="h-6 w-6" aria-hidden="true" />
-          //  </a>
-          //}
+          sessionToggle={
+            <a
+              href="#"
+              className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500"
+            >
+              <span className="sr-only">View notifications</span>
+              <BellIcon className="h-6 w-6" aria-hidden="true" />
+            </a>
+          }
         />
       </div>
     </div>
