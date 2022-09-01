@@ -62,3 +62,12 @@ export const Primary: ComponentStory<typeof Layout> = () => (
     menuOptions={menuOptions}
   />
 )
+
+export const Empty: ComponentStory<typeof Layout> = () => (
+  <Layout
+    {...session}
+    sessionOptions={[]}
+    navigationOptions={[]}
+    menuOptions={[]}
+  />
+)

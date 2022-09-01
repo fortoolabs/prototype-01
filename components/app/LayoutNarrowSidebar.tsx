@@ -42,6 +42,9 @@ function MobilePicker({
   // TODO: Determine if name is unique enough to be used as key
   const defaultOptionId = defaultOption && defaultOption.name
 
+  if (menuOptions.length === 0) {
+    return null
+  }
   return (
     <div className={'mx-auto'.concat(className ? ` ${className}` : '')}>
       <div className="relative">
