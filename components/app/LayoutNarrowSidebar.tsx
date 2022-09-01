@@ -127,7 +127,7 @@ function Picker({
 function DesktopSearchInput() {
   return (
     <div className="min-w-0 flex-1">
-      <div className="relative max-w-2xl text-gray-400 focus-within:text-gray-500">
+      <div className="relative max-w-2xl text-gray-400 focus-within:text-black">
         <label htmlFor="desktop-search" className="sr-only">
           Search
         </label>
@@ -135,7 +135,7 @@ function DesktopSearchInput() {
           id="desktop-search"
           type="search"
           placeholder="Search"
-          className="block w-full border-transparent pl-12 placeholder-gray-500 focus:border-transparent focus:ring-0 sm:text-sm"
+          className="block w-full border-transparent pl-12 placeholder-gray-400 focus:border-transparent focus:ring-0 sm:text-sm"
         />
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-4">
           <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
