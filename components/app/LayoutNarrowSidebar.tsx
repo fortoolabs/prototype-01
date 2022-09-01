@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-import LogoIcon from 'components/app/Logo'
+import { LogoSecond as LogoIcon } from 'components/app/Logo'
 import {
   SessionProps,
   DesktopMenu as DesktopSessionMenu,
