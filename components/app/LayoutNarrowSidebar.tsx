@@ -195,6 +195,83 @@ function DesktopNav({
   )
 }
 
+// TODO: Move userProps into Element
+function MobileNav({
+  name,
+  handle,
+  avatarPath,
+  menuOptions,
+}: UserProps & MenuProps) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <>
+      <div className="absolute inset-y-0 right-0 flex items-center pr-4 sm:pr-6 md:hidden">
+        <MobileMenuButton onClick={() => setIsOpen(true)} />
+      </div>
+      <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
+        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
+          <a href="#">
+            <LogoIcon />
+          </a>
+          <button
+            type="button"
+            className="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            onClick={() => setIsOpen(false)}
+          >
+            <span className="sr-only">Close main menu</span>
+            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+        <div className="max-w-8xl mx-auto mt-2 px-4 sm:px-6">
+          <MobileMenuSearchInput />
+        </div>
+        <div className="max-w-8xl mx-auto py-3 px-2 sm:px-4">
+          {menuOptions.map((item) => (
+            <React.Fragment key={item.name}>
+              <a
+                href={item.href}
+                className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100"
+              >
+                {item.name}
+              </a>
+              {item.children &&
+                item.children.map((child) => (
+                  <a
+                    key={child.name}
+                    href={child.href}
+                    className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100"
+                  >
+                    {child.name}
+                  </a>
+                ))}
+            </React.Fragment>
+          ))}
+        </div>
+        <MobileSessionMenu
+          name={name}
+          handle={handle}
+          avatarPath={avatarPath}
+          // FIX: Remove referencing of top-scope var userNavigation
+          sessionOptions={userNavigation.map(({ name, href }) => ({
+            name,
+            target: href,
+          }))}
+          //sessionToggle={
+          //  <a
+          //    href="#"
+          //    className="rounded-full bg-white p-2 text-gray-400 hover:text-gray-500"
+          //  >
+          //    <span className="sr-only">View notifications</span>
+          //    <BellIcon className="h-6 w-6" aria-hidden="true" />
+          //  </a>
+          //}
+        />
+      </MobileMenu>
+    </>
+  )
+}
+
 function MobileMenu({
   isOpen,
   setIsOpen,
@@ -294,16 +371,13 @@ function MobileMenuSearchInput() {
 }
 
 function NavigationBar({
-  isOpen,
-  setIsOpen,
   picker,
   menuOptions,
   mobileMenu,
-}: MobileNavProps &
-  MenuProps & {
-    mobileMenu?: React.ReactNode
-    picker: JSX.Element
-  }) {
+}: MenuProps & {
+  mobileMenu?: React.ReactNode
+  picker: JSX.Element
+}) {
   // TODO: Source user
   const {
     name: userName,
@@ -320,68 +394,12 @@ function NavigationBar({
         menuOptions={menuOptions}
       />
       {picker}
-      <div className="absolute inset-y-0 right-0 flex items-center pr-4 sm:pr-6 md:hidden">
-        <MobileMenuButton onClick={() => setIsOpen(true)} />
-      </div>
-      <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-          <a href="#">
-            <LogoIcon />
-          </a>
-          <button
-            type="button"
-            className="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="sr-only">Close main menu</span>
-            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        <div className="max-w-8xl mx-auto mt-2 px-4 sm:px-6">
-          <MobileMenuSearchInput />
-        </div>
-        <div className="max-w-8xl mx-auto py-3 px-2 sm:px-4">
-          {menuOptions.map((item) => (
-            <React.Fragment key={item.name}>
-              <a
-                href={item.href}
-                className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100"
-              >
-                {item.name}
-              </a>
-              {item.children &&
-                item.children.map((child) => (
-                  <a
-                    key={child.name}
-                    href={child.href}
-                    className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100"
-                  >
-                    {child.name}
-                  </a>
-                ))}
-            </React.Fragment>
-          ))}
-        </div>
-        <MobileSessionMenu
-          name={userName}
-          handle={userHandle}
-          avatarPath={userAvatarPath}
-          // FIX: Remove referencing of top-scope var userNavigation
-          sessionOptions={userNavigation.map(({ name, href }) => ({
-            name,
-            target: href,
-          }))}
-          //sessionToggle={
-          //  <a
-          //    href="#"
-          //    className="rounded-full bg-white p-2 text-gray-400 hover:text-gray-500"
-          //  >
-          //    <span className="sr-only">View notifications</span>
-          //    <BellIcon className="h-6 w-6" aria-hidden="true" />
-          //  </a>
-          //}
-        />
-      </MobileMenu>
+      <MobileNav
+        name={userName}
+        handle={userHandle}
+        avatarPath={userAvatarPath}
+        menuOptions={menuOptions}
+      />
     </header>
   )
 }
@@ -445,15 +463,11 @@ function Main({
 }
 
 export default function Layout() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   const defaultNavbarOption = sidebarNavigation.find((x) => x.current)
 
   return (
     <div className="flex h-full flex-col">
       <NavigationBar
-        isOpen={mobileMenuOpen}
-        setIsOpen={(x) => setMobileMenuOpen(x)}
         menuOptions={navigation}
         picker={
           <Picker
