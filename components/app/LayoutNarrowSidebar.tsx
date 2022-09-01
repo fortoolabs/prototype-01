@@ -389,7 +389,7 @@ export default function Layout({
     name,
     handle,
     avatarPath,
-    menuOptions,
+    menuOptions: navigationOptions,
     sessionOptions,
   }
 
@@ -414,11 +414,11 @@ export default function Layout({
           <div className="flex items-center">
             <button
               className="inline-flex items-center px-2 h-6 border border-2 rounded-full shadow-sm"
-              onClick={() => setSerif(!serif)}
+              onClick={() => {}}
             >
               Aa
             </button>
-            <Toggle isEnabled={false} setEnabled={(x) => {}} />
+            <Toggle isEnabled={false} setEnabled={() => {}} />
           </div>
         </DesktopNav>
         <MobileNav {...navProps} />
