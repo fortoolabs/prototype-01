@@ -81,7 +81,7 @@ type MenuProps = {
   menuOptions: MenuOption[]
 }
 
-function Picker({
+function MobilePicker({
   className,
   menuOptions,
 }: MenuProps & React.ComponentPropsWithoutRef<'div'>) {
@@ -390,7 +390,7 @@ function NavigationBar({
   )
 }
 
-function Sidebar({ menuOptions }: MenuProps) {
+function DesktopSidebar({ menuOptions }: MenuProps) {
   return (
     <nav
       aria-label="Sidebar"
@@ -453,10 +453,10 @@ export default function Layout() {
   return (
     <div className="flex h-full flex-col">
       <NavigationBar menuOptions={navigation}>
-        <Picker menuOptions={sidebarNavigation} className="md:hidden" />
+        <MobilePicker menuOptions={sidebarNavigation} className="md:hidden" />
       </NavigationBar>
       <div className="flex min-h-0 flex-1 overflow-hidden">
-        <Sidebar menuOptions={sidebarNavigation} />
+        <DesktopSidebar menuOptions={sidebarNavigation} />
         <Content
           left={
             <>
