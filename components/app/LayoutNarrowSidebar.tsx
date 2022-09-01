@@ -39,18 +39,6 @@ const navigation = [
   { name: 'Reporting', href: '#', children: [] },
   { name: 'Settings', href: '#', children: [] },
 ]
-const sidebarNavigation = [
-  { name: 'Open', href: '#', icon: InboxIcon, current: true },
-  { name: 'Archive', href: '#', icon: ArchiveBoxIcon, current: false },
-  { name: 'Customers', href: '#', icon: UserCircleIcon, current: false },
-  { name: 'Flagged', href: '#', icon: FlagIcon, current: false },
-  { name: 'Spam', href: '#', icon: NoSymbolIcon, current: false },
-  { name: 'Drafts', href: '#', icon: PencilSquareIcon, current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -235,10 +223,7 @@ function MobileNav({
           handle={handle}
           avatarPath={avatarPath}
           // FIX: Remove referencing of top-scope var userNavigation
-          sessionOptions={userNavigation.map(({ name, href }) => ({
-            name,
-            target: href,
-          }))}
+          sessionOptions={sessionOptions}
           //sessionToggle={
           //  <a
           //    href="#"
@@ -356,9 +341,8 @@ function NavigationBar(props: NavigationBarProps) {
         </a>
       </div>
       <DesktopNav {...navProps} />
-      <MobilePicker menuOptions={menuOptions} className="md:hidden" />
-      <MobileNav {...navProps} />
       {children}
+      <MobileNav {...navProps} />
     </header>
   )
 }
@@ -428,6 +412,19 @@ export default function Layout() {
     avatarPath:
       'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
   }
+  const sidebarNavigation = [
+    { name: 'Open', href: '#', icon: InboxIcon, current: true },
+    { name: 'Archive', href: '#', icon: ArchiveBoxIcon, current: false },
+    { name: 'Customers', href: '#', icon: UserCircleIcon, current: false },
+    { name: 'Flagged', href: '#', icon: FlagIcon, current: false },
+    { name: 'Spam', href: '#', icon: NoSymbolIcon, current: false },
+    { name: 'Drafts', href: '#', icon: PencilSquareIcon, current: false },
+  ]
+  const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Sign out', href: '#' },
+  ]
+
   const {
     name: userName,
     handle: userHandle,
@@ -449,7 +446,9 @@ export default function Layout() {
         avatarPath={userAvatarPath}
         sessionOptions={sessionOptions}
         menuOptions={navigation}
-      />
+      >
+        <MobilePicker menuOptions={sidebarNavigation} className="md:hidden" />
+      </NavigationBar>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <DesktopSidebar menuOptions={sidebarNavigation} />
         <Content
