@@ -155,6 +155,7 @@ function MobileNav({
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
           {/* TODO: Set href */}
           <a href="#">
+            {/* TODO: Make more subtle */}
             <LogoIcon />
           </a>
           <button
@@ -297,23 +298,24 @@ function MobileMenuSearchInput() {
   )
 }
 
-type NavigationBarProps = SessionProps & MenuProps & React.PropsWithChildren
+type NavigationBarProps = SessionProps &
+  MenuProps &
+  React.PropsWithChildren & { logo?: React.ReactNode }
 function NavigationBar(props: NavigationBarProps) {
-  const { name, handle, avatarPath, children, menuOptions, sessionOptions } =
-    props
+  const {
+    logo,
+    name,
+    handle,
+    avatarPath,
+    children,
+    menuOptions,
+    sessionOptions,
+  } = props
   const navProps = { name, handle, avatarPath, menuOptions, sessionOptions }
 
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
-      <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
-        {/* TODO: Set href */}
-        <a
-          href="#"
-          className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
-        >
-          <LogoIcon />
-        </a>
-      </div>
+      {logo}
       <DesktopNav {...navProps} />
       {children}
       <MobileNav {...navProps} />
@@ -401,6 +403,17 @@ export default function Layout({
   return (
     <div className="flex h-full flex-col">
       <NavigationBar
+        logo={
+          <div className="absolute bg-gray-800 text-white inset-y-0 left-0 md:static md:flex-shrink-0">
+            {/* TODO: Set href */}
+            <a
+              href="#"
+              className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset text-gray-500 hover:text-white focus:ring-indigo-600 md:w-20"
+            >
+              <LogoIcon />
+            </a>
+          </div>
+        }
         name={userName}
         handle={userHandle}
         avatarPath={userAvatarPath}
