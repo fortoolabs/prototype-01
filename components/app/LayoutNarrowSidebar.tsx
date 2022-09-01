@@ -404,16 +404,23 @@ export default function Layout({
   //  target: href,
   //}))
 
+  //const mode = 'bg-gray-100 text-white'
+  const mode = 'bg-gray-800 text-gray-700'
+
+  // TODO: Set Sidebar and Logo bg color through prop
+
   // Note that Picker is for mobile, Sidebar is for desktop
   return (
     <div className="flex h-full flex-col">
       <NavigationBar
         logo={
-          <div className="absolute bg-gray-800 text-white inset-y-0 left-0 md:static md:flex-shrink-0">
+          <div
+            className={`absolute ${mode} inset-y-0 left-0 md:static md:flex-shrink-0`}
+          >
             {/* TODO: Set href */}
             <a
               href="#"
-              className="flex h-16 w-16 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset text-gray-500 hover:text-white focus:ring-indigo-600 md:w-20"
+              className="flex h-16 w-16 items-center justify-center hover:text-gray-600 md:w-20"
             >
               <LogoIcon />
             </a>
