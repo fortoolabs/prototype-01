@@ -12,7 +12,7 @@ export type ToggleSwitchProps = {
   setEnabled: (params: boolean) => void
   enabledIcon?: React.ElementType
   disabledIcon?: React.ElementType
-  activeColor?: 'pink' | 'blue' | 'green' | 'yellow'
+  activeColor?: 'slate' | 'red' | 'pink' | 'blue' | 'green' | 'yellow'
 }
 
 export default function Toggle({
@@ -23,14 +23,16 @@ export default function Toggle({
   disabledIcon: DisabledIcon,
   activeColor,
 }: ToggleSwitchProps) {
-  const color = activeColor ? `${activeColor}-400` : 'pink-400'
-
   return (
     <Switch
       checked={isEnabled}
       onChange={setEnabled}
       className={classNames(
-        isEnabled ? `bg-${color}` : 'bg-gray-200',
+        isEnabled
+          ? activeColor
+            ? `bg-${activeColor}-400`
+            : 'bg-gray-400'
+          : 'bg-gray-200',
         'relative inline-flex flex-shrink-0',
         'h-6 w-11',
         'border-2 border-transparent rounded-full',
@@ -38,7 +40,7 @@ export default function Toggle({
         'transition-colors ease-in-out duration-200',
         'focus:outline-none',
         'focus:ring-2 focus:ring-offset-2',
-        `focus:ring-${color}`,
+        activeColor ? `focus:ring-${activeColor}-400` : undefined,
       )}
     >
       <span className="sr-only">
