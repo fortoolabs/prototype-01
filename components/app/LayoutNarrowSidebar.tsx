@@ -330,21 +330,19 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
       className="hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-gray-800"
     >
       <div className="relative flex w-20 flex-col space-y-3 p-3">
-        {menuOptions.map((item) => {
-          const { icon: Icon } = item
-
+        {menuOptions.map(({ name, current, target, icon: Icon }) => {
           return (
             <a
-              key={item.name}
-              href={item.target}
+              key={name}
+              href={target}
               className={classNames(
-                item.current
-                  ? 'bg-gray-900 text-white'
-                  : 'text-gray-400 hover:bg-gray-700',
+                current
+                  ? 'bg-gray-900 text-white ring-2 ring-gray-500 hover:bg-gray-600 hover:ring-2'
+                  : 'bg-gray-900 text-gray-500 hover:bg-gray-600',
                 'flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg',
               )}
             >
-              <span className="sr-only">{item.name}</span>
+              <span className="sr-only">{name}</span>
               {Icon && <Icon className="h-6 w-6" aria-hidden="true" />}
             </a>
           )
