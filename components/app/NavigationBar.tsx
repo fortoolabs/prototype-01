@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ToggleDarkMode from 'components/ToggleDarkMode'
+import Toggle from 'components/app/Toggle'
 import Logo from 'components/app/Logo'
 
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
@@ -108,7 +108,7 @@ export default function Example({
                 <button className="pr-4" onClick={() => setSerif(!serif)}>
                   Aa
                 </button>
-                <ToggleDarkMode
+                <Toggle
                   isEnabled={isDark}
                   setEnabled={setDarkMode}
                   enabledIcon={SunIcon}
