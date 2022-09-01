@@ -26,12 +26,6 @@ type UserProps = {
   handle: string
   avatarPath: string
 }
-const user: UserProps = {
-  name: 'David Asabina',
-  handle: 'vid@bina.me',
-  avatarPath:
-    'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
-}
 const navigation = [
   {
     name: 'Inboxes',
@@ -345,21 +339,11 @@ function MobileMenuSearchInput() {
   )
 }
 
-function NavigationBar({
-  children,
-  menuOptions,
-}: MenuProps & { children: React.ReactNode }) {
-  // TODO: Source user
-  const {
-    name: userName,
-    handle: userHandle,
-    avatarPath: userAvatarPath,
-  } = user
-  // FIX: Do not reference top-scope variable userNavigation like this
-  const sessionOptions = userNavigation.map(({ name, href }) => ({
-    name,
-    target: href,
-  }))
+type NavigationBarProps = SessionProps & MenuProps & React.PropsWithChildren
+function NavigationBar(props: NavigationBarProps) {
+  const { name, handle, avatarPath, children, menuOptions, sessionOptions } =
+    props
+  const navProps = { name, handle, avatarPath, menuOptions, sessionOptions }
 
   return (
     <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
@@ -371,21 +355,10 @@ function NavigationBar({
           <LogoIcon />
         </a>
       </div>
-      <DesktopNav
-        name={userName}
-        handle={userHandle}
-        avatarPath={userAvatarPath}
-        menuOptions={menuOptions}
-        sessionOptions={sessionOptions}
-      />
+      <DesktopNav {...navProps} />
+      <MobilePicker menuOptions={menuOptions} className="md:hidden" />
+      <MobileNav {...navProps} />
       {children}
-      <MobileNav
-        name={userName}
-        handle={userHandle}
-        avatarPath={userAvatarPath}
-        menuOptions={menuOptions}
-        sessionOptions={sessionOptions}
-      />
     </header>
   )
 }
@@ -449,12 +422,34 @@ function Content({
 }
 
 export default function Layout() {
+  const user: UserProps = {
+    name: 'David Asabina',
+    handle: 'vid@bina.me',
+    avatarPath:
+      'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
+  }
+  const {
+    name: userName,
+    handle: userHandle,
+    avatarPath: userAvatarPath,
+  } = user
+
+  // FIX: Do not reference top-scope variable userNavigation like this
+  const sessionOptions = userNavigation.map(({ name, href }) => ({
+    name,
+    target: href,
+  }))
+
   // Note that Picker is for mobile, Sidebar is for desktop
   return (
     <div className="flex h-full flex-col">
-      <NavigationBar menuOptions={navigation}>
-        <MobilePicker menuOptions={sidebarNavigation} className="md:hidden" />
-      </NavigationBar>
+      <NavigationBar
+        name={userName}
+        handle={userHandle}
+        avatarPath={userAvatarPath}
+        sessionOptions={sessionOptions}
+        menuOptions={navigation}
+      />
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <DesktopSidebar menuOptions={sidebarNavigation} />
         <Content
