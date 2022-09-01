@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Toggle from 'components/app/Toggle'
-import Logo from 'components/app/Logo'
+import { LogoSecond as Logo } from 'components/app/Logo'
 
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
 import { Fragment } from 'react'
@@ -78,7 +78,7 @@ export default function Example({
                     className={[
                       'block w-auto',
                       'h-8 md:h-[24px]', // h-8 or 24px for medium (md) screens and greater
-                      //'bg-blue-200 md:bg-red-200',
+                      'text-gray-200',
                     ].join(' ')}
                   />
                 </div>
