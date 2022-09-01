@@ -81,23 +81,14 @@ type MenuProps = {
   menuOptions: MenuOption[]
 }
 
-type PickerProps = {
-  defaultOptionId: string | undefined
-  options: {
-    label: string
-    id: string
-  }[]
-}
-
-type Stylable = {
-  className?: string
-}
-
 function Picker({
   className,
-  defaultOptionId,
-  options,
-}: PickerProps & Stylable) {
+  menuOptions,
+}: MenuProps & React.ComponentPropsWithoutRef<'div'>) {
+  const defaultOption = menuOptions.find((x) => x.current)
+  // TODO: Determine if name is unique enough to be used as key
+  const defaultOptionId = defaultOption && defaultOption.name
+
   return (
     <div className={'mx-auto'.concat(className ? ` ${className}` : '')}>
       <div className="relative">
@@ -110,8 +101,9 @@ function Picker({
           className="rounded-md border-0 bg-none pl-3 pr-8 text-base font-medium text-gray-900 focus:ring-2 focus:ring-indigo-600"
           defaultValue={defaultOptionId}
         >
-          {options.map((item) => (
-            <option key={item.id}>{item.label}</option>
+          {menuOptions.map((item) => (
+            // TODO: Determine if name is unique enough to be used as key
+            <option key={item.name}>{item.name}</option>
           ))}
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center justify-center pr-2">
@@ -457,20 +449,11 @@ function Content({
 }
 
 export default function Layout() {
-  const defaultNavbarOption = sidebarNavigation.find((x) => x.current)
-
   // Note that Picker is for mobile, Sidebar is for desktop
   return (
     <div className="flex h-full flex-col">
       <NavigationBar menuOptions={navigation}>
-        <Picker
-          defaultOptionId={defaultNavbarOption && defaultNavbarOption.name}
-          options={sidebarNavigation.map((x) => ({
-            label: x.name,
-            id: x.name,
-          }))}
-          className="md:hidden"
-        />
+        <Picker menuOptions={sidebarNavigation} className="md:hidden" />
       </NavigationBar>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <Sidebar menuOptions={sidebarNavigation} />
