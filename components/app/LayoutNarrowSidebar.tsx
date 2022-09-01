@@ -5,6 +5,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { LogoSecond as LogoIcon } from 'components/app/Logo'
+import Toggle from 'components/app/Toggle'
 import {
   SessionProps,
   DesktopMenu as DesktopSessionMenu,
@@ -100,11 +101,12 @@ function DesktopNav({
   avatarPath,
   menuOptions,
   sessionOptions,
-}: MenuProps & SessionProps) {
+  children,
+}: MenuProps & SessionProps & React.PropsWithChildren) {
   return (
     <div className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between">
       <DesktopSearchInput />
-      <div className="ml-10 flex flex-shrink-0 items-center space-x-10 pr-4">
+      <div className="ml-10 flex flex-shrink-0 items-center space-x-4 pr-4">
         {menuOptions.length > 0 && (
           <nav aria-label="Global" className="flex space-x-10">
             {menuOptions.map(({ name, target }, idx) => (
@@ -118,6 +120,7 @@ function DesktopNav({
             ))}
           </nav>
         )}
+        {children}
         <DesktopSessionMenu
           name={name}
           handle={handle}
@@ -301,31 +304,6 @@ function MobileMenuSearchInput() {
   )
 }
 
-type NavigationBarProps = SessionProps &
-  MenuProps &
-  React.PropsWithChildren & { logo?: React.ReactNode }
-function NavigationBar(props: NavigationBarProps) {
-  const {
-    logo,
-    name,
-    handle,
-    avatarPath,
-    children,
-    menuOptions,
-    sessionOptions,
-  } = props
-  const navProps = { name, handle, avatarPath, menuOptions, sessionOptions }
-
-  return (
-    <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
-      {logo}
-      <DesktopNav {...navProps} />
-      {children}
-      <MobileNav {...navProps} />
-    </header>
-  )
-}
-
 function DesktopSidebar({ menuOptions }: MenuProps) {
   if (menuOptions.length === 0) {
     return null
@@ -391,9 +369,9 @@ type LayoutProps = SessionProps & {
   navigationOptions: MenuOption[]
 }
 export default function Layout({
-  name: userName,
-  handle: userHandle,
-  avatarPath: userAvatarPath,
+  name,
+  handle,
+  avatarPath,
   menuOptions,
   navigationOptions,
   sessionOptions,
@@ -407,33 +385,45 @@ export default function Layout({
   //const mode = 'bg-gray-100 text-white'
   const mode = 'bg-gray-800 text-gray-700'
 
+  const navProps = {
+    name,
+    handle,
+    avatarPath,
+    menuOptions,
+    sessionOptions,
+  }
+
   // TODO: Set Sidebar and Logo bg color through prop
 
   // Note that Picker is for mobile, Sidebar is for desktop
   return (
     <div className="flex h-full flex-col">
-      <NavigationBar
-        logo={
-          <div
-            className={`absolute ${mode} inset-y-0 left-0 md:static md:flex-shrink-0`}
+      <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
+        <div
+          className={`absolute ${mode} inset-y-0 left-0 md:static md:flex-shrink-0`}
+        >
+          {/* TODO: Set href */}
+          <a
+            href="#"
+            className="flex h-16 w-16 items-center justify-center hover:text-gray-600 md:w-20"
           >
-            {/* TODO: Set href */}
-            <a
-              href="#"
-              className="flex h-16 w-16 items-center justify-center hover:text-gray-600 md:w-20"
+            <LogoIcon />
+          </a>
+        </div>
+        <DesktopNav {...navProps}>
+          <div className="flex items-center">
+            <button
+              className="inline-flex items-center px-2 h-6 border border-2 rounded-full shadow-sm"
+              onClick={() => setSerif(!serif)}
             >
-              <LogoIcon />
-            </a>
+              Aa
+            </button>
+            <Toggle isEnabled={false} setEnabled={(x) => {}} />
           </div>
-        }
-        name={userName}
-        handle={userHandle}
-        avatarPath={userAvatarPath}
-        sessionOptions={sessionOptions}
-        menuOptions={navigationOptions}
-      >
+        </DesktopNav>
+        <MobileNav {...navProps} />
         <MobilePicker menuOptions={menuOptions} className="md:hidden" />
-      </NavigationBar>
+      </header>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <DesktopSidebar menuOptions={menuOptions} />
         <Content
