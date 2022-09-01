@@ -354,12 +354,9 @@ function MobileMenuSearchInput() {
 }
 
 function NavigationBar({
-  picker,
+  children,
   menuOptions,
-}: MenuProps & {
-  // TODO: Provide as children?
-  picker: JSX.Element
-}) {
+}: MenuProps & { children: React.ReactNode }) {
   // TODO: Source user
   const {
     name: userName,
@@ -382,7 +379,6 @@ function NavigationBar({
           <LogoIcon />
         </a>
       </div>
-
       <DesktopNav
         name={userName}
         handle={userHandle}
@@ -390,7 +386,7 @@ function NavigationBar({
         menuOptions={menuOptions}
         sessionOptions={sessionOptions}
       />
-      {picker}
+      {children}
       <MobileNav
         name={userName}
         handle={userHandle}
@@ -466,19 +462,16 @@ export default function Layout() {
   // Note that Picker is for mobile, Sidebar is for desktop
   return (
     <div className="flex h-full flex-col">
-      <NavigationBar
-        menuOptions={navigation}
-        picker={
-          <Picker
-            defaultOptionId={defaultNavbarOption && defaultNavbarOption.name}
-            options={sidebarNavigation.map((x) => ({
-              label: x.name,
-              id: x.name,
-            }))}
-            className="md:hidden"
-          />
-        }
-      />
+      <NavigationBar menuOptions={navigation}>
+        <Picker
+          defaultOptionId={defaultNavbarOption && defaultNavbarOption.name}
+          options={sidebarNavigation.map((x) => ({
+            label: x.name,
+            id: x.name,
+          }))}
+          className="md:hidden"
+        />
+      </NavigationBar>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <Sidebar menuOptions={sidebarNavigation} />
         <Content
