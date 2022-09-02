@@ -13,7 +13,7 @@ export default {
       control: 'select',
       options: ['blue', 'green', 'indigo', 'purple'],
     },
-    as: { control: 'as', options: ['time', 'date'] },
+    as: { control: 'select', options: ['time', 'date'] },
   },
 } as ComponentMeta<typeof Date>
 
@@ -30,7 +30,7 @@ DefaultDate.args = {
 export const DefaultTime = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultTime.args = {
-  timestamp: 1662045464,
+  timestamp: 1662143278,
   as: 'time',
   border: true,
 }
