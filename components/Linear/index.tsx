@@ -5,7 +5,6 @@ import { FDocument } from 'core/types'
 import { LightBulbIcon } from '@heroicons/react/24/outline'
 
 export type LinearProps = {
-  // TODO: Revert to make this mandatory, optional doc is a hack to move this forward
   doc: FDocument
   // TODO: Remove in preference of theming (as outlined below)
   serif?: boolean
