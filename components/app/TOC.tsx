@@ -1,6 +1,8 @@
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 
 import { renderObject } from 'core/renderer'
+import { Disclosure } from '@headlessui/react'
+import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
 type TOCHeading = {
   heading: string
@@ -22,23 +24,45 @@ function TableOfContentsEntry({
   depth,
 }: TableOfContentsEntryProps) {
   return (
-    <li className="py-2 w-full">
-      <a href="#test-anchor">{text.flatMap(renderObject)}</a>
-      {children !== [] && (
-        <ul className={`px-${2 * depth}`}>
-          {children.map((heading, idx) => (
-            <TableOfContentsEntry key={idx} entry={heading} depth={depth + 1} />
-          ))}
-        </ul>
+    <Disclosure as="li" defaultOpen className="py-1 w-full">
+      {({ open }) => (
+        <>
+          <div className="flex items-center">
+            <a href="#test-anchor" className="hover:text-blue-700">
+              {text.flatMap(renderObject)}
+            </a>
+            <Disclosure.Button
+              as="span"
+              className={`${!children.length && 'hidden'} contents`}
+            >
+              <ChevronUpIcon
+                className={`${
+                  open ? 'rotate-180 transform' : ''
+                } h-5 w-5 cursor-pointer hover:text-blue-700 select-none`}
+              />
+            </Disclosure.Button>
+          </div>
+          {children !== [] && (
+            <Disclosure.Panel as="ul" className={`px-${2 * depth}`}>
+              {children.map((heading, idx) => (
+                <TableOfContentsEntry
+                  key={idx}
+                  entry={heading}
+                  depth={depth + 1}
+                />
+              ))}
+            </Disclosure.Panel>
+          )}
+        </>
       )}
-    </li>
+    </Disclosure>
   )
 }
 
 export default function TOC({ headings }: TOCProps) {
   if (!headings.length) return null
   return (
-    <ul className="text-sm text-gray-300 group-hover:text-gray-900">
+    <ul className="text-sm text-gray-600">
       {headings.map((heading, idx) => (
         <TableOfContentsEntry key={idx} entry={heading} depth={1} />
       ))}
