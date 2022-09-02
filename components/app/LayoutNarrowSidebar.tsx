@@ -337,7 +337,7 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
   )
 }
 
-function HorizontalDiptych({
+export function HorizontalDiptych({
   left,
   right,
 }: {
@@ -364,10 +364,12 @@ function HorizontalDiptych({
   )
 }
 
-type LayoutProps = SessionProps & {
-  menuOptions: MenuOption[]
-  navigationOptions: MenuOption[]
-}
+type LayoutProps = React.PropsWithChildren &
+  SessionProps & {
+    menuOptions: MenuOption[]
+    navigationOptions: MenuOption[]
+  }
+
 export default function Layout({
   name,
   handle,
@@ -375,6 +377,7 @@ export default function Layout({
   menuOptions,
   navigationOptions,
   sessionOptions,
+  children,
 }: LayoutProps) {
   //// FIX: Do not reference top-scope variable userNavigation like this
   //const sessionOptions = userNavigation.map(({ name, href }) => ({
@@ -426,29 +429,7 @@ export default function Layout({
       </header>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <DesktopSidebar menuOptions={menuOptions} />
-        <HorizontalDiptych
-          left={
-            <>
-              <h1 id="primary-heading" className="sr-only">
-                Home
-              </h1>
-              {/* Your content */}
-              first
-              {[...Array(100).keys()].map((i) => (
-                <p key={i}>here</p>
-              ))}
-            </>
-          }
-          right={
-            <>
-              aside
-              {[...Array(100).keys()].map((i) => (
-                <p key={i}>here</p>
-              ))}
-              {/* Your content */}
-            </>
-          }
-        />
+        {children}
       </div>
     </div>
   )

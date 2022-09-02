@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import Layout from './LayoutNarrowSidebar'
+import Layout, { HorizontalDiptych } from './LayoutNarrowSidebar'
 
 import {
   ArchiveBoxIcon,
@@ -60,7 +60,31 @@ export const Primary: ComponentStory<typeof Layout> = () => (
     sessionOptions={sessionOptions}
     navigationOptions={navigationOptions}
     menuOptions={menuOptions}
-  />
+  >
+    <HorizontalDiptych
+      left={
+        <>
+          <h1 id="primary-heading" className="sr-only">
+            Home
+          </h1>
+          {/* Your content */}
+          first
+          {[...Array(100).keys()].map((i) => (
+            <p key={i}>here</p>
+          ))}
+        </>
+      }
+      right={
+        <>
+          aside
+          {[...Array(100).keys()].map((i) => (
+            <p key={i}>here</p>
+          ))}
+          {/* Your content */}
+        </>
+      }
+    />
+  </Layout>
 )
 
 export const Empty: ComponentStory<typeof Layout> = () => (
