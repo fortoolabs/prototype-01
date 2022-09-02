@@ -41,7 +41,7 @@ export default {
       control: 'text',
       description: 'Raw Org text',
     },
-    serif: {
+    isSerif: {
       control: 'boolean',
     },
   },

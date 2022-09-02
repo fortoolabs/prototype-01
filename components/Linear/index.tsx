@@ -67,10 +67,10 @@ function Breadcrumbs({ pages }: BreadcrumbsProp) {
 export type LinearProps = {
   doc: FDocument
   // TODO: Remove in preference of theming (as outlined below)
-  serif?: boolean
+  isSerif?: boolean
 }
 
-export default function Linear({ serif, doc }: LinearProps) {
+export default function Linear({ isSerif, doc }: LinearProps) {
   // TODO: Explore using a theming context/provider
   // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
   const { content, title } = doc
@@ -95,7 +95,7 @@ export default function Linear({ serif, doc }: LinearProps) {
   return (
     <div
       className={[
-        serif ? 'font-serif' : 'font-sans',
+        isSerif ? 'font-serif' : 'font-sans',
         //'font-mono',
         'text-base max-w-prose',
       ].join('')}
