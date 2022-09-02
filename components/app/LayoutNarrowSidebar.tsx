@@ -5,7 +5,6 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { LogoSecond as LogoIcon } from 'components/app/Logo'
-import Toggle from 'components/app/Toggle'
 import {
   SessionProps,
   DesktopMenu as DesktopSessionMenu,
@@ -366,6 +365,7 @@ export function HorizontalDiptych({
 
 type LayoutProps = React.PropsWithChildren &
   SessionProps & {
+    viewControl?: React.ReactNode
     menuOptions: MenuOption[]
     navigationOptions: MenuOption[]
   }
@@ -378,6 +378,7 @@ export default function Layout({
   navigationOptions,
   sessionOptions,
   children,
+  viewControl,
 }: LayoutProps) {
   //// FIX: Do not reference top-scope variable userNavigation like this
   //const sessionOptions = userNavigation.map(({ name, href }) => ({
@@ -413,17 +414,7 @@ export default function Layout({
             <LogoIcon />
           </a>
         </div>
-        <DesktopNav {...navProps}>
-          <div className="flex items-center">
-            <button
-              className="inline-flex items-center px-2 h-6 border border-2 rounded-full shadow-sm"
-              onClick={() => {}}
-            >
-              Aa
-            </button>
-            <Toggle isEnabled={false} setEnabled={() => {}} />
-          </div>
-        </DesktopNav>
+        <DesktopNav {...navProps}> {viewControl} </DesktopNav>
         <MobileNav {...navProps} />
         <MobilePicker menuOptions={menuOptions} className="md:hidden" />
       </header>

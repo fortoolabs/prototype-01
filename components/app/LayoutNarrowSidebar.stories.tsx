@@ -2,6 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import Layout, { HorizontalDiptych } from './LayoutNarrowSidebar'
+import Toggle from 'components/app/Toggle'
 
 import {
   ArchiveBoxIcon,
@@ -57,6 +58,17 @@ const navigationOptions = [
 export const Primary: ComponentStory<typeof Layout> = () => (
   <Layout
     {...session}
+    viewControl={
+      <div className="flex items-center">
+        <button
+          className="inline-flex items-center px-2 h-6 border border-2 rounded-full shadow-sm"
+          onClick={() => {}}
+        >
+          Aa
+        </button>
+        <Toggle isEnabled={false} setEnabled={() => {}} />
+      </div>
+    }
     sessionOptions={sessionOptions}
     navigationOptions={navigationOptions}
     menuOptions={menuOptions}
