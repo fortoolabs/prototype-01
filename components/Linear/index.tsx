@@ -15,18 +15,10 @@ type BreadcrumbsProp = {
 }
 function Breadcrumbs({ pages }: BreadcrumbsProp) {
   return (
-    <nav
-      className="flex border-b border-gray-200 bg-white"
-      aria-label="Breadcrumb"
-    >
+    <nav className="flex" aria-label="Breadcrumb">
       <ol
         role="list"
-        className={[
-          'mx-auto flex w-full max-w-screen-xl',
-          'space-x-4',
-          'px-4',
-          'sm:px-6 lg:px-4',
-        ].join('')}
+        className="flex w-full sm:w-auto space-x-4 rounded-md bg-white px-6 shadow"
       >
         <li className="flex">
           <div className="flex items-center">
