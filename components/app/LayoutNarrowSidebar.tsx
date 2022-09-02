@@ -337,7 +337,7 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
   )
 }
 
-function Content({
+function HorizontalDiptych({
   left,
   right,
 }: {
@@ -426,7 +426,7 @@ export default function Layout({
       </header>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <DesktopSidebar menuOptions={menuOptions} />
-        <Content
+        <HorizontalDiptych
           left={
             <>
               <h1 id="primary-heading" className="sr-only">
