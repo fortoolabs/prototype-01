@@ -1,7 +1,7 @@
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 
 import { renderObject } from 'core/renderer'
-import { Disclosure } from '@headlessui/react'
+import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
 type TOCHeading = {
@@ -43,15 +43,24 @@ function TableOfContentsEntry({
             </Disclosure.Button>
           </div>
           {children !== [] && (
-            <Disclosure.Panel as="ul" className={`px-${2 * depth}`}>
-              {children.map((heading, idx) => (
-                <TableOfContentsEntry
-                  key={idx}
-                  entry={heading}
-                  depth={depth + 1}
-                />
-              ))}
-            </Disclosure.Panel>
+            <Transition
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
+            >
+              <Disclosure.Panel static as="ul" className={`px-${2 * depth}`}>
+                {children.map((heading, idx) => (
+                  <TableOfContentsEntry
+                    key={idx}
+                    entry={heading}
+                    depth={depth + 1}
+                  />
+                ))}
+              </Disclosure.Panel>
+            </Transition>
           )}
         </>
       )}
