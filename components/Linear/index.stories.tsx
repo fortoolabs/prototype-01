@@ -67,8 +67,6 @@ PlayableLinear.args = {
   doc: text,
 }
 
-export const UndefinedLinear = Template.bind({})
-
 export const EmptyLinear = Template.bind({})
 EmptyLinear.args = { doc: parse('') }
 
