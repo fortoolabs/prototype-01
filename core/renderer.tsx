@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 
 import Code, { CodeProps } from 'components/Code'
-import Heading, { HeadingProps } from 'components/Heading'
+import Heading, { HeadingProps } from 'components/doc/Heading'
 import Paragraph, { ParagraphProps } from 'components/Paragraph'
 import Link, { LinkProps } from 'components/Link'
 import FallbackInline, { FallbackInlineProps } from 'components/FallbackInline'

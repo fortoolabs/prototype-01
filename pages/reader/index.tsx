@@ -6,7 +6,7 @@ import base64url from 'base64url'
 
 import { Button, TextInput } from 'grommet'
 
-import Heading from 'components/Heading'
+import Heading from 'components/doc/Heading'
 import { AppContainer, Main, MainContent } from 'components/View'
 
 const Home: NextPage = () => {
