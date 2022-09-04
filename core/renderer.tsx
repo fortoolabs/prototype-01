@@ -3,7 +3,7 @@ import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 
 import Code, { CodeProps } from 'components/Code'
 import Heading, { HeadingProps } from 'components/doc/Heading'
-import Paragraph, { ParagraphProps } from 'components/Paragraph'
+import Paragraph, { ParagraphProps } from 'components/doc/Paragraph'
 import Link, { LinkProps } from 'components/doc/Link'
 import FallbackInline, {
   FallbackInlineProps,
