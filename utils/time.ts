@@ -9,5 +9,16 @@ dayjs.extend(utc)
 export const formatDate = (timestamp: number) => {
   // TODO: add parsing/formatting options:
   // https://day.js.org/docs/en/display/format
-  return dayjs(timestamp).format('MMM D, YYYY')
+  return {
+    date: dayjs.unix(timestamp).format('MMM D, YYYY'),
+    //valid datetime attribute format
+    datetime: dayjs.unix(timestamp).format('YYYY-MM-DD'),
+  }
+}
+export const formatTime = (timestamp: number) => {
+  return {
+    time: dayjs.unix(timestamp).format('h:mm A'),
+    //valid datetime attribute format
+    datetime: dayjs.unix(timestamp).format('HH:mm'),
+  }
 }
