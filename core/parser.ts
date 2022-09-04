@@ -89,7 +89,6 @@ export function extractFormattedText(
 export function extractHeadlines(
   els: FElementType[],
   depth?: number,
-  isTaskFiltered?: boolean
 ): FTableOfContents {
   return els.reduce((acc: FTableOfContents, val) => {
     switch (val.type) {
@@ -97,7 +96,8 @@ export function extractHeadlines(
         return [...acc, ...extractHeadlines(val.content, depth)]
       case 'h':
         // Return all headings when depth is undefined
-        if (depth === undefined) {
+        // Otherwise, if return heading if the level fits the depth constraint
+        if (depth === undefined || (depth && val.level <= depth)) {
           return [
             ...acc,
             {
@@ -106,25 +106,7 @@ export function extractHeadlines(
               plaintext: extractText(val),
             },
           ]
-        }
-
-        if(isTaskFiltered === true && val.todoKeyword === null) {
-          return acc
-        }
-
-        // Return heading when the heading level fits the depth constraint
-        if(val.level <= depth) {
-          return [
-            ...acc,
-            {
-              heading: val,
-              text: extractFormattedText(val),
-              plaintext: extractText(val),
-            },
-          ]
-        }
-
-        return acc
+        } else return acc
       default:
         return acc
     }
@@ -155,6 +137,41 @@ export function extractNestedHeadlines(
             },
           ]
         } else return acc
+      default:
+        return acc
+    }
+  }, [])
+}
+
+export function extractTasks(els: FElementType[]): FTableOfContents {
+  return els.reduce((acc: FTableOfContents, val) => {
+    switch (val.type) {
+      case 'S':
+        const tasks = extractTasks(val.content)
+        const [top, ...rest] = tasks
+
+        // If top-level heading is a task, just show that and ignore the children
+        if (top && top.heading.todoKeyword !== null) {
+          return [...acc, top]
+        }
+
+        // Skip top-level heading if it is not a task in order to show children
+        if (rest) {
+          return [...acc, ...rest]
+        }
+
+        return acc
+
+      case 'h':
+        return [
+          ...acc,
+          {
+            heading: val,
+            text: extractFormattedText(val),
+            plaintext: extractText(val),
+          },
+        ]
+
       default:
         return acc
     }
