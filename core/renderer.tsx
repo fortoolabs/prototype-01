@@ -7,7 +7,7 @@ import Paragraph, { ParagraphProps } from 'components/Paragraph'
 import Link, { LinkProps } from 'components/Link'
 import FallbackInline, { FallbackInlineProps } from 'components/FallbackInline'
 import FallbackBlock, { FallbackBlockProps } from 'components/FallbackBlock'
-import Date, { DateProps } from 'components/Date'
+import Date, { DateProps } from 'components/doc/Date'
 
 function assertExhaustive(
   value: never,
