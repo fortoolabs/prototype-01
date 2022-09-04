@@ -23,6 +23,19 @@ function TableOfContentsEntry({
   entry: { children, text },
   depth,
 }: TableOfContentsEntryProps) {
+  // FIX: [#C] @tijan fit height of Disclosure to content
+  // Figure out why the height of the Disclosure container does not adjust
+  // itself to the height of its contents. The current fold/expand behavior has
+  // a hard cut as the container remains fixed in height while the content is
+  // transformed by scaling along the y-axis.
+  const [transMotion, transOpened, transClosed] = [
+    [
+      'transition duration-300 ease-in-out',
+      'transform transform-[height] h-fit origin-top',
+    ].join(' '),
+    'transform scale-y-100',
+    'transform scale-y-0',
+  ]
   return (
     <Disclosure as="li" defaultOpen className="py-1 w-full">
       {({ open }) => (
@@ -46,14 +59,19 @@ function TableOfContentsEntry({
           </div>
           {children && children.length > 0 && (
             <Transition
-              enter="transition duration-100 ease-out"
-              enterFrom="transform scale-95 opacity-0"
-              enterTo="transform scale-100 opacity-100"
-              leave="transition duration-75 ease-out"
-              leaveFrom="transform scale-100 opacity-100"
-              leaveTo="transform scale-95 opacity-0"
+              show={open}
+              enter={transMotion}
+              enterFrom={transClosed}
+              enterTo={transOpened}
+              leave={transMotion}
+              leaveFrom={transOpened}
+              leaveTo={transClosed}
             >
-              <Disclosure.Panel static as="ul" className={`px-${2 * depth}`}>
+              <Disclosure.Panel
+                static
+                as="ul"
+                className={`px-${2 * depth} h-fit`}
+              >
                 {children.map((heading, idx) => (
                   <TableOfContentsEntry
                     key={idx}
