@@ -89,6 +89,7 @@ export function extractFormattedText(
 export function extractHeadlines(
   els: FElementType[],
   depth?: number,
+  isTaskFiltered?: boolean
 ): FTableOfContents {
   return els.reduce((acc: FTableOfContents, val) => {
     switch (val.type) {
@@ -96,8 +97,7 @@ export function extractHeadlines(
         return [...acc, ...extractHeadlines(val.content, depth)]
       case 'h':
         // Return all headings when depth is undefined
-        // Otherwise, if return heading if the level fits the depth constraint
-        if (depth === undefined || (depth && val.level <= depth)) {
+        if (depth === undefined) {
           return [
             ...acc,
             {
@@ -106,7 +106,25 @@ export function extractHeadlines(
               plaintext: extractText(val),
             },
           ]
-        } else return acc
+        }
+
+        if(isTaskFiltered === true && val.todoKeyword === null) {
+          return acc
+        }
+
+        // Return heading when the heading level fits the depth constraint
+        if(val.level <= depth) {
+          return [
+            ...acc,
+            {
+              heading: val,
+              text: extractFormattedText(val),
+              plaintext: extractText(val),
+            },
+          ]
+        }
+
+        return acc
       default:
         return acc
     }

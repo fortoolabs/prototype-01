@@ -15,7 +15,7 @@ function extractKanbanData({ todoStates, content }: FDocument) {
 
   const docStates = todoStates.length === 0 ? defaultStates : todoStates
 
-  const headlines = extractHeadlines(content, 1)
+  const headlines = extractHeadlines(content, undefined, true)
 
   return docStates.reduce((acc, state) => {
     const { name } = unpackTodoKeyword(state)
