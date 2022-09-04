@@ -3,81 +3,221 @@
 exports[`toc > renders 1`] = `
 <DocumentFragment>
   <ul
-    class="text-sm text-gray-300 group-hover:text-gray-900"
+    class="text-sm text-gray-600"
   >
     <li
-      class="py-2 w-full"
+      class="py-1 w-full"
     >
-      <a
-        href="#test-anchor"
+      <div
+        class="flex items-center"
       >
-        Part 1
-      </a>
-      <ul
-        class="px-2"
-      >
-        <li
-          class="py-2 w-full"
+        <a
+          class="hover:text-blue-700"
+          href="#test-anchor"
         >
-          <a
-            href="#test-anchor"
-          >
-            Part 1.1 with a very long title that requires space
-          </a>
-          <ul
-            class="px-4"
-          />
-        </li>
-        <li
-          class="py-2 w-full"
+          Part 1
+        </a>
+        <span
+          aria-controls="headlessui-disclosure-panel-:r1:"
+          aria-expanded="true"
+          class="false contents"
+          id="headlessui-disclosure-button-:r0:"
         >
-          <a
-            href="#test-anchor"
+          <svg
+            aria-hidden="true"
+            class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Part 1.2
-          </a>
-          <ul
-            class="px-4"
+            <path
+              clip-rule="evenodd"
+              d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div>
+        <ul
+          class="px-2 h-fit"
+          id="headlessui-disclosure-panel-:r1:"
+        >
+          <li
+            class="py-1 w-full"
           >
-            <li
-              class="py-2 w-full"
+            <div
+              class="flex items-center"
             >
               <a
+                class="hover:text-blue-700"
                 href="#test-anchor"
               >
-                Part 1.2.1
+                Part 1.1 with a very long title that requires space
               </a>
+              <span
+                aria-expanded="true"
+                class="hidden contents"
+                id="headlessui-disclosure-button-:r3:"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </li>
+          <li
+            class="py-1 w-full"
+          >
+            <div
+              class="flex items-center"
+            >
+              <a
+                class="hover:text-blue-700"
+                href="#test-anchor"
+              >
+                Part 1.2
+              </a>
+              <span
+                aria-controls="headlessui-disclosure-panel-:r6:"
+                aria-expanded="true"
+                class="false contents"
+                id="headlessui-disclosure-button-:r5:"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div>
               <ul
-                class="px-6"
-              />
-            </li>
-          </ul>
-        </li>
-      </ul>
+                class="px-4 h-fit"
+                id="headlessui-disclosure-panel-:r6:"
+              >
+                <li
+                  class="py-1 w-full"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <a
+                      class="hover:text-blue-700"
+                      href="#test-anchor"
+                    >
+                      Part 1.2.1
+                    </a>
+                    <span
+                      aria-expanded="true"
+                      class="hidden contents"
+                      id="headlessui-disclosure-button-:r8:"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
     </li>
     <li
-      class="py-2 w-full"
+      class="py-1 w-full"
     >
-      <a
-        href="#test-anchor"
+      <div
+        class="flex items-center"
       >
-        Part 2
-      </a>
-      <ul
-        class="px-2"
-      />
+        <a
+          class="hover:text-blue-700"
+          href="#test-anchor"
+        >
+          Part 2
+        </a>
+        <span
+          aria-expanded="true"
+          class="hidden contents"
+          id="headlessui-disclosure-button-:ra:"
+        >
+          <svg
+            aria-hidden="true"
+            class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
     </li>
     <li
-      class="py-2 w-full"
+      class="py-1 w-full"
     >
-      <a
-        href="#test-anchor"
+      <div
+        class="flex items-center"
       >
-        Part 3
-      </a>
-      <ul
-        class="px-2"
-      />
+        <a
+          class="hover:text-blue-700"
+          href="#test-anchor"
+        >
+          Part 3
+        </a>
+        <span
+          aria-expanded="true"
+          class="hidden contents"
+          id="headlessui-disclosure-button-:rc:"
+        >
+          <svg
+            aria-hidden="true"
+            class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
     </li>
   </ul>
 </DocumentFragment>
