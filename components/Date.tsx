@@ -4,18 +4,9 @@ import { formatDate, formatTime } from 'utils/time'
 export type DateProps = {
   timestamp: number
   as: 'time' | 'date'
-  iconFill?: 'blue' | 'green' | 'indigo' | 'purple' | 'gray'
 }
 
-const fill = {
-  gray: 'fill-gray-600',
-  blue: 'fill-blue-600',
-  green: 'fill-green-600',
-  indigo: 'fill-indigo-600',
-  purple: 'fill-purple-600',
-}
-
-export default function Date({ timestamp, as, iconFill }: DateProps) {
+export default function Date({ timestamp, as }: DateProps) {
   const iconArgs = {
     className: '-ml-0.5 mr-1 h-4 w-4',
     'aria-hidden': true,

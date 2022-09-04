@@ -25,12 +25,10 @@ export const DefaultDate = Template.bind({})
 DefaultDate.args = {
   timestamp: 1662045464,
   as: 'date',
-  border: true,
 }
 export const DefaultTime = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DefaultTime.args = {
   timestamp: 1662143278,
   as: 'time',
-  border: true,
 }
