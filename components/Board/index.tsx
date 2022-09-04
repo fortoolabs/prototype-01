@@ -30,8 +30,8 @@ function extractKanbanData({ todoStates, content }: FDocument) {
           .map((entry) => ({
             // TODO: Abstract id generation into dedicated function
             id: entry.plaintext
-              .replace(/\s+/, '-')
-              .replace(/[^0-9a-z-]/i, '')
+              .replaceAll(/\s+/g, '-')
+              .replaceAll(/[^0-9a-z-]/gi, '')
               .toLowerCase(),
             columnId: name,
             name: entry.plaintext,
@@ -89,7 +89,7 @@ if (import.meta.vitest) {
               "members": [],
               "name": "A simple task",
             },
-           ],
+          ],
           "title": "TODO",
         },
       }
