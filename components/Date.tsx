@@ -49,7 +49,7 @@ export default function Date({ timestamp, as, iconFill }: DateProps) {
         'py-[2px]',
         'px-1.5',
         'rounded-md',
-        'text-sm',
+        'text-gray-700',
       ].join(' ')}
       dateTime={
         as === 'time'
