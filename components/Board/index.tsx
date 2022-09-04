@@ -58,7 +58,9 @@ if (import.meta.vitest) {
           '* DONE Stub function',
           '* Not a task',
           '** TODO A simple task',
-          '*** DONE Not necessary'
+          '*** DONE Not necessary',
+          '**** DONE Even less necessary',
+          '**** TODO Still not relevant',
         ].join('\n'),
       ),
     )
