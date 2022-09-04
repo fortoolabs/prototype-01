@@ -4,7 +4,6 @@ import { formatDate, formatTime } from 'utils/time'
 export type DateProps = {
   timestamp: number
   as: 'time' | 'date'
-  border?: boolean
   iconFill?: 'blue' | 'green' | 'indigo' | 'purple' | 'gray'
 }
 
@@ -16,7 +15,7 @@ const fill = {
   purple: 'fill-purple-600',
 }
 
-export default function Date({ timestamp, as, border, iconFill }: DateProps) {
+export default function Date({ timestamp, as, iconFill }: DateProps) {
   return (
     <time
       className={[
@@ -25,7 +24,7 @@ export default function Date({ timestamp, as, border, iconFill }: DateProps) {
         'gap-1',
         'font-semibold',
         'bg-gray-50',
-        border ? 'border border-gray-400' : '',
+        'border border-gray-300',
         'py-[2px]',
         'px-[3px]',
         'rounded-md',
