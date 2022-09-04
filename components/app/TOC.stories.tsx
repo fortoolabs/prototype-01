@@ -15,8 +15,9 @@ const toc = [
 ].join('\n')
 
 const nonNestedToc = ['* Part 1', '* Part 2', '* Part 3'].join('\n')
+
 export default {
-  title: 'TOC',
+  title: 'Application/TOC',
   component: TOC,
 } as ComponentMeta<typeof TOC>
 
@@ -26,6 +27,7 @@ export const BareTOC = Template.bind({})
 BareTOC.args = {
   headings: extractNestedHeadlines(parse(toc).content),
 }
+
 export const NonNestedTOC = Template.bind({})
 NonNestedTOC.args = {
   headings: extractNestedHeadlines(parse(nonNestedToc).content),
