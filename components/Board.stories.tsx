@@ -38,6 +38,12 @@ Nobody knows.
 * TODO [#A] Profit :phase3:
 
 Success is guaranteed!
+
+* Not a task
+
+** DONE Show this top-level task in the board
+
+This is an important one. Just to give viewers a decent top-level overview.
 `
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
