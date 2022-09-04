@@ -16,6 +16,11 @@ const fill = {
 }
 
 export default function Date({ timestamp, as, iconFill }: DateProps) {
+  const iconArgs = {
+    className: '-ml-0.5 mr-1 h-4 w-4',
+    'aria-hidden': true,
+  }
+
   return (
     <time
       className={[
@@ -36,26 +41,8 @@ export default function Date({ timestamp, as, iconFill }: DateProps) {
           : formatDate(timestamp).datetime
       }
     >
-      {as === 'date' && (
-        <CalendarIcon
-          className={[
-            'self-center',
-            'w-5',
-            'h-5',
-            iconFill ? fill[iconFill] : fill['blue'],
-          ].join(' ')}
-        />
-      )}
-      {as === 'time' && (
-        <ClockIcon
-          className={[
-            'self-center',
-            'w-5',
-            'h-5',
-            iconFill ? fill[iconFill] : fill['blue'],
-          ].join(' ')}
-        />
-      )}
+      {as === 'date' && <CalendarIcon {...iconArgs} />}
+      {as === 'time' && <ClockIcon {...iconArgs} />}
       {as === 'date' && formatDate(timestamp).date}
       {as === 'time' && formatTime(timestamp).time}
     </time>
