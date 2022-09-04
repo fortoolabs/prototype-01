@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 
-import Code, { CodeProps } from 'components/Code'
+import Code, { CodeProps } from 'components/doc/Code'
 import Heading, { HeadingProps } from 'components/doc/Heading'
 import Paragraph, { ParagraphProps } from 'components/doc/Paragraph'
 import Link, { LinkProps } from 'components/doc/Link'
