@@ -143,6 +143,41 @@ export function extractNestedHeadlines(
   }, [])
 }
 
+export function extractTasks(els: FElementType[]): FTableOfContents {
+  return els.reduce((acc: FTableOfContents, val) => {
+    switch (val.type) {
+      case 'S':
+        const tasks = extractTasks(val.content)
+        const [top, ...rest] = tasks
+
+        // If top-level heading is a task, just show that and ignore the children
+        if (top && top.heading.todoKeyword !== null) {
+          return [...acc, top]
+        }
+
+        // Skip top-level heading if it is not a task in order to show children
+        if (rest) {
+          return [...acc, ...rest]
+        }
+
+        return acc
+
+      case 'h':
+        return [
+          ...acc,
+          {
+            heading: val,
+            text: extractFormattedText(val),
+            plaintext: extractText(val),
+          },
+        ]
+
+      default:
+        return acc
+    }
+  }, [])
+}
+
 type WorkflowStateTransitionConfig = {
   isAnnotated: boolean
   isTimestamped: boolean

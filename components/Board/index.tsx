@@ -6,7 +6,7 @@ import KanbanBoard from './Board'
 import KanbanAddTaskModal from './AddTaskModal'
 import KanbanEditTaskModal from './EditTaskModal'
 
-import parse, { extractHeadlines, unpackTodoKeyword } from 'core/parser'
+import parse, { extractTasks, unpackTodoKeyword } from 'core/parser'
 
 // Extraction of Kanban data is component-specific so it belongs in the component implementation
 function extractKanbanData({ todoStates, content }: FDocument) {
@@ -15,7 +15,7 @@ function extractKanbanData({ todoStates, content }: FDocument) {
 
   const docStates = todoStates.length === 0 ? defaultStates : todoStates
 
-  const headlines = extractHeadlines(content, 1)
+  const tasks = extractTasks(content)
 
   return docStates.reduce((acc, state) => {
     const { name } = unpackTodoKeyword(state)
@@ -25,13 +25,13 @@ function extractKanbanData({ todoStates, content }: FDocument) {
       // Populate workflow state structure
       [name]: {
         title: name,
-        tasks: headlines
+        tasks: tasks
           .filter((entry) => entry.heading.todoKeyword === name)
           .map((entry) => ({
             // TODO: Abstract id generation into dedicated function
             id: entry.plaintext
-              .replace(/\s+/, '-')
-              .replace(/[^0-9a-z-]/i, '')
+              .replaceAll(/\s+/g, '-')
+              .replaceAll(/[^0-9a-z-]/gi, '')
               .toLowerCase(),
             columnId: name,
             name: entry.plaintext,
@@ -52,8 +52,19 @@ if (import.meta.vitest) {
 
   it('extracts columns structure from a listing of todos', () => {
     const x = extractKanbanData(
-      parse(['#+TITLE: Just a test doc', '* DONE Stub function'].join('\n')),
+      parse(
+        [
+          '#+TITLE: Just a test doc',
+          '* DONE Stub function',
+          '* Not a task',
+          '** TODO A simple task',
+          '*** DONE Not necessary',
+          '**** DONE Even less necessary',
+          '**** TODO Still not relevant',
+        ].join('\n'),
+      ),
     )
+
     expect(x).toMatchInlineSnapshot(`
       {
         "DONE": {
@@ -71,7 +82,17 @@ if (import.meta.vitest) {
           "title": "DONE",
         },
         "TODO": {
-          "tasks": [],
+          "tasks": [
+            {
+              "columnId": "TODO",
+              "completed": false,
+              "daysLeft": 0,
+              "description": "",
+              "id": "a-simple-task",
+              "members": [],
+              "name": "A simple task",
+            },
+          ],
           "title": "TODO",
         },
       }
