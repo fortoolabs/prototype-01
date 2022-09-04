@@ -36,9 +36,11 @@ function TableOfContentsEntry({
               className={`${!children.length && 'hidden'} contents`}
             >
               <ChevronUpIcon
-                className={`${
-                  open ? 'rotate-180 transform' : ''
-                } h-5 w-5 cursor-pointer hover:text-blue-700 select-none`}
+                className={[
+                  'transition',
+                  open ? '' : 'rotate-180 transform',
+                  'h-5 w-5 cursor-pointer hover:text-blue-700 select-none',
+                ].join(' ')}
               />
             </Disclosure.Button>
           </div>
