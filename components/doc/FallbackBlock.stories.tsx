@@ -8,7 +8,7 @@ const table = `
  |-----------------------+-------|
  | A                     |    12 |
  | A ladkajfsdlkfjalsdkf |   233 |
- 
+
 `
 
 const randomCode = `
@@ -23,7 +23,7 @@ const randomCode = `
 `
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/FallbackBlock',
+  title: 'Document/FallbackBlock',
   component: FallbackBlock,
 } as ComponentMeta<typeof FallbackBlock>
 

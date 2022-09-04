@@ -20,13 +20,27 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         document.documentElement.classList.remove('dark')
       }
     }
-  })
+  }, [isDark])
 
   return (
     // TODO: Expose this to the children such that they can control dark-mode settings
-    <div className="bg-white dark:bg-black dark:text-white">
-      <Component {...pageProps} setDarkMode={setDarkMode} isDark={isDark} />
-    </div>
+    <>
+      <Component
+        className="bg-white dark:bg-black dark:text-white"
+        {...pageProps}
+        setDarkMode={setDarkMode}
+        isDark={isDark}
+      />
+      <style jsx global>{`
+        html,
+        body,
+        body > div:first-child,
+        div#__next,
+        div#__next > div {
+          height: 100%;
+        }
+      `}</style>
+    </>
   )
 }
 

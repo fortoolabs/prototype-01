@@ -1,11 +1,11 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import Heading from 'components/Heading'
+import Heading from 'components/doc/Heading'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Heading',
+  title: 'Document/Heading',
   component: Heading,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {

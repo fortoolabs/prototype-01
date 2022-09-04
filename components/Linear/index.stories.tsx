@@ -41,7 +41,7 @@ export default {
       control: 'text',
       description: 'Raw Org text',
     },
-    serif: {
+    isSerif: {
       control: 'boolean',
     },
   },
@@ -67,10 +67,22 @@ PlayableLinear.args = {
   doc: text,
 }
 
-export const UndefinedLinear = Template.bind({})
-
 export const EmptyLinear = Template.bind({})
 EmptyLinear.args = { doc: parse('') }
 
 export const OneLineLinear = Template.bind({})
 OneLineLinear.args = { doc: parse('Just a single line') }
+
+export const UnparsableLinear = Template.bind({})
+UnparsableLinear.args = {
+  doc: parse(`
+<html>
+  <head><title>This is not Org</title></head>
+
+  <body>
+    <p>Just trynna break things. 🤷🏿‍♂️</p>
+
+    <p>Note how the line breaks are parsed as paragraph delimiters</p>
+  </body>
+</html>`),
+}

@@ -1,6 +1,6 @@
 import { CheckBox as GrommetCheckBox } from 'grommet'
 
-import Paragraph from 'components/Paragraph'
+import Paragraph from 'components/doc/Paragraph'
 import { Row } from 'components/View'
 
 export type CheckBoxProps = {

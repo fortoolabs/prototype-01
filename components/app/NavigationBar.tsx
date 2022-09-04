@@ -1,24 +1,28 @@
 import React from 'react'
 
-import ToggleDarkMode from 'components/ToggleDarkMode'
+import Toggle from 'components/app/Toggle'
+import { LogoSecond as Logo } from 'components/app/Logo'
 
 // Based on part of https://tailwindui.com/components/application-ui/application-shells/stacked#component-7022793f3a06d980f7d7f8394a057092
 import { Fragment } from 'react'
 import { Disclosure } from '@headlessui/react'
 
+import { SunIcon, MoonIcon } from '@heroicons/react/20/solid'
+
 import {
-  SunIcon,
-  MoonIcon,
   BellIcon,
   Bars3Icon as MenuIcon,
   XMarkIcon as XIcon,
 } from '@heroicons/react/24/outline'
 
 type NavigationBarProps = {
+  // TODO: Consistently rename state-props to match isVAL setVAL scheme
   isDark: boolean
-  setDarkMode: any
+  /*eslint no-unused-vars: ["error", {"args": "none"}]*/
+  setDarkMode: (x: boolean) => void
   serif: boolean
-  setSerif: any
+  /*eslint no-unused-vars: ["error", {"args": "none"}]*/
+  setSerif: (x: boolean) => void
 }
 
 const user = {
@@ -64,21 +68,18 @@ export default function Example({
       {({ open }) => (
         <>
           {/* large view */}
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-4">
             <div className="flex justify-between h-16">
               {/* lg left part */}
               <div className="flex">
                 {/* lg logo */}
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-10 w-auto"
-                    src="/logo-formation.svg"
-                    alt="Workflow"
+                  <Logo
+                    className={[
+                      'block w-auto',
+                      'h-8 md:h-[24px]', // h-8 or 24px for medium (md) screens and greater
+                      'text-gray-200',
+                    ].join(' ')}
                   />
                 </div>
                 {/* lg navigation
@@ -107,10 +108,11 @@ export default function Example({
                 <button className="pr-4" onClick={() => setSerif(!serif)}>
                   Aa
                 </button>
-                <ToggleDarkMode
+                <Toggle
                   isEnabled={isDark}
                   setEnabled={setDarkMode}
-                  icons={{ enabled: <SunIcon />, disabled: <MoonIcon /> }}
+                  enabledIcon={SunIcon}
+                  disabledIcon={MoonIcon}
                 />
               </div>
               <div className="-mr-2 flex items-center sm:hidden">

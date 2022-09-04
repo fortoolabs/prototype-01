@@ -95,7 +95,11 @@ const Reader: NextPage<ReaderProps> = (props) => {
           <TOC headings={extractNestedHeadlines(content)} />
         </SideBar>
         <Col fill>
-          {boardView ? <Board doc={doc} /> : <Linear serif={serif} doc={doc} />}
+          {boardView ? (
+            <Board doc={doc} />
+          ) : (
+            <Linear isSerif={serif} doc={doc} />
+          )}
         </Col>
       </Row>
       {title !== undefined && (
