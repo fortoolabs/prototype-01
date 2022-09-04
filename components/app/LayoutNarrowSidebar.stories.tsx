@@ -14,7 +14,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 export default {
-  title: 'Layouts/Narrow Sidebar',
+  title: 'Application/Layouts/Narrow Sidebar',
   component: Layout,
   parameters: {
     layout: 'fullscreen',

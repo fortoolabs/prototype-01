@@ -1,13 +1,15 @@
 import { Fragment } from 'react'
 import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
 
-import Code, { CodeProps } from 'components/Code'
-import Heading, { HeadingProps } from 'components/Heading'
-import Paragraph, { ParagraphProps } from 'components/Paragraph'
-import Link, { LinkProps } from 'components/Link'
-import FallbackInline, { FallbackInlineProps } from 'components/FallbackInline'
-import FallbackBlock, { FallbackBlockProps } from 'components/FallbackBlock'
-import Date, { DateProps } from 'components/Date'
+import Code, { CodeProps } from 'components/doc/Code'
+import Heading, { HeadingProps } from 'components/doc/Heading'
+import Paragraph, { ParagraphProps } from 'components/doc/Paragraph'
+import Link, { LinkProps } from 'components/doc/Link'
+import FallbackInline, {
+  FallbackInlineProps,
+} from 'components/doc/FallbackInline'
+import FallbackBlock, { FallbackBlockProps } from 'components/doc/FallbackBlock'
+import Date, { DateProps } from 'components/doc/Date'
 
 function assertExhaustive(
   value: never,

@@ -5,7 +5,7 @@ import FallbackInline from './FallbackInline'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/FallbackInline',
+  title: 'Document/FallbackInline',
   component: FallbackInline,
 } as ComponentMeta<typeof FallbackInline>
 
