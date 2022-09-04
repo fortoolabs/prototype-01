@@ -5,8 +5,10 @@ import Code, { CodeProps } from 'components/Code'
 import Heading, { HeadingProps } from 'components/doc/Heading'
 import Paragraph, { ParagraphProps } from 'components/Paragraph'
 import Link, { LinkProps } from 'components/Link'
-import FallbackInline, { FallbackInlineProps } from 'components/FallbackInline'
-import FallbackBlock, { FallbackBlockProps } from 'components/FallbackBlock'
+import FallbackInline, {
+  FallbackInlineProps,
+} from 'components/doc/FallbackInline'
+import FallbackBlock, { FallbackBlockProps } from 'components/doc/FallbackBlock'
 import Date, { DateProps } from 'components/doc/Date'
 
 function assertExhaustive(
