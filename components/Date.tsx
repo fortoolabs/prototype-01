@@ -24,14 +24,14 @@ export default function Date({ timestamp, as, iconFill }: DateProps) {
   return (
     <time
       className={[
+        'inline-block',
         'inline-flex',
-        'items-baseline',
+        'items-center',
         'gap-1',
-        'font-semibold',
         'bg-gray-50',
         'border border-gray-300',
         'py-[2px]',
-        'px-[3px]',
+        'px-1.5',
         'rounded-md',
         'text-sm',
       ].join(' ')}
