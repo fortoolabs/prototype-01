@@ -4,7 +4,7 @@ import useState from 'storybook-addon-state'
 import NavigationBar from './NavigationBar'
 
 export default {
-  title: 'Layouts/Navigation',
+  title: 'Application/Navigation',
   component: NavigationBar,
   parameters: {
     layout: 'fullscreen',
