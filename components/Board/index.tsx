@@ -52,8 +52,16 @@ if (import.meta.vitest) {
 
   it('extracts columns structure from a listing of todos', () => {
     const x = extractKanbanData(
-      parse(['#+TITLE: Just a test doc', '* DONE Stub function'].join('\n')),
+      parse(
+        [
+          '#+TITLE: Just a test doc',
+          '* DONE Stub function',
+          '* Not a task',
+          '** TODO A simple task',
+        ].join('\n'),
+      ),
     )
+
     expect(x).toMatchInlineSnapshot(`
       {
         "DONE": {
@@ -71,7 +79,17 @@ if (import.meta.vitest) {
           "title": "DONE",
         },
         "TODO": {
-          "tasks": [],
+          "tasks": [
+            {
+              "columnId": "TODO",
+              "completed": false,
+              "daysLeft": 0,
+              "description": "",
+              "id": "a-simple-task",
+              "members": [],
+              "name": "A simple task",
+            },
+           ],
           "title": "TODO",
         },
       }
