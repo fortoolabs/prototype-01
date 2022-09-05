@@ -838,7 +838,7 @@ exports[`generally > table of contents > nested extraction > extracts top-level 
 ]
 `;
 
-exports[`lists > of various types nested > parses 1`] = `
+exports[`list > of various types nested > parses 1`] = `
 {
   "content": [
     {

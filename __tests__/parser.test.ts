@@ -248,16 +248,15 @@ describe('regular links', () => {
 
 describe.todo('timestamp', () => {})
 
-describe('lists', () => {
+describe('list', () => {
   const dut = (x) => parse(x).content[0]
 
-  describe('unordered', () => {
-    it('parses when unordered', () => {
-      const raw = `
+  it('parses when unordered', () => {
+    const raw = `
 - A
 - B
 `
-      expect(dut(raw)).toMatchInlineSnapshot(`
+    expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": [
             {
@@ -297,16 +296,14 @@ describe('lists', () => {
           "variant": "unordered",
         }
       `)
-    })
   })
 
-  describe('ordered', () => {
-    it('parses when ordered', () => {
-      const raw = `
+  it('parses when ordered', () => {
+    const raw = `
 1. one
 2. two
 `
-      expect(dut(raw)).toMatchInlineSnapshot(`
+    expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": [
             {
@@ -346,7 +343,53 @@ describe('lists', () => {
           "variant": "ordered",
         }
       `)
-    })
+  })
+
+  it('parses when descriptive', () => {
+    const raw = `
+- one :: first number
+- two :: 2nd number
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+      {
+        "content": [
+          {
+            "checkbox": null,
+            "content": [
+              {
+                "content": [
+                  {
+                    "content": "first number
+      ",
+                    "type": "t",
+                  },
+                ],
+                "type": "p",
+              },
+            ],
+            "type": "I",
+          },
+          {
+            "checkbox": null,
+            "content": [
+              {
+                "content": [
+                  {
+                    "content": "2nd number
+      ",
+                    "type": "t",
+                  },
+                ],
+                "type": "p",
+              },
+            ],
+            "type": "I",
+          },
+        ],
+        "type": "L",
+        "variant": "descriptive",
+      }
+    `)
   })
 
   describe('of various types nested', () => {
