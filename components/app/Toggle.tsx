@@ -22,12 +22,14 @@ export default function Toggle({
   enabledIcon: EnabledIcon,
   disabledIcon: DisabledIcon,
   activeColor,
-}: ToggleSwitchProps) {
+  className,
+}: ToggleSwitchProps & React.HTMLAttributes<'button'>) {
   return (
     <Switch
       checked={isEnabled}
       onChange={setEnabled}
       className={classNames(
+        className ? className : '',
         isEnabled
           ? activeColor
             ? `bg-${activeColor}-400`

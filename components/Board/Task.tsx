@@ -31,7 +31,7 @@ export default function KanbanTask({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div className="flex flex-col max-w-md p-5 transform bg-white rounded-lg shadow cursor-move dark:bg-gray-800">
+          <div className="flex flex-col max-w-md p-5 transform bg-white border rounded-lg shadow cursor-move dark:bg-gray-800">
             <div className="flex items-center justify-between pb-4">
               <div className="text-base font-semibold text-gray-900 dark:text-white">
                 {task.name}

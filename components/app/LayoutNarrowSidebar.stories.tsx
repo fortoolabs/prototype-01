@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import Layout, { HorizontalDiptych } from './LayoutNarrowSidebar'
+import Layout, { HorizontalDiptychWithAside } from './LayoutNarrowSidebar'
 import Toggle from 'components/app/Toggle'
 
 import {
@@ -73,8 +73,8 @@ export const Primary: ComponentStory<typeof Layout> = () => (
     navigationOptions={navigationOptions}
     menuOptions={menuOptions}
   >
-    <HorizontalDiptych
-      left={
+    <HorizontalDiptychWithAside
+      main={
         <>
           <h1 id="primary-heading" className="sr-only">
             Home
@@ -86,7 +86,7 @@ export const Primary: ComponentStory<typeof Layout> = () => (
           ))}
         </>
       }
-      right={
+      aside={
         <>
           aside
           {[...Array(100).keys()].map((i) => (
