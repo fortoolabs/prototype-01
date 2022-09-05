@@ -336,12 +336,12 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
   )
 }
 
-export function HorizontalDiptych({
-  left,
-  right,
+export function HorizontalDiptychWithAside({
+  main,
+  aside,
 }: {
-  left: React.ReactNode
-  right: React.ReactNode
+  main: React.ReactNode
+  aside: React.ReactNode
 }) {
   return (
     <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
@@ -350,13 +350,13 @@ export function HorizontalDiptych({
         aria-labelledby="primary-heading"
         className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last"
       >
-        {left}
+        {main}
       </section>
 
       {/* Secondary column (hidden on smaller screens) */}
       <aside className="hidden lg:order-first lg:block lg:flex-shrink-0">
         <div className="relative flex h-full w-96 flex-col overflow-y-auto border-r border-gray-200 bg-gray-100">
-          {right}
+          {aside}
         </div>
       </aside>
     </main>
