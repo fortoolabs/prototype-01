@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
-import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
+//import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
 //import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
 
 import Tag from 'components/doc/Tag'
