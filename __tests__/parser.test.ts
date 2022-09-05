@@ -251,7 +251,7 @@ describe.todo('timestamp', () => {})
 describe('lists', () => {
   const dut = (x) => parse(x).content[0]
 
-  describe('unordered', () => {
+  describe('of various types nested', () => {
     const raw = `
 - fruits
   - apples
@@ -265,25 +265,7 @@ describe('lists', () => {
   - [X] cabbage
   - [~] salat
 `
-    it('parses', () => {
-      expect(dut(raw)).toMatchInlineSnapshot(`
-        {
-          "content": "- fruits
-          - apples
-          - bananas
-          - pears
-          - tomatoes
-        - [/] vegetables
-          - [X] spinach
-          - [ ] broccoli
-          - [ ] cauliflower
-          - [X] cabbage
-          - [~] salat
-        ",
-          "type": "E",
-        }
-      `)
-    })
+    it('parses', () => expect(dut(raw)).toMatchSnapshot())
   })
 
   //describe('ordered', () => {

@@ -837,3 +837,21 @@ exports[`generally > table of contents > nested extraction > extracts top-level 
   },
 ]
 `;
+
+exports[`lists > of various types nested > parses 1`] = `
+{
+  "content": "- fruits
+  - apples
+  - bananas
+  - pears
+  - tomatoes
+- [/] vegetables
+  - [X] spinach
+  - [ ] broccoli
+  - [ ] cauliflower
+  - [X] cabbage
+  - [~] salat
+",
+  "type": "E",
+}
+`;
