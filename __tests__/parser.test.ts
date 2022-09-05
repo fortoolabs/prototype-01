@@ -248,45 +248,177 @@ describe('regular links', () => {
 
 describe.todo('timestamp', () => {})
 
-describe('lists', () => {
-  describe('unordered', () => {
+describe('list', () => {
+  const dut = (x) => parse(x).content[0]
+
+  it('parses when unordered', () => {
+    const raw = `
+- A
+- B
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "A
+        ",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "B
+        ",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "unordered",
+        }
+      `)
+  })
+
+  it('parses when ordered', () => {
+    const raw = `
+1. one
+2. two
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "one
+        ",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "two
+        ",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "ordered",
+        }
+      `)
+  })
+
+  it('parses when descriptive', () => {
+    const raw = `
+- one :: first number
+- two :: 2nd number
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+      {
+        "content": [
+          {
+            "checkbox": null,
+            "content": [
+              {
+                "content": [
+                  {
+                    "content": "first number
+      ",
+                    "type": "t",
+                  },
+                ],
+                "type": "p",
+              },
+            ],
+            "type": "I",
+          },
+          {
+            "checkbox": null,
+            "content": [
+              {
+                "content": [
+                  {
+                    "content": "2nd number
+      ",
+                    "type": "t",
+                  },
+                ],
+                "type": "p",
+              },
+            ],
+            "type": "I",
+          },
+        ],
+        "type": "L",
+        "variant": "descriptive",
+      }
+    `)
+  })
+
+  describe('of various types nested', () => {
     const raw = `
 - fruits
-  - apples
+  1. apples
+
+    - Apple Computer :: a computer company
+
+    - Apple Records :: record label
+
+    - Grannie Smith :: green apple
+
   - bananas
+
+    Bananas are a good source of electrolyte and potassium
+
   - pears
+
   - tomatoes
-- [/] vegetables
+
+- [-] vegetables
   - [X] spinach
   - [ ] broccoli
   - [ ] cauliflower
   - [X] cabbage
   - [~] salat
 `
-    it('parses', () => {
-      expect(parse(raw)).toMatchInlineSnapshot(`
-        {
-          "content": [
-            {
-              "content": "- fruits
-          - apples
-          - bananas
-          - pears
-          - tomatoes
-        - [/] vegetables
-          - [X] spinach
-          - [ ] broccoli
-          - [ ] cauliflower
-          - [X] cabbage
-          - [~] salat
-        ",
-              "type": "e",
-            },
-          ],
-          "todoStates": [],
-        }
-      `)
-    })
+    it('parses', () => expect(dut(raw)).toMatchSnapshot())
   })
 })
 

@@ -837,3 +837,264 @@ exports[`generally > table of contents > nested extraction > extracts top-level 
   },
 ]
 `;
+
+exports[`list > of various types nested > parses 1`] = `
+{
+  "content": [
+    {
+      "checkbox": null,
+      "content": [
+        {
+          "content": [
+            {
+              "content": "fruits
+",
+              "type": "t",
+            },
+          ],
+          "type": "p",
+        },
+        {
+          "content": [
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "apples
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+                {
+                  "content": [
+                    {
+                      "checkbox": null,
+                      "content": [
+                        {
+                          "content": [
+                            {
+                              "content": "a computer company
+",
+                              "type": "t",
+                            },
+                          ],
+                          "type": "p",
+                        },
+                      ],
+                      "type": "I",
+                    },
+                    {
+                      "checkbox": null,
+                      "content": [
+                        {
+                          "content": [
+                            {
+                              "content": "record label
+",
+                              "type": "t",
+                            },
+                          ],
+                          "type": "p",
+                        },
+                      ],
+                      "type": "I",
+                    },
+                    {
+                      "checkbox": null,
+                      "content": [
+                        {
+                          "content": [
+                            {
+                              "content": "green apple
+",
+                              "type": "t",
+                            },
+                          ],
+                          "type": "p",
+                        },
+                      ],
+                      "type": "I",
+                    },
+                  ],
+                  "type": "L",
+                  "variant": "descriptive",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "bananas
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+                {
+                  "content": [
+                    {
+                      "content": "    Bananas are a good source of electrolyte and potassium
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "pears
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "tomatoes
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "ordered",
+        },
+      ],
+      "type": "I",
+    },
+    {
+      "checkbox": "trans",
+      "content": [
+        {
+          "content": [
+            {
+              "content": "vegetables
+",
+              "type": "t",
+            },
+          ],
+          "type": "p",
+        },
+        {
+          "content": [
+            {
+              "checkbox": "on",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "spinach
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": "off",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "broccoli
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": "off",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "cauliflower
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": "on",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "cabbage
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "[~] salat
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "unordered",
+        },
+      ],
+      "type": "I",
+    },
+  ],
+  "type": "L",
+  "variant": "unordered",
+}
+`;
