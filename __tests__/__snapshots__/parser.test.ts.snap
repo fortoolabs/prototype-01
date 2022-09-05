@@ -869,6 +869,60 @@ exports[`list > of various types nested > parses 1`] = `
                   ],
                   "type": "p",
                 },
+                {
+                  "content": [
+                    {
+                      "checkbox": null,
+                      "content": [
+                        {
+                          "content": [
+                            {
+                              "content": "a computer company
+",
+                              "type": "t",
+                            },
+                          ],
+                          "type": "p",
+                        },
+                      ],
+                      "type": "I",
+                    },
+                    {
+                      "checkbox": null,
+                      "content": [
+                        {
+                          "content": [
+                            {
+                              "content": "record label
+",
+                              "type": "t",
+                            },
+                          ],
+                          "type": "p",
+                        },
+                      ],
+                      "type": "I",
+                    },
+                    {
+                      "checkbox": null,
+                      "content": [
+                        {
+                          "content": [
+                            {
+                              "content": "green apple
+",
+                              "type": "t",
+                            },
+                          ],
+                          "type": "p",
+                        },
+                      ],
+                      "type": "I",
+                    },
+                  ],
+                  "type": "L",
+                  "variant": "descriptive",
+                },
               ],
               "type": "I",
             },
