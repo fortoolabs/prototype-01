@@ -976,7 +976,7 @@ exports[`list > of various types nested > parses 1`] = `
             },
           ],
           "type": "L",
-          "variant": "unordered",
+          "variant": "ordered",
         },
       ],
       "type": "I",

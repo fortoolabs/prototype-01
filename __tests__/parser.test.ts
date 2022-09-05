@@ -395,7 +395,7 @@ describe('list', () => {
   describe('of various types nested', () => {
     const raw = `
 - fruits
-  - apples
+  1. apples
     - Apple Computer :: a computer company
 
     - Apple Records :: record label
