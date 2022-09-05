@@ -4,6 +4,8 @@ import { Draggable } from 'react-beautiful-dnd'
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
 //import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
 
+import Tag from 'components/doc/Tag'
+
 import type { TaskDataProps } from './data'
 
 export type KanbanTaskProps = {
@@ -78,6 +80,9 @@ export default function KanbanTask({
 
               <div className="flex justify-between">
                 <div className="flex items-center justify-start">
+                  {task.tags.map((tag, idx) => (
+                    <Tag key={idx} size="small" content={tag} color="pink" />
+                  ))}
                   {task.members.map((member, index) => {
                     const { id, avatar, name } = member
                     return (
