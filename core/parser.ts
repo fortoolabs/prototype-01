@@ -301,6 +301,8 @@ function unpackElementType(
         },
       ]
     case 'list-item':
+      // TODO: Explore whether white-space termination is problematic
+      // This is largely in-line with the way that org-element.el parses lists
       return [
         {
           type: 'I',

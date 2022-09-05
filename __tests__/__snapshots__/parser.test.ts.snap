@@ -840,18 +840,197 @@ exports[`generally > table of contents > nested extraction > extracts top-level 
 
 exports[`lists > of various types nested > parses 1`] = `
 {
-  "content": "- fruits
-  - apples
-  - bananas
-  - pears
-  - tomatoes
-- [/] vegetables
-  - [X] spinach
-  - [ ] broccoli
-  - [ ] cauliflower
-  - [X] cabbage
-  - [~] salat
+  "content": [
+    {
+      "checkbox": null,
+      "content": [
+        {
+          "content": [
+            {
+              "content": "fruits
 ",
-  "type": "E",
+              "type": "t",
+            },
+          ],
+          "type": "p",
+        },
+        {
+          "content": [
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "apples
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "bananas
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "pears
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "tomatoes
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "unordered",
+        },
+      ],
+      "type": "I",
+    },
+    {
+      "checkbox": null,
+      "content": [
+        {
+          "content": [
+            {
+              "content": "[/] vegetables
+",
+              "type": "t",
+            },
+          ],
+          "type": "p",
+        },
+        {
+          "content": [
+            {
+              "checkbox": "on",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "spinach
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": "off",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "broccoli
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": "off",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "cauliflower
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": "on",
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "cabbage
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "[~] salat
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "unordered",
+        },
+      ],
+      "type": "I",
+    },
+  ],
+  "type": "L",
+  "variant": "unordered",
 }
 `;

@@ -266,7 +266,8 @@ describe('lists', () => {
                 {
                   "content": [
                     {
-                      "content": "A",
+                      "content": "A
+        ",
                       "type": "t",
                     },
                   ],
@@ -281,7 +282,8 @@ describe('lists', () => {
                 {
                   "content": [
                     {
-                      "content": "B",
+                      "content": "B
+        ",
                       "type": "t",
                     },
                   ],
@@ -294,7 +296,7 @@ describe('lists', () => {
           "type": "L",
           "variant": "unordered",
         }
-`)
+      `)
     })
   })
 
@@ -313,7 +315,8 @@ describe('lists', () => {
                 {
                   "content": [
                     {
-                      "content": "one",
+                      "content": "one
+        ",
                       "type": "t",
                     },
                   ],
@@ -328,7 +331,8 @@ describe('lists', () => {
                 {
                   "content": [
                     {
-                      "content": "two",
+                      "content": "two
+        ",
                       "type": "t",
                     },
                   ],
@@ -341,7 +345,7 @@ describe('lists', () => {
           "type": "L",
           "variant": "ordered",
         }
-`)
+      `)
     })
   })
 
