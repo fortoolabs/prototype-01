@@ -130,20 +130,24 @@ type FSection = {
   content: FElementType[]
 }
 
-type FList = {
+export type FList = {
   type: 'L'
   variant: 'ordered' | 'unordered' | 'descriptive'
   content: FListItem[]
 }
 
-type FListItem = {
+export type FListItem = {
   type: 'I'
-  checkbox?: 'on' | 'off' | 'trans'
+  checkbox: 'on' | 'off' | 'trans' | null
   content: FElementType[]
 }
 
 // TODO: Expand
-export type FGreaterElement = FSection | FGreaterElementFallback | FList
+export type FGreaterElement =
+  | FSection
+  | FGreaterElementFallback
+  | FList
+  | FListItem
 
 export type FElementType = FElement | FGreaterElement
 

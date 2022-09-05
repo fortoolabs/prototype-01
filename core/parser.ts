@@ -2,12 +2,20 @@ import { unified } from 'unified'
 import parser from 'uniorg-parse'
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
-import { OrgData, ObjectType, GreaterElementType, ElementType } from 'uniorg'
+import {
+  OrgData,
+  ObjectType,
+  GreaterElementType,
+  ElementType,
+  ListItem,
+} from 'uniorg'
 
 import {
   FDocument,
   FObjectType,
   FElementType,
+  FList,
+  FListItem,
   FRecursiveObject,
   FHeading,
   FTableOfContents,
@@ -27,7 +35,9 @@ function assertExhaustive(
 
 // TODO: Refactor to include exhaustiveness check
 // Extract unformatted text (which may be useful to compose ids)
-export function extractText(el: FObjectType | FElementType): string {
+export function extractText(
+  el: FObjectType | FElementType | FListItem,
+): string {
   switch (el.type) {
     case 'Z':
       // TODO: Implement unformatted form for timestamp
@@ -53,7 +63,7 @@ export function extractText(el: FObjectType | FElementType): string {
 
 // TODO: Refactor to include exhaustiveness check
 export function extractFormattedText(
-  el: FObjectType | FElementType,
+  el: FObjectType | FElementType | FListItem,
 ): FObjectType[] {
   switch (el.type) {
     case 'a':
@@ -297,7 +307,7 @@ function unpackElementType(
         {
           type: 'L',
           variant: x.listType,
-          content: x.children.flatMap(unpackElementWithContext(text)),
+          content: x.children.map((x) => unpackListItem(text, x)),
         },
       ]
     case 'list-item':
@@ -365,6 +375,19 @@ function unpackElementType(
       return [{ type: 'p', content: x.children.map(unpackObjectType) }]
     default:
       return assertExhaustive(x)
+  }
+}
+
+// TODO: Figure out I can't cover this in unpackElementType
+// Got type issues while attempting to unpack plain-list in unpackElementType
+// - Types of property content are incompatible
+// - Type FElementType[] is not assignable to type FListItem[]
+// Pulling a noob card to just avoid the issue for now 🤦🏿‍♂️
+function unpackListItem(text: string, x: ListItem): FListItem {
+  return {
+    type: 'I',
+    checkbox: x.checkbox,
+    content: x.children.flatMap(unpackElementWithContext(text)),
   }
 }
 
