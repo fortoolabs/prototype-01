@@ -292,10 +292,24 @@ function unpackElementType(
           content: x.children.flatMap(unpackElementWithContext(text)),
         },
       ]
+    case 'plain-list':
+      return [
+        {
+          type: 'L',
+          variant: x.listType,
+          content: x.children.flatMap(unpackElementWithContext(text)),
+        },
+      ]
+    case 'list-item':
+      return [
+        {
+          type: 'I',
+          checkbox: x.checkbox,
+          content: x.children.flatMap(unpackElementWithContext(text)),
+        },
+      ]
     case 'property-drawer':
     case 'drawer':
-    case 'plain-list':
-    case 'list-item':
     case 'quote-block':
     case 'verse-block':
     case 'center-block':
