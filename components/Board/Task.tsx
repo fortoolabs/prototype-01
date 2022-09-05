@@ -1,8 +1,10 @@
 import { Fragment } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
-import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
-import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
+//import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
+//import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
+
+import Tag from 'components/doc/Tag'
 
 import type { TaskDataProps } from './data'
 
@@ -17,12 +19,25 @@ export type KanbanTaskProps = {
 //   return string.substring(0, limit) + '...'
 // }
 
+// NOTE: For historic context you should note that this was just sourced from
+// Flowbite (a bit of a painful experience, but that's another story). The API
+// here is based on the Flowbite example and should actually be adapted to our
+// use-case. On account of the lacking time, we have just retrofitted the
+// existing setup to just roughly do what we need but by no means consider this
+// a candidate solution. It's just a scrappy hack to demonstrate the UI, nothing
+// more.
 export default function KanbanTask({
   index,
   task,
   onEditTask,
 }: KanbanTaskProps) {
   const taskId = task.id
+
+  console.warn(
+    'onEditTask has been commented out and we are just referencing it to keep the builder happy',
+    onEditTask,
+  )
+
   return (
     <Draggable key={taskId} draggableId={taskId} index={index}>
       {(provided) => (
@@ -31,13 +46,13 @@ export default function KanbanTask({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div className="flex flex-col max-w-md p-5 transform bg-white border rounded-lg shadow cursor-move dark:bg-gray-800">
+          <div className="flex flex-col max-w-md p-4 transform bg-white border rounded-lg shadow cursor-move dark:bg-gray-800">
             <div className="flex items-center justify-between pb-4">
               <div className="text-base font-semibold text-gray-900 dark:text-white">
                 {task.name}
               </div>
 
-              <button
+              {/*<button
                 type="button"
                 data-modal-toggle="kanban-card-modal"
                 className="p-2 text-sm text-gray-500 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
@@ -46,7 +61,7 @@ export default function KanbanTask({
                 }}
               >
                 <SolidPencilAltIcon className="w-5 h-5" />
-              </button>
+                </button>*/}
             </div>
             {task.attachment && (
               <div className="flex items-center justify-center pb-4">
@@ -64,7 +79,10 @@ export default function KanbanTask({
               </div>
 
               <div className="flex justify-between">
-                <div className="flex items-center justify-start">
+                <div className="flex flex-wrap w-full overflow-items-center justify-start bg-blue-200">
+                  {task.tags.map((tag, idx) => (
+                    <Tag key={idx} size="small" content={tag} color="pink" />
+                  ))}
                   {task.members.map((member, index) => {
                     const { id, avatar, name } = member
                     return (
@@ -92,6 +110,7 @@ export default function KanbanTask({
                     )
                   })}
                 </div>
+                {/*
                 {task.completed === true ? (
                   <div className="flex items-center justify-center px-3 text-sm font-medium text-green-800 bg-green-100 rounded-lg dark:bg-green-200">
                     <CheckIcon className="w-4 h-4 mr-1" />
@@ -102,7 +121,7 @@ export default function KanbanTask({
                     <ClockIcon className="w-4 h-4 mr-1" />
                     {`${task.daysLeft} days left`}
                   </div>
-                )}
+                  )}*/}
               </div>
             </div>
           </div>

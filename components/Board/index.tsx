@@ -41,6 +41,7 @@ function extractKanbanData({ todoStates, content }: FDocument) {
             completed: false,
             daysLeft: 0, // TODO: Make optional
             members: [],
+            tags: entry.heading.tags,
           })),
       },
     }
