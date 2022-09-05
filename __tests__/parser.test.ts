@@ -397,11 +397,17 @@ describe('list', () => {
 - fruits
   - apples
     - Apple Computer :: a computer company
+
     - Apple Records :: record label
+
     - Grannie Smith :: green apple
+
   - bananas
+
   - pears
+
   - tomatoes
+
 - [-] vegetables
   - [X] spinach
   - [ ] broccoli
