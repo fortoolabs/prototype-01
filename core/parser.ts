@@ -303,7 +303,7 @@ function unpackElementType(
     case 'footnote-definition':
       // TODO: Implement instead of falling back
       return [
-        { type: 'e', content: text.slice(x.contentsBegin, x.contentsEnd) },
+        { type: 'E', content: text.slice(x.contentsBegin, x.contentsEnd) },
       ]
     case 'table':
       // TODO: Implement instead of falling back
