@@ -249,6 +249,8 @@ describe('regular links', () => {
 describe.todo('timestamp', () => {})
 
 describe('lists', () => {
+  const dut = (x) => parse(x).content[0]
+
   describe('unordered', () => {
     const raw = `
 - fruits
@@ -264,11 +266,9 @@ describe('lists', () => {
   - [~] salat
 `
     it('parses', () => {
-      expect(parse(raw)).toMatchInlineSnapshot(`
+      expect(dut(raw)).toMatchInlineSnapshot(`
         {
-          "content": [
-            {
-              "content": "- fruits
+          "content": "- fruits
           - apples
           - bananas
           - pears
@@ -280,14 +280,31 @@ describe('lists', () => {
           - [X] cabbage
           - [~] salat
         ",
-              "type": "E",
-            },
-          ],
-          "todoStates": [],
+          "type": "E",
         }
       `)
     })
   })
+
+  //describe('ordered', () => {
+  //
+  //  const numberedList = `
+  //1. zero
+  //2. one
+  //  - A
+  //3. two
+  //  - A
+  //  - B
+  //4. three
+  //  - A
+  //  - B
+  //  - C
+  //`
+  //
+  //  it('parses', () => {
+  //    expect(dut(numberedList)).toMatchInlineSnapshot(``)
+  //  })
+  //})
 })
 
 describe('extractText', () => {
