@@ -939,6 +939,16 @@ exports[`list > of various types nested > parses 1`] = `
                   ],
                   "type": "p",
                 },
+                {
+                  "content": [
+                    {
+                      "content": "    Bananas are a good source of electrolyte and potassium
+",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
               ],
               "type": "I",
             },

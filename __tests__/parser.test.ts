@@ -396,6 +396,7 @@ describe('list', () => {
     const raw = `
 - fruits
   1. apples
+
     - Apple Computer :: a computer company
 
     - Apple Records :: record label
@@ -403,6 +404,8 @@ describe('list', () => {
     - Grannie Smith :: green apple
 
   - bananas
+
+    Bananas are a good source of electrolyte and potassium
 
   - pears
 
