@@ -399,7 +399,7 @@ describe('list', () => {
   - bananas
   - pears
   - tomatoes
-- [/] vegetables
+- [-] vegetables
   - [X] spinach
   - [ ] broccoli
   - [ ] cauliflower

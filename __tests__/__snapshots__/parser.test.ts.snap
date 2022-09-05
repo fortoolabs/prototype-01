@@ -928,12 +928,12 @@ exports[`list > of various types nested > parses 1`] = `
       "type": "I",
     },
     {
-      "checkbox": null,
+      "checkbox": "trans",
       "content": [
         {
           "content": [
             {
-              "content": "[/] vegetables
+              "content": "vegetables
 ",
               "type": "t",
             },
