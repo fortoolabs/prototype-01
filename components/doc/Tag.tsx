@@ -38,7 +38,7 @@ export default function Tag({
       className={[
         'font-semibold',
         'rounded-full',
-        'mx-2',
+        'mr-2 mt-2',
         colors[color] ? colors[color] : colors['blue'],
         sizes[size],
       ].join(' ')}
