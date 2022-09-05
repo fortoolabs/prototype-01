@@ -79,7 +79,7 @@ export default function KanbanTask({
               </div>
 
               <div className="flex justify-between">
-                <div className="flex flex-wrap w-full overflow-items-center justify-start bg-blue-200">
+                <div className="flex flex-wrap w-full overflow-items-center justify-start">
                   {task.tags.map((tag, idx) => (
                     <Tag key={idx} size="small" content={tag} color="pink" />
                   ))}
