@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 
@@ -7,8 +8,11 @@ import { LinkIcon } from '@heroicons/react/20/solid'
 
 import { extractNestedHeadlines, FDocument } from 'core/parser'
 
+import Board from 'components/Board'
 import Linear from 'components/Linear'
+
 import TOC from 'components/app/TOC'
+import Toggle from 'components/app/Toggle'
 
 import { getDoc } from 'pages/api/doc/index'
 
@@ -30,6 +34,8 @@ type HomePageProps = {
 // TODO: Show notification on isFailing
 // TODO: Add button with link to URL
 const Home: NextPage<HomePageProps> = ({ url, doc }) => {
+  const [mode, setMode] = useState('prose')
+
   const session = {
     name: 'David Asabina',
     handle: 'vid@bina.me',
@@ -57,6 +63,10 @@ const Home: NextPage<HomePageProps> = ({ url, doc }) => {
             <LinkIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Source
           </a>
+          <Toggle
+            isEnabled={mode == 'prose'}
+            setEnabled={() => setMode(mode == 'prose' ? 'kanban' : 'prose')}
+          />
         </div>
       }
       {...session}
@@ -65,7 +75,15 @@ const Home: NextPage<HomePageProps> = ({ url, doc }) => {
       menuOptions={[]}
     >
       <HorizontalDiptychWithAside
-        main={<Linear isSerif={false} doc={doc} />}
+        main={(() => {
+          switch (mode) {
+            case 'kanban':
+              return <Board doc={doc} />
+            case 'prose':
+            default:
+              return <Linear isSerif={false} doc={doc} />
+          }
+        })()}
         aside={<TOC headings={extractNestedHeadlines(content)} />}
       />
       {title && (
