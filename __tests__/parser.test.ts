@@ -251,6 +251,100 @@ describe.todo('timestamp', () => {})
 describe('lists', () => {
   const dut = (x) => parse(x).content[0]
 
+  describe('unordered', () => {
+    it('parses when unordered', () => {
+      const raw = `
+- A
+- B
+`
+      expect(dut(raw)).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "A",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "B",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "unordered",
+        }
+`)
+    })
+  })
+
+  describe('ordered', () => {
+    it('parses when ordered', () => {
+      const raw = `
+1. one
+2. two
+`
+      expect(dut(raw)).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "one",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+            {
+              "checkbox": null,
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": "two",
+                      "type": "t",
+                    },
+                  ],
+                  "type": "p",
+                },
+              ],
+              "type": "I",
+            },
+          ],
+          "type": "L",
+          "variant": "ordered",
+        }
+`)
+    })
+  })
+
   describe('of various types nested', () => {
     const raw = `
 - fruits
