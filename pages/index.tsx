@@ -64,6 +64,8 @@ const Home: NextPage<HomePageProps> = ({ url, doc }) => {
             Source
           </a>
           <Toggle
+            // TODO: Remove for tabs or something more appropriate
+            className="ml-4"
             isEnabled={mode == 'prose'}
             setEnabled={() => setMode(mode == 'prose' ? 'kanban' : 'prose')}
           />
