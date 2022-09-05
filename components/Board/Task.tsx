@@ -46,7 +46,7 @@ export default function KanbanTask({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div className="flex flex-col max-w-md p-5 transform bg-white border rounded-lg shadow cursor-move dark:bg-gray-800">
+          <div className="flex flex-col max-w-md p-4 transform bg-white border rounded-lg shadow cursor-move dark:bg-gray-800">
             <div className="flex items-center justify-between pb-4">
               <div className="text-base font-semibold text-gray-900 dark:text-white">
                 {task.name}
@@ -110,6 +110,7 @@ export default function KanbanTask({
                     )
                   })}
                 </div>
+                {/*
                 {task.completed === true ? (
                   <div className="flex items-center justify-center px-3 text-sm font-medium text-green-800 bg-green-100 rounded-lg dark:bg-green-200">
                     <CheckIcon className="w-4 h-4 mr-1" />
@@ -120,7 +121,7 @@ export default function KanbanTask({
                     <ClockIcon className="w-4 h-4 mr-1" />
                     {`${task.daysLeft} days left`}
                   </div>
-                )}
+                  )}*/}
               </div>
             </div>
           </div>
