@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
-import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
+//import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
 
 import type { TaskDataProps } from './data'
 
@@ -17,12 +17,25 @@ export type KanbanTaskProps = {
 //   return string.substring(0, limit) + '...'
 // }
 
+// NOTE: For historic context you should note that this was just sourced from
+// Flowbite (a bit of a painful experience, but that's another story). The API
+// here is based on the Flowbite example and should actually be adapted to our
+// use-case. On account of the lacking time, we have just retrofitted the
+// existing setup to just roughly do what we need but by no means consider this
+// a candidate solution. It's just a scrappy hack to demonstrate the UI, nothing
+// more.
 export default function KanbanTask({
   index,
   task,
   onEditTask,
 }: KanbanTaskProps) {
   const taskId = task.id
+
+  console.warn(
+    'onEditTask has been commented out and we are just referencing it to keep the builder happy',
+    onEditTask,
+  )
+
   return (
     <Draggable key={taskId} draggableId={taskId} index={index}>
       {(provided) => (
@@ -37,7 +50,7 @@ export default function KanbanTask({
                 {task.name}
               </div>
 
-              <button
+              {/*<button
                 type="button"
                 data-modal-toggle="kanban-card-modal"
                 className="p-2 text-sm text-gray-500 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
@@ -46,7 +59,7 @@ export default function KanbanTask({
                 }}
               >
                 <SolidPencilAltIcon className="w-5 h-5" />
-              </button>
+                </button>*/}
             </div>
             {task.attachment && (
               <div className="flex items-center justify-center pb-4">
