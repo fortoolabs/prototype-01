@@ -1,53 +1,99 @@
-import type { NextPage } from 'next'
-import useSWR, { Fetcher } from 'swr'
+import { NextPage, GetServerSideProps } from 'next'
+import Head from 'next/head'
 
-// Dummy API call
-import type { HelloData } from 'pages/api/hello'
+import base64url from 'base64url'
 
-import CoreLayout from 'components/app/Layout'
+import { LinkIcon } from '@heroicons/react/20/solid'
 
-const fetcher: Fetcher<HelloData, string> = (url) =>
-  fetch(url).then((r) => r.json())
+import { extractNestedHeadlines, FDocument } from 'core/parser'
 
-type HelloResponse = {
-  hello: string
-  isLoading: boolean
-  isError: Error
+import Linear from 'components/Linear'
+import TOC from 'components/app/TOC'
+
+import { getDoc } from 'pages/api/doc/index'
+
+import Layout, {
+  HorizontalDiptychWithAside,
+} from 'components/app/LayoutNarrowSidebar'
+
+const target = base64url.encode(
+  'https://gitlab.com/formation.tools/eng/engineering/-/raw/main/README.org',
+)
+
+type HomePageProps = {
+  url?: string
+  handle: string
+  doc?: FDocument
+  isFailing: boolean
+  reason?: string
 }
-
-function validName(data: HelloData | undefined): string {
-  console.log('validName', data, data == undefined)
-  if (data == undefined) {
-    return 'that which should not be named'
+// TODO: Show notification on isFailing
+// TODO: Add button with link to URL
+const Home: NextPage<HomePageProps> = ({ url, doc }) => {
+  const session = {
+    name: 'David Asabina',
+    handle: 'vid@bina.me',
+    avatarPath:
+      'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
   }
-  return data.name
-}
 
-function useHello(): HelloResponse {
-  const { data, error } = useSWR('/api/hello', fetcher)
-
-  return {
-    hello: validName(data),
-    isLoading: !error && !data,
-    isError: error,
+  if (doc === undefined) {
+    // TODO: Implement empty loading views
+    return <span>This scrappy prototype stinks!</span>
   }
-}
 
-const Home: NextPage = () => {
-  const { hello, isLoading }: HelloResponse = useHello()
+  const { title, content } = doc
 
   return (
-    <div className="min-h-full">
-      <CoreLayout />
-      <div className="py-10">
-        <p>
-          This is some dynamic content from the api: 👉🏿 <strong>{hello}</strong>
-          {isLoading && <span>⏳</span>}
-        </p>
-        <a id="test-anchor" />
-      </div>
-    </div>
+    <Layout
+      viewControl={
+        <div className="flex items-center">
+          <a
+            className={
+              'inline-flex items-center rounded-md border border-transparent bg-pink-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2'
+            }
+            href={url}
+          >
+            <LinkIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+            Source
+          </a>
+        </div>
+      }
+      {...session}
+      sessionOptions={[]}
+      navigationOptions={[]}
+      menuOptions={[]}
+    >
+      <HorizontalDiptychWithAside
+        main={<Linear isSerif={false} doc={doc} />}
+        aside={<TOC headings={extractNestedHeadlines(content)} />}
+      />
+      {title && (
+        <Head>
+          <title>{title}</title>
+        </Head>
+      )}
+    </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (): Promise<{
+  props: HomePageProps
+}> => {
+  const [status, payload] = await getDoc(target)
+  const { handle } = payload
+
+  if (handle === undefined) {
+    throw new Error('Handle-less document')
+  }
+
+  return {
+    props: {
+      ...payload,
+      handle,
+      isFailing: status !== 200,
+    },
+  }
 }
 
 export default Home

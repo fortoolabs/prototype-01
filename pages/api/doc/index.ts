@@ -41,6 +41,7 @@ const validURL = (x: string) => {
   }
 }
 
+// TODO: Remove this monstrosity 🐉
 export const getDoc = async (
   target: string | string[] | undefined,
 ): Promise<[number, DocResponse]> => {
