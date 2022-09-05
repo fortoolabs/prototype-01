@@ -408,26 +408,6 @@ describe('list', () => {
 `
     it('parses', () => expect(dut(raw)).toMatchSnapshot())
   })
-
-  //describe('ordered', () => {
-  //
-  //  const numberedList = `
-  //1. zero
-  //2. one
-  //  - A
-  //3. two
-  //  - A
-  //  - B
-  //4. three
-  //  - A
-  //  - B
-  //  - C
-  //`
-  //
-  //  it('parses', () => {
-  //    expect(dut(numberedList)).toMatchInlineSnapshot(``)
-  //  })
-  //})
 })
 
 describe('extractText', () => {
