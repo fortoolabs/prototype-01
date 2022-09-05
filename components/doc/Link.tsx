@@ -65,19 +65,50 @@ export default function Link({ url, linkType, label }: LinkProps) {
         'shadow-sm',
         'text-gray-700',
         'transition-colors',
+        ' group',
+        'relative',
         // TODO: Figure out how to either
         // 1: display ellipsis
         // 2. display an overlay that presents the full text
         // 3. truncate the link in the middle for readability
         // 4. marquee the text on hover or
-        'truncate',
       ].join(' ')}
       href={url}
       target={isExternal ? '_blank' : ''}
       rel={isExternal ? 'noopener noreferrer' : ''}
     >
       {getIcon(linkType)}
-      {isLabelShowable ? label : url}
+
+      <span className="block truncate">{isLabelShowable ? label : url}</span>
+      <span
+        className={[
+          'absolute',
+          'hidden',
+          'group-hover:flex',
+          'left-[2px]',
+          'top-[1px]',
+          'translate-y-full',
+          'px-2',
+          'py-1',
+          'bg-gray-700',
+          'rounded-lg',
+          'text-center',
+          'text-white',
+          'text-sm',
+          "before:content-['']",
+          'before:absolute',
+          'before:left-1/2',
+          'before:bottom-[95%]',
+          'before:-translate-x-1/2',
+          'before:border-8',
+          'before:border-x-transparent',
+          'before:border-t-transparent',
+          'before:border-b-gray-700',
+        ].join(' ')}
+      >
+        {isLabelShowable ? label : url}
+      </span>
+
       {false && (
         <ExternalIcon className="-mr-0.5 ml-2 h-4 w-4" aria-hidden="true" />
       )}
