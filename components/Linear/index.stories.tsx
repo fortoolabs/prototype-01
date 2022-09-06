@@ -29,6 +29,10 @@ I've struggled with Linear as the name for the view a bit as it was previously c
 The Storybook setup introduced =OrgLinear= which is merely a wrapper around the original =Linear= component which parses Org text and thus allows us to plug in Org raw text into the component directly and thus allowing for a better UX/DX as we can just play with Org text in the control and watch the magic happen. 🪄
 
 This wrapping pattern is demonstrated in the [[https://storybook.js.org/docs/react/essentials/controls#fully-custom-args][Storybook docs on fully custom args]] and hopefully isn't much of an anti-pattern. 😅
+
+* Playing with links
+
+Here are some [[links]] that we [[id:bundle]] together to verify that displaying of multiple links that are [[https://example.com][imaginary]], [[http://www.astro.uva.nl/=dominik][on the web]] and elsewhere and work well enough. The Hyperlink page of the Org manual lists examples such as [[id:B7423F4D-2E8A-471B-8810-C40F074717E9]], [[https://orgmode.org/guide/Hyperlinks.html][Hyperlinks]], [[file:/home/dominik/images/jupiter.jpg][file links]], [[./papers/last.pdf][internal links]] and [[mailto:adent@galaxy.net][mailto links]] but we can also link to the same locations without descriptions as in [[id:B7423F4D-2E8A-471B-8810-C40F074717E9]], [[https://orgmode.org/guide/Hyperlinks.html]], [[file:/home/dominik/images/jupiter.jpg]], [[./papers/last.pdf]] and [[mailto:adent@galaxy.net]].
 `
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
