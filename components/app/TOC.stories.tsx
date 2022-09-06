@@ -93,8 +93,8 @@ export default {
 
 const Template: ComponentStory<typeof TOC> = (args) => <TOC {...args} />
 
-export const BareTOC = Template.bind({})
-BareTOC.args = {
+export const NestedTOC = Template.bind({})
+NestedTOC.args = {
   headings: extractNestedHeadlines(parse(toc).content),
 }
 
