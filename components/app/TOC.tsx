@@ -1,6 +1,7 @@
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
-
 import { renderObject } from 'core/renderer'
+import Tag from 'components/doc/Tag'
+
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
@@ -20,7 +21,7 @@ type TableOfContentsEntryProps = {
 }
 
 function TableOfContentsEntry({
-  entry: { children, text },
+  entry: { heading, children, text },
   depth,
 }: TableOfContentsEntryProps) {
   const [transMotion, transOpened, transClosed] = [
@@ -29,14 +30,24 @@ function TableOfContentsEntry({
     'transform max-h-0',
   ]
 
+  const { todoKeyword, tags } = heading
+
   return (
     <Disclosure as="li" defaultOpen className="py-1 w-full">
       {({ open }) => (
         <>
           <div className="flex items-center">
+            {todoKeyword && (
+              <Tag content={todoKeyword} color="green" size="small" />
+            )}
             <a href="#test-anchor" className="hover:text-blue-700">
               {text.flatMap(renderObject)}
             </a>
+            {tags &&
+              tags.length > 0 &&
+              tags.map((tag, idx) => (
+                <Tag key={idx} size="small" color="yellow" content={tag} />
+              ))}
             <Disclosure.Button
               as="span"
               className={`${!children.length && 'hidden'} contents`}
