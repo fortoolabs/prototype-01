@@ -4,7 +4,7 @@ import { useState } from 'react'
 import useSWR from 'swr'
 
 import Board from 'components/Board'
-import Linear from 'components/Linear'
+import Prose from 'components/mode/Prose'
 import { AppContainer, Row, Col } from 'components/View'
 import TOC from 'components/app/TOC'
 import NavigationBar from 'components/app/NavigationBar'
@@ -98,7 +98,7 @@ const Reader: NextPage<ReaderProps> = (props) => {
           {boardView ? (
             <Board doc={doc} />
           ) : (
-            <Linear isSerif={serif} doc={doc} />
+            <Prose isSerif={serif} doc={doc} />
           )}
         </Col>
       </Row>

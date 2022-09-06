@@ -9,7 +9,7 @@ import { LinkIcon } from '@heroicons/react/20/solid'
 import { extractNestedHeadlines, FDocument } from 'core/parser'
 
 import Board from 'components/Board'
-import Linear from 'components/Linear'
+import Prose from 'components/mode/Prose'
 
 import TOC from 'components/app/TOC'
 import Toggle from 'components/app/Toggle'
@@ -83,7 +83,7 @@ const Home: NextPage<HomePageProps> = ({ url, doc }) => {
               return <Board doc={doc} />
             case 'prose':
             default:
-              return <Linear isSerif={false} doc={doc} />
+              return <Prose isSerif={false} doc={doc} />
           }
         })()}
         aside={<TOC headings={extractNestedHeadlines(content)} />}

@@ -11,7 +11,7 @@ export type LinearProps = {
   isSerif?: boolean
 }
 
-export default function Linear({ isSerif, doc }: LinearProps) {
+export default function Prose({ isSerif, doc }: LinearProps) {
   // TODO: Explore using a theming context/provider
   // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
   const { content, title } = doc
