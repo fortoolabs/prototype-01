@@ -30,6 +30,15 @@ The Storybook setup introduced =OrgLinear= which is merely a wrapper around the 
 
 This wrapping pattern is demonstrated in the [[https://storybook.js.org/docs/react/essentials/controls#fully-custom-args][Storybook docs on fully custom args]] and hopefully isn't much of an anti-pattern. 😅
 `
+const multipleLinkInParaText = `
+*** TODO Replace uuidv4 with uuid
+
+Use https://www.npmjs.com/package/uuid instead of https://www.npmjs.com/package/uuidv4 as per UUIDv4's notice https://github.com/thenativeweb/uuidv4#please-note.
+
+*** TODO Adapt parsing options based on document input
+
+The =defaultOptions= for the uniorg parser sets =todoKeywords= to =TODO= and =DONE= (see [[https://github.com/rasendubi/uniorg/blob/0970ebcb3040b10bea58aee7601b700320762420/packages/uniorg-parse/src/parse-options.ts#L31][src]]) which is in line with Org's defaults. Custom TODO keywords that are defined through the =TODO= keyword or its variants =TYP_TODO= are not being honored and thus these keywords are parsed as "just text".
+`
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -86,3 +95,6 @@ UnparsableLinear.args = {
   </body>
 </html>`),
 }
+
+export const MultipleLinksInAParagraph = WrappedTemplate.bind({})
+MultipleLinksInAParagraph.args = { doc: multipleLinkInParaText }
