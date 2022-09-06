@@ -34,11 +34,15 @@ export default function Tag({
   }
 
   return (
+    //adding margin on one side here will eventually ruin some of
+    //the styling either:
+    //1. add margin to the neighboring component or element
+    //2. add css 'gap' property for spacing if flex or grid layout
+  
     <span
       className={[
         'font-semibold',
         'rounded-full',
-        'mr-2 mt-2',
         colors[color] ? colors[color] : colors['blue'],
         sizes[size],
       ].join(' ')}

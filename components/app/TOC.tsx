@@ -36,7 +36,7 @@ function TableOfContentsEntry({
     <Disclosure as="li" defaultOpen className="py-1 w-full">
       {({ open }) => (
         <>
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             {todoKeyword && (
               <Tag content={todoKeyword} color="green" size="small" />
             )}
@@ -46,7 +46,7 @@ function TableOfContentsEntry({
             {tags &&
               tags.length > 0 &&
               tags.map((tag, idx) => (
-                <Tag key={idx} size="small" color="yellow" content={tag} />
+                <Tag key={idx} size="small" color="yellow" content={tag}/>
               ))}
             <Disclosure.Button
               as="span"
@@ -63,8 +63,8 @@ function TableOfContentsEntry({
           </div>
           {children && children.length > 0 && (
             <Transition
+              className="overflow-auto"
               show={open}
-              className="overflow-hidden"
               enter={transMotion}
               enterFrom={transClosed}
               enterTo={transOpened}
