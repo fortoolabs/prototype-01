@@ -36,7 +36,7 @@ function TableOfContentsEntry({
     <Disclosure as="li" defaultOpen className="py-1 w-full">
       {({ open }) => (
         <>
-          <div className="flex items-center">
+          <div className="flex items-center max-w-prose">
             {todoKeyword && (
               <Tag content={todoKeyword} color="green" size="small" />
             )}
@@ -96,7 +96,7 @@ function TableOfContentsEntry({
 export default function TOC({ headings }: TOCProps) {
   if (!headings.length) return null
   return (
-    <ul className="text-sm text-gray-600">
+    <ul className="text-sm text-gray-600 overflow-y-scroll">
       {headings.map((heading, idx) => (
         <TableOfContentsEntry key={idx} entry={heading} depth={1} />
       ))}
