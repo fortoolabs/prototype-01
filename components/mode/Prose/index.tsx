@@ -37,12 +37,12 @@ export default function Prose({ isSerif, doc }: LinearProps) {
     <div
       className={[
         isSerif ? 'font-serif' : 'font-sans',
-        //'font-mono',
         'text-base max-w-prose',
-      ].join('')}
+      ].join(' ')}
     >
+      hi
       <Breadcrumbs pages={[]} />
-      {content.length} {title}
+      {title}
       {/* iterate over json, build right component */}
       {content.flatMap((el, i) => renderElement(el, i))}
     </div>
