@@ -26,7 +26,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
   const isExternal = getExternalFlag(linkType)
 
   const getIcon = (t: string): JSX.Element | null => {
-    const sharedClassNames = '-ml-0.5 mr-1 h-4 w-4'
+    const sharedClassNames = 'shrink-0 h-4 w-4'
     switch (t) {
       case 'http':
       case 'https':
@@ -56,6 +56,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
         'hover:text-blue-700',
         'inline-block',
         'inline-flex',
+        'gap-1',
         'items-center',
         'max-w-[25ch]',
         'min-w-[2ch]',
@@ -65,7 +66,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
         'shadow-sm',
         'text-gray-700',
         'transition-colors',
-        ' group',
+        'group',
         'relative',
         // TODO: Figure out how to either
         // 1: display ellipsis
@@ -86,8 +87,8 @@ export default function Link({ url, linkType, label }: LinkProps) {
           'hidden',
           'group-hover:flex',
           'left-[2px]',
-          'top-[1px]',
-          'translate-y-full',
+          'top-full',
+          'z-50',
           'px-2',
           'py-1',
           'bg-gray-700',
@@ -98,7 +99,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
           "before:content-['']",
           'before:absolute',
           'before:left-1/2',
-          'before:bottom-[95%]',
+          'before:bottom-[94%]',
           'before:-translate-x-1/2',
           'before:border-8',
           'before:border-x-transparent',
@@ -109,9 +110,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
         {isLabelShowable ? label : url}
       </span>
 
-      {false && (
-        <ExternalIcon className="-mr-0.5 ml-2 h-4 w-4" aria-hidden="true" />
-      )}
+      {false && <ExternalIcon className="h-4 w-4" aria-hidden="true" />}
     </a>
   )
 }

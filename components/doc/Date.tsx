@@ -8,7 +8,7 @@ export type DateProps = {
 
 export default function Date({ timestamp, as }: DateProps) {
   const iconArgs = {
-    className: '-ml-0.5 mr-1 h-4 w-4',
+    className: 'shrink-0 h-4 w-4',
     'aria-hidden': true,
   }
 
