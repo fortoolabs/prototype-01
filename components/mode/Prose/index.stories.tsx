@@ -7,7 +7,7 @@ import Prose from 'components/mode/Prose'
 
 const text = `This is just a *sample* text for testing in a Storybook.
 
-* Linear View
+* Prose View
 
 The /linear view/ allows one to study a documentation as linear prose. This is probably the more common way to observe a document.
 
@@ -46,7 +46,7 @@ The =defaultOptions= for the uniorg parser sets =todoKeywords= to =TODO= and =DO
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Containers/Linear',
+  title: 'Modes/Prose',
   component: Prose,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -64,30 +64,30 @@ export default {
 // allows us to fiddle with a convenient text control where we enter raw Org
 // text for fast feedback.
 // https://storybook.js.org/docs/react/essentials/controls#fully-custom-args
-const OrgLinear = ({ doc, ...args }: { doc: string }) => (
+const OrgProse = ({ doc, ...args }: { doc: string }) => (
   <Prose doc={parse(doc)} {...args} />
 )
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const WrappedTemplate: ComponentStory<typeof OrgLinear> = (args) => (
-  <OrgLinear {...args} />
+const WrappedTemplate: ComponentStory<typeof OrgProse> = (args) => (
+  <OrgProse {...args} />
 )
 
 const Template: ComponentStory<typeof Prose> = (args) => <Prose {...args} />
 
-export const PlayableLinear = WrappedTemplate.bind({})
-PlayableLinear.args = {
+export const PlayableProse = WrappedTemplate.bind({})
+PlayableProse.args = {
   doc: text,
 }
 
-export const EmptyLinear = Template.bind({})
-EmptyLinear.args = { doc: parse('') }
+export const EmptyProse = Template.bind({})
+EmptyProse.args = { doc: parse('') }
 
-export const OneLineLinear = Template.bind({})
-OneLineLinear.args = { doc: parse('Just a single line') }
+export const OneLineProse = Template.bind({})
+OneLineProse.args = { doc: parse('Just a single line') }
 
-export const UnparsableLinear = Template.bind({})
-UnparsableLinear.args = {
+export const UnparsableProse = Template.bind({})
+UnparsableProse.args = {
   doc: parse(`
 <html>
   <head><title>This is not Org</title></head>
