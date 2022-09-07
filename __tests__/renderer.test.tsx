@@ -135,7 +135,7 @@ describe('fallback', () => {
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
           <pre
-            class="p-2 rounded bg-gray-300/30 "
+            class="overflow-auto p-2 rounded bg-gray-300/30 "
           >
             some random junk
           </pre>
