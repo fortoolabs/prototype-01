@@ -48,11 +48,9 @@ export function renderElement(el: FElementType, i: number): JSX.Element[] {
             // TODO: Implement heading priority
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
-            <Heading
-              key={i}
-              title={el.content.flatMap(renderObject)}
-              level={el.level}
-            />,
+            <Heading key={i} level={el.level}>
+              {el.content.flatMap(renderObject)}
+            </Heading>,
           ]
         default:
           // FIXME: Implement a fallback case
