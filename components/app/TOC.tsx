@@ -43,11 +43,11 @@ function TableOfContentsEntry({
             <a href="#test-anchor" className="hover:text-blue-700">
               {text.flatMap(renderObject)}
             </a>
-            {tags &&
+            {/*tags &&
               tags.length > 0 &&
               tags.map((tag, idx) => (
                 <Tag key={idx} size="small" color="yellow" content={tag} />
-              ))}
+              ))*/}
             <Disclosure.Button
               as="span"
               className={`${!children.length && 'hidden'} contents`}
