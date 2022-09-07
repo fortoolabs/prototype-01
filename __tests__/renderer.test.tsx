@@ -27,11 +27,13 @@ describe('heading', () => {
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
-        <h1
-          class="StyledHeading-sc-1rdh4aw-0 gLPrrO"
+        <div
+          class="p-4"
         >
-          Collect underpants
-        </h1>
+          <h1>
+            Collect underpants
+          </h1>
+        </div>
       </DocumentFragment>
     `)
   })
@@ -51,14 +53,16 @@ describe('paragraph', () => {
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
-        <p
-          class="StyledParagraph-sc-tbetod-0 lacipA"
+        <div
+          class="p-4"
         >
-          The first part of the 
-          <b>
-            masterplan
-          </b>
-        </p>
+          <p>
+            The first part of the 
+            <b>
+              masterplan
+            </b>
+          </p>
+        </div>
       </DocumentFragment>
     `)
   })
@@ -87,17 +91,19 @@ describe('paragraph', () => {
         ),
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
-          <p
-            class="StyledParagraph-sc-tbetod-0 lacipA"
+          <div
+            class="p-4"
           >
-            Watching Penelope and Morgan solve crimes on 
-            <time
-              datetime="2015-10-21"
-            >
-              &lt;2022-08-14 Sun&gt;
-            </time>
-             while testing fallback components.
-          </p>
+            <p>
+              Watching Penelope and Morgan solve crimes on 
+              <time
+                datetime="2015-10-21"
+              >
+                &lt;2022-08-14 Sun&gt;
+              </time>
+               while testing fallback components.
+            </p>
+          </div>
         </DocumentFragment>
       `)
     })
@@ -116,11 +122,11 @@ describe('fallback', () => {
         ),
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
-          <span
-            style="border: 1px solid pink;"
+          <code
+            class="p-2 rounded bg-gray-300/30 "
           >
             some random junk
-          </span>
+          </code>
         </DocumentFragment>
       `)
     })
@@ -137,7 +143,7 @@ describe('fallback', () => {
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
           <pre
-            style="border: 1px solid pink;"
+            class="overflow-auto p-2 rounded bg-gray-300/30 "
           >
             some random junk
           </pre>
