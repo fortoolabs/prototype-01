@@ -7,5 +7,5 @@ export type FallbackBlockProps = {
 export default function Block({
   children,
 }: PropsWithChildren<FallbackBlockProps>) {
-  return <div className="bg-pink-200 p-4">{children}</div>
+  return <div className="p-4">{children}</div>
 }
