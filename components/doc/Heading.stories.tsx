@@ -23,10 +23,27 @@ One.args = {
   children: 'My Heading',
 }
 
+export const OneFull = Template.bind({})
+OneFull.args = {
+  level: '1',
+  children: 'My Heading',
+  todoKeyword: 'TODO',
+  tags: ['test', 'story'],
+}
+
 export const Two = Template.bind({})
 Two.args = {
   level: '2',
   children: 'My Heading',
+}
+
+export const TwoFullCommented = Template.bind({})
+TwoFullCommented.args = {
+  level: '2',
+  children: 'My Heading',
+  todoKeyword: 'TODO',
+  tags: ['test', 'story'],
+  commented: true,
 }
 
 export const Three = Template.bind({})

@@ -1,3 +1,5 @@
+import { HTMLAttributes } from 'react'
+
 export type TagProps = {
   content: string
   color:
@@ -17,7 +19,8 @@ export default function Tag({
   color = 'blue',
   size = 'small',
   style = 'pill',
-}: TagProps) {
+  className,
+}: TagProps & HTMLAttributes<'span'>) {
   const getStyle = (val: string | undefined) => {
     switch (val) {
       case 'block':
@@ -57,6 +60,7 @@ export default function Tag({
         getStyle(style),
         colors[color] ? colors[color] : colors['blue'],
         sizes[size],
+        className,
       ].join(' ')}
     >
       {content}
