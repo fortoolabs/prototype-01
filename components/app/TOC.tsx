@@ -96,7 +96,7 @@ function TableOfContentsEntry({
 export default function TOC({ headings }: TOCProps) {
   if (!headings.length) return null
   return (
-    <ul className="text-sm text-gray-600 overflow-y-scroll">
+    <ul className="text-sm text-gray-600">
       {headings.map((heading, idx) => (
         <TableOfContentsEntry key={idx} entry={heading} depth={1} />
       ))}
