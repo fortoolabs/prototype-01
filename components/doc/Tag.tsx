@@ -1,3 +1,5 @@
+import { HTMLAttributes } from 'react'
+
 export type TagProps = {
   content: string
   color:
@@ -10,12 +12,25 @@ export type TagProps = {
     | 'purple'
     | 'pink'
   size: 'small' | 'medium' | 'large'
+  style?: 'block' | 'pill'
 }
 export default function Tag({
   content,
   color = 'blue',
   size = 'small',
-}: TagProps) {
+  style = 'pill',
+  className,
+}: TagProps & HTMLAttributes<'span'>) {
+  const getStyle = (val: string | undefined) => {
+    switch (val) {
+      case 'block':
+        return 'rounded-md'
+      case 'pill':
+      default:
+        return 'rounded-full'
+    }
+  }
+
   const sizes = {
     small: 'py-0.5 px-2.5 text-xs',
     medium: 'py-1 px-3 text-base',
@@ -42,9 +57,10 @@ export default function Tag({
     <span
       className={[
         'font-semibold',
-        'rounded-full',
+        getStyle(style),
         colors[color] ? colors[color] : colors['blue'],
         sizes[size],
+        className,
       ].join(' ')}
     >
       {content}

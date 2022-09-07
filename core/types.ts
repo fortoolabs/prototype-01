@@ -85,10 +85,10 @@ export type FObjectType =
 export type FHeading = FRecursiveObject & {
   type: 'h'
   level: number
-  todoKeyword: string | null
-  priority: string | null
+  todoKeyword?: string
+  priority?: string
   commented: boolean
-  tags: string[]
+  tags?: string[]
 }
 
 type FParagraph = FRecursiveObject & {

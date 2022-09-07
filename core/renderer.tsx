@@ -45,13 +45,21 @@ export function renderElement(
         case 4:
         case 5:
         case 6:
+          const { level, todoKeyword, priority, commented, tags } = el
           return [
             // TODO: Migrate TODOs here to Heading component source file
             // TODO: Implement heading keyword
             // TODO: Implement heading priority
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
-            <Heading key={`h${i}`} level={el.level}>
+            <Heading
+              key={`h${i}`}
+              level={level}
+              todoKeyword={todoKeyword}
+              priority={priority}
+              commented={commented}
+              tags={tags}
+            >
               {el.content.flatMap((el, idx) =>
                 renderObject(el, `h${i}-${idx}`),
               )}
