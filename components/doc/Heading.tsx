@@ -5,7 +5,7 @@ export type HeadingProps = {
   state?: string
 }
 
-export default function Heading({ title, level }: HeadingProps) {
+function Heading({ title, level }: HeadingProps) {
   switch (level) {
     case '1':
     case 1:
@@ -34,4 +34,8 @@ export default function Heading({ title, level }: HeadingProps) {
     default:
       return <p className={`heading-${level}`}>{title}</p>
   }
+}
+
+export default function HeadingLine({ title, level }: HeadingProps) {
+  return <Heading level={level} title={title} />
 }
