@@ -51,9 +51,7 @@ describe('paragraph', () => {
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
-        <p
-          class="StyledParagraph-sc-tbetod-0 lacipA"
-        >
+        <p>
           The first part of the 
           <b>
             masterplan
@@ -87,9 +85,7 @@ describe('paragraph', () => {
         ),
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
-          <p
-            class="StyledParagraph-sc-tbetod-0 lacipA"
-          >
+          <p>
             Watching Penelope and Morgan solve crimes on 
             <time
               datetime="2015-10-21"
