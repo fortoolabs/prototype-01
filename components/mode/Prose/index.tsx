@@ -38,6 +38,7 @@ export default function Prose({ isSerif, doc }: LinearProps) {
       className={[
         isSerif ? 'font-serif' : 'font-sans',
         'text-base max-w-prose',
+        'overflow-wrap',
       ].join(' ')}
     >
       hi

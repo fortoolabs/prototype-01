@@ -61,17 +61,9 @@ export function renderElement(el: FElementType, i: number): JSX.Element[] {
     case 'p':
       return [<Paragraph key={i}>{el.content.flatMap(renderObject)}</Paragraph>]
     case 'E':
-      return [
-        <pre key={i} style={{ border: '1px solid pink' }}>
-          {el.content}
-        </pre>,
-      ]
+      return [<FallbackBlock>{el.content}</FallbackBlock>]
     case 'e':
-      return [
-        <span key={i} style={{ border: '1px solid pink' }}>
-          {el.content}
-        </span>,
-      ]
+      return [<FallbackInline>{el.content}</FallbackInline>]
     default:
       assertExhaustive(el)
   }

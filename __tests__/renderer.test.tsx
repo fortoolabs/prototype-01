@@ -116,11 +116,9 @@ describe('fallback', () => {
         ),
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
-          <span
-            style="border: 1px solid pink;"
-          >
-            some random junk
-          </span>
+          <code
+            class="p-2 rounded bg-gray-300/30 "
+          />
         </DocumentFragment>
       `)
     })
@@ -137,7 +135,7 @@ describe('fallback', () => {
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
           <pre
-            style="border: 1px solid pink;"
+            class="p-2 rounded bg-gray-300/30 "
           >
             some random junk
           </pre>
