@@ -52,19 +52,19 @@ describe('paragraph', () => {
         }),
       ),
     ).toMatchInlineSnapshot(`
-      <DocumentFragment>
-        <div
-          class="p-4"
-        >
-          <p>
-            The first part of the 
-            <b>
-              masterplan
-            </b>
-          </p>
-        </div>
-      </DocumentFragment>
-    `)
+              <DocumentFragment>
+                <div
+                  class="p-4"
+                >
+                  <p>
+                    The first part of the 
+                    <b>
+                      masterplan
+                    </b>
+                  </p>
+                </div>
+              </DocumentFragment>
+            `)
   })
 
   describe('including timestamp', () => {
@@ -90,22 +90,22 @@ describe('paragraph', () => {
           }),
         ),
       ).toMatchInlineSnapshot(`
-        <DocumentFragment>
-          <div
-            class="p-4"
-          >
-            <p>
-              Watching Penelope and Morgan solve crimes on 
-              <time
-                datetime="2015-10-21"
-              >
-                &lt;2022-08-14 Sun&gt;
-              </time>
-               while testing fallback components.
-            </p>
-          </div>
-        </DocumentFragment>
-      `)
+                  <DocumentFragment>
+                    <div
+                      class="p-4"
+                    >
+                      <p>
+                        Watching Penelope and Morgan solve crimes on 
+                        <time
+                          datetime="2015-10-21"
+                        >
+                          &lt;2022-08-14 Sun&gt;
+                        </time>
+                         while testing fallback components.
+                      </p>
+                    </div>
+                  </DocumentFragment>
+                `)
     })
   })
 })
@@ -121,14 +121,14 @@ describe('fallback', () => {
           }),
         ),
       ).toMatchInlineSnapshot(`
-        <DocumentFragment>
-          <code
-            class="p-2 rounded bg-gray-300/30 "
-          >
-            some random junk
-          </code>
-        </DocumentFragment>
-      `)
+    <DocumentFragment>
+      <pre
+        class="overflow-auto p-2 rounded bg-gray-300/30 "
+      >
+        some random junk
+      </pre>
+    </DocumentFragment>
+  `)
     })
   })
   describe('for greater element', () => {
