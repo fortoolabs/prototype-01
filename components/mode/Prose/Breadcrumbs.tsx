@@ -10,10 +10,10 @@ type BreadcrumbsProp = {
 
 export default function Breadcrumbs({ pages }: BreadcrumbsProp) {
   return (
-    <nav aria-label="Breadcrumb">
+    <nav aria-label="Breadcrumb" className="max-w-[50%]">
       <ol
         role="list"
-        className="flex h-8 w-full sm:w-auto space-x-4 rounded-md bg-white px-6 shadow"
+        className="flex h-8 sm:w-auto space-x-4 border rounded-md bg-white px-6 shadow"
       >
         <li className="flex items-center">
           <a href="#" className="text-gray-400 hover:text-gray-500">

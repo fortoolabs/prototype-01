@@ -41,7 +41,6 @@ export default function Prose({ isSerif, doc }: LinearProps) {
         'overflow-wrap',
       ].join(' ')}
     >
-      hi
       <Breadcrumbs pages={[]} />
       {title}
       {/* iterate over json, build right component */}
