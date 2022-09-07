@@ -27,9 +27,13 @@ describe('heading', () => {
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
-        <h1>
-          Collect underpants
-        </h1>
+        <div
+          class="p-4"
+        >
+          <h1>
+            Collect underpants
+          </h1>
+        </div>
       </DocumentFragment>
     `)
   })
@@ -50,7 +54,7 @@ describe('paragraph', () => {
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
         <div
-          class="bg-pink-200 p-4"
+          class="p-4"
         >
           <p>
             The first part of the 
@@ -88,7 +92,7 @@ describe('paragraph', () => {
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
           <div
-            class="bg-pink-200 p-4"
+            class="p-4"
           >
             <p>
               Watching Penelope and Morgan solve crimes on 
