@@ -1,9 +1,14 @@
 import { PropsWithChildren } from 'react'
 
 import Block from 'components/doc/Block'
+import Tag from 'components/doc/Tag'
 
 export type HeadingProps = {
   level: '1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6 | undefined
+  todoKeyword?: string
+  priority?: string
+  commented?: boolean
+  tags?: string[]
   isTodo?: boolean
   state?: string
 }
@@ -42,10 +47,25 @@ function Heading({ children, level }: PropsWithChildren<HeadingProps>) {
 export default function HeadingLine({
   children,
   level,
+  todoKeyword,
+  tags,
 }: PropsWithChildren<HeadingProps>) {
   return (
     <Block>
+      {todoKeyword && (
+        <Tag color="green" size="medium" content={todoKeyword} style="block" />
+      )}
       <Heading level={level}>{children}</Heading>
+      {tags &&
+        tags.length > 0 &&
+        tags.map((tag, idx) => (
+          <Tag
+            key={`h${idx}-${tag}`}
+            color="yellow"
+            size="medium"
+            content={tag}
+          />
+        ))}
     </Block>
   )
 }

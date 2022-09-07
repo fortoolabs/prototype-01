@@ -38,6 +38,7 @@ export function renderElement(
       // TODO: Implement
       return []
     case 'h':
+      const { level, todoKeyword, priority, commented, tags } = el
       switch (el.level) {
         case 1:
         case 2:
@@ -51,7 +52,14 @@ export function renderElement(
             // TODO: Implement heading priority
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
-            <Heading key={`h${i}`} level={el.level}>
+            <Heading
+              key={`h${i}`}
+              level={level}
+              todoKeyword={todoKeyword}
+              priority={priority}
+              commented={commented}
+              tags={tags}
+            >
               {el.content.flatMap((el, idx) =>
                 renderObject(el, `h${i}-${idx}`),
               )}
