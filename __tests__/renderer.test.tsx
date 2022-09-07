@@ -27,9 +27,7 @@ describe('heading', () => {
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
-        <h1
-          class="StyledHeading-sc-1rdh4aw-0 gLPrrO"
-        >
+        <h1>
           Collect underpants
         </h1>
       </DocumentFragment>
@@ -51,12 +49,16 @@ describe('paragraph', () => {
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
-        <p>
-          The first part of the 
-          <b>
-            masterplan
-          </b>
-        </p>
+        <div
+          class="bg-pink-200 p-4"
+        >
+          <p>
+            The first part of the 
+            <b>
+              masterplan
+            </b>
+          </p>
+        </div>
       </DocumentFragment>
     `)
   })
@@ -85,15 +87,19 @@ describe('paragraph', () => {
         ),
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
-          <p>
-            Watching Penelope and Morgan solve crimes on 
-            <time
-              datetime="2015-10-21"
-            >
-              &lt;2022-08-14 Sun&gt;
-            </time>
-             while testing fallback components.
-          </p>
+          <div
+            class="bg-pink-200 p-4"
+          >
+            <p>
+              Watching Penelope and Morgan solve crimes on 
+              <time
+                datetime="2015-10-21"
+              >
+                &lt;2022-08-14 Sun&gt;
+              </time>
+               while testing fallback components.
+            </p>
+          </div>
         </DocumentFragment>
       `)
     })
