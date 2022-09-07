@@ -4,13 +4,8 @@ import Block from 'components/doc/Block'
 import Tag from 'components/doc/Tag'
 
 export type HeadingProps = {
-  level: '1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6 | undefined
-  todoKeyword?: string
-  priority?: string
-  commented?: boolean
-  tags?: string[]
+  level: string | number
 }
-
 function Heading({
   children,
   className,
@@ -50,12 +45,18 @@ function Heading({
   }
 }
 
+export type HeadingLineProps = HeadingProps & {
+  todoKeyword: string | null
+  priority: string | null
+  commented?: boolean
+  tags: string[]
+}
 export default function HeadingLine({
   children,
   level,
   todoKeyword,
   tags,
-}: PropsWithChildren<HeadingProps>) {
+}: PropsWithChildren<HeadingLineProps>) {
   const getTodoTag = (keyword: string) => {
     switch (keyword) {
       case 'TODO':

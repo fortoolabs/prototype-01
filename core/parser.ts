@@ -347,11 +347,9 @@ function unpackElementType(
         {
           type: 'h',
           level: x.level,
-          // FIX: This ugliness
-          todoKeyword: x.todoKeyword !== null ? x.todoKeyword : undefined,
+          todoKeyword: x.todoKeyword,
           commented: x.commented,
-          // FIX: This ugliness
-          priority: x.priority !== null ? x.priority : undefined,
+          priority: x.priority,
           tags: x.tags,
           content: x.children.map(unpackObjectType),
         },

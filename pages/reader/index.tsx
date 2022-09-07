@@ -6,7 +6,6 @@ import base64url from 'base64url'
 
 import { Button, TextInput } from 'grommet'
 
-import Heading from 'components/doc/Heading'
 import { AppContainer, Main, MainContent } from 'components/View'
 
 // TODO: Reimplement
@@ -16,7 +15,6 @@ const Home: NextPage = () => {
     <AppContainer>
       <Main>
         <MainContent>
-          <Heading level="1">Welcome to Formation!</Heading>
           <p>Enter URL to read .org file</p>
           <TextInput
             placeholder="https://...filename.org"
