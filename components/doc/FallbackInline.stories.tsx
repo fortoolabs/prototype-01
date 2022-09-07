@@ -17,12 +17,12 @@ const Template: ComponentStory<typeof FallbackInline> = (args) => (
 export const LinkFallback = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 LinkFallback.args = {
-  content: '[[https://example.com][link]]',
+  children: '[[https://example.com][link]]',
   border: false,
 }
 export const DateFallback = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 DateFallback.args = {
-  content: '[2022-08-24 Wed 16:43]',
+  children: '[2022-08-24 Wed 16:43]',
   border: true,
 }

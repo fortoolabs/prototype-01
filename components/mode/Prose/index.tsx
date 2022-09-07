@@ -11,7 +11,7 @@ export type LinearProps = {
   isSerif?: boolean
 }
 
-export default function Linear({ isSerif, doc }: LinearProps) {
+export default function Prose({ isSerif, doc }: LinearProps) {
   // TODO: Explore using a theming context/provider
   // https://reactician.com/articles/sharing-state-between-nextjs-page-navigations-using-react-contexts
   const { content, title } = doc
@@ -37,14 +37,14 @@ export default function Linear({ isSerif, doc }: LinearProps) {
     <div
       className={[
         isSerif ? 'font-serif' : 'font-sans',
-        //'font-mono',
         'text-base max-w-prose',
-      ].join('')}
+        'overflow-wrap',
+      ].join(' ')}
     >
       <Breadcrumbs pages={[]} />
-      {content.length} {title}
+      {title}
       {/* iterate over json, build right component */}
-      {content.flatMap((el, i) => renderElement(el, i))}
+      {content.flatMap((el, i) => renderElement(el, `prose-${i}`))}
     </div>
   )
 }

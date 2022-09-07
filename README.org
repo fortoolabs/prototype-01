@@ -3,6 +3,10 @@
 :CUSTOM_ID: formation.tools-app
 :END:
 
+#+begin_quote
+⚠️ Yes, this is GPL3 because I'm using [[https://github.com/rasendubi/uniorg][@rasendubi's uniorg]]. I've been freaking out a bit about the licensing point for a while but then again... if I'm honest about this being a /scrappy prototype/, I should be fine sharing the code. 🤷🏿‍♂️ If there is a moat to this idea that I'm flirting with, it will not be around this part. There are a lot of things around offering this as a managed service, covering the collaborative editing bits and also adding integrations and assist features like GPT-3-powered "ELI5 style" paraphrasing features to ensure that different audiences can consume the same content in a manner that serves them well enough. Imagine paraphrasing a complex technical text to extract the 3 core points for a legal or business audience -- not saying that this is even remotely possible but it's part of the marketplace and platform idea that I'm also playing with. Too early to say though. I'm collecting brutally honest feedback to figure out if I'm just full of it or if I maybe unto something so don't be shy and hit me up if this speaks to you.
+#+end_quote
+
 ** Development
 :PROPERTIES:
 :CUSTOM_ID: development

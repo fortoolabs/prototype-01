@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     <AppContainer>
       <Main>
         <MainContent>
-          <Heading title="Welcome to Formation!" level="1" />
+          <Heading level="1">Welcome to Formation!</Heading>
           <p>Enter URL to read .org file</p>
           <TextInput
             placeholder="https://...filename.org"

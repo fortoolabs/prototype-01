@@ -23,11 +23,14 @@ export function render(doc: FDocument): JSX.Element {
   return <span>nope</span>
 }
 
-export function renderElement(el: FElementType, i: number): JSX.Element[] {
+export function renderElement(
+  el: FElementType,
+  i: number | string,
+): JSX.Element[] {
   switch (el.type) {
     case 'S':
       // TODO: Render section in collapsible component
-      return el.content.flatMap(renderElement)
+      return el.content.flatMap((el, idx) => renderElement(el, `S${i}-${idx}`))
     case 'L':
       // TODO: Implement
       return []
@@ -48,82 +51,115 @@ export function renderElement(el: FElementType, i: number): JSX.Element[] {
             // TODO: Implement heading priority
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
-            <Heading
-              key={i}
-              title={el.content.flatMap(renderObject)}
-              level={el.level}
-            />,
+            <Heading key={`h${i}`} level={el.level}>
+              {el.content.flatMap((el, idx) =>
+                renderObject(el, `h${i}-${idx}`),
+              )}
+            </Heading>,
           ]
         default:
           // FIXME: Implement a fallback case
           return []
       }
     case 'p':
-      return [<Paragraph key={i}>{el.content.flatMap(renderObject)}</Paragraph>]
+      return [
+        <Paragraph key={`p${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `p${i}-${idx}`))}
+        </Paragraph>,
+      ]
     case 'E':
-      return [
-        <pre key={i} style={{ border: '1px solid pink' }}>
-          {el.content}
-        </pre>,
-      ]
+      return [<FallbackBlock key={`E${i}`}>{el.content}</FallbackBlock>]
     case 'e':
-      return [
-        <span key={i} style={{ border: '1px solid pink' }}>
-          {el.content}
-        </span>,
-      ]
+      return [<FallbackInline key={`e${i}`}>{el.content}</FallbackInline>]
     default:
       assertExhaustive(el)
   }
 }
 
-export function renderObject(el: FObjectType, i: number): JSX.Element[] {
+export function renderObject(
+  el: FObjectType,
+  i: number | string,
+): JSX.Element[] {
   switch (el.type) {
     case 'a':
       return [
         <Link
-          key={i}
+          key={`a${i}`}
           url={el.target}
           linkType={el.linkType}
-          label={el.content.flatMap(renderObject)}
+          label={el.content.flatMap((el, idx) =>
+            renderObject(el, `a${i}-${idx}`),
+          )}
         />,
       ]
     case 'b':
-      return [<b key={i}>{el.content.flatMap(renderObject)}</b>]
+      return [
+        <b key={`b${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `b${i}-${idx}`))}
+        </b>,
+      ]
     case 'i':
-      return [<i key={i}>{el.content.flatMap(renderObject)}</i>]
+      return [
+        <i key={`i${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `i${i}-${idx}`))}
+        </i>,
+      ]
     case 'c':
-      return [<code key={i}>{el.content}</code>]
+      return [<code key={`c${i}`}>{el.content}</code>]
     case 'v':
-      return [<code key={i}>{el.content}</code>]
+      return [<code key={`v${i}`}>{el.content}</code>]
     case '+':
-      return [<s key={i}>{el.content.flatMap(renderObject)}</s>]
+      return [
+        <s key={`+${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `+${i}-${idx}`))}
+        </s>,
+      ]
     case 'u':
-      return [<u key={i}>{el.content.flatMap(renderObject)}</u>]
+      return [
+        <u key={`u${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `u${i}-${idx}`))}
+        </u>,
+      ]
     case '^':
-      return [<sup key={i}>{el.content.flatMap(renderObject)}</sup>]
+      return [
+        <sup key={`^${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `^${i}-${idx}`))}
+        </sup>,
+      ]
     case '_':
-      return [<sub key={i}>{el.content.flatMap(renderObject)}</sub>]
+      return [
+        <sub key={`_${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `_${i}-${idx}`))}
+        </sub>,
+      ]
     case 't':
-      return [<Fragment key={i}>{el.content}</Fragment>]
+      return [<Fragment key={`t${i}`}>{el.content}</Fragment>]
     case 'Z':
       // TODO: Pass along datetime
       return [
-        <time key={i} dateTime="2015-10-21">
+        <time key={`Z${i}`} dateTime="2015-10-21">
           {el.content}
         </time>,
       ]
     case 'f':
       // TODO: Implement footnote
-      return [<em key={i}>{el.content.flatMap(renderObject)}</em>]
+      return [
+        <em key={`f${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `f${i}-${idx}`))}
+        </em>,
+      ]
     case 'X':
       // TODO: Display LaTeX (using MathJaX or something server-side-rendered for better perf)
-      return [<code key={i}>{el.content}</code>]
+      return [<code key={`X${i}`}>{el.content}</code>]
     case '?':
       // TODO: Decide on and implement fallback-strategy for entity types
-      return [<code key={i}>{el.content}</code>]
+      return [<code key={`?${i}`}>{el.content}</code>]
     case 'C':
-      return [<td key={i}>{el.content.flatMap(renderObject)}</td>]
+      return [
+        <td key={`C${i}`}>
+          {el.content.flatMap((el, idx) => renderObject(el, `C${i}-${idx}`))}
+        </td>,
+      ]
     default:
       assertExhaustive(el)
   }

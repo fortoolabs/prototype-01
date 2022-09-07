@@ -78,6 +78,7 @@ if (import.meta.vitest) {
               "id": "stub-function",
               "members": [],
               "name": "Stub function",
+              "tags": [],
             },
           ],
           "title": "DONE",
@@ -92,6 +93,7 @@ if (import.meta.vitest) {
               "id": "a-simple-task",
               "members": [],
               "name": "A simple task",
+              "tags": [],
             },
           ],
           "title": "TODO",
@@ -108,27 +110,28 @@ if (import.meta.vitest) {
     ].join('\n')
     it('extracts data', () => {
       expect(extractKanbanData(parse(text))).toMatchInlineSnapshot(`
-      {
-        "DONE": {
-          "tasks": [
-            {
-              "columnId": "DONE",
-              "completed": false,
-              "daysLeft": 0,
-              "description": "",
-              "id": "stub-function",
-              "members": [],
-              "name": "Stub function",
-            },
-          ],
-          "title": "DONE",
-        },
-        "TODO": {
-          "tasks": [],
-          "title": "TODO",
-        },
-      }
-    `)
+        {
+          "DONE": {
+            "tasks": [
+              {
+                "columnId": "DONE",
+                "completed": false,
+                "daysLeft": 0,
+                "description": "",
+                "id": "stub-function",
+                "members": [],
+                "name": "Stub function",
+                "tags": [],
+              },
+            ],
+            "title": "DONE",
+          },
+          "TODO": {
+            "tasks": [],
+            "title": "TODO",
+          },
+        }
+      `)
     })
   })
 }

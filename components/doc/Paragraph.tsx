@@ -1,13 +1,15 @@
-import { Paragraph as GrommetParagraph } from 'grommet'
+import { PropsWithChildren } from 'react'
 
-export type ParagraphProps = {
-  children: string | JSX.Element[]
-}
+import Block from 'components/doc/Block'
 
-export default function Paragraph({ children }: ParagraphProps) {
-  return <GrommetParagraph>{children}</GrommetParagraph>
-}
+export type ParagraphProps = {}
 
-export const ParagraphSmall = ({ children }: ParagraphProps) => {
-  return <GrommetParagraph size="small">{children}</GrommetParagraph>
+export default function Paragraph({
+  children,
+}: PropsWithChildren<ParagraphProps>) {
+  return (
+    <Block>
+      <p>{children}</p>
+    </Block>
+  )
 }

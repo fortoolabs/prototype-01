@@ -9,7 +9,7 @@ exports[`toc > renders 1`] = `
       class="py-1 w-full"
     >
       <div
-        class="flex items-center"
+        class="flex items-center gap-1"
       >
         <a
           class="hover:text-blue-700"
@@ -25,7 +25,7 @@ exports[`toc > renders 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+            class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,9 @@ exports[`toc > renders 1`] = `
           </svg>
         </span>
       </div>
-      <div>
+      <div
+        class="overflow-auto"
+      >
         <ul
           class="px-2 h-fit"
           id="headlessui-disclosure-panel-:r1:"
@@ -47,7 +49,7 @@ exports[`toc > renders 1`] = `
             class="py-1 w-full"
           >
             <div
-              class="flex items-center"
+              class="flex items-center gap-1"
             >
               <a
                 class="hover:text-blue-700"
@@ -62,7 +64,7 @@ exports[`toc > renders 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+                  class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +82,7 @@ exports[`toc > renders 1`] = `
             class="py-1 w-full"
           >
             <div
-              class="flex items-center"
+              class="flex items-center gap-1"
             >
               <a
                 class="hover:text-blue-700"
@@ -96,7 +98,7 @@ exports[`toc > renders 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+                  class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +111,9 @@ exports[`toc > renders 1`] = `
                 </svg>
               </span>
             </div>
-            <div>
+            <div
+              class="overflow-auto"
+            >
               <ul
                 class="px-4 h-fit"
                 id="headlessui-disclosure-panel-:r6:"
@@ -118,7 +122,7 @@ exports[`toc > renders 1`] = `
                   class="py-1 w-full"
                 >
                   <div
-                    class="flex items-center"
+                    class="flex items-center gap-1"
                   >
                     <a
                       class="hover:text-blue-700"
@@ -133,7 +137,7 @@ exports[`toc > renders 1`] = `
                     >
                       <svg
                         aria-hidden="true"
-                        class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+                        class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +161,7 @@ exports[`toc > renders 1`] = `
       class="py-1 w-full"
     >
       <div
-        class="flex items-center"
+        class="flex items-center gap-1"
       >
         <a
           class="hover:text-blue-700"
@@ -172,7 +176,7 @@ exports[`toc > renders 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+            class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +194,7 @@ exports[`toc > renders 1`] = `
       class="py-1 w-full"
     >
       <div
-        class="flex items-center"
+        class="flex items-center gap-1"
       >
         <a
           class="hover:text-blue-700"
@@ -205,7 +209,7 @@ exports[`toc > renders 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="transition  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
+            class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
