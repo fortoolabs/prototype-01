@@ -46,7 +46,7 @@ function TableOfContentsEntry({
             {tags &&
               tags.length > 0 &&
               tags.map((tag, idx) => (
-                <Tag key={idx} size="small" color="yellow" content={tag}/>
+                <Tag key={idx} size="small" color="yellow" content={tag} />
               ))}
             <Disclosure.Button
               as="span"

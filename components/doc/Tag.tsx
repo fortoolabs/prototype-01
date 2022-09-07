@@ -38,7 +38,7 @@ export default function Tag({
     //the styling either:
     //1. add margin to the neighboring component or element
     //2. add css 'gap' property for spacing if flex or grid layout
-  
+
     <span
       className={[
         'font-semibold',
