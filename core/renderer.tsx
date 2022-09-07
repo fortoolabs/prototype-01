@@ -63,7 +63,7 @@ export function renderElement(el: FElementType, i: number): JSX.Element[] {
     case 'E':
       return [<FallbackBlock>{el.content}</FallbackBlock>]
     case 'e':
-      return [<FallbackInline>{el.content}</FallbackInline>]
+      return [<FallbackInline content={el.content} />]
     default:
       assertExhaustive(el)
   }
