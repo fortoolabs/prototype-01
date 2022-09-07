@@ -118,7 +118,9 @@ describe('fallback', () => {
         <DocumentFragment>
           <code
             class="p-2 rounded bg-gray-300/30 "
-          />
+          >
+            some random junk
+          </code>
         </DocumentFragment>
       `)
     })
