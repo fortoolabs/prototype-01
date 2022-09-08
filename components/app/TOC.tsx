@@ -40,9 +40,10 @@ function TableOfContentsEntry({
             {todoKeyword && (
               <Tag content={todoKeyword} color="green" size="small" />
             )}
-            <a href="#test-anchor" className="hover:text-blue-700">
+            {/* TODO: Implement when headline linking works */}
+            <span className="hover:text-blue-700">
               {text.flatMap(renderObject)}
-            </a>
+            </span>
             {/*tags &&
               tags.length > 0 &&
               tags.map((tag, idx) => (
