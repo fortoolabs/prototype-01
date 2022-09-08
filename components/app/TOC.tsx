@@ -1,6 +1,6 @@
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 import { renderObject } from 'core/renderer'
-import Tag from 'components/doc/Tag'
+import Tag, { colorForKeyword } from 'components/doc/Tag'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
@@ -40,7 +40,7 @@ function TableOfContentsEntry({
             {todoKeyword && (
               <Tag
                 content={todoKeyword}
-                color="green"
+                color={colorForKeyword(todoKeyword)}
                 size="small"
                 style="block"
               />
