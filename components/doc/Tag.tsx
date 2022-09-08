@@ -24,7 +24,7 @@ export default function Tag({
   const getStyle = (val: string | undefined) => {
     switch (val) {
       case 'block':
-        return 'rounded-md'
+        return 'rounded'
       case 'pill':
       default:
         return 'rounded-full'

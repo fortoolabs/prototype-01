@@ -38,7 +38,12 @@ function TableOfContentsEntry({
         <>
           <div className="flex items-center gap-1">
             {todoKeyword && (
-              <Tag content={todoKeyword} color="green" size="small" />
+              <Tag
+                content={todoKeyword}
+                color="green"
+                size="small"
+                style="block"
+              />
             )}
             {/* TODO: Implement when headline linking works */}
             <span className="hover:text-blue-700">
