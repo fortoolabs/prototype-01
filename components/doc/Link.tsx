@@ -16,7 +16,13 @@ export default function Link({ url, linkType, label }: LinkProps) {
     switch (t) {
       case 'http':
       case 'https':
-      case 'file':
+        // TODO: Treat file links as external when we know how to href
+        // Currently it is unclear how to consistently figure out how to map a
+        // file link to an absolute URL. It's likely not a hard problem but I just
+        // can't be bothered to think about it right now. Just a quick fix to
+        // remove broken links at the minimum.
+        //case 'file':
+
         return true
       default:
         return false
@@ -39,78 +45,58 @@ export default function Link({ url, linkType, label }: LinkProps) {
   }
 
   const isLabelShowable = label.length > 0
+  const linkClasses = [
+    'bg-white',
+    'border',
+    'border-gray-300',
+    'focus:outline-none',
+    'focus:ring-2',
+    'focus:ring-indigo-500',
+    'focus:ring-offset-2',
+    'font-medium',
+    'hover:bg-gray-50',
+    'hover:text-blue-700',
+    'inline-block',
+    'inline-flex',
+    'gap-1',
+    'items-center',
+    'max-w-[25ch]',
+    'min-w-[2ch]',
+    'min-h-[1ch]',
+    'px-1.5',
+    'rounded',
+    'shadow-sm',
+    'text-gray-700',
+    'transition-colors',
+    'group',
+    'relative',
+    // TODO: Figure out how to either
+    // 1: display ellipsis
+    // 2. display an overlay that presents the full text
+    // 3. truncate the link in the middle for readability
+    // 4. marquee the text on hover or
+  ].join(' ')
 
-  return (
-    // eslint-disable-next-line react/jsx-no-target-blank
-    <a
-      className={[
-        'bg-white',
-        'border',
-        'border-gray-300',
-        'focus:outline-none',
-        'focus:ring-2',
-        'focus:ring-indigo-500',
-        'focus:ring-offset-2',
-        'font-medium',
-        'hover:bg-gray-50',
-        'hover:text-blue-700',
-        'inline-block',
-        'inline-flex',
-        'gap-1',
-        'items-center',
-        'max-w-[25ch]',
-        'min-w-[2ch]',
-        'min-h-[1ch]',
-        'px-1.5',
-        'rounded',
-        'shadow-sm',
-        'text-gray-700',
-        'transition-colors',
-        'group',
-        'relative',
-        // TODO: Figure out how to either
-        // 1: display ellipsis
-        // 2. display an overlay that presents the full text
-        // 3. truncate the link in the middle for readability
-        // 4. marquee the text on hover or
-      ].join(' ')}
-      href={url}
-      target={isExternal ? '_blank' : ''}
-      rel={isExternal ? 'noopener noreferrer' : ''}
-    >
-      {getIcon(linkType)}
-
-      <span className="block truncate">{isLabelShowable ? label : url}</span>
-      <span
-        className={[
-          'absolute',
-          'hidden',
-          'group-hover:flex',
-          'left-[2px]',
-          'top-full',
-          'z-50',
-          'px-2',
-          'py-1',
-          'bg-gray-700',
-          'rounded-lg',
-          'text-center',
-          'text-white',
-          'text-sm',
-          "before:content-['']",
-          'before:absolute',
-          'before:left-1/2',
-          'before:bottom-[94%]',
-          'before:-translate-x-1/2',
-          'before:border-8',
-          'before:border-x-transparent',
-          'before:border-t-transparent',
-          'before:border-b-gray-700',
-        ].join(' ')}
+  if (isExternal) {
+    return (
+      // eslint-disable-next-line react/jsx-no-target-blank
+      <a
+        className={linkClasses}
+        href={url}
+        target={isExternal ? '_blank' : ''}
+        rel={isExternal ? 'noopener noreferrer' : ''}
       >
-        {isLabelShowable ? label : url}
+        {getIcon(linkType)}
+        <span className="block truncate">{isLabelShowable ? label : url}</span>
+        {false && <ExternalIcon className="h-4 w-4" aria-hidden="true" />}
+      </a>
+    )
+  } else {
+    return (
+      <span className={linkClasses}>
+        {getIcon(linkType)}
+        <span className="block truncate">{isLabelShowable ? label : url}</span>
       </span>
-
-      {false && <ExternalIcon className="h-4 w-4" aria-hidden="true" />}
-    </a>
-  )
+    )
+  }
 }
