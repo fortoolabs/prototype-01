@@ -30,7 +30,7 @@ function TableOfContentsEntry({
     'transform max-h-0',
   ]
 
-  const { todoKeyword, tags } = heading
+  const { todoKeyword } = heading
 
   return (
     <Disclosure as="li" defaultOpen className="py-1 w-full">
@@ -49,11 +49,6 @@ function TableOfContentsEntry({
             <span className="hover:text-blue-700">
               {text.flatMap(renderObject)}
             </span>
-            {/*tags &&
-              tags.length > 0 &&
-              tags.map((tag, idx) => (
-                <Tag key={idx} size="small" color="yellow" content={tag} />
-              ))*/}
             <Disclosure.Button
               as="span"
               className={`${!children.length && 'hidden'} contents`}
