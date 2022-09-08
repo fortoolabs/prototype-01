@@ -1,8 +1,6 @@
 import { HTMLAttributes } from 'react'
 
-export type TagProps = {
-  content: string
-  color:
+type TagColor =
     | 'blue'
     | 'gray'
     | 'red'
@@ -11,6 +9,24 @@ export type TagProps = {
     | 'indigo'
     | 'purple'
     | 'pink'
+
+export function colorForKeyword(keyword: string): TagColor {
+    switch (keyword) {
+      case 'TODO':
+        return 'red'
+      case 'DONE':
+      case 'CANCELLED':
+      case 'CANCELED':
+        return 'green'
+      default:
+        return 'yellow'
+    }
+  }
+
+
+export type TagProps = {
+  content: string
+  color: TagColor
   size: 'small' | 'medium' | 'large'
   style?: 'block' | 'pill'
 }
