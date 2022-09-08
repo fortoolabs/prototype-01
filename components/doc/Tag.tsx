@@ -1,8 +1,6 @@
 import { HTMLAttributes } from 'react'
 
-export type TagProps = {
-  content: string
-  color:
+type TagColor =
     | 'blue'
     | 'gray'
     | 'red'
@@ -11,6 +9,24 @@ export type TagProps = {
     | 'indigo'
     | 'purple'
     | 'pink'
+
+export function colorForKeyword(keyword: string): TagColor {
+    switch (keyword) {
+      case 'TODO':
+        return 'red'
+      case 'DONE':
+      case 'CANCELLED':
+      case 'CANCELED':
+        return 'green'
+      default:
+        return 'yellow'
+    }
+  }
+
+
+export type TagProps = {
+  content: string
+  color: TagColor
   size: 'small' | 'medium' | 'large'
   style?: 'block' | 'pill'
 }
@@ -24,7 +40,7 @@ export default function Tag({
   const getStyle = (val: string | undefined) => {
     switch (val) {
       case 'block':
-        return 'rounded-md'
+        return 'rounded'
       case 'pill':
       default:
         return 'rounded-full'
@@ -38,14 +54,14 @@ export default function Tag({
   }
 
   const colors = {
-    blue: 'bg-blue-100 text-blue-800',
-    gray: 'bg-gray-100 text-gray-800',
-    red: 'bg-red-100 text-red-800',
-    green: 'bg-green-100 text-green-800',
-    yellow: 'bg-yellow-100 text-yellow-800',
-    indigo: 'bg-indigo-100 text-indigo-800',
-    purple: 'bg-purple-100 text-purple-800',
-    pink: 'bg-pink-100 text-pink-800',
+    blue: 'bg-blue-100 text-blue-900',
+    gray: 'bg-gray-100 text-gray-900',
+    red: 'bg-red-100 text-red-900',
+    green: 'bg-green-100 text-green-900',
+    yellow: 'bg-yellow-100 text-yellow-900',
+    indigo: 'bg-indigo-100 text-indigo-900',
+    purple: 'bg-purple-100 text-purple-900',
+    pink: 'bg-pink-100 text-pink-900',
   }
 
   return (

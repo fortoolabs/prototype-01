@@ -23,6 +23,7 @@ export default {
       ],
     },
     size: { control: 'select', options: ['small', 'medium', 'large'] },
+    style: { control: 'select', options: ['block', 'pill'] },
   },
 } as ComponentMeta<typeof Tag>
 

@@ -1,6 +1,6 @@
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 import { renderObject } from 'core/renderer'
-import Tag from 'components/doc/Tag'
+import Tag, { colorForKeyword } from 'components/doc/Tag'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
@@ -30,7 +30,7 @@ function TableOfContentsEntry({
     'transform max-h-0',
   ]
 
-  const { todoKeyword, tags } = heading
+  const { todoKeyword } = heading
 
   return (
     <Disclosure as="li" defaultOpen className="py-1 w-full">
@@ -38,16 +38,17 @@ function TableOfContentsEntry({
         <>
           <div className="flex items-center gap-1">
             {todoKeyword && (
-              <Tag content={todoKeyword} color="green" size="small" />
+              <Tag
+                content={todoKeyword}
+                color={colorForKeyword(todoKeyword)}
+                size="small"
+                style="block"
+              />
             )}
-            <a href="#test-anchor" className="hover:text-blue-700">
+            {/* TODO: Implement when headline linking works */}
+            <span className="hover:text-blue-700">
               {text.flatMap(renderObject)}
-            </a>
-            {/*tags &&
-              tags.length > 0 &&
-              tags.map((tag, idx) => (
-                <Tag key={idx} size="small" color="yellow" content={tag} />
-              ))*/}
+            </span>
             <Disclosure.Button
               as="span"
               className={`${!children.length && 'hidden'} contents`}
