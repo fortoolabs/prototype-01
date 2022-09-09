@@ -29,7 +29,7 @@ type HomePageProps = {
 }
 // TODO: Show notification on isFailing
 // TODO: Add button with link to URL
-const Home: NextPage<HomePageProps> = ({ url, doc }) => {
+export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
   const [mode, setMode] = useState('prose')
 
   const session = {
