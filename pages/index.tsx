@@ -84,16 +84,14 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
         })()}
         aside={<TOC headings={extractNestedHeadlines(content)} />}
       />
-      {title && (
-        <Head>
-          <title>{title}</title>
-          <script
-            defer
-            data-domain="proto.formation.tools"
-            src="https://plausible.io/js/plausible.js"
-          ></script>
-        </Head>
-      )}
+      <Head>
+        {title && <title>{title}</title>}
+        <script
+          defer
+          data-domain="proto.formation.tools"
+          src="https://plausible.io/js/plausible.js"
+        ></script>
+      </Head>
     </Layout>
   )
 }
