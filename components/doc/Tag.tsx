@@ -1,28 +1,27 @@
 import { HTMLAttributes } from 'react'
 
 type TagColor =
-    | 'blue'
-    | 'gray'
-    | 'red'
-    | 'green'
-    | 'yellow'
-    | 'indigo'
-    | 'purple'
-    | 'pink'
+  | 'blue'
+  | 'gray'
+  | 'red'
+  | 'green'
+  | 'yellow'
+  | 'indigo'
+  | 'purple'
+  | 'pink'
 
 export function colorForKeyword(keyword: string): TagColor {
-    switch (keyword) {
-      case 'TODO':
-        return 'red'
-      case 'DONE':
-      case 'CANCELLED':
-      case 'CANCELED':
-        return 'green'
-      default:
-        return 'yellow'
-    }
+  switch (keyword) {
+    case 'TODO':
+      return 'red'
+    case 'DONE':
+    case 'CANCELLED':
+    case 'CANCELED':
+      return 'green'
+    default:
+      return 'yellow'
   }
-
+}
 
 export type TagProps = {
   content: string
