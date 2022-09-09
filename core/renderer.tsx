@@ -42,7 +42,7 @@ export function renderElement(
     case 'I':
       // TODO: Implement
       return [
-        <ListChild key={`l${i}`}>
+        <ListChild key={`l${i}`} content={el.content}>
           {el.content.flatMap((el, idx) => renderElement(el, `li${i}-${idx}`))}
         </ListChild>,
       ]

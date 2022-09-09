@@ -5,7 +5,7 @@ import parse from 'core/parser'
 
 import Prose from 'components/mode/Prose'
 
-const text = `Lists *Sample*.
+const simpleList = `
 
 *** A simple List
 - lists
@@ -13,11 +13,13 @@ const text = `Lists *Sample*.
 - dates
 - footnotes
 - tags
-
+`
+const descriptiveList = ` 
 *** Descriptive List
 - one :: first number
 - okay :: 2nd number
-
+`
+const mixedList = `
 *** Mixed List
 - fruits
 
@@ -76,7 +78,16 @@ const WrappedTemplate: ComponentStory<typeof OrgProse> = (args) => (
   <OrgProse {...args} />
 )
 
-export const DefaultLists = WrappedTemplate.bind({})
-DefaultLists.args = {
-  doc: text,
+export const SimpleList = WrappedTemplate.bind({})
+SimpleList.args = {
+  doc: simpleList,
+}
+export const DescriptiveList = WrappedTemplate.bind({})
+descriptiveList
+DescriptiveList.args = {
+  doc: descriptiveList,
+}
+export const MixedList = WrappedTemplate.bind({})
+MixedList.args = {
+  doc: mixedList,
 }
