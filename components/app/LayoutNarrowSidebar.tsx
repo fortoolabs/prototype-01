@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+
+import { encodeTarget } from 'core/helpers'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
@@ -79,6 +82,9 @@ type DesktopInputProps = {
   icon?: React.ElementType
 }
 function DesktopInput({ label, placeholder, icon: Icon }: DesktopInputProps) {
+  const router = useRouter()
+  const [target, setTarget] = useState('')
+
   return (
     <div className="min-w-0 flex-1">
       <div className="relative max-w-2xl text-gray-400 focus-within:text-black">
@@ -87,13 +93,16 @@ function DesktopInput({ label, placeholder, icon: Icon }: DesktopInputProps) {
         </label>
         <form
           onSubmit={(event) => {
+            const encoded = encodeTarget(target)
             event.preventDefault()
-            console.log('handling this')
+            router.push(`/r/${encoded}`)
           }}
         >
           <input
             id="desktop-input"
             type="desktop-input"
+            value={target}
+            onChange={(event) => setTarget(event.target.value)}
             placeholder={placeholder}
             className="block w-full border-transparent pl-12 placeholder-gray-400 focus:border-transparent focus:ring-0 sm:text-sm"
             autoComplete="off"
