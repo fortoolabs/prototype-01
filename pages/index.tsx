@@ -117,4 +117,4 @@ export const getServerSideProps: GetServerSideProps = async (): Promise<{
   }
 }
 
-export default Home
+export default HomePage
