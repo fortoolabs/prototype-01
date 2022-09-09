@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import base64url from 'base64url'
-
 import parse, { FDocument } from 'core/parser'
+import { decodeTarget } from 'core/helpers'
 
 // TODO: Move into API d.ts (to be created)
 export type DocResponse = {
@@ -64,7 +63,7 @@ export const getDoc = async (
     return [400, payload]
   }
 
-  const url = base64url.decode(handle)
+  const url = decodeTarget(handle)
 
   if (!validURL(url)) {
     const payload = {
