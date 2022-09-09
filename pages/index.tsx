@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 
-import base64url from 'base64url'
+import { defaultTarget as target } from 'core/helpers'
 
 import { LinkIcon } from '@heroicons/react/20/solid'
 
@@ -19,10 +19,6 @@ import { getDoc } from 'pages/api/doc/index'
 import Layout, {
   HorizontalDiptychWithAside,
 } from 'components/app/LayoutNarrowSidebar'
-
-const target = base64url.encode(
-  'https://gitlab.com/formation.tools/eng/engineering/-/raw/main/README.org',
-)
 
 type HomePageProps = {
   url?: string
@@ -61,7 +57,7 @@ const Home: NextPage<HomePageProps> = ({ url, doc }) => {
             href={url}
           >
             <LinkIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            Source
+            Visit Source
           </a>
           <Toggle
             // TODO: Remove for tabs or something more appropriate
