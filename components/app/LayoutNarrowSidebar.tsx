@@ -73,22 +73,37 @@ function MobilePicker({
   )
 }
 
-function DesktopSearchInput() {
+type DesktopInputProps = {
+  label: string
+  placeholder: string
+  icon?: React.ElementType
+}
+function DesktopInput({ label, placeholder, icon: Icon }: DesktopInputProps) {
   return (
     <div className="min-w-0 flex-1">
       <div className="relative max-w-2xl text-gray-400 focus-within:text-black">
         <label htmlFor="desktop-search" className="sr-only">
-          Search
+          {label}
         </label>
-        <input
-          id="desktop-search"
-          type="search"
-          placeholder="Search"
-          className="block w-full border-transparent pl-12 placeholder-gray-400 focus:border-transparent focus:ring-0 sm:text-sm"
-        />
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-4">
-          <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
-        </div>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault()
+            console.log('handling this')
+          }}
+        >
+          <input
+            id="desktop-input"
+            type="desktop-input"
+            placeholder={placeholder}
+            className="block w-full border-transparent pl-12 placeholder-gray-400 focus:border-transparent focus:ring-0 sm:text-sm"
+            autoComplete="off"
+          />
+        </form>
+        {Icon && (
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-4">
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -104,7 +119,10 @@ function DesktopNav({
 }: MenuProps & SessionProps & React.PropsWithChildren) {
   return (
     <div className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between">
-      <DesktopSearchInput />
+      <DesktopInput
+        label="Enter your target URL here"
+        placeholder="Enter your target, like: https://gitlab.com/formation.tools/eng/engineering/-/raw/main/README.org"
+      />
       <div className="ml-10 flex flex-shrink-0 items-center space-x-4 pr-4">
         {menuOptions.length > 0 && (
           <nav aria-label="Global" className="flex space-x-10">
