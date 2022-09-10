@@ -39,6 +39,7 @@ export default function Prose({ isSerif, doc }: LinearProps) {
         isSerif ? 'font-serif' : 'font-sans',
         'text-base max-w-prose',
         'overflow-wrap',
+        'leading-loose',
       ].join(' ')}
     >
       <Breadcrumbs pages={[]} />

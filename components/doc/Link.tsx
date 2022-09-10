@@ -63,6 +63,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
     'max-w-[25ch]',
     'min-w-[2ch]',
     'min-h-[1ch]',
+    'leading-normal',
     'px-1.5',
     'rounded',
     'shadow-sm',
