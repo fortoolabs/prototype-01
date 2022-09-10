@@ -87,7 +87,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
         target={isExternal ? '_blank' : ''}
         rel={isExternal ? 'noopener noreferrer' : ''}
       >
-        {getIcon(linkType)}
+        {false && getIcon(linkType)}
         <span className="block truncate">{isLabelShowable ? label : url}</span>
         {false && <ExternalIcon className="h-4 w-4" aria-hidden="true" />}
       </a>
@@ -95,7 +95,7 @@ export default function Link({ url, linkType, label }: LinkProps) {
   } else {
     return (
       <span className={linkClasses}>
-        {getIcon(linkType)}
+        {false && getIcon(linkType)}
         <span className="block truncate">{isLabelShowable ? label : url}</span>
       </span>
     )
