@@ -1,6 +1,6 @@
 import { createElement, PropsWithChildren } from 'react'
 
-import Block from 'components/doc/Block'
+import Block, { blockClasses } from 'components/doc/Block'
 import Tag from 'components/doc/Tag'
 
 export type HeadingProps = {
@@ -114,7 +114,7 @@ export default function HeadingLine({
   const tags = tagsElement(tagLabels)
 
   return (
-    <Block className={`flex ${headingTypography}`}>
+    <Block className={`${blockClasses} flex ${headingTypography}`}>
       {todo} {title} {tags}
     </Block>
   )
