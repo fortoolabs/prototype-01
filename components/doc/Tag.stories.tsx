@@ -23,7 +23,7 @@ export default {
       ],
     },
     size: { control: 'select', options: ['small', 'medium', 'large'] },
-    style: { control: 'select', options: ['block', 'pill'] },
+    shape: { control: 'select', options: ['block', 'pill'] },
   },
 } as ComponentMeta<typeof Tag>
 
@@ -48,6 +48,13 @@ export const ErrorTag = Template.bind({})
 ErrorTag.args = {
   content: 'fail',
   color: 'red',
+}
+
+export const SmallTag = Template.bind({})
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+SmallTag.args = {
+  content: 'small',
+  size: 'small',
 }
 
 export const MediumTag = Template.bind({})

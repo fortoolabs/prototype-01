@@ -5,8 +5,6 @@ module.exports = {
   stories: [
     '../components/*.stories.@(js|jsx|ts|tsx)',
     '../components/**/*.stories.@(js|jsx|ts|tsx)',
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
@@ -29,7 +27,7 @@ module.exports = {
     builder: '@storybook/builder-webpack5',
     disableTelemetry: true,
   },
-  typescript: { reactDocgen: false },
+  typescript: { check: false, reactDocgen: false },
   webpackFinal: async (config, { configType }) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
     return config
