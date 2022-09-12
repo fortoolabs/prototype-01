@@ -7,43 +7,49 @@ export type HeadingProps = {
   level: string | number
 }
 
-function getHeadingClasses(level: string | number): [string, string] {
-  const sharedTypography = 'font-bold'
+const sharedTypography = 'font-bold'
 
+// Return font size and HTML element type
+function getHeadingClasses(level: string | number): [string, string] {
   switch (level) {
     case '1':
     case 1:
-      return [`${sharedTypography} text-xl`, 'h1']
+      return ['text-2xl', 'h1']
 
     case '2':
     case 2:
-      return [`${sharedTypography} text-xl`, 'h2']
+      return ['text-xl', 'h2']
 
     case '3':
     case 3:
-      return [`${sharedTypography} text-lg`, 'h3']
+      return ['text-lg', 'h3']
 
     case '4':
     case 4:
-      return [`${sharedTypography} text-lg`, 'h4']
+      return ['text-lg', 'h4']
 
     case '5':
     case 5:
-      return [`${sharedTypography}`, 'h5']
+      return ['', 'h5']
 
     case '6':
     case 6:
-      return [`${sharedTypography}`, 'h6']
+      return ['', 'h6']
 
     default:
-      return [`${sharedTypography} underline heading-${level}`, 'p']
+      return [`heading-${level}`, 'p']
   }
 }
 
 const headingBlockClasses = [
-  'flex-auto inline-block align-baseline', // flex
+  'inline-block align-baseline align-text-bottom', // flex
   'mr-3 last:mr-0', // margins
-  'overflow-hidden text-ellipsis', // overflow
+  'text-ellipsis', // overflow
+].join(' ')
+
+const tagsClasses = [
+  'space-x-1 space-x-reverse',
+  'space-x-y space-y-reverse',
 ].join(' ')
 
 const todoColor = (keyword: string) => {
@@ -63,13 +69,8 @@ const todoElement = (keyword: string | null) => {
   }
 
   return (
-    <span className={`${headingBlockClasses}`}>
-      <Tag
-        color={todoColor(keyword)}
-        size="medium"
-        content={keyword}
-        style="block"
-      />
+    <span className={`${headingBlockClasses} flex-none`}>
+      <Tag color={todoColor(keyword)} content={keyword} style="block" />
     </span>
   )
 }
@@ -77,15 +78,11 @@ const todoElement = (keyword: string | null) => {
 const tagsElement = (tags: string[]) => {
   if (tags && tags.length > 0) {
     return (
-      <span className={`${headingBlockClasses} w-32`}>
+      <span
+        className={`${headingBlockClasses} ${tagsClasses} flex flex-row-reverse flex-wrap w-2/6`}
+      >
         {tags.map((tag, idx) => (
-          <Tag
-            key={`h${idx}-${tag}`}
-            className={'mr-2'}
-            color="blue"
-            size="medium"
-            content={tag}
-          />
+          <Tag key={`h${idx}-${tag}`} size="small" color="blue" content={tag} />
         ))}
       </span>
     )
@@ -104,20 +101,20 @@ export default function HeadingLine({
   todoKeyword,
   tags: tagLabels,
 }: PropsWithChildren<HeadingLineProps>) {
-  const [className, elType] = getHeadingClasses(level)
+  const [headingTypography, elType] = getHeadingClasses(level)
 
   const todo = todoElement(todoKeyword)
   const title = createElement(
     elType,
     {
-      className: `${headingBlockClasses} min-w-1/2 ${className}`,
+      className: `${headingBlockClasses} ${sharedTypography} ${headingTypography} grow`,
     },
     children,
   )
   const tags = tagsElement(tagLabels)
 
   return (
-    <Block className="align-bottom align-text-bottom ${classes}">
+    <Block className={`flex ${headingTypography}`}>
       {todo} {title} {tags}
     </Block>
   )

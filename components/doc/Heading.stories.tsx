@@ -79,7 +79,7 @@ export const PlayableHeading = WrappedTemplate.bind({})
 PlayableHeading.args = {
   title: rawTitle,
   level: 1,
-  tags: ['test', 'story', 'funny'],
+  tags: ['test', 'story', 'funny', '@leni', 'Berlin'],
   commented: false,
   priority: 'A',
   todoKeyword: 'TODO',
@@ -143,4 +143,6 @@ export const Beyond = Template.bind({})
 Beyond.args = {
   level: '7',
   children: 'My Heading',
+  todoKeyword: 'WIP',
+  tags: ['information', 'UX'],
 }
