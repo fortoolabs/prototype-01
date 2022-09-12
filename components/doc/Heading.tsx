@@ -70,7 +70,7 @@ const todoElement = (keyword: string | null) => {
 
   return (
     <span className={`${headingBlockClasses} flex-none`}>
-      <Tag color={todoColor(keyword)} content={keyword} style="block" />
+      <Tag color={todoColor(keyword)} content={keyword} shape="block" />
     </span>
   )
 }

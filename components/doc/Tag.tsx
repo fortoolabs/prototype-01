@@ -73,13 +73,13 @@ export type TagProps = {
   content: string
   color: TagColor
   size?: 'small' | 'medium' | 'large'
-  style?: 'block' | 'pill'
+  shape?: 'block' | 'pill'
 }
 export default function Tag({
   content,
   size,
   color = 'blue',
-  style = 'pill',
+  shape = 'pill',
   className,
 }: TagProps & HTMLAttributes<'span'>) {
   return (
@@ -91,7 +91,7 @@ export default function Tag({
     <span
       className={[
         'border border-1',
-        shapeClasses(style),
+        shapeClasses(shape),
         colorClasses(color),
         tagSizeClasses(size),
         className,

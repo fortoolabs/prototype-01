@@ -42,7 +42,7 @@ function TableOfContentsEntry({
                 content={todoKeyword}
                 color={todoKeywordColorClasses(todoKeyword)}
                 size="small"
-                style="block"
+                shape="block"
               />
             )}
             {/* TODO: Implement when headline linking works */}
