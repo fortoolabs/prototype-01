@@ -64,7 +64,7 @@ function TableOfContentsEntry({
           </div>
           {children && children.length > 0 && (
             <Transition
-              className="overflow-auto"
+              className="overflow-none"
               show={open}
               enter={transMotion}
               enterFrom={transClosed}
