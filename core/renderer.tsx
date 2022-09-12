@@ -10,6 +10,7 @@ import FallbackInline, {
 } from 'components/doc/FallbackInline'
 import FallbackBlock, { FallbackBlockProps } from 'components/doc/FallbackBlock'
 import Date, { DateProps } from 'components/doc/Date'
+import { List, ListChild, ListChildProps, ListProps } from 'components/doc/List'
 
 function assertExhaustive(
   value: never,
@@ -33,10 +34,18 @@ export function renderElement(
       return el.content.flatMap((el, idx) => renderElement(el, `S${i}-${idx}`))
     case 'L':
       // TODO: Implement
-      return []
+      return [
+        <List key={`u${i}`}>
+          {el.content.flatMap((el, idx) => renderElement(el, `u${i}-${idx}`))}
+        </List>,
+      ]
     case 'I':
       // TODO: Implement
-      return []
+      return [
+        <ListChild key={`l${i}`} content={el.content}>
+          {el.content.flatMap((el, idx) => renderElement(el, `li${i}-${idx}`))}
+        </ListChild>,
+      ]
     case 'h':
       switch (el.level) {
         case 1:
