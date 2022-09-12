@@ -14,7 +14,10 @@ export default {
   argTypes: {
     level: { control: 'select', options: [1, 2, 3, 4, 5, 6, 7] },
     title: { control: 'text', description: 'Org content of title' },
-    todoKeyword: { control: 'select', options: [undefined, 'TODO', 'DONE'] },
+    todoKeyword: {
+      control: 'select',
+      options: [undefined, 'TODO', 'DONE', 'WIP'],
+    },
     priority: { control: 'radio', options: [undefined, 'A', 'B', 'C'] },
     commented: { control: 'boolean' },
     tags: { control: 'object' },
