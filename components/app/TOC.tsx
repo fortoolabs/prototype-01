@@ -33,7 +33,7 @@ function TableOfContentsEntry({
   const { todoKeyword } = heading
 
   return (
-    <Disclosure as="li" defaultOpen className="py-1 w-full">
+    <Disclosure as="li" defaultOpen className="py-1 max-w-prose">
       {({ open }) => (
         <>
           <div className="flex items-center gap-1">
