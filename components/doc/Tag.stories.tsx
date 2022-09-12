@@ -50,6 +50,13 @@ ErrorTag.args = {
   color: 'red',
 }
 
+export const SmallTag = Template.bind({})
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+SmallTag.args = {
+  content: 'small',
+  size: 'small',
+}
+
 export const MediumTag = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 MediumTag.args = {

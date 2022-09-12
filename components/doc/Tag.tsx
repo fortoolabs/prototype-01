@@ -28,11 +28,11 @@ const tagSizeClasses = (size?: string) => {
     case 'small':
       return 'text-xs h-6 py-1 px-2'
     case 'medium':
-      return 'py-1 px-3 text-base'
+      return 'py-1 px-2 text-base'
     case 'large':
-      return 'py-1 px-3 text-lg'
+      return 'py-1 px-2 text-lg'
     default:
-      return 'p-2'
+      return 'p-0 px-2'
   }
 }
 
@@ -49,23 +49,23 @@ const shapeClasses = (val?: string) => {
 const colorClasses = (color: string) => {
   switch (color) {
     case 'blue':
-      return 'bg-blue-100 text-blue-900 border-blue-500'
+      return 'bg-blue-100 text-blue-900 border-blue-300'
     case 'gray':
-      return 'bg-gray-100 text-gray-900 border-gray-500'
+      return 'bg-gray-100 text-gray-900 border-gray-300'
     case 'red':
-      return 'bg-red-100 text-red-900 border-red-500'
+      return 'bg-red-100 text-red-900 border-red-300'
     case 'green':
-      return 'bg-green-100 text-green-900 border-green-500'
+      return 'bg-green-100 text-green-900 border-green-300'
     case 'yellow':
-      return 'bg-yellow-100 text-yellow-900 border-yellow-500'
+      return 'bg-yellow-100 text-yellow-900 border-yellow-300'
     case 'indigo':
-      return 'bg-indigo-100 text-indigo-900 border-indigo-500'
+      return 'bg-indigo-100 text-indigo-900 border-indigo-300'
     case 'purple':
-      return 'bg-purple-100 text-purple-900 border-purple-500'
+      return 'bg-purple-100 text-purple-900 border-purple-300'
     case 'pink':
-      return 'bg-pink-100 text-pink-900 border-pink-500'
+      return 'bg-pink-100 text-pink-900 border-pink-300'
     default:
-      return 'bg-pink-100 text-pink-900 border-pink-500'
+      return 'bg-pink-100 text-pink-900 border-pink-300'
   }
 }
 
@@ -90,6 +90,7 @@ export default function Tag({
 
     <span
       className={[
+        'border border-1',
         shapeClasses(style),
         colorClasses(color),
         tagSizeClasses(size),
