@@ -7,7 +7,8 @@ import TOC from './TOC'
 
 const toc = [
   '* Part 1',
-  "** A part with a very long title that requires space, more space than I'm willing to allocate for this, but hey 🤷🏿‍♂️... we can't have it all!",
+  "** TODO A part with a very long title that requires space, more space than I'm willing to allocate for this, but hey 🤷🏿‍♂️... we can't have it all!",
+  '*** Just a demonstration in how the long title unfolds',
   '** DONE Stub basic TOC component :@tijan:',
   '** DONE Fix transition (animation) bug in TOC :@tijan:',
   '** TODO Merge latest transition improvements to TOC :@vidbina:',
