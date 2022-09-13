@@ -12,6 +12,8 @@ export default function Paragraph({
     //add and remove to see how it affects lists stories
     //again comes down to what we have to discuss on abstracting
     //things properly
-    <p>{children}</p>
+    <Block>
+      <p>{children}</p>
+    </Block>
   )
 }

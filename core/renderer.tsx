@@ -33,19 +33,39 @@ export function renderElement(
       // TODO: Render section in collapsible component
       return el.content.flatMap((el, idx) => renderElement(el, `S${i}-${idx}`))
     case 'L':
-      // TODO: Implement
       return [
-        <List key={`u${i}`}>
-          {el.content.flatMap((el, idx) => renderElement(el, `u${i}-${idx}`))}
+        <List key={`L${i}`}>
+          {el.content.flatMap((x, idx) => renderElement(x, `L${i}-I${idx}`))}
         </List>,
       ]
+
     case 'I':
-      // TODO: Implement
+      if (el.content.length === 0) {
+        return []
+      }
+
+      const [head, ...rest] = el.content
+
+      // We don't know how to render a list if the head is not a paragraph
+      if (head.type !== 'p') {
+        return []
+      }
+
+      const headObjects = head.content.flatMap((x, idx) =>
+        renderObject(x, `${i}-label-${idx}`),
+      )
+
+      const restObjects =
+        rest && rest.length > 0
+          ? rest.flatMap((x, idx) => renderElement(x, `${i}-body=${idx}`))
+          : []
+
       return [
-        <ListChild key={`l${i}`} content={el.content}>
-          {el.content.flatMap((el, idx) => renderElement(el, `li${i}-${idx}`))}
+        <ListChild key={i} label={headObjects}>
+          {restObjects}
         </ListChild>,
       ]
+
     case 'h':
       switch (el.level) {
         case 1:

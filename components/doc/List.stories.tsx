@@ -1,26 +1,23 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import parse from 'core/parser'
+import { List } from 'components/doc/List'
 
-import Prose from 'components/mode/Prose'
+import parse from 'core/parser'
+import { renderElement } from 'core/renderer'
 
 const simpleList = `
-
-*** A simple List
 - lists
 - radio links
 - dates
 - footnotes
 - tags
 `
-const descriptiveList = ` 
-*** Descriptive List
+const descriptiveList = `
 - one :: first number
 - okay :: 2nd number
 `
 const mixedList = `
-*** Mixed List
 - fruits
 
   1. apples
@@ -45,14 +42,12 @@ const mixedList = `
   - [[https://example.com][imaginary]]
   - [X] cabbage
   - [~] salat
-
-
 `
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Document/List',
-  component: Prose,
+  component: List,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     doc: {
@@ -63,19 +58,32 @@ export default {
       control: 'boolean',
     },
   },
-} as ComponentMeta<typeof Prose>
+} as ComponentMeta<typeof List>
 
 // Wrapper component that parses the doc prop before passing it to Linear which
 // allows us to fiddle with a convenient text control where we enter raw Org
 // text for fast feedback.
 // https://storybook.js.org/docs/react/essentials/controls#fully-custom-args
-const OrgProse = ({ doc, ...args }: { doc: string }) => (
-  <Prose doc={parse(doc)} {...args} />
-)
+const OrgList = ({ doc }: { doc: string }) => {
+  const data = parse(doc).content[0]
+
+  if (typeof data === 'string') {
+    console.error('String type data is not a list')
+    return <List>String is not valid</List>
+  }
+
+  switch (data.type) {
+    case 'L':
+      return renderElement(data, 'random')[0]
+    default:
+      console.error(`Type ${data.type} is no a list`)
+      return <List>wrong data type {data.type}</List>
+  }
+}
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const WrappedTemplate: ComponentStory<typeof OrgProse> = (args) => (
-  <OrgProse {...args} />
+const WrappedTemplate: ComponentStory<typeof OrgList> = (args) => (
+  <OrgList {...args} />
 )
 
 export const SimpleList = WrappedTemplate.bind({})
