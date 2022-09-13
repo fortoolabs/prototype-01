@@ -15,5 +15,5 @@ export default function Block({
   className = blockClasses,
   children,
 }: PropsWithChildren<FallbackBlockProps> & HTMLAttributes<'div'>) {
-  return <div className={`p-4 ${className}`}>{children}</div>
+  return <div className={`p-2 md:p-4 ${className}`}>{children}</div>
 }

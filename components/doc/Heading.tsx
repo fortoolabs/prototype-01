@@ -114,7 +114,7 @@ export default function HeadingLine({
   const tags = tagsElement(tagLabels)
 
   return (
-    <Block className={`${blockClasses} flex ${headingTypography}`}>
+    <Block className={`${blockClasses} md:flex ${headingTypography}`}>
       {todo} {title} {tags}
     </Block>
   )
