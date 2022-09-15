@@ -12,9 +12,10 @@ function TailwindDocument() {
         <NextScript />
         <Script
           defer
-          data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
           src="/js/script.js"
-      />
+          strategy="afterInteractive"
+          data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+        />
       </body>
     </Html>
   )
