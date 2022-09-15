@@ -88,7 +88,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
       />
       <Script
         defer
-        data-domain="proto.formation.tools"
+        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
         src="https://plausible.io/js/plausible.js"
       />
       <Head>{title && <title>{title}</title>}</Head>
