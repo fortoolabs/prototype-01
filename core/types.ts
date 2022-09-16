@@ -91,6 +91,16 @@ export type FHeading = FRecursiveObject & {
   tags: string[]
 }
 
+export type FCommentBlock = {
+  type: '#'
+  content: string
+}
+
+export type FComment = {
+  type: '/'
+  content: string
+}
+
 type FParagraph = FRecursiveObject & {
   type: 'p'
 }
@@ -105,13 +115,13 @@ export type FElement =
   //  | FPlanning
   //  | FNodeProperty
   //  | FListItemTag
-  //  | FCommentBlock
+  | FCommentBlock
   //  | FSrcBlock
   //  | FExampleBlock
   //  | FExportBlock
   //  | FKeyword
   //  | FTableRow
-  //  | FComment
+  | FComment
   //  | FFixedWidth
   //  | FClock
   //  | FLatexEnvironment

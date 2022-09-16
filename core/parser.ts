@@ -51,8 +51,9 @@ export function extractText(
     case 'f':
       return el.label
     case 'E':
-      return el.content
     case 'e':
+    case '#':
+    case '/':
       return el.content
     default:
       // TODO: Deal with empty content scenarios, e.g.: link [[https://www.example.com]]
@@ -87,8 +88,10 @@ export function extractFormattedText(
     case 'C':
       // Ignore table cell
       return []
-    case 'e':
     case 'E':
+    case 'e':
+    case '#':
+    case '/':
       // Ignore fallbacks
       return []
     default:
@@ -354,16 +357,18 @@ function unpackElementType(
           content: x.children.map(unpackObjectType),
         },
       ]
+    case 'comment-block':
+      return [{ type: '#', content: x.value }]
+    case 'comment':
+      return [{ type: '/', content: x.value }]
     case 'planning':
     case 'node-property':
     case 'list-item-tag':
-    case 'comment-block':
     case 'src-block':
     case 'example-block':
     case 'export-block':
     case 'keyword':
     case 'table-row':
-    case 'comment':
     case 'fixed-width':
     case 'clock':
     case 'latex-environment':
@@ -424,6 +429,7 @@ function convert(
     case 'verse-block':
     case 'center-block':
     case 'special-block':
+    case 'comment-block':
     case 'footnote-definition':
     case 'table':
       return {
@@ -444,7 +450,6 @@ function convert(
     case 'planning':
     case 'node-property':
     case 'list-item-tag':
-    case 'comment-block':
     case 'src-block':
     case 'example-block':
     case 'export-block':
