@@ -375,16 +375,14 @@ export function HorizontalDiptychWithAside({
       {/* Primary column */}
       <section
         aria-labelledby="primary-heading"
-    className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last p-0 md:p-2"
+        className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last p-0 md:p-2"
       >
         {main}
       </section>
 
       {/* Secondary column (hidden on smaller screens) */}
       <aside className="hidden lg:order-first lg:block lg:flex-shrink-0 bg-gray-100 p-2 overflow-y-auto border-0 border-r-2 border-gray-300">
-        <div className="relative flex h-full w-96 flex-col">
-          {aside}
-        </div>
+        <div className="relative flex h-full w-96 flex-col">{aside}</div>
       </aside>
     </main>
   )
