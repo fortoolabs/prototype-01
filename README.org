@@ -87,3 +87,7 @@ Run =npm run test= in order to run the tests. The test runner is pretty convenie
 - [[https://v2.grommet.io/][Grommet]]
 - [[https://swr.vercel.app/][SWR]]
 - [[https://react-syntax-highlighter.github.io/react-syntax-highlighter/][react-syntax-highlighter]], used for the Code component
+
+*** Analytics
+
+We are using Plausible for analytics and load the necessary script using the =afterInteractive= strategy to improve the load performance.
