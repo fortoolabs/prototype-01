@@ -422,6 +422,27 @@ describe('list', () => {
   })
 })
 
+describe('comment', () => {
+  const dut = (x) => parse(x).content[0]
+
+  it('block is parsed', () => {
+    const raw = `
+#+begin_comment
+Move along, nothing to see here.
+...
+#+end_comment
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+      {
+        "content": "Move along, nothing to see here.
+      ...
+      ",
+        "type": "#",
+      }
+    `)
+  })
+})
+
 describe('extractText', () => {
   const extract = (x) => extractText(parse(x).content[0])
 
