@@ -105,6 +105,8 @@ export function renderElement(
         </Paragraph>,
       ]
     case 'E':
+    case '#':
+    case '/':
       return [<FallbackBlock key={`E${i}`}>{el.content}</FallbackBlock>]
     case 'e':
       return [<FallbackInline key={`e${i}`}>{el.content}</FallbackInline>]

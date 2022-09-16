@@ -422,6 +422,57 @@ describe('list', () => {
   })
 })
 
+describe('comment', () => {
+  const dut = (x) => parse(x).content[0]
+
+  it('parses', () => {
+    const raw = `
+# Just for your eyes only
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+      {
+        "content": "Just for your eyes only",
+        "type": "/",
+      }
+    `)
+  })
+
+  it('parses when multi-line', () => {
+    const raw = `
+# Just for your eyes only
+#
+# But over multiple lines
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+      {
+        "content": "Just for your eyes only
+
+      But over multiple lines",
+        "type": "/",
+      }
+    `)
+  })
+
+  describe('comment', () => {
+    it('parses', () => {
+      const raw = `
+#+begin_comment
+Move along, nothing to see here.
+...
+#+end_comment
+`
+      expect(dut(raw)).toMatchInlineSnapshot(`
+      {
+        "content": "Move along, nothing to see here.
+      ...
+      ",
+        "type": "#",
+      }
+    `)
+    })
+  })
+})
+
 describe('extractText', () => {
   const extract = (x) => extractText(parse(x).content[0])
 
