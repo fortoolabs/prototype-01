@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
-import Script from 'next/script'
 
 import { defaultTarget as target } from 'core/helpers'
 
@@ -86,11 +85,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
         })()}
         aside={<TOC headings={extractNestedHeadlines(content)} />}
       />
-      <Script
-        defer
-        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-        src="https://plausible.io/js/plausible.js"
-      />
+
       <Head>{title && <title>{title}</title>}</Head>
     </Layout>
   )
