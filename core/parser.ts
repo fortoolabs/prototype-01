@@ -6,6 +6,7 @@ import {
   OrgData,
   ObjectType,
   GreaterElementType,
+  Headline,
   ElementType,
   ListItem,
 } from 'uniorg'
@@ -353,20 +354,7 @@ function unpackElementType(
       }
     // ElementType
     case 'headline':
-      const id = nextId()
-
-      return [
-        {
-          type: 'h',
-          id,
-          level: x.level,
-          todoKeyword: x.todoKeyword,
-          commented: x.commented,
-          priority: x.priority,
-          tags: x.tags,
-          content: x.children.map(unpackObjectType),
-        },
-      ]
+      return [unpackHeadline(ctx, x)]
     case 'comment-block':
       return [{ type: '#', content: x.value }]
     case 'comment':
@@ -390,6 +378,22 @@ function unpackElementType(
       return [{ type: 'p', content: x.children.map(unpackObjectType) }]
     default:
       return assertExhaustive(x)
+  }
+}
+
+function unpackHeadline(ctx: Context, x: Headline): FHeading {
+  const { nextId } = ctx
+  const id = nextId()
+
+  return {
+    type: 'h',
+    id,
+    level: x.level,
+    todoKeyword: x.todoKeyword,
+    commented: x.commented,
+    priority: x.priority,
+    tags: x.tags,
+    content: x.children.map(unpackObjectType),
   }
 }
 
