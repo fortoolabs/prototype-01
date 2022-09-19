@@ -426,6 +426,20 @@ function convert(
   node: GreaterElementType | ElementType,
   idx: number,
 ): FDocument {
+  // TODO: Fuse unpackElementType and convert
+
+  // convert is a higher-level abstraction of unpackElementType. It is poorly
+  // designed because it reduces on the top-level of the document while we want
+  // to run this logic consistently thoughout the depth of the document and
+  // potentially reduce to a nested structure.
+
+  // The design problem stems from us wanting to operate on the acc (which is a
+  // top-doc structure) while traversing the tree and potentially finding us
+  // deep in the document structure (far away from the top). Perhaps the acc
+  // should compose top and local structures in a manner in an accessible manner
+  // (like a tuple) to provide an API that is easy to work with regardless of
+  // the depth of the local node being processed.
+
   // TODO: Implement fallback for all NOOPs
   switch (node.type) {
     // GreaterElementType
