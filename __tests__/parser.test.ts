@@ -6,7 +6,7 @@ import { emptyDocument, FDocument, FHeading } from 'core/types'
 import parse, {
   extractText,
   extractFormattedText,
-  extractHeadlines,
+  extractFlatHeadlines,
   extractNestedHeadlines,
   unpackTodoKeyword,
 } from 'core/parser'
@@ -93,11 +93,11 @@ describe('generally', () => {
 ** E1`
     describe('flat extraction', () => {
       it('extracts all headings', () => {
-        expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
+        expect(extractFlatHeadlines(parse(raw).content)).toMatchSnapshot()
       })
 
       it('extracts top-level headings only', () => {
-        expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+        expect(extractFlatHeadlines(parse(raw).content, 1)).toMatchSnapshot()
       })
     })
 

@@ -102,14 +102,15 @@ export function extractFormattedText(
   }
 }
 
-export function extractHeadlines(
+// Extract a flat list of headlines
+export function extractFlatHeadlines(
   els: FElementType[],
   depth?: number,
 ): FTableOfContents {
   return els.reduce((acc: FTableOfContents, val) => {
     switch (val.type) {
       case 'S':
-        return [...acc, ...extractHeadlines(val.content, depth)]
+        return [...acc, ...extractFlatHeadlines(val.content, depth)]
       case 'h':
         // Return all headings when depth is undefined
         // Otherwise, if return heading if the level fits the depth constraint
@@ -129,6 +130,7 @@ export function extractHeadlines(
   }, [])
 }
 
+// Extract a nested list of headlines
 export function extractNestedHeadlines(
   els: FElementType[],
   depth?: number,
