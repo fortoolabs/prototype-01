@@ -84,6 +84,7 @@ export type FObjectType =
 
 export type FHeading = FRecursiveObject & {
   type: 'h'
+  id?: string
   level: number
   todoKeyword: string | null
   priority: string | null

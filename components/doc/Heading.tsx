@@ -90,12 +90,14 @@ const tagsElement = (tags: string[]) => {
 }
 
 export type HeadingLineProps = HeadingProps & {
+  id?: string
   todoKeyword: string | null
   priority: string | null
   commented?: boolean
   tags: string[]
 }
 export default function HeadingLine({
+  id,
   children,
   level,
   todoKeyword,
@@ -107,6 +109,7 @@ export default function HeadingLine({
   const title = createElement(
     elType,
     {
+      id,
       className: `${headingBlockClasses} ${sharedTypography} ${headingTypography} grow`,
     },
     children,

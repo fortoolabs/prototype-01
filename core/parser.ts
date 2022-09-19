@@ -23,6 +23,8 @@ import {
   emptyDocument,
 } from 'core/types'
 
+import { nanoid } from 'nanoid'
+
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
 
@@ -346,9 +348,13 @@ function unpackElementType(
       }
     // ElementType
     case 'headline':
+      // TODO: Expose id generation through a nextId function or something 🤷🏿‍♂️
+      const id = nanoid()
+
       return [
         {
           type: 'h',
+          id,
           level: x.level,
           todoKeyword: x.todoKeyword,
           commented: x.commented,

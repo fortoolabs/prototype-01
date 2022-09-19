@@ -17,6 +17,7 @@ describe('heading', () => {
       f(
         renderElement({
           type: 'h',
+          id: 'hopefully-random-id',
           level: 1,
           todoKeyword: 'TODO',
           priority: 'A',

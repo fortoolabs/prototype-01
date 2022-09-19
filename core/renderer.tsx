@@ -74,7 +74,7 @@ export function renderElement(
         case 4:
         case 5:
         case 6:
-          const { level, todoKeyword, priority, commented, tags } = el
+          const { id, level, todoKeyword, priority, commented, tags } = el
           return [
             // TODO: Migrate TODOs here to Heading component source file
             // TODO: Implement heading keyword
@@ -82,6 +82,7 @@ export function renderElement(
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
             <Heading
+              id={id}
               key={`h${i}`}
               level={level}
               todoKeyword={todoKeyword}
