@@ -458,9 +458,11 @@ function convert(
 
     // ElementType
     case 'headline':
+      const headline = unpackHeadline(ctx, node)
+
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(ctx, node)],
+        content: [...acc.content, headline],
       }
     case 'planning':
     case 'node-property':
