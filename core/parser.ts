@@ -23,10 +23,11 @@ import {
   emptyDocument,
 } from 'core/types'
 
-import { nanoid } from 'nanoid'
-
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
+
+type NextIdentifierGenerator = () => string
+type Context = { text: string; nextId: NextIdentifierGenerator }
 
 function assertExhaustive(
   value: never,
@@ -288,14 +289,16 @@ function unpackObjectType(x: ObjectType): FObjectType {
   }
 }
 
-function unpackElementWithContext(text: string) {
-  return (x: GreaterElementType | ElementType) => unpackElementType(text, x)
+function unpackElementWithContext(ctx: Context) {
+  return (x: GreaterElementType | ElementType) => unpackElementType(ctx, x)
 }
 
 function unpackElementType(
-  text: string,
+  ctx: Context,
   x: GreaterElementType | ElementType,
 ): FElementType[] {
+  const { text, nextId } = ctx
+
   switch (x.type) {
     // GreaterElementType
     case 'org-data':
@@ -304,7 +307,7 @@ function unpackElementType(
       return [
         {
           type: 'S',
-          content: x.children.flatMap(unpackElementWithContext(text)),
+          content: x.children.flatMap(unpackElementWithContext(ctx)),
         },
       ]
     case 'plain-list':
@@ -312,7 +315,7 @@ function unpackElementType(
         {
           type: 'L',
           variant: x.listType,
-          content: x.children.map((x) => unpackListItem(text, x)),
+          content: x.children.map((x) => unpackListItem(ctx, x)),
         },
       ]
     case 'list-item':
@@ -322,7 +325,7 @@ function unpackElementType(
         {
           type: 'I',
           checkbox: x.checkbox,
-          content: x.children.flatMap(unpackElementWithContext(text)),
+          content: x.children.flatMap(unpackElementWithContext(ctx)),
         },
       ]
     case 'property-drawer':
@@ -348,8 +351,7 @@ function unpackElementType(
       }
     // ElementType
     case 'headline':
-      // TODO: Expose id generation through a nextId function or something 🤷🏿‍♂️
-      const id = nanoid()
+      const id = nextId()
 
       return [
         {
@@ -394,25 +396,26 @@ function unpackElementType(
 // - Types of property content are incompatible
 // - Type FElementType[] is not assignable to type FListItem[]
 // Pulling a noob card to just avoid the issue for now 🤦🏿‍♂️
-function unpackListItem(text: string, x: ListItem): FListItem {
+function unpackListItem(ctx: Context, x: ListItem): FListItem {
   return {
     type: 'I',
     checkbox: x.checkbox,
-    content: x.children.flatMap(unpackElementWithContext(text)),
+    content: x.children.flatMap(unpackElementWithContext(ctx)),
   }
 }
 
-function convertWithContext(text: string) {
+function convertWithContext(ctx: Context) {
+  const { text, nextId } = ctx
   return (
     acc: FDocument,
     node: GreaterElementType | ElementType,
     idx: number,
-  ) => convert(text, acc, node, idx)
+  ) => convert(ctx, acc, node, idx)
 }
 
 // Convert document to internal representation
 function convert(
-  text: string,
+  ctx: Context,
   acc: FDocument,
   node: GreaterElementType | ElementType,
   idx: number,
@@ -421,11 +424,11 @@ function convert(
   switch (node.type) {
     // GreaterElementType
     case 'org-data':
-      return node.children.reduce(convertWithContext(text), acc)
+      return node.children.reduce(convertWithContext(ctx), acc)
     case 'section':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     case 'property-drawer':
     case 'drawer':
@@ -440,7 +443,7 @@ function convert(
     case 'table':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
 
     // TODO: Note that we may not need this at a document level, since all
@@ -451,7 +454,7 @@ function convert(
     case 'headline':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     case 'planning':
     case 'node-property':
@@ -484,19 +487,22 @@ function convert(
     case 'diary-sexp':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     case 'paragraph':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     default:
       return assertExhaustive(node)
   }
 }
 
-export default function parse(text: string): FDocument {
+export default function parse(
+  text: string,
+  nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
+): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return convert(text, emptyDocument, ast, 0)
+  return convert({ text, nextId }, emptyDocument, ast, 0)
 }
