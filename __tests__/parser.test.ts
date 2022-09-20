@@ -28,10 +28,10 @@ describe('generally', () => {
   })
 
   it('single word returns document with single text entry', () => {
-    expect(parse('word')).toEqual({
-      content: [{ content: [{ content: 'word', type: 't' }], type: 'p' }],
-      todoStates: [],
-    })
+    expect(parse('word').content).toEqual([
+      { content: [{ content: 'word', type: 't' }], type: 'p' },
+    ])
+    expect(parse('word').todoStates).toEqual([])
   })
 
   it('extracts entities', () => {
