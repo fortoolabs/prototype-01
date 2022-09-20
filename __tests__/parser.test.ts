@@ -4,10 +4,12 @@ import { readFileSync } from 'fs'
 
 import { emptyDocument, FDocument, FHeading } from 'core/types'
 import parse, {
+  extractSlug,
   extractText,
   extractFormattedText,
   extractFlatHeadlines,
   extractNestedHeadlines,
+  removeStatisticsCookies,
   unpackTodoKeyword,
 } from 'core/parser'
 
@@ -197,6 +199,61 @@ describe('heading', () => {
     const dut = (x) => getFirstAsHeading(parse(x))
     it('TBD', () => {
       expect(dut('* Almost done [4/5]')).toEqual({})
+    })
+  })
+
+  describe('id', () => {
+    const target = 'My-ID'
+    const headingId = (x) => getFirstAsHeading(parse(x, () => target)).id
+
+    it('defaults to the fallback text', () => {
+      expect(headingId('* This should have an id')).toEqual(target)
+    })
+  })
+
+  describe('slug', () => {
+    const headingSlug = (x) => getFirstAsHeading(parse(x)).slug
+
+    it('is derived from the heading text', () => {
+      expect(headingSlug("* This isn't love, this is destiny")).toEqual(
+        'this-isnt-love-this-is-destiny',
+      )
+    })
+
+    it('does not include the priority value', () => {
+      expect(
+        headingSlug("* TODO [#A] This isn't love, this is destiny :lyric:"),
+      ).toEqual('this-isnt-love-this-is-destiny')
+    })
+  })
+
+  describe('internal link text', () => {
+    const headingLinkText = (x) => getFirstAsHeading(parse(x)).linkText
+
+    it('is derived from the heading text', () => {
+      expect(headingLinkText("* This isn't love, this is destiny")).toEqual(
+        "This isn't love, this is destiny",
+      )
+
+      expect(
+        headingLinkText(
+          "***** TODO [#A] COMMENT [100%] This isn't love, this is destiny :a:b:c:",
+        ),
+      ).toEqual("This isn't love, this is destiny")
+    })
+
+    it('does not include the priority value', () => {
+      expect(
+        headingLinkText("* TODO [#A] This isn't love, this is destiny :lyric:"),
+      ).toEqual("This isn't love, this is destiny")
+    })
+
+    it('does not include the priority value, unless the order of metadata is wonky', () => {
+      expect(
+        headingLinkText(
+          "* TODO [%] [#A] This isn't love, this is destiny :lyric:",
+        ),
+      ).toEqual("[#A] This isn't love, this is destiny")
     })
   })
 })
@@ -470,6 +527,46 @@ Move along, nothing to see here.
       }
     `)
     })
+  })
+})
+
+describe('removeStatisticsCookie', () => {
+  it('removes all percent-style statistics cookies', () => {
+    expect(
+      removeStatisticsCookies('[%] Cookies [%] are [%] delicious [%]'),
+    ).toEqual('Cookies are delicious')
+    expect(removeStatisticsCookies('[50%] Cookies are delicious')).toEqual(
+      'Cookies are delicious',
+    )
+    expect(removeStatisticsCookies('Cookies [10%] are delicious')).toEqual(
+      'Cookies are delicious',
+    )
+    expect(removeStatisticsCookies('Cookies are delicious [80%]')).toEqual(
+      'Cookies are delicious',
+    )
+  })
+
+  it('removes all fraction-style statistics cookies', () => {
+    expect(removeStatisticsCookies('[1/2] Almost there')).toEqual(
+      'Almost there',
+    )
+    expect(removeStatisticsCookies('[1/2] Almost [1/2] there [1/2]')).toEqual(
+      'Almost there',
+    )
+    expect(removeStatisticsCookies('Almost there [1/2]')).toEqual(
+      'Almost there',
+    )
+  })
+})
+
+describe('extractSlug', () => {
+  it('extracts valid string', () => {
+    expect(extractSlug('nice')).toEqual('nice')
+    expect(extractSlug('   white space  ')).toEqual('white-space')
+    expect(extractSlug('ALLCAPS')).toEqual('allcaps')
+    expect(extractSlug("@n!um//ber 4''2!&#&)@@^\"")).toEqual('number-42')
+    expect(extractSlug('under__scores')).toEqual('under__scores')
+    expect(extractSlug(' with angry 🤬 emoji ')).toEqual('with-angry--emoji')
   })
 })
 
