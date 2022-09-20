@@ -21,8 +21,11 @@ import {
   FHeading,
   FTableOfContents,
   FNestedTableOfContents,
+  FHeadingIndex,
   emptyDocument,
 } from 'core/types'
+
+import { nanoid } from 'nanoid'
 
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
@@ -45,6 +48,22 @@ export function extractSlug(text: string): string {
     .toLowerCase()
     .replace(/ /g, '-')
     .replace(/[^\w-]+/g, '')
+}
+
+export function generateNextSlug(
+  index: FHeadingIndex,
+  text: string,
+  upperCounter: number = 100,
+): string {
+  for (let i = 0; i < upperCounter; i++) {
+    let slug = i === 0 ? text : `${text}-${i}`
+    if (index.has(slug) === false) {
+      return slug
+    }
+  }
+
+  // Assuming that nanoid will not collide
+  return `${text}-${nanoid()}`
 }
 
 // TODO: Refactor to include exhaustiveness check
