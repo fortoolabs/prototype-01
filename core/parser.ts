@@ -27,7 +27,8 @@ import {
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
 
-type NextIdentifierGenerator = () => string
+/* eslint: no-unused-vars ["error", {"args": "none"}] */
+type NextIdentifierGenerator = (x?: FElementType) => string
 type Context = { text: string; nextId: NextIdentifierGenerator }
 
 function assertExhaustive(
@@ -35,6 +36,15 @@ function assertExhaustive(
   message: string = 'Reached unexpected case in exhaustive switch',
 ): never {
   throw new Error(message)
+}
+
+export function extractSlug(text: string): string {
+  // https://stackoverflow.com/a/1054862/685195
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '')
 }
 
 // TODO: Refactor to include exhaustiveness check
@@ -381,13 +391,27 @@ function unpackElementType(
   }
 }
 
+export function removeStatisticsCookies(text: string): string {
+  const pattern = /\[[0-9]*(\%|\/[0-9]*)\]/g
+  return text
+    .replaceAll(pattern, '') // remove statistics cookie
+    .replaceAll(/\s+/g, ' ') // collapse whitespace
+    .trim()
+}
+
 function unpackHeadline(ctx: Context, x: Headline): FHeading {
   const { nextId } = ctx
+  const content = x.children.map(unpackObjectType)
+  const text = content.map(extractText).join('')
+  const linkText = removeStatisticsCookies(text)
+  const slug = extractSlug(text)
   const id = nextId()
 
   return {
     type: 'h',
     id,
+    slug,
+    linkText,
     level: x.level,
     todoKeyword: x.todoKeyword,
     commented: x.commented,
