@@ -353,13 +353,7 @@ function unpackElementType(
     case 'list-item':
       // TODO: Explore whether white-space termination is problematic
       // This is largely in-line with the way that org-element.el parses lists
-      return [
-        {
-          type: 'I',
-          checkbox: x.checkbox,
-          content: x.children.flatMap(unpackElementWithContext(ctx)),
-        },
-      ]
+      return [unpackListItem(ctx, x)]
     case 'property-drawer':
     case 'drawer':
     case 'quote-block':
