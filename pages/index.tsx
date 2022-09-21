@@ -13,8 +13,8 @@ import Board from 'components/Board'
 import Prose from 'components/mode/Prose'
 
 import TOC from 'components/app/TOC'
-import Toggle from 'components/app/Toggle'
 
+import SwitchMode from 'components/app/SwitchMode'
 import { getDoc } from 'pages/api/doc/index'
 
 import Layout, {
@@ -60,11 +60,11 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
             <LinkIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Visit Source
           </a>
-          <Toggle
+          <SwitchMode
             // TODO: Remove for tabs or something more appropriate
             className="ml-4"
-            isEnabled={mode == 'prose'}
-            setEnabled={() => setMode(mode == 'prose' ? 'kanban' : 'prose')}
+            enabled={mode}
+            setEnabled={(value) => setMode(value)}
           />
         </div>
       }
