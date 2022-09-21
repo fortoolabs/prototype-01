@@ -32,7 +32,11 @@ export type { FDocument }
 
 /* eslint: no-unused-vars ["error", {"args": "none"}] */
 type NextIdentifierGenerator = (x?: FElementType) => string
-type Context = { text: string; nextId: NextIdentifierGenerator }
+type Context = {
+  text: string
+  nextId: NextIdentifierGenerator
+  headingSlugToIdIndex: FHeadingIndex
+}
 
 function assertExhaustive(
   value: never,
@@ -563,5 +567,10 @@ export default function parse(
   nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
 ): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return convert({ text, nextId }, emptyDocument, ast, 0)
+  return convert(
+    { text, nextId, headingSlugToIdIndex: new Map() },
+    emptyDocument,
+    ast,
+    0,
+  )
 }
