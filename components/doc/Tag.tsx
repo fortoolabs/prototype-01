@@ -95,7 +95,7 @@ export type TagProps = {
   content: string
   color: TagColor
   size?: 'small' | 'medium' | 'large'
-  shape?: 'block' | 'pill'|'circle'
+  shape?: 'block' | 'pill' | 'circle'
 }
 export default function Tag({
   content,
@@ -114,12 +114,12 @@ export default function Tag({
       className={[
         'border border-1',
         shapeClasses(shape),
-        shape==='circle' ? circleColorClasses(color):colorClasses(color),
+        shape === 'circle' ? circleColorClasses(color) : colorClasses(color),
         tagSizeClasses(size),
         className,
       ].join(' ')}
     >
-      {shape==='circle' ? '' : content}
+      {shape === 'circle' ? '' : content}
     </span>
   )
 }

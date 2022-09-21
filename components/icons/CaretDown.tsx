@@ -1,5 +1,5 @@
 import React from 'react'
-
+//Icon from https://fontawesome.com
 function CaretDown({ className }: React.HTMLAttributes<SVGElement>) {
   return (
     <svg
