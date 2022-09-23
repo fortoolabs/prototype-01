@@ -13,8 +13,8 @@ import Board from 'components/Board'
 import Prose from 'components/mode/Prose'
 
 import TOC from 'components/app/TOC'
-import Toggle from 'components/app/Toggle'
 
+import SwitchMode from 'components/app/SwitchMode'
 import { getDoc } from 'pages/api/doc/index'
 
 import Layout, {
@@ -53,18 +53,18 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
         <div className="flex items-center">
           <a
             className={
-              'inline-flex items-center rounded-md border border-transparent bg-pink-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2'
+              'inline-flex items-center rounded-md border border-transparent bg-c-blue-main px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-c-blue-hover focus:outline-none focus:ring-2 focus:ring-c-blue-hover focus:ring-offset-2'
             }
             href={url}
           >
             <LinkIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Visit Source
           </a>
-          <Toggle
+          <SwitchMode
             // TODO: Remove for tabs or something more appropriate
             className="ml-4"
-            isEnabled={mode == 'prose'}
-            setEnabled={() => setMode(mode == 'prose' ? 'kanban' : 'prose')}
+            enabled={mode}
+            setEnabled={(value) => setMode(value)}
           />
         </div>
       }

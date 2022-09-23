@@ -3,38 +3,34 @@
 exports[`toc > renders 1`] = `
 <DocumentFragment>
   <ul
-    class="text-sm text-gray-600 hover:text-black"
+    class="text-sm text-white"
   >
     <li
-      class="py-1 max-w-prose"
+      class="max-w-prose"
     >
       <div
-        class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
+        class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
       >
-        <span
-          class="py-1 hover:text-blue-700"
-        >
-          Part 1
-        </span>
         <span
           aria-controls="headlessui-disclosure-panel-:r1:"
           aria-expanded="true"
-          class="min-w-2 mr-2"
+          class="shrink-0"
           id="headlessui-disclosure-button-:r0:"
         >
           <svg
-            aria-hidden="true"
-            class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
-            fill="currentColor"
-            viewBox="0 0 20 20"
+            class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-blue-300 select-none"
+            viewBox="0 0 320 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              clip-rule="evenodd"
-              d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
-              fill-rule="evenodd"
+              d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
             />
           </svg>
+        </span>
+        <span
+          class="hover:text-blue-300 cursor-pointer"
+        >
+          Part 1
         </span>
       </div>
       <div
@@ -45,48 +41,47 @@ exports[`toc > renders 1`] = `
           id="headlessui-disclosure-panel-:r1:"
         >
           <li
-            class="py-1 max-w-prose"
+            class="max-w-prose"
           >
             <div
-              class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
+              class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
             >
+              <div
+                class="h-4 w-4 shrink-0"
+              />
               <span
-                class="py-1 hover:text-blue-700"
+                class="hover:text-blue-300 cursor-pointer"
               >
                 Part 1.1 with a very long title that requires space
               </span>
             </div>
           </li>
           <li
-            class="py-1 max-w-prose"
+            class="max-w-prose"
           >
             <div
-              class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
+              class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
             >
-              <span
-                class="py-1 hover:text-blue-700"
-              >
-                Part 1.2
-              </span>
               <span
                 aria-controls="headlessui-disclosure-panel-:r6:"
                 aria-expanded="true"
-                class="min-w-2 mr-2"
+                class="shrink-0"
                 id="headlessui-disclosure-button-:r5:"
               >
                 <svg
-                  aria-hidden="true"
-                  class="transition-all  h-5 w-5 cursor-pointer hover:text-blue-700 select-none"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-blue-300 select-none"
+                  viewBox="0 0 320 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
-                    fill-rule="evenodd"
+                    d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                   />
                 </svg>
+              </span>
+              <span
+                class="hover:text-blue-300 cursor-pointer"
+              >
+                Part 1.2
               </span>
             </div>
             <div
@@ -97,13 +92,16 @@ exports[`toc > renders 1`] = `
                 id="headlessui-disclosure-panel-:r6:"
               >
                 <li
-                  class="py-1 max-w-prose"
+                  class="max-w-prose"
                 >
                   <div
-                    class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
+                    class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
                   >
+                    <div
+                      class="h-4 w-4 shrink-0"
+                    />
                     <span
-                      class="py-1 hover:text-blue-700"
+                      class="hover:text-blue-300 cursor-pointer"
                     >
                       Part 1.2.1
                     </span>
@@ -116,26 +114,32 @@ exports[`toc > renders 1`] = `
       </div>
     </li>
     <li
-      class="py-1 max-w-prose"
+      class="max-w-prose"
     >
       <div
-        class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
+        class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
       >
+        <div
+          class="h-4 w-4 shrink-0"
+        />
         <span
-          class="py-1 hover:text-blue-700"
+          class="hover:text-blue-300 cursor-pointer"
         >
           Part 2
         </span>
       </div>
     </li>
     <li
-      class="py-1 max-w-prose"
+      class="max-w-prose"
     >
       <div
-        class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
+        class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
       >
+        <div
+          class="h-4 w-4 shrink-0"
+        />
         <span
-          class="py-1 hover:text-blue-700"
+          class="hover:text-blue-300 cursor-pointer"
         >
           Part 3
         </span>
