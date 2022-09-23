@@ -19,11 +19,6 @@ function assertExhaustive(
   throw new Error(message)
 }
 
-// TODO: Make this the default export
-export function render(doc: FDocument): JSX.Element {
-  return <span>nope</span>
-}
-
 export function renderElement(
   el: FElementType,
   i: number | string,
@@ -67,6 +62,8 @@ export function renderElement(
       ]
 
     case 'h':
+      // TODO: @vidbina Source document context such that we can retrieve id slug
+
       switch (el.level) {
         case 1:
         case 2:
