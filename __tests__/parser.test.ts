@@ -535,21 +535,21 @@ Move along, nothing to see here.
 
 describe('generateNextSlug', () => {
   it('uses the suggested text as an id', () => {
-    expect(generateNextSlug(new Map(), 'a')).toEqual('a')
+    expect(generateNextSlug({}, 'a')).toEqual('a')
   })
 
   it('uses the next available slug with numeric postfixes', () => {
-    expect(generateNextSlug(new Map([['a', 12]]), 'a')).toEqual('a-1')
+    expect(generateNextSlug({ a: 12 }, 'a')).toEqual('a-1')
   })
 
   it('finds the next available slug with numeric postfixes', () => {
     expect(
       generateNextSlug(
-        new Map([
-          ['a', 12],
-          ['a-1', 12],
-          ['a-2', 12],
-        ]),
+        {
+          a: 12,
+          'a-1': 12,
+          'a-2': 12,
+        },
         'a',
       ),
     ).toEqual('a-3')
@@ -558,11 +558,11 @@ describe('generateNextSlug', () => {
   it('falls back to a PRNG-factoring slug', () => {
     expect(
       generateNextSlug(
-        new Map([
-          ['a', 12],
-          ['a-1', 12],
-          ['a-2', 12],
-        ]),
+        {
+          a: 12,
+          'a-1': 12,
+          'a-2': 12,
+        },
         'a',
         3,
       ).length,

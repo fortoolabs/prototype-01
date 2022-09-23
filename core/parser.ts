@@ -61,7 +61,7 @@ export function generateNextSlug(
 ): string {
   for (let i = 0; i < upperCounter; i++) {
     let slug = i === 0 ? text : `${text}-${i}`
-    if (index.has(slug) === false) {
+    if (slug in index === false) {
       return slug
     }
   }
@@ -572,7 +572,7 @@ export default function parse(
 ): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
   return convert(
-    { text, nextId, headingSlugToIdIndex: new Map() },
+    { text, nextId, headingSlugToIdIndex: {} },
     emptyDocument,
     ast,
     0,
