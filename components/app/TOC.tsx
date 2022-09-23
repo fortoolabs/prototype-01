@@ -57,7 +57,7 @@ function TableOfContentsEntry({
               <div className="h-4 w-4 shrink-0" />
             )}
             <Link href={`/#${id}`} scroll={true}>
-              <a>
+              <div className="contents">
                 {todoKeyword && (
                   <Tag
                     content={todoKeyword}
@@ -71,7 +71,7 @@ function TableOfContentsEntry({
                 <span className="hover:text-blue-300 cursor-pointer">
                   {text.flatMap(renderObject)}
                 </span>
-              </a>
+              </div>
             </Link>
           </div>
           {hasChildren && (
