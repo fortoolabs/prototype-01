@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 import { renderObject } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
@@ -33,7 +35,7 @@ function TableOfContentsEntry({
     'transform max-h-0',
   ]
 
-  const { todoKeyword } = heading
+  const { todoKeyword, id } = heading
   const depthOffset = depth ? 2 * depth : 2
 
   return (
@@ -41,18 +43,22 @@ function TableOfContentsEntry({
       {({ open }) => (
         <>
           <div className={`${blockClasses} py-1 px-1 flex items-center gap-3`}>
-            {todoKeyword && (
-              <Tag
-                content={todoKeyword}
-                color={todoKeywordColorClasses(todoKeyword)}
-                size="small"
-                shape="block"
-              />
-            )}
-            {/* TODO: Implement when headline linking works */}
-            <span className="py-1 hover:text-blue-700">
-              {text.flatMap(renderObject)}
-            </span>
+            <Link href={`/#${id}`} scroll={true}>
+              <a>
+                {todoKeyword && (
+                  <Tag
+                    content={todoKeyword}
+                    color={todoKeywordColorClasses(todoKeyword)}
+                    size="small"
+                    shape="block"
+                  />
+                )}
+                {/* TODO: Implement when headline linking works */}
+                <span className="py-1 hover:text-blue-700">
+                  {text.flatMap(renderObject)}
+                </span>
+              </a>
+            </Link>
             {children.length > 0 && (
               <Disclosure.Button as="span" className="min-w-2 mr-2">
                 <ChevronUpIcon
