@@ -84,6 +84,7 @@ export type FObjectType =
 
 export type FHeading = FRecursiveObject & {
   type: 'h'
+  id: string
   level: number
   todoKeyword: string | null
   priority: string | null
@@ -159,11 +160,13 @@ export type FGreaterElement =
   | FList
   | FListItem
 
+export type FHeadingIndex = Record<string, string>
 export type FElementType = FElement | FGreaterElement
 
 export type FDocument = {
   title?: string
   source?: string
+  headingSlugToIdIndex: FHeadingIndex
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
@@ -192,5 +195,6 @@ export type FNestedTableOfContents = FNestedTableOfContentsEntry[]
 
 export const emptyDocument = {
   content: [],
+  headingSlugToIdIndex: {},
   todoStates: [],
 }

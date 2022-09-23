@@ -19,11 +19,6 @@ function assertExhaustive(
   throw new Error(message)
 }
 
-// TODO: Make this the default export
-export function render(doc: FDocument): JSX.Element {
-  return <span>nope</span>
-}
-
 export function renderElement(
   el: FElementType,
   i: number | string,
@@ -67,6 +62,8 @@ export function renderElement(
       ]
 
     case 'h':
+      // TODO: @vidbina Source document context such that we can retrieve id slug
+
       switch (el.level) {
         case 1:
         case 2:
@@ -74,7 +71,7 @@ export function renderElement(
         case 4:
         case 5:
         case 6:
-          const { level, todoKeyword, priority, commented, tags } = el
+          const { id, level, todoKeyword, priority, commented, tags } = el
           return [
             // TODO: Migrate TODOs here to Heading component source file
             // TODO: Implement heading keyword
@@ -82,6 +79,7 @@ export function renderElement(
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
             <Heading
+              id={id}
               key={`h${i}`}
               level={level}
               todoKeyword={todoKeyword}

@@ -4,10 +4,16 @@ import { readFileSync } from 'fs'
 
 import { emptyDocument, FDocument, FHeading } from 'core/types'
 import parse, {
+  extractSlug,
   extractText,
   extractFormattedText,
-  extractHeadlines,
-  extractNestedHeadlines,
+  extractFlatHeadings,
+  extractNestedHeadings,
+  extractHeadingLinkText,
+  extractHeadingSlugBase,
+  extractHeadingsIndex,
+  generateNextSlug,
+  removeStatisticsCookies,
   unpackTodoKeyword,
 } from 'core/parser'
 
@@ -26,10 +32,10 @@ describe('generally', () => {
   })
 
   it('single word returns document with single text entry', () => {
-    expect(parse('word')).toEqual({
-      content: [{ content: [{ content: 'word', type: 't' }], type: 'p' }],
-      todoStates: [],
-    })
+    expect(parse('word').content).toEqual([
+      { content: [{ content: 'word', type: 't' }], type: 'p' },
+    ])
+    expect(parse('word').todoStates).toEqual([])
   })
 
   it('extracts entities', () => {
@@ -93,21 +99,40 @@ describe('generally', () => {
 ** E1`
     describe('flat extraction', () => {
       it('extracts all headings', () => {
-        expect(extractHeadlines(parse(raw).content)).toMatchSnapshot()
+        expect(extractFlatHeadings(parse(raw).content)).toMatchSnapshot()
       })
 
       it('extracts top-level headings only', () => {
-        expect(extractHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+        expect(extractFlatHeadings(parse(raw).content, 1)).toMatchSnapshot()
       })
     })
 
     describe('nested extraction', () => {
       it('extracts all headings', () => {
-        expect(extractNestedHeadlines(parse(raw).content)).toMatchSnapshot()
+        expect(extractNestedHeadings(parse(raw).content)).toMatchSnapshot()
       })
       it('extracts top-level headings only', () => {
-        expect(extractNestedHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+        expect(extractNestedHeadings(parse(raw).content, 1)).toMatchSnapshot()
       })
+    })
+  })
+
+  describe('heading slugs', () => {
+    const raw = `#+TITLE: Demonstrating Heading Sluggin
+* A
+** A
+** B
+* C
+* c`
+
+    it('contains all slug-ids', () => {
+      expect(Object.keys(extractHeadingsIndex(parse(raw)))).toEqual([
+        'a',
+        'a-1',
+        'b',
+        'c',
+        'c-1',
+      ])
     })
   })
 })
@@ -197,6 +222,63 @@ describe('heading', () => {
     const dut = (x) => getFirstAsHeading(parse(x))
     it('TBD', () => {
       expect(dut('* Almost done [4/5]')).toEqual({})
+    })
+  })
+
+  describe('id', () => {
+    const target = 'My-ID'
+    const headingId = (x) => getFirstAsHeading(parse(x, () => target)).id
+
+    it('defaults to the fallback text', () => {
+      expect(headingId('* This should have an id')).toEqual(target)
+    })
+  })
+
+  describe('slug', () => {
+    const headingSlug = (x) =>
+      extractHeadingSlugBase(getFirstAsHeading(parse(x)))
+
+    it('is derived from the heading text', () => {
+      expect(headingSlug("* This isn't love, this is destiny")).toEqual(
+        'this-isnt-love-this-is-destiny',
+      )
+    })
+
+    it('does not include the priority value', () => {
+      expect(
+        headingSlug("* TODO [#A] This isn't love, this is destiny :lyric:"),
+      ).toEqual('this-isnt-love-this-is-destiny')
+    })
+  })
+
+  describe('internal link text', () => {
+    const headingLinkText = (x) =>
+      extractHeadingLinkText(getFirstAsHeading(parse(x)))
+
+    it('is derived from the heading text', () => {
+      expect(headingLinkText("* This isn't love, this is destiny")).toEqual(
+        "This isn't love, this is destiny",
+      )
+
+      expect(
+        headingLinkText(
+          "***** TODO [#A] COMMENT [100%] This isn't love, this is destiny :a:b:c:",
+        ),
+      ).toEqual("This isn't love, this is destiny")
+    })
+
+    it('does not include the priority value', () => {
+      expect(
+        headingLinkText("* TODO [#A] This isn't love, this is destiny :lyric:"),
+      ).toEqual("This isn't love, this is destiny")
+    })
+
+    it('does not include the priority value, unless the order of metadata is wonky', () => {
+      expect(
+        headingLinkText(
+          "* TODO [%] [#A] This isn't love, this is destiny :lyric:",
+        ),
+      ).toEqual("[#A] This isn't love, this is destiny")
     })
   })
 })
@@ -470,6 +552,83 @@ Move along, nothing to see here.
       }
     `)
     })
+  })
+})
+
+describe('generateNextSlug', () => {
+  it('uses the suggested text as an id', () => {
+    expect(generateNextSlug({}, 'a')).toEqual('a')
+  })
+
+  it('uses the next available slug with numeric postfixes', () => {
+    expect(generateNextSlug({ a: 12 }, 'a')).toEqual('a-1')
+  })
+
+  it('finds the next available slug with numeric postfixes', () => {
+    expect(
+      generateNextSlug(
+        {
+          a: 12,
+          'a-1': 12,
+          'a-2': 12,
+        },
+        'a',
+      ),
+    ).toEqual('a-3')
+  })
+
+  it('falls back to a PRNG-factoring slug', () => {
+    expect(
+      generateNextSlug(
+        {
+          a: 12,
+          'a-1': 12,
+          'a-2': 12,
+        },
+        'a',
+        3,
+      ).length,
+    ).toBeGreaterThan(8)
+  })
+})
+
+describe('removeStatisticsCookie', () => {
+  it('removes all percent-style statistics cookies', () => {
+    expect(
+      removeStatisticsCookies('[%] Cookies [%] are [%] delicious [%]'),
+    ).toEqual('Cookies are delicious')
+    expect(removeStatisticsCookies('[50%] Cookies are delicious')).toEqual(
+      'Cookies are delicious',
+    )
+    expect(removeStatisticsCookies('Cookies [10%] are delicious')).toEqual(
+      'Cookies are delicious',
+    )
+    expect(removeStatisticsCookies('Cookies are delicious [80%]')).toEqual(
+      'Cookies are delicious',
+    )
+  })
+
+  it('removes all fraction-style statistics cookies', () => {
+    expect(removeStatisticsCookies('[1/2] Almost there')).toEqual(
+      'Almost there',
+    )
+    expect(removeStatisticsCookies('[1/2] Almost [1/2] there [1/2]')).toEqual(
+      'Almost there',
+    )
+    expect(removeStatisticsCookies('Almost there [1/2]')).toEqual(
+      'Almost there',
+    )
+  })
+})
+
+describe('extractSlug', () => {
+  it('extracts valid string', () => {
+    expect(extractSlug('nice')).toEqual('nice')
+    expect(extractSlug('   white space  ')).toEqual('white-space')
+    expect(extractSlug('ALLCAPS')).toEqual('allcaps')
+    expect(extractSlug("@n!um//ber 4''2!&#&)@@^\"")).toEqual('number-42')
+    expect(extractSlug('under__scores')).toEqual('under__scores')
+    expect(extractSlug(' with angry 🤬 emoji ')).toEqual('with-angry--emoji')
   })
 })
 

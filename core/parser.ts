@@ -6,6 +6,7 @@ import {
   OrgData,
   ObjectType,
   GreaterElementType,
+  Headline,
   ElementType,
   ListItem,
 } from 'uniorg'
@@ -20,17 +21,77 @@ import {
   FHeading,
   FTableOfContents,
   FNestedTableOfContents,
+  FHeadingIndex,
   emptyDocument,
 } from 'core/types'
 
+import { nanoid } from 'nanoid'
+
 // TODO: Potentially clean up by letting users import types directly
 export type { FDocument }
+
+/* eslint: no-unused-vars ["error", {"args": "none"}] */
+type NextIdentifierGenerator = (x?: FElementType) => string
+type Context = {
+  text: string
+  nextId: NextIdentifierGenerator
+  headingSlugToIdIndex: FHeadingIndex
+}
 
 function assertExhaustive(
   value: never,
   message: string = 'Reached unexpected case in exhaustive switch',
 ): never {
   throw new Error(message)
+}
+
+export function extractSlug(text: string): string {
+  // https://stackoverflow.com/a/1054862/685195
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '')
+}
+
+export function generateNextSlug(
+  index: FHeadingIndex,
+  anyText: string,
+  upperCounter: number = 100,
+): string {
+  const text = extractSlug(anyText)
+
+  for (let i = 0; i < upperCounter; i++) {
+    let slug = i === 0 ? text : `${text}-${i}`
+    if (slug in index === false) {
+      return slug
+    }
+  }
+
+  // Assuming that nanoid will not collide
+  return `${text}-${nanoid()}`
+}
+
+export function updateHeadingsIndexInDocument(doc: FDocument): FDocument {
+  const x = extractFlatHeadings(doc.content).reduce((acc, cur) => {
+    const index = acc.headingSlugToIdIndex
+    const nextSlug = generateNextSlug(index, extractHeadingText(cur.heading))
+
+    return {
+      ...acc,
+
+      headingSlugToIdIndex: {
+        ...index,
+        [nextSlug]: 'hardcoded',
+      },
+    }
+  }, doc)
+
+  return x
+}
+
+export function extractHeadingsIndex(doc: FDocument): FHeadingIndex {
+  return updateHeadingsIndexInDocument(doc).headingSlugToIdIndex
 }
 
 // TODO: Refactor to include exhaustiveness check
@@ -99,14 +160,15 @@ export function extractFormattedText(
   }
 }
 
-export function extractHeadlines(
+// Extract a flat list of headlines
+export function extractFlatHeadings(
   els: FElementType[],
   depth?: number,
 ): FTableOfContents {
   return els.reduce((acc: FTableOfContents, val) => {
     switch (val.type) {
       case 'S':
-        return [...acc, ...extractHeadlines(val.content, depth)]
+        return [...acc, ...extractFlatHeadings(val.content, depth)]
       case 'h':
         // Return all headings when depth is undefined
         // Otherwise, if return heading if the level fits the depth constraint
@@ -126,14 +188,15 @@ export function extractHeadlines(
   }, [])
 }
 
-export function extractNestedHeadlines(
+// Extract a nested list of headlines
+export function extractNestedHeadings(
   els: FElementType[],
   depth?: number,
 ): FNestedTableOfContents {
   return els.reduce((acc: FNestedTableOfContents, val) => {
     switch (val.type) {
       case 'S':
-        const [entry, ...rest] = extractNestedHeadlines(val.content, depth)
+        const [entry, ...rest] = extractNestedHeadings(val.content, depth)
         if (entry !== undefined) {
           return [...acc, { ...entry, children: rest }]
         }
@@ -286,14 +349,16 @@ function unpackObjectType(x: ObjectType): FObjectType {
   }
 }
 
-function unpackElementWithContext(text: string) {
-  return (x: GreaterElementType | ElementType) => unpackElementType(text, x)
+function unpackElementWithContext(ctx: Context) {
+  return (x: GreaterElementType | ElementType) => unpackElementType(ctx, x)
 }
 
 function unpackElementType(
-  text: string,
+  ctx: Context,
   x: GreaterElementType | ElementType,
 ): FElementType[] {
+  const { text, nextId } = ctx
+
   switch (x.type) {
     // GreaterElementType
     case 'org-data':
@@ -302,7 +367,7 @@ function unpackElementType(
       return [
         {
           type: 'S',
-          content: x.children.flatMap(unpackElementWithContext(text)),
+          content: x.children.flatMap(unpackElementWithContext(ctx)),
         },
       ]
     case 'plain-list':
@@ -310,19 +375,13 @@ function unpackElementType(
         {
           type: 'L',
           variant: x.listType,
-          content: x.children.map((x) => unpackListItem(text, x)),
+          content: x.children.map((x) => unpackListItem(ctx, x)),
         },
       ]
     case 'list-item':
       // TODO: Explore whether white-space termination is problematic
       // This is largely in-line with the way that org-element.el parses lists
-      return [
-        {
-          type: 'I',
-          checkbox: x.checkbox,
-          content: x.children.flatMap(unpackElementWithContext(text)),
-        },
-      ]
+      return [unpackListItem(ctx, x)]
     case 'property-drawer':
     case 'drawer':
     case 'quote-block':
@@ -346,17 +405,7 @@ function unpackElementType(
       }
     // ElementType
     case 'headline':
-      return [
-        {
-          type: 'h',
-          level: x.level,
-          todoKeyword: x.todoKeyword,
-          commented: x.commented,
-          priority: x.priority,
-          tags: x.tags,
-          content: x.children.map(unpackObjectType),
-        },
-      ]
+      return [unpackHeading(ctx, x)]
     case 'comment-block':
       return [{ type: '#', content: x.value }]
     case 'comment':
@@ -383,43 +432,92 @@ function unpackElementType(
   }
 }
 
+export function removeStatisticsCookies(text: string): string {
+  const pattern = /\[[0-9]*(\%|\/[0-9]*)\]/g
+  return text
+    .replaceAll(pattern, '') // remove statistics cookie
+    .replaceAll(/\s+/g, ' ') // collapse whitespace
+    .trim()
+}
+
+export const extractHeadingText = (x: FHeading): string =>
+  x.content.map(extractText).join('')
+
+export const extractHeadingLinkText = (x: FHeading): string =>
+  removeStatisticsCookies(extractHeadingText(x))
+
+export const extractHeadingSlugBase = (x: FHeading): string =>
+  extractSlug(extractHeadingText(x))
+
+function unpackHeading(ctx: Context, x: Headline): FHeading {
+  const { nextId } = ctx
+  const content = x.children.map(unpackObjectType)
+  const id = nextId()
+
+  return {
+    type: 'h',
+    id,
+    level: x.level,
+    todoKeyword: x.todoKeyword,
+    commented: x.commented,
+    priority: x.priority,
+    tags: x.tags,
+    content: x.children.map(unpackObjectType),
+  }
+}
+
 // TODO: Figure out I can't cover this in unpackElementType
 // Got type issues while attempting to unpack plain-list in unpackElementType
 // - Types of property content are incompatible
 // - Type FElementType[] is not assignable to type FListItem[]
 // Pulling a noob card to just avoid the issue for now 🤦🏿‍♂️
-function unpackListItem(text: string, x: ListItem): FListItem {
+function unpackListItem(ctx: Context, x: ListItem): FListItem {
   return {
     type: 'I',
     checkbox: x.checkbox,
-    content: x.children.flatMap(unpackElementWithContext(text)),
+    content: x.children.flatMap(unpackElementWithContext(ctx)),
   }
 }
 
-function convertWithContext(text: string) {
+function convertWithContext(ctx: Context) {
+  const { text, nextId } = ctx
   return (
     acc: FDocument,
     node: GreaterElementType | ElementType,
     idx: number,
-  ) => convert(text, acc, node, idx)
+  ) => convert(ctx, acc, node, idx)
 }
 
 // Convert document to internal representation
 function convert(
-  text: string,
+  ctx: Context,
   acc: FDocument,
   node: GreaterElementType | ElementType,
   idx: number,
 ): FDocument {
+  // TODO: Fuse unpackElementType and convert
+
+  // convert is a higher-level abstraction of unpackElementType. It is poorly
+  // designed because it reduces on the top-level of the document while we want
+  // to run this logic consistently thoughout the depth of the document and
+  // potentially reduce to a nested structure.
+
+  // The design problem stems from us wanting to operate on the acc (which is a
+  // top-doc structure) while traversing the tree and potentially finding us
+  // deep in the document structure (far away from the top). Perhaps the acc
+  // should compose top and local structures in a manner in an accessible manner
+  // (like a tuple) to provide an API that is easy to work with regardless of
+  // the depth of the local node being processed.
+
   // TODO: Implement fallback for all NOOPs
   switch (node.type) {
     // GreaterElementType
     case 'org-data':
-      return node.children.reduce(convertWithContext(text), acc)
+      return node.children.reduce(convertWithContext(ctx), acc)
     case 'section':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     case 'property-drawer':
     case 'drawer':
@@ -434,7 +532,7 @@ function convert(
     case 'table':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
 
     // TODO: Note that we may not need this at a document level, since all
@@ -443,9 +541,11 @@ function convert(
 
     // ElementType
     case 'headline':
+      const headline = unpackHeading(ctx, node)
+
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, headline],
       }
     case 'planning':
     case 'node-property':
@@ -478,19 +578,27 @@ function convert(
     case 'diary-sexp':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     case 'paragraph':
       return {
         ...acc,
-        content: [...acc.content, ...unpackElementType(text, node)],
+        content: [...acc.content, ...unpackElementType(ctx, node)],
       }
     default:
       return assertExhaustive(node)
   }
 }
 
-export default function parse(text: string): FDocument {
+export default function parse(
+  text: string,
+  nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
+): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return convert(text, emptyDocument, ast, 0)
+  return convert(
+    { text, nextId, headingSlugToIdIndex: {} },
+    emptyDocument,
+    ast,
+    0,
+  )
 }

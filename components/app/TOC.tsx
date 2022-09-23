@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
 import { renderObject } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
@@ -33,7 +35,7 @@ function TableOfContentsEntry({
     'transform max-h-0',
   ]
 
-  const { todoKeyword } = heading
+  const { todoKeyword, id } = heading
   const depthOffset = depth ? 2 * depth : 2
   const hasChildren = children && children.length > 0
 
@@ -55,6 +57,8 @@ function TableOfContentsEntry({
             ) : (
               <div className="h-4 w-4 shrink-0" />
             )}
+            <Link href={`/#${id}`} scroll={true}>
+              <a>
             {todoKeyword && (
               <Tag
                 content={todoKeyword}
@@ -68,6 +72,8 @@ function TableOfContentsEntry({
             <span className="hover:text-blue-300 cursor-pointer">
               {text.flatMap(renderObject)}
             </span>
+              </a>
+            </Link>
           </div>
           {hasChildren && (
             <Transition
