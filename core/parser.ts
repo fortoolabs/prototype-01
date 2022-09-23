@@ -416,19 +416,23 @@ export function removeStatisticsCookies(text: string): string {
     .trim()
 }
 
+export const extractHeadingText = (x: FHeading): string =>
+  x.content.map(extractText).join('')
+
+export const extractHeadingLinkText = (x: FHeading): string =>
+  removeStatisticsCookies(extractHeadingText(x))
+
+export const extractHeadingSlug = (x: FHeading): string =>
+  extractSlug(extractHeadingText(x))
+
 function unpackHeading(ctx: Context, x: Headline): FHeading {
   const { nextId } = ctx
   const content = x.children.map(unpackObjectType)
-  const text = content.map(extractText).join('')
-  const linkText = removeStatisticsCookies(text)
-  const slug = extractSlug(text)
   const id = nextId()
 
   return {
     type: 'h',
     id,
-    slug,
-    linkText,
     level: x.level,
     todoKeyword: x.todoKeyword,
     commented: x.commented,

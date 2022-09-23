@@ -9,6 +9,8 @@ import parse, {
   extractFormattedText,
   extractFlatHeadings,
   extractNestedHeadings,
+  extractHeadingLinkText,
+  extractHeadingSlug,
   generateNextSlug,
   removeStatisticsCookies,
   unpackTodoKeyword,
@@ -213,7 +215,7 @@ describe('heading', () => {
   })
 
   describe('slug', () => {
-    const headingSlug = (x) => getFirstAsHeading(parse(x)).slug
+    const headingSlug = (x) => extractHeadingSlug(getFirstAsHeading(parse(x)))
 
     it('is derived from the heading text', () => {
       expect(headingSlug("* This isn't love, this is destiny")).toEqual(
@@ -229,7 +231,7 @@ describe('heading', () => {
   })
 
   describe('internal link text', () => {
-    const headingLinkText = (x) => getFirstAsHeading(parse(x)).linkText
+    const headingLinkText = (x) => extractHeadingLinkText(getFirstAsHeading(parse(x)))
 
     it('is derived from the heading text', () => {
       expect(headingLinkText("* This isn't love, this is destiny")).toEqual(

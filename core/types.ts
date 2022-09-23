@@ -85,8 +85,6 @@ export type FObjectType =
 export type FHeading = FRecursiveObject & {
   type: 'h'
   id: string
-  slug: string
-  linkText: string
   level: number
   todoKeyword: string | null
   priority: string | null
