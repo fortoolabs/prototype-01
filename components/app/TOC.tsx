@@ -4,7 +4,7 @@ import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
 import { blockClasses } from 'components/doc/Block'
 
 import { Disclosure, Transition } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/20/solid'
+import CaretDown from 'components/icons/CaretDown'
 
 type TOCHeading = {
   heading: string
@@ -21,7 +21,7 @@ type TableOfContentsEntryProps = {
   depth: number
 }
 
-const textClasses = 'text-sm text-gray-600 hover:text-black'
+const textClasses = 'text-sm '
 
 function TableOfContentsEntry({
   entry: { heading, children, text },
@@ -40,30 +40,31 @@ function TableOfContentsEntry({
     <Disclosure as="li" defaultOpen className="py-1 max-w-prose">
       {({ open }) => (
         <>
-          <div className={`${blockClasses} py-1 px-1 flex items-center gap-3`}>
+          <div className="hover:bg-[#282A2F] hover:border-r-4 hover:border-[#157EFB] py-4 px-4 flex items-center gap-3">
+            {children.length > 0 && (
+              <Disclosure.Button as="span" className="shrink-0">
+                <CaretDown
+                  className={[
+                    'transition-all fill-white',
+                    open ? '' : '-rotate-90 transform',
+                    'h-4 w-4 cursor-pointer hover:fill-blue-300 select-none',
+                  ].join(' ')}
+                />
+              </Disclosure.Button>
+            )}
             {todoKeyword && (
               <Tag
                 content={todoKeyword}
                 color={todoKeywordColorClasses(todoKeyword)}
                 size="small"
-                shape="block"
+                shape="circle"
+                className="shrink-0 h-3 w-3 px-0 py-0 border-0 "
               />
             )}
             {/* TODO: Implement when headline linking works */}
-            <span className="py-1 hover:text-blue-700">
+            <span className="py-1 hover:text-blue-300 cursor-pointer">
               {text.flatMap(renderObject)}
             </span>
-            {children.length > 0 && (
-              <Disclosure.Button as="span" className="min-w-2 mr-2">
-                <ChevronUpIcon
-                  className={[
-                    'transition-all',
-                    open ? '' : 'rotate-180 transform',
-                    'h-5 w-5 cursor-pointer hover:text-blue-700 select-none',
-                  ].join(' ')}
-                />
-              </Disclosure.Button>
-            )}
           </div>
           {children && children.length > 0 && (
             <Transition

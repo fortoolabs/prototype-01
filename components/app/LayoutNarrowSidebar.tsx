@@ -371,18 +371,21 @@ export function HorizontalDiptychWithAside({
   aside: React.ReactNode
 }) {
   return (
-    <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
+    <main className="min-w-0 flex-1 lg:flex">
       {/* Primary column */}
       <section
         aria-labelledby="primary-heading"
-        className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last p-0 md:p-2"
+        className="flex h-full min-w-0 flex-1 flex-col border-t border-gray-200  overflow-y-auto lg:order-last p-0 md:p-2"
       >
         {main}
       </section>
 
+      {/* TODO: @tijan Parameterize/theme this view */}
       {/* Secondary column (hidden on smaller screens) */}
-      <aside className="hidden lg:order-first lg:block lg:flex-shrink-0 bg-gray-100 p-2 overflow-y-auto border-0 border-r-2 border-gray-300">
-        <div className="relative flex h-full w-96 flex-col">{aside}</div>
+      <aside className="hidden lg:order-first lg:block lg:flex-shrink-0 bg-[#1A1C1F] pt-5 overflow-y-auto border-0 border-r-2 ">
+        <div className="relative flex h-full w-[25rem] flex-col text-white">
+          {aside}
+        </div>
       </aside>
     </main>
   )
@@ -412,7 +415,7 @@ export default function Layout({
   //}))
 
   //const mode = 'bg-gray-100 text-white'
-  const mode = 'bg-gray-800 text-gray-700'
+  const mode = 'bg-[#1A1C1F] text-white'
 
   const navProps = {
     name,
@@ -434,9 +437,10 @@ export default function Layout({
           {/* TODO: Set href */}
           <a
             href="#"
-            className="flex h-16 w-16 items-center justify-center hover:text-gray-600 md:w-20"
+            className="flex h-16 w-16 items-center lg:pl-5 justify-center lg:justify-start hover:text-gray-300 lg:w-[25rem] gap-2 md:w-20"
           >
-            <LogoIcon />
+            <LogoIcon className="lg:h-10 lg:w-10" />
+            <span className="hidden lg:inline">Formation-tools</span>
           </a>
         </div>
         <DesktopNav {...navProps}> {viewControl} </DesktopNav>

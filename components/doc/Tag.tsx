@@ -68,12 +68,34 @@ const colorClasses = (color: string) => {
       return 'bg-pink-100 text-pink-900 border-pink-300'
   }
 }
+const circleColorClasses = (color: string) => {
+  switch (color) {
+    case 'blue':
+      return 'bg-blue-400'
+    case 'gray':
+      return 'bg-gray-400'
+    case 'red':
+      return 'bg-red-400'
+    case 'green':
+      return 'bg-green-400'
+    case 'yellow':
+      return 'bg-yellow-400'
+    case 'indigo':
+      return 'bg-indigo-400'
+    case 'purple':
+      return 'bg-purple-400'
+    case 'pink':
+      return 'bg-pink-400'
+    default:
+      return 'bg-pink-400'
+  }
+}
 
 export type TagProps = {
   content: string
   color: TagColor
   size?: 'small' | 'medium' | 'large'
-  shape?: 'block' | 'pill'
+  shape?: 'block' | 'pill'|'circle'
 }
 export default function Tag({
   content,
@@ -92,12 +114,12 @@ export default function Tag({
       className={[
         'border border-1',
         shapeClasses(shape),
-        colorClasses(color),
+        shape==='circle' ? circleColorClasses(color):colorClasses(color),
         tagSizeClasses(size),
         className,
       ].join(' ')}
     >
-      {content}
+      {shape==='circle' ? '' : content}
     </span>
   )
 }
