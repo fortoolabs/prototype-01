@@ -59,19 +59,19 @@ function TableOfContentsEntry({
             )}
             <Link href={`/#${id}`} scroll={true}>
               <a>
-            {todoKeyword && (
-              <Tag
-                content={todoKeyword}
-                color={todoKeywordColorClasses(todoKeyword)}
-                size="small"
-                shape="circle"
-                className="shrink-0 h-3 w-3 px-0 py-0 border-0 "
-              />
-            )}
-            {/* TODO: Implement when headline linking works */}
-            <span className="hover:text-blue-300 cursor-pointer">
-              {text.flatMap(renderObject)}
-            </span>
+                {todoKeyword && (
+                  <Tag
+                    content={todoKeyword}
+                    color={todoKeywordColorClasses(todoKeyword)}
+                    size="small"
+                    shape="circle"
+                    className="shrink-0 h-3 w-3 px-0 py-0 border-0 "
+                  />
+                )}
+                {/* TODO: Implement when headline linking works */}
+                <span className="hover:text-blue-300 cursor-pointer">
+                  {text.flatMap(renderObject)}
+                </span>
               </a>
             </Link>
           </div>
