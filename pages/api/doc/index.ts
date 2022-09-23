@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import parse, { FDocument } from 'core/parser'
 import { decodeTarget } from 'core/helpers'
+import { nanoid } from 'nanoid'
 
 // TODO: Move into API d.ts (to be created)
 export type DocResponse = {
@@ -26,7 +27,7 @@ const fetcher = (url: string): Promise<FDocument> =>
     },
   })
     .then((r) => r.text())
-    .then((t) => parse(t))
+    .then((t) => parse(t, () => nanoid()))
 
 const id = (id: string | string[]) => id
 const concat = (acc: string, x: string) => acc.concat(x)
