@@ -137,14 +137,14 @@ export function extractFormattedText(
 }
 
 // Extract a flat list of headlines
-export function extractFlatHeadlines(
+export function extractFlatHeadings(
   els: FElementType[],
   depth?: number,
 ): FTableOfContents {
   return els.reduce((acc: FTableOfContents, val) => {
     switch (val.type) {
       case 'S':
-        return [...acc, ...extractFlatHeadlines(val.content, depth)]
+        return [...acc, ...extractFlatHeadings(val.content, depth)]
       case 'h':
         // Return all headings when depth is undefined
         // Otherwise, if return heading if the level fits the depth constraint
@@ -165,14 +165,14 @@ export function extractFlatHeadlines(
 }
 
 // Extract a nested list of headlines
-export function extractNestedHeadlines(
+export function extractNestedHeadings(
   els: FElementType[],
   depth?: number,
 ): FNestedTableOfContents {
   return els.reduce((acc: FNestedTableOfContents, val) => {
     switch (val.type) {
       case 'S':
-        const [entry, ...rest] = extractNestedHeadlines(val.content, depth)
+        const [entry, ...rest] = extractNestedHeadings(val.content, depth)
         if (entry !== undefined) {
           return [...acc, { ...entry, children: rest }]
         }
@@ -381,7 +381,7 @@ function unpackElementType(
       }
     // ElementType
     case 'headline':
-      return [unpackHeadline(ctx, x)]
+      return [unpackHeading(ctx, x)]
     case 'comment-block':
       return [{ type: '#', content: x.value }]
     case 'comment':
@@ -416,7 +416,7 @@ export function removeStatisticsCookies(text: string): string {
     .trim()
 }
 
-function unpackHeadline(ctx: Context, x: Headline): FHeading {
+function unpackHeading(ctx: Context, x: Headline): FHeading {
   const { nextId } = ctx
   const content = x.children.map(unpackObjectType)
   const text = content.map(extractText).join('')
@@ -513,7 +513,7 @@ function convert(
 
     // ElementType
     case 'headline':
-      const headline = unpackHeadline(ctx, node)
+      const headline = unpackHeading(ctx, node)
 
       return {
         ...acc,

@@ -1,7 +1,7 @@
 import { expect, describe, it } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 
-import parse, { extractNestedHeadlines } from 'core/parser'
+import parse, { extractNestedHeadings } from 'core/parser'
 
 import TOC from 'components/app/TOC'
 
@@ -25,7 +25,7 @@ const samples = {
 
 describe('toc', () => {
   const getHeadlines = (text, depth?) =>
-    extractNestedHeadlines(parse(text).content, depth)
+    extractNestedHeadings(parse(text).content, depth)
   it('renders', () => {
     const { asFragment } = render(
       <TOC headings={getHeadlines(samples.parts, 3)} />,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import parse, { extractNestedHeadlines } from 'core/parser'
+import parse, { extractNestedHeadings } from 'core/parser'
 
 import TOC from './TOC'
 
@@ -96,10 +96,10 @@ const Template: ComponentStory<typeof TOC> = (args) => <TOC {...args} />
 
 export const NestedTOC = Template.bind({})
 NestedTOC.args = {
-  headings: extractNestedHeadlines(parse(toc).content),
+  headings: extractNestedHeadings(parse(toc).content),
 }
 
 export const NonNestedTOC = Template.bind({})
 NonNestedTOC.args = {
-  headings: extractNestedHeadlines(parse(nonNestedToc).content),
+  headings: extractNestedHeadings(parse(nonNestedToc).content),
 }

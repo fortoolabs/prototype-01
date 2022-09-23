@@ -7,8 +7,8 @@ import parse, {
   extractSlug,
   extractText,
   extractFormattedText,
-  extractFlatHeadlines,
-  extractNestedHeadlines,
+  extractFlatHeadings,
+  extractNestedHeadings,
   generateNextSlug,
   removeStatisticsCookies,
   unpackTodoKeyword,
@@ -96,20 +96,20 @@ describe('generally', () => {
 ** E1`
     describe('flat extraction', () => {
       it('extracts all headings', () => {
-        expect(extractFlatHeadlines(parse(raw).content)).toMatchSnapshot()
+        expect(extractFlatHeadings(parse(raw).content)).toMatchSnapshot()
       })
 
       it('extracts top-level headings only', () => {
-        expect(extractFlatHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+        expect(extractFlatHeadings(parse(raw).content, 1)).toMatchSnapshot()
       })
     })
 
     describe('nested extraction', () => {
       it('extracts all headings', () => {
-        expect(extractNestedHeadlines(parse(raw).content)).toMatchSnapshot()
+        expect(extractNestedHeadings(parse(raw).content)).toMatchSnapshot()
       })
       it('extracts top-level headings only', () => {
-        expect(extractNestedHeadlines(parse(raw).content, 1)).toMatchSnapshot()
+        expect(extractNestedHeadings(parse(raw).content, 1)).toMatchSnapshot()
       })
     })
   })

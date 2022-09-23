@@ -7,7 +7,7 @@ import { defaultTarget as target } from 'core/helpers'
 
 import { LinkIcon } from '@heroicons/react/20/solid'
 
-import { extractNestedHeadlines, FDocument } from 'core/parser'
+import { extractNestedHeadings, FDocument } from 'core/parser'
 
 import Board from 'components/Board'
 import Prose from 'components/mode/Prose'
@@ -83,7 +83,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
               return <Prose isSerif={false} doc={doc} />
           }
         })()}
-        aside={<TOC headings={extractNestedHeadlines(content)} />}
+        aside={<TOC headings={extractNestedHeadings(content)} />}
       />
 
       <Head>{title && <title>{title}</title>}</Head>
