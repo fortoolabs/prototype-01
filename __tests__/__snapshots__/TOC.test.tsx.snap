@@ -11,11 +11,15 @@ exports[`toc > renders 1`] = `
       <div
         class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
       >
-        <span
-          class="py-1 hover:text-blue-700"
+        <a
+          href="/#this-is-not-a-valid-id"
         >
-          Part 1
-        </span>
+          <span
+            class="py-1 hover:text-blue-700"
+          >
+            Part 1
+          </span>
+        </a>
         <span
           aria-controls="headlessui-disclosure-panel-:r1:"
           aria-expanded="true"
@@ -50,11 +54,15 @@ exports[`toc > renders 1`] = `
             <div
               class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
             >
-              <span
-                class="py-1 hover:text-blue-700"
+              <a
+                href="/#this-is-not-a-valid-id"
               >
-                Part 1.1 with a very long title that requires space
-              </span>
+                <span
+                  class="py-1 hover:text-blue-700"
+                >
+                  Part 1.1 with a very long title that requires space
+                </span>
+              </a>
             </div>
           </li>
           <li
@@ -63,11 +71,15 @@ exports[`toc > renders 1`] = `
             <div
               class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
             >
-              <span
-                class="py-1 hover:text-blue-700"
+              <a
+                href="/#this-is-not-a-valid-id"
               >
-                Part 1.2
-              </span>
+                <span
+                  class="py-1 hover:text-blue-700"
+                >
+                  Part 1.2
+                </span>
+              </a>
               <span
                 aria-controls="headlessui-disclosure-panel-:r6:"
                 aria-expanded="true"
@@ -102,11 +114,15 @@ exports[`toc > renders 1`] = `
                   <div
                     class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
                   >
-                    <span
-                      class="py-1 hover:text-blue-700"
+                    <a
+                      href="/#this-is-not-a-valid-id"
                     >
-                      Part 1.2.1
-                    </span>
+                      <span
+                        class="py-1 hover:text-blue-700"
+                      >
+                        Part 1.2.1
+                      </span>
+                    </a>
                   </div>
                 </li>
               </ul>
@@ -121,11 +137,15 @@ exports[`toc > renders 1`] = `
       <div
         class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
       >
-        <span
-          class="py-1 hover:text-blue-700"
+        <a
+          href="/#this-is-not-a-valid-id"
         >
-          Part 2
-        </span>
+          <span
+            class="py-1 hover:text-blue-700"
+          >
+            Part 2
+          </span>
+        </a>
       </div>
     </li>
     <li
@@ -134,11 +154,15 @@ exports[`toc > renders 1`] = `
       <div
         class="transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 py-1 px-1 flex items-center gap-3"
       >
-        <span
-          class="py-1 hover:text-blue-700"
+        <a
+          href="/#this-is-not-a-valid-id"
         >
-          Part 3
-        </span>
+          <span
+            class="py-1 hover:text-blue-700"
+          >
+            Part 3
+          </span>
+        </a>
       </div>
     </li>
   </ul>
