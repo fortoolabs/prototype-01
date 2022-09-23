@@ -10,7 +10,8 @@ import parse, {
   extractFlatHeadings,
   extractNestedHeadings,
   extractHeadingLinkText,
-  extractHeadingSlug,
+  extractHeadingSlugBase,
+  extractHeadingsIndex,
   generateNextSlug,
   removeStatisticsCookies,
   unpackTodoKeyword,
@@ -115,6 +116,25 @@ describe('generally', () => {
       })
     })
   })
+
+  describe('heading slugs', () => {
+    const raw = `#+TITLE: Demonstrating Heading Sluggin
+* A
+** A
+** B
+* C
+* c`
+
+    it('contains all slug-ids', () => {
+      expect(Object.keys(extractHeadingsIndex(parse(raw)))).toEqual([
+        'a',
+        'a-1',
+        'b',
+        'c',
+        'c-1',
+      ])
+    })
+  })
 })
 
 describe('heading', () => {
@@ -215,7 +235,8 @@ describe('heading', () => {
   })
 
   describe('slug', () => {
-    const headingSlug = (x) => extractHeadingSlug(getFirstAsHeading(parse(x)))
+    const headingSlug = (x) =>
+      extractHeadingSlugBase(getFirstAsHeading(parse(x)))
 
     it('is derived from the heading text', () => {
       expect(headingSlug("* This isn't love, this is destiny")).toEqual(
@@ -231,7 +252,8 @@ describe('heading', () => {
   })
 
   describe('internal link text', () => {
-    const headingLinkText = (x) => extractHeadingLinkText(getFirstAsHeading(parse(x)))
+    const headingLinkText = (x) =>
+      extractHeadingLinkText(getFirstAsHeading(parse(x)))
 
     it('is derived from the heading text', () => {
       expect(headingLinkText("* This isn't love, this is destiny")).toEqual(

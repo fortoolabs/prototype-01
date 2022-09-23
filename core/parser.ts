@@ -56,9 +56,11 @@ export function extractSlug(text: string): string {
 
 export function generateNextSlug(
   index: FHeadingIndex,
-  text: string,
+  anyText: string,
   upperCounter: number = 100,
 ): string {
+  const text = extractSlug(anyText)
+
   for (let i = 0; i < upperCounter; i++) {
     let slug = i === 0 ? text : `${text}-${i}`
     if (slug in index === false) {
@@ -68,6 +70,28 @@ export function generateNextSlug(
 
   // Assuming that nanoid will not collide
   return `${text}-${nanoid()}`
+}
+
+export function updateHeadingsIndexInDocument(doc: FDocument): FDocument {
+  const x = extractFlatHeadings(doc.content).reduce((acc, cur) => {
+    const index = acc.headingSlugToIdIndex
+    const nextSlug = generateNextSlug(index, extractHeadingText(cur.heading))
+
+    return {
+      ...acc,
+
+      headingSlugToIdIndex: {
+        ...index,
+        [nextSlug]: 'hardcoded',
+      },
+    }
+  }, doc)
+
+  return x
+}
+
+export function extractHeadingsIndex(doc: FDocument): FHeadingIndex {
+  return updateHeadingsIndexInDocument(doc).headingSlugToIdIndex
 }
 
 // TODO: Refactor to include exhaustiveness check
@@ -422,7 +446,7 @@ export const extractHeadingText = (x: FHeading): string =>
 export const extractHeadingLinkText = (x: FHeading): string =>
   removeStatisticsCookies(extractHeadingText(x))
 
-export const extractHeadingSlug = (x: FHeading): string =>
+export const extractHeadingSlugBase = (x: FHeading): string =>
   extractSlug(extractHeadingText(x))
 
 function unpackHeading(ctx: Context, x: Headline): FHeading {
