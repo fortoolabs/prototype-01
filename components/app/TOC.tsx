@@ -36,14 +36,13 @@ function TableOfContentsEntry({
   ]
 
   const { todoKeyword, id } = heading
-  const depthOffset = depth ? 2 * depth : 2
   const hasChildren = children && children.length > 0
 
   return (
     <Disclosure as="li" defaultOpen className="max-w-prose">
       {({ open }) => (
         <>
-          <div className="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3">
+          <div className="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3">
             {hasChildren ? (
               <Disclosure.Button as="span" className="shrink-0">
                 <CaretDown
@@ -77,7 +76,7 @@ function TableOfContentsEntry({
           </div>
           {hasChildren && (
             <Transition
-              className="overflow-hidden ml-2"
+              className="overflow-hidden ml-5"
               show={open}
               enter={transMotion}
               enterFrom={transClosed}
@@ -86,11 +85,7 @@ function TableOfContentsEntry({
               leaveFrom={transOpened}
               leaveTo={transClosed}
             >
-              <Disclosure.Panel
-                static
-                as="ul"
-                className={`ml-${depthOffset} h-fit`}
-              >
+              <Disclosure.Panel static as="ul" className={` h-fit`}>
                 {children.map((heading, idx) => (
                   <TableOfContentsEntry
                     key={idx}
