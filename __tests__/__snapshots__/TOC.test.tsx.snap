@@ -11,15 +11,6 @@ exports[`toc > renders 1`] = `
       <div
         class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
       >
-        <a
-          href="/#this-is-not-a-valid-id"
-        >
-          <span
-            class="py-1 hover:text-blue-700"
-          >
-            Part 1
-          </span>
-        </a>
         <span
           aria-controls="headlessui-disclosure-panel-:r1:"
           aria-expanded="true"
@@ -36,11 +27,15 @@ exports[`toc > renders 1`] = `
             />
           </svg>
         </span>
-        <span
-          class="hover:text-blue-300 cursor-pointer"
+        <a
+          href="/#this-is-not-a-valid-id"
         >
-          Part 1
-        </span>
+          <span
+            class="hover:text-blue-300 cursor-pointer"
+          >
+            Part 1
+          </span>
+        </a>
       </div>
       <div
         class="overflow-hidden ml-2"
@@ -55,11 +50,14 @@ exports[`toc > renders 1`] = `
             <div
               class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
             >
+              <div
+                class="h-4 w-4 shrink-0"
+              />
               <a
                 href="/#this-is-not-a-valid-id"
               >
                 <span
-                  class="py-1 hover:text-blue-700"
+                  class="hover:text-blue-300 cursor-pointer"
                 >
                   Part 1.1 with a very long title that requires space
                 </span>
@@ -72,15 +70,6 @@ exports[`toc > renders 1`] = `
             <div
               class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
             >
-              <a
-                href="/#this-is-not-a-valid-id"
-              >
-                <span
-                  class="py-1 hover:text-blue-700"
-                >
-                  Part 1.2
-                </span>
-              </a>
               <span
                 aria-controls="headlessui-disclosure-panel-:r6:"
                 aria-expanded="true"
@@ -97,11 +86,15 @@ exports[`toc > renders 1`] = `
                   />
                 </svg>
               </span>
-              <span
-                class="hover:text-blue-300 cursor-pointer"
+              <a
+                href="/#this-is-not-a-valid-id"
               >
-                Part 1.2
-              </span>
+                <span
+                  class="hover:text-blue-300 cursor-pointer"
+                >
+                  Part 1.2
+                </span>
+              </a>
             </div>
             <div
               class="overflow-hidden ml-2"
@@ -116,11 +109,14 @@ exports[`toc > renders 1`] = `
                   <div
                     class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
                   >
+                    <div
+                      class="h-4 w-4 shrink-0"
+                    />
                     <a
                       href="/#this-is-not-a-valid-id"
                     >
                       <span
-                        class="py-1 hover:text-blue-700"
+                        class="hover:text-blue-300 cursor-pointer"
                       >
                         Part 1.2.1
                       </span>
@@ -139,11 +135,14 @@ exports[`toc > renders 1`] = `
       <div
         class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
       >
+        <div
+          class="h-4 w-4 shrink-0"
+        />
         <a
           href="/#this-is-not-a-valid-id"
         >
           <span
-            class="py-1 hover:text-blue-700"
+            class="hover:text-blue-300 cursor-pointer"
           >
             Part 2
           </span>
@@ -156,11 +155,14 @@ exports[`toc > renders 1`] = `
       <div
         class="hover:bg-primary-hover hover:border-r-4 hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
       >
+        <div
+          class="h-4 w-4 shrink-0"
+        />
         <a
           href="/#this-is-not-a-valid-id"
         >
           <span
-            class="py-1 hover:text-blue-700"
+            class="hover:text-blue-300 cursor-pointer"
           >
             Part 3
           </span>
