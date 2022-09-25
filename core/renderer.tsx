@@ -22,15 +22,22 @@ function assertExhaustive(
 export function renderElement(
   el: FElementType,
   i: number | string,
+  // FIXME: The optional doc arg is a nasty hack to get context into the
+  // rendering stage
+  doc?: FDocument,
 ): JSX.Element[] {
   switch (el.type) {
     case 'S':
       // TODO: Render section in collapsible component
-      return el.content.flatMap((el, idx) => renderElement(el, `S${i}-${idx}`))
+      return el.content.flatMap((el, idx) =>
+        renderElement(el, `S${i}-${idx}`, doc),
+      )
     case 'L':
       return [
         <List key={`L${i}`}>
-          {el.content.flatMap((x, idx) => renderElement(x, `L${i}-I${idx}`))}
+          {el.content.flatMap((x, idx) =>
+            renderElement(x, `L${i}-I${idx}`, doc),
+          )}
         </List>,
       ]
 
@@ -52,7 +59,7 @@ export function renderElement(
 
       const restObjects =
         rest && rest.length > 0
-          ? rest.flatMap((x, idx) => renderElement(x, `${i}-body=${idx}`))
+          ? rest.flatMap((x, idx) => renderElement(x, `${i}-body=${idx}`, doc))
           : []
 
       return [
@@ -72,6 +79,8 @@ export function renderElement(
         case 5:
         case 6:
           const { id, level, todoKeyword, priority, commented, tags } = el
+          const renderedId = doc ? doc.headingIdToSlugIndex[id] : id
+
           return [
             // TODO: Migrate TODOs here to Heading component source file
             // TODO: Implement heading keyword
@@ -80,7 +89,7 @@ export function renderElement(
             // TODO: Implement heading tags
 
             <Heading
-              id={id}
+              id={renderedId}
               key={`h${i}`}
               level={level}
               todoKeyword={todoKeyword}
