@@ -44,7 +44,7 @@ export default function Prose({ isSerif, doc }: LinearProps) {
     >
       <Breadcrumbs pages={[]} />
       {/* iterate over json, build right component */}
-      {content.flatMap((el, i) => renderElement(el, `prose-${i}`))}
+      {content.flatMap((el, i) => renderElement(el, `prose-${i}`, doc))}
     </div>
   )
 }
