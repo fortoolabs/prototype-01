@@ -267,6 +267,14 @@ describe('heading', () => {
         headingSlug("* TODO [#A] This isn't love, this is destiny :lyric:"),
       ).toEqual('this-isn-t-love-this-is-destiny')
     })
+
+    it('does not include the statistics cookies', () => {
+      expect(
+        headingSlug(
+          "* TODO [#A] [%] This isn't love, this is [100%] destiny :lyric:",
+        ),
+      ).toEqual('this-isn-t-love-this-is-destiny')
+    })
   })
 
   describe('internal link text', () => {

@@ -455,7 +455,7 @@ export const extractHeadingLinkText = (x: FHeading): string =>
   removeStatisticsCookies(extractHeadingText(x))
 
 export const extractHeadingSlugBase = (x: FHeading): string =>
-  extractSlug(extractHeadingText(x))
+  extractSlug(extractHeadingLinkText(x))
 
 function unpackHeading(ctx: Context, x: Headline): FHeading {
   const { nextId } = ctx
