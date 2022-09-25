@@ -15,16 +15,25 @@ describe('heading', () => {
   it('renders', () => {
     expect(
       f(
-        renderElement({
-          type: 'h',
-          id: 'hopefully-random-id',
-          level: 1,
-          todoKeyword: 'TODO',
-          priority: 'A',
-          commented: true,
-          tags: ['idea', 'strategy'],
-          content: [{ type: 't', content: 'Collect underpants' }],
-        }),
+        renderElement(
+          {
+            type: 'h',
+            id: 'hopefully-random-id',
+            level: 1,
+            todoKeyword: 'TODO',
+            priority: 'A',
+            commented: true,
+            tags: ['idea', 'strategy'],
+            content: [{ type: 't', content: 'Collect underpants' }],
+          },
+          'blah',
+          {
+            ...emptyDocument,
+            headingIdToSlugIndex: {
+              'hopefully-random-id': 'some-slug',
+            },
+          },
+        ),
       ),
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -43,7 +52,7 @@ describe('heading', () => {
            
           <h1
             class="inline-block align-baseline align-text-bottom mr-3 last:mr-0 text-ellipsis font-bold text-2xl grow"
-            id="hopefully-random-id"
+            id="some-slug"
           >
             Collect underpants
           </h1>
