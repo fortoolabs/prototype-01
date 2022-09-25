@@ -1,6 +1,10 @@
 import Link from 'next/link'
 
-import { FNestedTableOfContents, FNestedTableOfContentsEntry } from 'core/types'
+import {
+  FHeadingIndex,
+  FNestedTableOfContents,
+  FNestedTableOfContentsEntry,
+} from 'core/types'
 import { renderObject } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
 
@@ -13,11 +17,15 @@ type TOCHeading = {
 }
 
 export type TOCProps = {
+  // TODO: Obtain index through provider
+  idToSlugIndex: FHeadingIndex
   headings: FNestedTableOfContents
 }
 
 // TODO: Use Disclosure to support folding
 type TableOfContentsEntryProps = {
+  // TODO: Obtain index through provider
+  idToSlugIndex: FHeadingIndex
   entry: FNestedTableOfContentsEntry
   depth: number
 }
@@ -26,6 +34,7 @@ const textClasses = 'text-sm text-white'
 //@vidbina let me know if Toc is going to be used somewhere else
 //so I can make the styling and colors dynamic
 function TableOfContentsEntry({
+  idToSlugIndex,
   entry: { heading, children, text },
   depth,
 }: TableOfContentsEntryProps) {
@@ -88,6 +97,7 @@ function TableOfContentsEntry({
               <Disclosure.Panel static as="ul" className={` h-fit`}>
                 {children.map((heading, idx) => (
                   <TableOfContentsEntry
+                    idToSlugIndex={idToSlugIndex}
                     key={idx}
                     entry={heading}
                     depth={depth + 1}
@@ -102,12 +112,18 @@ function TableOfContentsEntry({
   )
 }
 
-export default function TOC({ headings }: TOCProps) {
+export default function TOC({ idToSlugIndex, headings }: TOCProps) {
   if (!headings.length) return null
+
   return (
     <ul className={`${textClasses}`}>
       {headings.map((heading, idx) => (
-        <TableOfContentsEntry key={idx} entry={heading} depth={1} />
+        <TableOfContentsEntry
+          idToSlugIndex={idToSlugIndex}
+          key={idx}
+          entry={heading}
+          depth={1}
+        />
       ))}
     </ul>
   )
