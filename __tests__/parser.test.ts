@@ -258,14 +258,14 @@ describe('heading', () => {
 
     it('is derived from the heading text', () => {
       expect(headingSlug("* This isn't love, this is destiny")).toEqual(
-        'this-isnt-love-this-is-destiny',
+        'this-isn-t-love-this-is-destiny',
       )
     })
 
     it('does not include the priority value', () => {
       expect(
         headingSlug("* TODO [#A] This isn't love, this is destiny :lyric:"),
-      ).toEqual('this-isnt-love-this-is-destiny')
+      ).toEqual('this-isn-t-love-this-is-destiny')
     })
   })
 
@@ -644,9 +644,11 @@ describe('extractSlug', () => {
     expect(extractSlug('nice')).toEqual('nice')
     expect(extractSlug('   white space  ')).toEqual('white-space')
     expect(extractSlug('ALLCAPS')).toEqual('allcaps')
-    expect(extractSlug("@n!um//ber 4''2!&#&)@@^\"")).toEqual('number-42')
+    expect(extractSlug("@n!um//ber 4''2!&#&)@@^\"")).toEqual('n-um-ber-4-2')
     expect(extractSlug('under__scores')).toEqual('under__scores')
-    expect(extractSlug(' with angry 🤬 emoji ')).toEqual('with-angry--emoji')
+    expect(extractSlug(' with angry 🤬 emoji ')).toEqual('with-angry-emoji')
+    expect(extractSlug('🌟 north star')).toEqual('north-star')
+    expect(extractSlug('launch 🚀')).toEqual('launch')
   })
 })
 
