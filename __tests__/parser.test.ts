@@ -640,15 +640,17 @@ describe('removeStatisticsCookie', () => {
 })
 
 describe('extractSlug', () => {
+  const dut = extractSlug
   it('extracts valid string', () => {
-    expect(extractSlug('nice')).toEqual('nice')
-    expect(extractSlug('   white space  ')).toEqual('white-space')
-    expect(extractSlug('ALLCAPS')).toEqual('allcaps')
-    expect(extractSlug("@n!um//ber 4''2!&#&)@@^\"")).toEqual('n-um-ber-4-2')
-    expect(extractSlug('under__scores')).toEqual('under__scores')
-    expect(extractSlug(' with angry 🤬 emoji ')).toEqual('with-angry-emoji')
-    expect(extractSlug('🌟 north star')).toEqual('north-star')
-    expect(extractSlug('launch 🚀')).toEqual('launch')
+    expect(dut('nice')).toEqual('nice')
+    expect(dut('   white space  ')).toEqual('white-space')
+    expect(dut('ALLCAPS')).toEqual('allcaps')
+    expect(dut("@n!um//ber 4''2!&#&)@@^\"")).toEqual('n-um-ber-4-2')
+    expect(dut('under__scores')).toEqual('under__scores')
+    expect(dut(' with angry 🤬 emoji ')).toEqual('with-angry-emoji')
+    expect(dut('🌟 north star')).toEqual('north-star')
+    expect(dut('launch 🚀')).toEqual('launch')
+    expect(dut('[%] launch [100%]')).toEqual('launch-100')
   })
 })
 
