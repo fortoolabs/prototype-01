@@ -48,10 +48,10 @@ function assertExhaustive(
 export function extractSlug(text: string): string {
   // https://stackoverflow.com/a/1054862/685195
   return text
-    .trim()
     .toLowerCase()
+    .replace(/[^\w-]+/g, ' ')
+    .trim()
     .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '')
 }
 
 export function generateNextSlug(
