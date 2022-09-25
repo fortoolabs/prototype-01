@@ -46,6 +46,7 @@ function TableOfContentsEntry({
 
   const { todoKeyword, id } = heading
   const hasChildren = children && children.length > 0
+  const renderedId = idToSlugIndex[id] || id
 
   return (
     <Disclosure as="li" defaultOpen className="max-w-prose">
@@ -65,7 +66,7 @@ function TableOfContentsEntry({
             ) : (
               <div className="h-4 w-4 shrink-0" />
             )}
-            <Link href={`/#${id}`} scroll={true}>
+            <Link href={`/#${renderedId}`} scroll={true}>
               <div className="contents">
                 {todoKeyword && (
                   <Tag
