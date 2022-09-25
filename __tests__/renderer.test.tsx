@@ -12,7 +12,7 @@ const f = (a) => {
 }
 
 describe('heading', () => {
-  it('renders', () => {
+  it('renders with slug as id when present', () => {
     expect(
       f(
         renderElement(
@@ -31,6 +31,32 @@ describe('heading', () => {
             ...emptyDocument,
             headingIdToSlugIndex: {
               'hopefully-random-id': 'some-slug',
+            },
+          },
+        ),
+      ),
+    ).toMatchSnapshot()
+  })
+
+  it('renders with id when slug is not present', () => {
+    expect(
+      f(
+        renderElement(
+          {
+            type: 'h',
+            id: 'hopefully-random-id',
+            level: 1,
+            todoKeyword: 'TODO',
+            priority: 'A',
+            commented: true,
+            tags: ['idea', 'strategy'],
+            content: [{ type: 't', content: 'Collect underpants' }],
+          },
+          'blah',
+          {
+            ...emptyDocument,
+            headingIdToSlugIndex: {
+              'another-id': 'some-slug',
             },
           },
         ),
