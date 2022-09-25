@@ -79,7 +79,7 @@ export function renderElement(
         case 5:
         case 6:
           const { id, level, todoKeyword, priority, commented, tags } = el
-          const renderedId = doc ? doc.headingIdToSlugIndex[id] : id
+          const renderedId = doc ? doc.headingIdToSlugIndex[id] || id : id
 
           return [
             // TODO: Migrate TODOs here to Heading component source file
