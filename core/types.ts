@@ -167,6 +167,7 @@ export type FDocument = {
   title?: string
   source?: string
   headingSlugToIdIndex: FHeadingIndex
+  headingIdToSlugIndex: FHeadingIndex
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
@@ -196,5 +197,6 @@ export type FNestedTableOfContents = FNestedTableOfContentsEntry[]
 export const emptyDocument = {
   content: [],
   headingSlugToIdIndex: {},
+  headingIdToSlugIndex: {},
   todoStates: [],
 }

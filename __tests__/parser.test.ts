@@ -126,13 +126,29 @@ describe('generally', () => {
 * c`
 
     it('contains all slug-ids', () => {
-      expect(Object.keys(extractHeadingsIndex(parse(raw)))).toEqual([
+      expect(Object.keys(parse(raw).headingSlugToIdIndex)).toEqual([
         'a',
         'a-1',
         'b',
         'c',
         'c-1',
       ])
+    })
+
+    it('contains all ids`', () => {
+      function* gen() {
+        yield* [1, 2, 3, 4, 5, 6, 7, 8].map(x => `id-${x}`)
+      }
+
+      const idSeq = gen()
+
+      expect(parse(raw, () => idSeq.next().value).headingIdToSlugIndex).toEqual({
+        'id-1': 'a',
+        'id-2': 'a-1',
+        'id-3': 'b',
+        'id-4': 'c',
+        'id-5': 'c-1',
+      })
     })
   })
 })

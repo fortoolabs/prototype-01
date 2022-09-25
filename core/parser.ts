@@ -82,7 +82,12 @@ export function updateHeadingsIndexInDocument(doc: FDocument): FDocument {
 
       headingSlugToIdIndex: {
         ...index,
-        [nextSlug]: 'hardcoded',
+        [nextSlug]: cur.heading.id,
+      },
+
+      headingIdToSlugIndex: {
+        ...acc.headingIdToSlugIndex,
+        [cur.heading.id]: nextSlug,
       },
     }
   }, doc)
@@ -595,10 +600,10 @@ export default function parse(
   nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
 ): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return convert(
+  return updateHeadingsIndexInDocument(convert(
     { text, nextId, headingSlugToIdIndex: {} },
     emptyDocument,
     ast,
     0,
-  )
+  ))
 }

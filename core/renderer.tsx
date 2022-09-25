@@ -78,6 +78,7 @@ export function renderElement(
             // TODO: Implement heading priority
             // TODO: Implement heading comment status
             // TODO: Implement heading tags
+
             <Heading
               id={id}
               key={`h${i}`}
