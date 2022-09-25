@@ -137,18 +137,20 @@ describe('generally', () => {
 
     it('contains all ids`', () => {
       function* gen() {
-        yield* [1, 2, 3, 4, 5, 6, 7, 8].map(x => `id-${x}`)
+        yield* [1, 2, 3, 4, 5, 6, 7, 8].map((x) => `id-${x}`)
       }
 
       const idSeq = gen()
 
-      expect(parse(raw, () => idSeq.next().value).headingIdToSlugIndex).toEqual({
-        'id-1': 'a',
-        'id-2': 'a-1',
-        'id-3': 'b',
-        'id-4': 'c',
-        'id-5': 'c-1',
-      })
+      expect(parse(raw, () => idSeq.next().value).headingIdToSlugIndex).toEqual(
+        {
+          'id-1': 'a',
+          'id-2': 'a-1',
+          'id-3': 'b',
+          'id-4': 'c',
+          'id-5': 'c-1',
+        },
+      )
     })
   })
 })

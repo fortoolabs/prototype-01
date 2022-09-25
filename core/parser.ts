@@ -600,10 +600,7 @@ export default function parse(
   nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
 ): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return updateHeadingsIndexInDocument(convert(
-    { text, nextId, headingSlugToIdIndex: {} },
-    emptyDocument,
-    ast,
-    0,
-  ))
+  return updateHeadingsIndexInDocument(
+    convert({ text, nextId, headingSlugToIdIndex: {} }, emptyDocument, ast, 0),
+  )
 }
