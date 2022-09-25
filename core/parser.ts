@@ -75,7 +75,7 @@ export function generateNextSlug(
 export function updateHeadingsIndexInDocument(doc: FDocument): FDocument {
   const x = extractFlatHeadings(doc.content).reduce((acc, cur) => {
     const index = acc.headingSlugToIdIndex
-    const nextSlug = generateNextSlug(index, extractHeadingText(cur.heading))
+    const nextSlug = generateNextSlug(index, extractHeadingSlugBase(cur.heading))
 
     return {
       ...acc,
