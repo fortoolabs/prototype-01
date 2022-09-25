@@ -24,16 +24,40 @@ const samples = {
 }
 
 describe('toc', () => {
-  const getHeadlines = (text, depth?) =>
-    extractNestedHeadings(parse(text).content, depth)
+  const getHeadlines = (doc, depth?) =>
+    extractNestedHeadings(doc.content, depth)
+  function* idGenerator() {
+    let counter = 0
+    while (true) {
+      counter++
+      yield `id:${counter}`
+    }
+  }
+
   it('renders', () => {
+    const gen = idGenerator()
+    const next = () => gen.next().value
+    const doc = parse(samples.parts, next)
+
     const { asFragment } = render(
-      <TOC headings={getHeadlines(samples.parts, 3)} />,
+      <TOC
+        idToSlugIndex={doc.headingIdToSlugIndex}
+        headings={getHeadlines(doc, 3)}
+      />,
     )
     expect(asFragment()).toMatchSnapshot()
   })
   it('renders maximally until depth 3', async () => {
-    render(<TOC headings={getHeadlines(samples.another, 3)} />)
+    const gen = idGenerator()
+    const next = () => gen.next().value
+    const doc = parse(samples.another, next)
+
+    render(
+      <TOC
+        idToSlugIndex={doc.headingIdToSlugIndex}
+        headings={getHeadlines(doc, 3)}
+      />,
+    )
     expect(screen.queryByText(/another one/i)).not.toBe(null)
     expect(screen.queryByText(/another two/i)).not.toBe(null)
     expect(screen.queryByText(/another three/i)).not.toBe(null)

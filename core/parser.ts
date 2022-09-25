@@ -48,10 +48,10 @@ function assertExhaustive(
 export function extractSlug(text: string): string {
   // https://stackoverflow.com/a/1054862/685195
   return text
-    .trim()
     .toLowerCase()
+    .replace(/[^\w-]+/g, ' ')
+    .trim()
     .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '')
 }
 
 export function generateNextSlug(
@@ -82,7 +82,12 @@ export function updateHeadingsIndexInDocument(doc: FDocument): FDocument {
 
       headingSlugToIdIndex: {
         ...index,
-        [nextSlug]: 'hardcoded',
+        [nextSlug]: cur.heading.id,
+      },
+
+      headingIdToSlugIndex: {
+        ...acc.headingIdToSlugIndex,
+        [cur.heading.id]: nextSlug,
       },
     }
   }, doc)
@@ -595,10 +600,7 @@ export default function parse(
   nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
 ): FDocument {
   const ast = unified().use(parser).parse(text) as OrgData
-  return convert(
-    { text, nextId, headingSlugToIdIndex: {} },
-    emptyDocument,
-    ast,
-    0,
+  return updateHeadingsIndexInDocument(
+    convert({ text, nextId, headingSlugToIdIndex: {} }, emptyDocument, ast, 0),
   )
 }
