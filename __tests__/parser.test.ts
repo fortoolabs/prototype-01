@@ -309,7 +309,7 @@ describe('heading', () => {
   })
 })
 
-describe('regular links', () => {
+describe('regular link', () => {
   const dut = (x) => parse(x).content[0].content[0]
 
   describe('for id', () => {
@@ -325,6 +325,21 @@ describe('regular links', () => {
           ],
           "linkType": "id",
           "target": "id:blah-di-blah 12",
+          "type": "a",
+        }
+      `)
+    })
+  })
+
+  describe('to internal heading', () => {
+    const link = '[[*Heading]]'
+
+    it('is parsed as a fuzzy link', () => {
+      expect(dut(link)).toMatchInlineSnapshot(`
+        {
+          "content": [],
+          "linkType": "fuzzy",
+          "target": "*Heading",
           "type": "a",
         }
       `)
