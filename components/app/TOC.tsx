@@ -79,7 +79,7 @@ function TableOfContentsEntry({
                 )}
                 {/* TODO: Implement when headline linking works */}
                 <span className="hover:text-blue-300 cursor-pointer">
-                  {text.flatMap(renderObject)}
+                  {text.flatMap((el, i) => renderObject(el, i))}
                 </span>
               </div>
             </Link>

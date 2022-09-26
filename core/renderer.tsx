@@ -54,7 +54,7 @@ export function renderElement(
       }
 
       const headObjects = head.content.flatMap((x, idx) =>
-        renderObject(x, `${i}-label-${idx}`),
+        renderObject(x, `${i}-label-${idx}`, doc),
       )
 
       const restObjects =
@@ -98,7 +98,7 @@ export function renderElement(
               tags={tags}
             >
               {el.content.flatMap((el, idx) =>
-                renderObject(el, `h${i}-${idx}`),
+                renderObject(el, `h${i}-${idx}`, doc),
               )}
             </Heading>,
           ]
@@ -109,7 +109,9 @@ export function renderElement(
     case 'p':
       return [
         <Paragraph key={`p${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `p${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `p${i}-${idx}`, doc),
+          )}
         </Paragraph>,
       ]
     case 'E':
@@ -126,6 +128,8 @@ export function renderElement(
 export function renderObject(
   el: FObjectType,
   i: number | string,
+  // FIXME: Reevaluate if this context-dump is really necessary
+  doc?: FDocument,
 ): JSX.Element[] {
   switch (el.type) {
     case 'a':
@@ -135,20 +139,24 @@ export function renderObject(
           url={el.target}
           linkType={el.linkType}
           label={el.content.flatMap((el, idx) =>
-            renderObject(el, `a${i}-${idx}`),
+            renderObject(el, `a${i}-${idx}`, doc),
           )}
         />,
       ]
     case 'b':
       return [
         <b key={`b${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `b${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `b${i}-${idx}`, doc),
+          )}
         </b>,
       ]
     case 'i':
       return [
         <i key={`i${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `i${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `i${i}-${idx}`, doc),
+          )}
         </i>,
       ]
     case 'c':
@@ -158,25 +166,33 @@ export function renderObject(
     case '+':
       return [
         <s key={`+${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `+${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `+${i}-${idx}`, doc),
+          )}
         </s>,
       ]
     case 'u':
       return [
         <u key={`u${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `u${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `u${i}-${idx}`, doc),
+          )}
         </u>,
       ]
     case '^':
       return [
         <sup key={`^${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `^${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `^${i}-${idx}`, doc),
+          )}
         </sup>,
       ]
     case '_':
       return [
         <sub key={`_${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `_${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `_${i}-${idx}`, doc),
+          )}
         </sub>,
       ]
     case 't':
@@ -192,7 +208,9 @@ export function renderObject(
       // TODO: Implement footnote
       return [
         <em key={`f${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `f${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `f${i}-${idx}`, doc),
+          )}
         </em>,
       ]
     case 'X':
@@ -204,7 +222,9 @@ export function renderObject(
     case 'C':
       return [
         <td key={`C${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `C${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `C${i}-${idx}`, doc),
+          )}
         </td>,
       ]
     default:
