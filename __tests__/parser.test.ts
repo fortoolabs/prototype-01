@@ -153,6 +153,31 @@ describe('generally', () => {
       )
     })
   })
+
+  describe('fuzzy links', () => {
+    const raw = `#+TITLE: Demonstrating a Heading Tree's Fuzzy Links
+* Chapter 1
+** Chapter 1.1
+** [%] Chapter 1.2
+* Section A
+* Subsection [%] A
+* Cookie [%] in the middle 🍪
+*** Chapter 1.1`
+    const doc = parse(raw)
+
+    it('renders the fuzzy headings index', () => {
+      expect(doc.headingFuzzyToIdIndex).toMatchInlineSnapshot(`
+        {
+          "Chapter 1": "this-is-not-a-valid-id",
+          "Chapter 1.1": "this-is-not-a-valid-id",
+          "Chapter 1.2": "this-is-not-a-valid-id",
+          "Cookie in the middle 🍪": "this-is-not-a-valid-id",
+          "Section A": "this-is-not-a-valid-id",
+          "Subsection A": "this-is-not-a-valid-id",
+        }
+      `)
+    })
+  })
 })
 
 describe('heading', () => {

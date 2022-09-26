@@ -168,6 +168,7 @@ export type FDocument = {
   source?: string
   headingSlugToIdIndex: FHeadingIndex
   headingIdToSlugIndex: FHeadingIndex
+  headingFuzzyToIdIndex: FHeadingIndex
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
@@ -198,5 +199,6 @@ export const emptyDocument = {
   content: [],
   headingSlugToIdIndex: {},
   headingIdToSlugIndex: {},
+  headingFuzzyToIdIndex: {},
   todoStates: [],
 }

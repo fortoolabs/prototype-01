@@ -92,6 +92,11 @@ export function updateHeadingsIndexInDocument(doc: FDocument): FDocument {
         ...acc.headingIdToSlugIndex,
         [cur.heading.id]: nextSlug,
       },
+
+      headingFuzzyToIdIndex: {
+        ...acc.headingFuzzyToIdIndex,
+        [extractHeadingLinkText(cur.heading)]: cur.heading.id,
+      },
     }
   }, doc)
 
