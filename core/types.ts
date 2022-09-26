@@ -2,7 +2,7 @@ export type FRecursiveObject = {
   content: FObjectType[]
 }
 
-type FLink = FRecursiveObject & {
+export type FLink = FRecursiveObject & {
   type: 'a'
   target: string
   linkType: string

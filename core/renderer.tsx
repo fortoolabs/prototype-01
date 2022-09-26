@@ -1,5 +1,11 @@
 import { Fragment } from 'react'
-import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
+import {
+  FDocument,
+  FHeading,
+  FLink,
+  FElementType,
+  FObjectType,
+} from 'core/types'
 
 import Code, { CodeProps } from 'components/doc/Code'
 import Heading, { HeadingProps } from 'components/doc/Heading'
@@ -125,6 +131,37 @@ export function renderElement(
   }
 }
 
+export function destinationForLink(link: FLink, doc?: FDocument): string {
+  if (doc === undefined) {
+    return link.target
+  }
+
+  switch (link.linkType) {
+    case 'fuzzy':
+      if (link.target.charAt(0) !== '*') {
+        return link.target
+      }
+      const fuzzyTarget = link.target.slice(1)
+
+      const id = doc.headingFuzzyToIdIndex[fuzzyTarget]
+      if (id === undefined) {
+        return link.target
+      }
+
+      const headingSlug = doc.headingIdToSlugIndex[id]
+      if (headingSlug === undefined) {
+        return link.target
+      }
+
+      return `/#${headingSlug}`
+    case 'id':
+      // TODO: Implement
+      return link.target
+    default:
+      return link.target
+  }
+}
+
 export function renderObject(
   el: FObjectType,
   i: number | string,
@@ -136,7 +173,7 @@ export function renderObject(
       return [
         <Link
           key={`a${i}`}
-          url={el.target}
+          url={destinationForLink(el, doc)}
           linkType={el.linkType}
           label={el.content.flatMap((el, idx) =>
             renderObject(el, `a${i}-${idx}`, doc),
