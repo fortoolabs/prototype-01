@@ -47,9 +47,10 @@ function TableOfContentsEntry({
   const { todoKeyword, id } = heading
   const hasChildren = children && children.length > 0
   const renderedId = idToSlugIndex[id] || id
+  const notComplete = todoKeyword !== 'DONE'
 
   return (
-    <Disclosure as="li" defaultOpen className="max-w-prose">
+    <Disclosure as="li" defaultOpen={notComplete} className="max-w-prose">
       {({ open }) => (
         <>
           <div className="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3">
@@ -59,7 +60,7 @@ function TableOfContentsEntry({
                   className={[
                     'transition-all fill-white',
                     open ? '' : '-rotate-90 transform',
-                    'h-4 w-4 cursor-pointer hover:fill-blue-300 select-none',
+                    'h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none',
                   ].join(' ')}
                 />
               </Disclosure.Button>
