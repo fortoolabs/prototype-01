@@ -1,5 +1,6 @@
+import Link from 'next/link'
 import { createElement, PropsWithChildren } from 'react'
-
+import { LinkIcon } from '@heroicons/react/20/solid'
 import Block, { blockClasses } from 'components/doc/Block'
 import Tag from 'components/doc/Tag'
 
@@ -110,15 +111,33 @@ export default function HeadingLine({
     elType,
     {
       id,
-      className: `${headingBlockClasses} ${sharedTypography} ${headingTypography} grow`,
+      className: `inline`,
     },
     children,
   )
   const tags = tagsElement(tagLabels)
 
+  //todo implement copying to clipboard
+  const copyLink = (
+    <Link href={`/#{id}`}>
+      <a className="align-middle inline-block hover:text-c-blue-hover invisible group-hover:visible">
+        <LinkIcon className="h-5 rotate-45" />
+      </a>
+    </Link>
+  )
+  const titleElement = (
+    <span
+      className={`${headingBlockClasses} ${sharedTypography} ${headingTypography} grow group`}
+    >
+      {title} {copyLink}
+    </span>
+  )
+
   return (
     <Block className={`${blockClasses} md:flex ${headingTypography}`}>
-      {todo} {title} {tags}
+      {todo}
+      {titleElement}
+      {tags}
     </Block>
   )
 }
