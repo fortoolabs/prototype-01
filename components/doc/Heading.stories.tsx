@@ -64,7 +64,11 @@ const OrgHeading = ({
 
   const args = { level, todoKeyword, priority, commented, tags }
 
-  return <Heading {...args}>{getContent(title)}</Heading>
+  return (
+    <Heading id="random-id-12" {...args}>
+      {getContent(title)}
+    </Heading>
+  )
 }
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args

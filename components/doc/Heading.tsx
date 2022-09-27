@@ -1,6 +1,11 @@
 import Link from 'next/link'
 import { createElement, PropsWithChildren } from 'react'
+
 import { LinkIcon } from '@heroicons/react/20/solid'
+
+import { FDocument } from 'core/types'
+import { destinationForHeadingId } from 'core/renderer'
+
 import Block, { blockClasses } from 'components/doc/Block'
 import Tag from 'components/doc/Tag'
 
@@ -91,11 +96,12 @@ const tagsElement = (tags: string[]) => {
 }
 
 export type HeadingLineProps = HeadingProps & {
-  id?: string
+  id: string
   todoKeyword: string | null
   priority: string | null
   commented?: boolean
   tags: string[]
+  doc?: FDocument
 }
 export default function HeadingLine({
   id,
@@ -103,6 +109,7 @@ export default function HeadingLine({
   level,
   todoKeyword,
   tags: tagLabels,
+  doc,
 }: PropsWithChildren<HeadingLineProps>) {
   const [headingTypography, elType] = getHeadingClasses(level)
 
@@ -119,7 +126,7 @@ export default function HeadingLine({
 
   //todo implement copying to clipboard
   const copyLink = (
-    <Link href={`/#${id}`}>
+    <Link href={`/#${destinationForHeadingId(id, doc)}`}>
       <a className="align-middle inline-block hover:text-c-blue-hover invisible group-hover:visible">
         <LinkIcon className="h-5 rotate-45" />
       </a>
