@@ -119,7 +119,7 @@ export default function HeadingLine({
 
   //todo implement copying to clipboard
   const copyLink = (
-    <Link href={`/#{id}`}>
+    <Link href={`/#${id}`}>
       <a className="align-middle inline-block hover:text-c-blue-hover invisible group-hover:visible">
         <LinkIcon className="h-5 rotate-45" />
       </a>
