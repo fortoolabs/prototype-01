@@ -18,7 +18,7 @@ exports[`toc > renders 1`] = `
           id="headlessui-disclosure-button-:r0:"
         >
           <svg
-            class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-blue-300 select-none"
+            class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none"
             viewBox="0 0 320 512"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -77,7 +77,7 @@ exports[`toc > renders 1`] = `
                 id="headlessui-disclosure-button-:r5:"
               >
                 <svg
-                  class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-blue-300 select-none"
+                  class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none"
                   viewBox="0 0 320 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
