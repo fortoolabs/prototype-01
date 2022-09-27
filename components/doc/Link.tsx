@@ -82,28 +82,31 @@ export default function Link({ url, linkType, label }: LinkProps) {
   const isLabeled = label.length > 0
   const isExternal = isExternalLink(linkType)
 
-  if (isExternal) {
-    return (
-      // eslint-disable-next-line react/jsx-no-target-blank
-      <a
-        className={linkClasses}
-        href={url}
-        target={isExternal ? '_blank' : ''}
-        rel={isExternal ? 'noopener noreferrer' : ''}
-      >
-        {isShowingIcons && getLinkTypeIcon(linkType)}
-        <span className="block truncate">{isLabeled ? label : url}</span>
-        {isShowingIcons && (
-          <ExternalIcon className={iconClasses} aria-hidden="true" />
-        )}
-      </a>
-    )
+  switch (linkType) {
+    case 'fuzzy':
+    case 'http':
+    case 'https':
+      return (
+        // eslint-disable-next-line react/jsx-no-target-blank
+        <a
+          className={linkClasses}
+          href={url}
+          target={isExternal ? '_blank' : ''}
+          rel={isExternal ? 'noopener noreferrer' : ''}
+        >
+          {isShowingIcons && getLinkTypeIcon(linkType)}
+          <span className="block truncate">{isLabeled ? label : url}</span>
+          {isShowingIcons && (
+            <ExternalIcon className={iconClasses} aria-hidden="true" />
+          )}
+        </a>
+      )
+    default:
+      return (
+        <span className={linkClasses}>
+          {isShowingIcons && getLinkTypeIcon(linkType)}
+          <span className="block truncate">{isLabeled ? label : url}</span>
+        </span>
+      )
   }
-
-  return (
-    <span className={linkClasses}>
-      {isShowingIcons && getLinkTypeIcon(linkType)}
-      <span className="block truncate">{isLabeled ? label : url}</span>
-    </span>
-  )
 }

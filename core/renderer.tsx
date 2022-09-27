@@ -1,5 +1,11 @@
 import { Fragment } from 'react'
-import { FDocument, FHeading, FElementType, FObjectType } from 'core/types'
+import {
+  FDocument,
+  FHeading,
+  FLink,
+  FElementType,
+  FObjectType,
+} from 'core/types'
 
 import Code, { CodeProps } from 'components/doc/Code'
 import Heading, { HeadingProps } from 'components/doc/Heading'
@@ -54,7 +60,7 @@ export function renderElement(
       }
 
       const headObjects = head.content.flatMap((x, idx) =>
-        renderObject(x, `${i}-label-${idx}`),
+        renderObject(x, `${i}-label-${idx}`, doc),
       )
 
       const restObjects =
@@ -98,7 +104,7 @@ export function renderElement(
               tags={tags}
             >
               {el.content.flatMap((el, idx) =>
-                renderObject(el, `h${i}-${idx}`),
+                renderObject(el, `h${i}-${idx}`, doc),
               )}
             </Heading>,
           ]
@@ -109,7 +115,9 @@ export function renderElement(
     case 'p':
       return [
         <Paragraph key={`p${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `p${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `p${i}-${idx}`, doc),
+          )}
         </Paragraph>,
       ]
     case 'E':
@@ -123,32 +131,69 @@ export function renderElement(
   }
 }
 
+export function destinationForLink(link: FLink, doc?: FDocument): string {
+  if (doc === undefined) {
+    return link.target
+  }
+
+  switch (link.linkType) {
+    case 'fuzzy':
+      if (link.target.charAt(0) !== '*') {
+        return link.target
+      }
+      const fuzzyTarget = link.target.slice(1)
+
+      const id = doc.headingFuzzyToIdIndex[fuzzyTarget]
+      if (id === undefined) {
+        return link.target
+      }
+
+      const headingSlug = doc.headingIdToSlugIndex[id]
+      if (headingSlug === undefined) {
+        return link.target
+      }
+
+      return `/#${headingSlug}`
+    case 'id':
+      // TODO: Implement
+      return link.target
+    default:
+      return link.target
+  }
+}
+
 export function renderObject(
   el: FObjectType,
   i: number | string,
+  // FIXME: Reevaluate if this context-dump is really necessary
+  doc?: FDocument,
 ): JSX.Element[] {
   switch (el.type) {
     case 'a':
       return [
         <Link
           key={`a${i}`}
-          url={el.target}
+          url={destinationForLink(el, doc)}
           linkType={el.linkType}
           label={el.content.flatMap((el, idx) =>
-            renderObject(el, `a${i}-${idx}`),
+            renderObject(el, `a${i}-${idx}`, doc),
           )}
         />,
       ]
     case 'b':
       return [
         <b key={`b${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `b${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `b${i}-${idx}`, doc),
+          )}
         </b>,
       ]
     case 'i':
       return [
         <i key={`i${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `i${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `i${i}-${idx}`, doc),
+          )}
         </i>,
       ]
     case 'c':
@@ -158,25 +203,33 @@ export function renderObject(
     case '+':
       return [
         <s key={`+${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `+${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `+${i}-${idx}`, doc),
+          )}
         </s>,
       ]
     case 'u':
       return [
         <u key={`u${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `u${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `u${i}-${idx}`, doc),
+          )}
         </u>,
       ]
     case '^':
       return [
         <sup key={`^${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `^${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `^${i}-${idx}`, doc),
+          )}
         </sup>,
       ]
     case '_':
       return [
         <sub key={`_${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `_${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `_${i}-${idx}`, doc),
+          )}
         </sub>,
       ]
     case 't':
@@ -192,7 +245,9 @@ export function renderObject(
       // TODO: Implement footnote
       return [
         <em key={`f${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `f${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `f${i}-${idx}`, doc),
+          )}
         </em>,
       ]
     case 'X':
@@ -204,7 +259,9 @@ export function renderObject(
     case 'C':
       return [
         <td key={`C${i}`}>
-          {el.content.flatMap((el, idx) => renderObject(el, `C${i}-${idx}`))}
+          {el.content.flatMap((el, idx) =>
+            renderObject(el, `C${i}-${idx}`, doc),
+          )}
         </td>,
       ]
     default:

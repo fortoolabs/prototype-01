@@ -153,6 +153,31 @@ describe('generally', () => {
       )
     })
   })
+
+  describe('fuzzy links', () => {
+    const raw = `#+TITLE: Demonstrating a Heading Tree's Fuzzy Links
+* Chapter 1
+** Chapter 1.1
+** [%] Chapter 1.2
+* Section A
+* Subsection [%] A
+* Cookie [%] in the middle 🍪
+*** Chapter 1.1`
+    const doc = parse(raw)
+
+    it('renders the fuzzy headings index', () => {
+      expect(doc.headingFuzzyToIdIndex).toMatchInlineSnapshot(`
+        {
+          "Chapter 1": "this-is-not-a-valid-id",
+          "Chapter 1.1": "this-is-not-a-valid-id",
+          "Chapter 1.2": "this-is-not-a-valid-id",
+          "Cookie in the middle 🍪": "this-is-not-a-valid-id",
+          "Section A": "this-is-not-a-valid-id",
+          "Subsection A": "this-is-not-a-valid-id",
+        }
+      `)
+    })
+  })
 })
 
 describe('heading', () => {
@@ -309,7 +334,7 @@ describe('heading', () => {
   })
 })
 
-describe('regular links', () => {
+describe('regular link', () => {
   const dut = (x) => parse(x).content[0].content[0]
 
   describe('for id', () => {
@@ -325,6 +350,21 @@ describe('regular links', () => {
           ],
           "linkType": "id",
           "target": "id:blah-di-blah 12",
+          "type": "a",
+        }
+      `)
+    })
+  })
+
+  describe('to internal heading', () => {
+    const link = '[[*Heading]]'
+
+    it('is parsed as a fuzzy link', () => {
+      expect(dut(link)).toMatchInlineSnapshot(`
+        {
+          "content": [],
+          "linkType": "fuzzy",
+          "target": "*Heading",
           "type": "a",
         }
       `)
