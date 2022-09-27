@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { render as r } from '@testing-library/react'
 
-import { render, renderElement } from 'core/renderer'
+import { render, renderElement, destinationForHeading } from 'core/renderer'
 
 import { emptyDocument } from 'core/types'
 
@@ -62,6 +62,54 @@ describe('heading', () => {
         ),
       ),
     ).toMatchSnapshot()
+  })
+
+  describe('destination helper', () => {
+    it('defaults to heading id', () => {
+      expect(
+        destinationForHeading(
+          {
+            type: 'h',
+            id: 'hopefully-random-id',
+            level: 1,
+            todoKeyword: 'TODO',
+            priority: 'A',
+            commented: true,
+            tags: ['idea', 'strategy'],
+            content: [{ type: 't', content: 'Collect underpants' }],
+          },
+          {
+            ...emptyDocument,
+            headingIdToSlugIndex: {
+              'another-id': 'some-slug',
+            },
+          },
+        ),
+      ).toEqual('hopefully-random-id')
+    })
+
+    it('returns the slug', () => {
+      expect(
+        destinationForHeading(
+          {
+            type: 'h',
+            id: 'hopefully-random-id',
+            level: 1,
+            todoKeyword: 'TODO',
+            priority: 'A',
+            commented: true,
+            tags: ['idea', 'strategy'],
+            content: [{ type: 't', content: 'Collect underpants' }],
+          },
+          {
+            ...emptyDocument,
+            headingIdToSlugIndex: {
+              'hopefully-random-id': 'some-slug',
+            },
+          },
+        ),
+      ).toEqual('some-slug')
+    })
   })
 })
 
