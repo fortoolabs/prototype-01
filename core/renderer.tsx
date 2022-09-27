@@ -131,15 +131,12 @@ export function renderElement(
   }
 }
 
-export function destinationForHeading(
-  heading: FHeading,
-  doc?: FDocument,
-): string {
+export function destinationForHeadingId(id: string, doc?: FDocument): string {
   if (doc === undefined) {
-    return heading.id
+    return id
   }
 
-  const renderedId = doc.headingIdToSlugIndex[heading.id] || heading.id
+  const renderedId = doc.headingIdToSlugIndex[id] || id
   return renderedId
 }
 
