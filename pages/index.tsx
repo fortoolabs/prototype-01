@@ -83,12 +83,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
               return <Prose isSerif={false} doc={doc} />
           }
         })()}
-        aside={
-          <TOC
-            idToSlugIndex={doc.headingIdToSlugIndex}
-            headings={extractNestedHeadings(content)}
-          />
-        }
+        aside={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
       />
 
       <Head>{title && <title>{title}</title>}</Head>
