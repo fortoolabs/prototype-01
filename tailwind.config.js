@@ -25,6 +25,10 @@ module.exports = {
       width: {
         97: '25rem',
       },
+      fontFamily: {
+        robotoSerif: ['"Roboto Serif"', 'serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   plugins: [require('flowbite/plugin')],
