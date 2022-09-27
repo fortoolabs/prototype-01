@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 import {
-  FHeadingIndex,
+  FDocument,
   FNestedTableOfContents,
   FNestedTableOfContentsEntry,
 } from 'core/types'
-import { renderObject } from 'core/renderer'
+import { renderObject, destinationForHeadingId } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
 
 import { Disclosure, Transition } from '@headlessui/react'
@@ -17,26 +17,26 @@ type TOCHeading = {
 }
 
 export type TOCProps = {
-  // TODO: Obtain index through provider
-  idToSlugIndex: FHeadingIndex
   headings: FNestedTableOfContents
+  // TODO: Obtain document context through provider?
+  doc?: FDocument
 }
 
 // TODO: Use Disclosure to support folding
 type TableOfContentsEntryProps = {
-  // TODO: Obtain index through provider
-  idToSlugIndex: FHeadingIndex
   entry: FNestedTableOfContentsEntry
   depth: number
+  // TODO: Obtain document context through provider?
+  doc?: FDocument
 }
 
 const textClasses = 'text-sm text-white'
 //@vidbina let me know if Toc is going to be used somewhere else
 //so I can make the styling and colors dynamic
 function TableOfContentsEntry({
-  idToSlugIndex,
   entry: { heading, children, text },
   depth,
+  doc,
 }: TableOfContentsEntryProps) {
   const [transMotion, transOpened, transClosed] = [
     'transition transition-[max-height] duration-300 ease-in-out delay-100',
@@ -44,9 +44,8 @@ function TableOfContentsEntry({
     'transform max-h-0',
   ]
 
-  const { todoKeyword, id } = heading
+  const { todoKeyword } = heading
   const hasChildren = children && children.length > 0
-  const renderedId = idToSlugIndex[id] || id
 
   return (
     <Disclosure as="li" defaultOpen className="max-w-prose">
@@ -66,7 +65,10 @@ function TableOfContentsEntry({
             ) : (
               <div className="h-4 w-4 shrink-0" />
             )}
-            <Link href={`/#${renderedId}`} scroll={true}>
+            <Link
+              href={`/#${destinationForHeadingId(heading.id, doc)}`}
+              scroll={true}
+            >
               <div className="contents">
                 {todoKeyword && (
                   <Tag
@@ -98,7 +100,7 @@ function TableOfContentsEntry({
               <Disclosure.Panel static as="ul" className={` h-fit`}>
                 {children.map((heading, idx) => (
                   <TableOfContentsEntry
-                    idToSlugIndex={idToSlugIndex}
+                    doc={doc}
                     key={idx}
                     entry={heading}
                     depth={depth + 1}
@@ -113,18 +115,13 @@ function TableOfContentsEntry({
   )
 }
 
-export default function TOC({ idToSlugIndex, headings }: TOCProps) {
+export default function TOC({ headings, doc }: TOCProps) {
   if (!headings.length) return null
 
   return (
     <ul className={`${textClasses}`}>
       {headings.map((heading, idx) => (
-        <TableOfContentsEntry
-          idToSlugIndex={idToSlugIndex}
-          key={idx}
-          entry={heading}
-          depth={1}
-        />
+        <TableOfContentsEntry doc={doc} key={idx} entry={heading} depth={1} />
       ))}
     </ul>
   )
