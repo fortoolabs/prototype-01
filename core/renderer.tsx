@@ -131,6 +131,18 @@ export function renderElement(
   }
 }
 
+export function destinationForHeading(
+  heading: FHeading,
+  doc?: FDocument,
+): string {
+  if (doc === undefined) {
+    return heading.id
+  }
+
+  const renderedId = doc.headingIdToSlugIndex[heading.id] || heading.id
+  return renderedId
+}
+
 export function destinationForLink(link: FLink, doc?: FDocument): string {
   if (doc === undefined) {
     return link.target
