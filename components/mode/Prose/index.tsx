@@ -36,7 +36,7 @@ export default function Prose({ isSerif, doc }: LinearProps) {
   return (
     <div
       className={[
-        isSerif ? 'font-serif' : 'font-sans',
+        isSerif ? 'font-robotoSerif' : 'font-inter',
         'text-base max-w-prose',
         'overflow-wrap',
         'leading-loose',
