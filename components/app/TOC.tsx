@@ -63,7 +63,7 @@ function TableOfContentsEntry({
               'hover:transition',
               'hover:border-c-blue-main',
               'py-2',
-              'px-4 ',
+              'px-4',
               'flex',
               'items-center',
               'gap-3',
