@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import {
   FDocument,
@@ -7,7 +8,7 @@ import {
 } from 'core/types'
 import { renderObject, destinationForHeadingId } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
-import { isActiveHeadingDestination } from 'components/doc/Heading'
+import { isAtHeadingDestination } from 'components/doc/Heading'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import CaretDown from 'components/icons/CaretDown'
@@ -39,6 +40,8 @@ function TableOfContentsEntry({
   depth,
   doc,
 }: TableOfContentsEntryProps) {
+  const router = useRouter()
+
   const [transMotion, transOpened, transClosed] = [
     'transition transition-[max-height] duration-300 ease-in-out delay-100',
     'transform max-h-screen',
@@ -48,7 +51,8 @@ function TableOfContentsEntry({
   const { todoKeyword } = heading
   const hasChildren = children && children.length > 0
   const notComplete = todoKeyword !== 'DONE'
-  const isActive = isActiveHeadingDestination(
+  const isActive = isAtHeadingDestination(
+    router,
     destinationForHeadingId(heading.id, doc),
   )
 
