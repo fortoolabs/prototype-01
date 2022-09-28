@@ -1,0 +1,28 @@
+# Based on https://vercel.com/guides/how-can-i-use-gitlab-pipelines-with-vercel
+default:
+  image: node:16.16.0
+
+cache:
+  key: npm
+  policy: pull-push
+  paths:
+    - .npm/
+
+test:
+  stage: test
+  script:
+    - npm ci --cache .npm
+    - npm run lint
+    - npm run fmt
+    - npm run test:coverage
+    - curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
+    - curl -Os https://uploader.codecov.io/latest/linux/codecov
+    - curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+    - curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+    - gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+    - shasum -a 256 -c codecov.SHA256SUM
+    - chmod +x codecov
+    - ./codecov -f coverage/coverage-final.json
+  artifacts:
+    paths:
+      - coverage

@@ -11,6 +11,8 @@ export default defineConfig({
     'import.meta.vitest': 'undefined',
   },
   test: {
+    // See https://vitest.dev/guide/coverage.html
+    coverage: { reporter: ['text', 'json', 'html'] },
     environment: 'jsdom',
     includeSource: ['components/**/*.{js,jsx,ts,tsx}'],
   },

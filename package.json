@@ -12,6 +12,7 @@
     "fmt:fix": "prettier --write .",
     "fmt:fix:watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
     "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "util:viz": "ts-node --esm utils/typeviz.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
