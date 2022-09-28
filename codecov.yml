@@ -17,4 +17,4 @@ comment:
   behavior: default
   require_changes: false
   require_base: no
-  require_head: yes
+  require_head: no
