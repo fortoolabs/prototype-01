@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest'
+import { beforeEach, afterEach, expect, describe, it, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 
 import parse, { extractNestedHeadings } from 'core/parser'
@@ -26,6 +26,8 @@ const samples = {
 describe('toc', () => {
   const getHeadlines = (doc, depth?) =>
     extractNestedHeadings(doc.content, depth)
+
+  // NOTE: Update mockRouterWithPath when id scheme is altered
   function* idGenerator() {
     let counter = 0
     while (true) {
@@ -33,6 +35,24 @@ describe('toc', () => {
       yield `id:${counter}`
     }
   }
+
+  beforeEach(() => {
+    vi.mock('next/router', () => ({
+      useRouter() {
+        return {
+          route: '/',
+          pathName: '',
+          query: '',
+          // NOTE: Verify idGenerator is correct when test id is altered
+          asPath: `/#id:2`,
+        }
+      },
+    }))
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
 
   it('renders', () => {
     const gen = idGenerator()
@@ -47,6 +67,7 @@ describe('toc', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
   it('renders maximally until depth 3', async () => {
     const gen = idGenerator()
     const next = () => gen.next().value

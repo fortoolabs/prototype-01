@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import { encodeTarget } from 'core/helpers'
 
@@ -186,10 +187,12 @@ function MobileNav({
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
           {/* TODO: Set href */}
-          <a href="#">
+          <Link href="/">
             {/* TODO: Make more subtle */}
-            <LogoIcon />
-          </a>
+            <a>
+              <LogoIcon />
+            </a>
+          </Link>
           <button
             type="button"
             className="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
@@ -380,12 +383,9 @@ export function HorizontalDiptychWithAside({
         {main}
       </section>
 
-      {/* TODO: @tijan Parameterize/theme this view */}
       {/* Secondary column (hidden on smaller screens) */}
       <aside className="hidden lg:order-first lg:block lg:flex-shrink-0 bg-primary-main pt-5 overflow-y-auto border-0 border-r-2 ">
-        <div className="relative flex h-full w-97 flex-col text-white">
-          {aside}
-        </div>
+        <div className="relative flex h-full w-97 flex-col">{aside}</div>
       </aside>
     </main>
   )
@@ -435,13 +435,12 @@ export default function Layout({
           className={`absolute ${mode} inset-y-0 left-0 md:static md:flex-shrink-0`}
         >
           {/* TODO: Set href */}
-          <a
-            href="#"
-            className="flex h-16 w-16 items-center lg:pl-5 justify-center lg:justify-start hover:text-gray-300 lg:w-97 gap-2 md:w-20"
-          >
-            <LogoIcon className="lg:h-10 lg:w-10" />
-            <span className="hidden lg:inline">Formation-tools</span>
-          </a>
+          <Link href="/">
+            <a className="flex h-16 w-16 items-center lg:pl-5 justify-center lg:justify-start hover:text-gray-300 lg:w-97 gap-2 md:w-20">
+              <LogoIcon className="lg:h-10 lg:w-10" />
+              <span className="hidden lg:inline">Formation-tools</span>
+            </a>
+          </Link>
         </div>
         <DesktopNav {...navProps}> {viewControl} </DesktopNav>
         <MobileNav {...navProps} />

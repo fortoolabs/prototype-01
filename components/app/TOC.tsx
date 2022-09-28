@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import {
   FDocument,
@@ -7,6 +8,7 @@ import {
 } from 'core/types'
 import { renderObject, destinationForHeadingId } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
+import { isAtHeadingDestination } from 'components/doc/Heading'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import CaretDown from 'components/icons/CaretDown'
@@ -38,6 +40,8 @@ function TableOfContentsEntry({
   depth,
   doc,
 }: TableOfContentsEntryProps) {
+  const router = useRouter()
+
   const [transMotion, transOpened, transClosed] = [
     'transition transition-[max-height] duration-300 ease-in-out delay-100',
     'transform max-h-screen',
@@ -47,12 +51,30 @@ function TableOfContentsEntry({
   const { todoKeyword } = heading
   const hasChildren = children && children.length > 0
   const notComplete = todoKeyword !== 'DONE'
+  const isActive = isAtHeadingDestination(
+    router,
+    destinationForHeadingId(heading.id, doc),
+  )
 
   return (
     <Disclosure as="li" defaultOpen={notComplete} className="max-w-prose">
       {({ open }) => (
         <>
-          <div className="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3">
+          <div
+            className={[
+              'hover:bg-primary-hover',
+              'border-r-4',
+              'border-transparent',
+              'transition',
+              'hover:transition',
+              'hover:border-c-blue-main',
+              'py-2',
+              'px-4',
+              'flex',
+              'items-center',
+              'gap-3',
+            ].join(' ')}
+          >
             {hasChildren ? (
               <Disclosure.Button as="span" className="shrink-0">
                 <CaretDown
@@ -81,7 +103,11 @@ function TableOfContentsEntry({
                   />
                 )}
                 {/* TODO: Implement when headline linking works */}
-                <span className="hover:text-blue-300 cursor-pointer">
+                <span
+                  className={`hover:text-blue-300 cursor-pointer ${
+                    isActive && `text-blue-300`
+                  }`}
+                >
                   {text.flatMap((el, i) => renderObject(el, i))}
                 </span>
               </div>

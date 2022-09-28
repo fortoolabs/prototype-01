@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter, NextRouter } from 'next/router'
 import { createElement, PropsWithChildren } from 'react'
 
 import { LinkIcon } from '@heroicons/react/20/solid'
@@ -68,7 +69,12 @@ const todoColor = (keyword: string) => {
       return 'yellow'
   }
 }
-
+export const isAtHeadingDestination = (
+  router: NextRouter,
+  id: string,
+): boolean => {
+  return router.asPath === `/#${id}`
+}
 const todoElement = (keyword: string | null) => {
   if (keyword === null || keyword === undefined || keyword === '') {
     return
@@ -111,8 +117,10 @@ export default function HeadingLine({
   tags: tagLabels,
   doc,
 }: PropsWithChildren<HeadingLineProps>) {
-  const [headingTypography, elType] = getHeadingClasses(level)
+  const router = useRouter()
 
+  const [headingTypography, elType] = getHeadingClasses(level)
+  const isActive = isAtHeadingDestination(router, id)
   const todo = todoElement(todoKeyword)
   const title = createElement(
     elType,
@@ -124,7 +132,6 @@ export default function HeadingLine({
   )
   const tags = tagsElement(tagLabels)
 
-  //todo implement copying to clipboard
   const copyLink = (
     <Link href={`/#${destinationForHeadingId(id, doc)}`}>
       <a className="align-middle inline-block hover:text-c-blue-hover invisible group-hover:visible">
@@ -141,7 +148,10 @@ export default function HeadingLine({
   )
 
   return (
-    <Block className={`${blockClasses} md:flex ${headingTypography}`}>
+    <Block
+      className={`${blockClasses} md:flex ${headingTypography}`}
+      active={isActive}
+    >
       {todo}
       {titleElement}
       {tags}

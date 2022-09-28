@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 
 import { render as r } from '@testing-library/react'
 
@@ -12,6 +12,23 @@ const f = (a) => {
 }
 
 describe('heading', () => {
+  beforeEach(() => {
+    vi.mock('next/router', () => ({
+      useRouter() {
+        return {
+          route: '/',
+          pathName: '',
+          query: '',
+          asPath: '',
+        }
+      },
+    }))
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('renders with slug as id when present', () => {
     expect(
       f(
@@ -104,7 +121,7 @@ describe('paragraph', () => {
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
         <div
-          class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300"
+          class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 target:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 target:ring-1 hover:ring-gray-300 target:ring-gray-300 false"
         >
           <p>
             The first part of the 
@@ -142,7 +159,7 @@ describe('paragraph', () => {
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
           <div
-            class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300"
+            class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 target:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 target:ring-1 hover:ring-gray-300 target:ring-gray-300 false"
           >
             <p>
               Watching Penelope and Morgan solve crimes on 
