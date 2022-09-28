@@ -2,10 +2,16 @@
 default:
   image: node:16.16.0
 
+cache:
+  key: npm
+  policy: pull-push
+  paths:
+    - .npm/
+
 test:
   stage: test
   script:
-    - npm install
+    - npm ci --cache .npm
     - npm run test:coverage
     - curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
     - curl -Os https://uploader.codecov.io/latest/linux/codecov
@@ -14,4 +20,4 @@ test:
     - gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
     - shasum -a 256 -c codecov.SHA256SUM
     - chmod +x codecov
-    - ./codecov
+    - ./codecov -f coverage/tmp/*.json
