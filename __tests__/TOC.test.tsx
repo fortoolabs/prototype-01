@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest'
+import { beforeEach, afterEach, expect, describe, it, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 
 import parse, { extractNestedHeadings } from 'core/parser'
@@ -33,6 +33,23 @@ describe('toc', () => {
       yield `id:${counter}`
     }
   }
+
+  beforeEach(() => {
+    vi.mock('next/router', () => ({
+      useRouter() {
+        return {
+          route: '/',
+          pathName: '',
+          query: '',
+          asPath: '',
+        }
+      },
+    }))
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
 
   it('renders', () => {
     const gen = idGenerator()

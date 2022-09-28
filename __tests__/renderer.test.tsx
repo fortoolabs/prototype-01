@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 
 import { render as r } from '@testing-library/react'
 
@@ -12,6 +12,23 @@ const f = (a) => {
 }
 
 describe('heading', () => {
+  beforeEach(() => {
+    vi.mock('next/router', () => ({
+      useRouter() {
+        return {
+          route: '/',
+          pathName: '',
+          query: '',
+          asPath: '',
+        }
+      },
+    }))
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('renders with slug as id when present', () => {
     expect(
       f(
