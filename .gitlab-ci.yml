@@ -23,3 +23,6 @@ test:
     - shasum -a 256 -c codecov.SHA256SUM
     - chmod +x codecov
     - ./codecov -f coverage/tmp/*.json
+  artifacts:
+    paths:
+      - coverage
