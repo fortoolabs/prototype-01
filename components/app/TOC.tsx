@@ -7,7 +7,7 @@ import {
 } from 'core/types'
 import { renderObject, destinationForHeadingId } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
-import { ActiveHeading } from 'components/doc/Heading'
+import { isActiveHeadingDestination } from 'components/doc/Heading'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import CaretDown from 'components/icons/CaretDown'
@@ -48,7 +48,9 @@ function TableOfContentsEntry({
   const { todoKeyword } = heading
   const hasChildren = children && children.length > 0
   const notComplete = todoKeyword !== 'DONE'
-  const isActive = ActiveHeading(destinationForHeadingId(heading.id, doc))
+  const isActive = isActiveHeadingDestination(
+    destinationForHeadingId(heading.id, doc),
+  )
 
   return (
     <Disclosure as="li" defaultOpen={notComplete} className="max-w-prose">

@@ -69,7 +69,7 @@ const todoColor = (keyword: string) => {
       return 'yellow'
   }
 }
-export const ActiveHeading = (id: string): boolean => {
+export const isActiveHeadingDestination = (id: string): boolean => {
   const router = useRouter()
   return router.asPath === `/#${id}`
 }
@@ -116,7 +116,7 @@ export default function HeadingLine({
   doc,
 }: PropsWithChildren<HeadingLineProps>) {
   const [headingTypography, elType] = getHeadingClasses(level)
-  const isActive = ActiveHeading(id)
+  const isActive = isActiveHeadingDestination(id)
   const todo = todoElement(todoKeyword)
   const title = createElement(
     elType,
