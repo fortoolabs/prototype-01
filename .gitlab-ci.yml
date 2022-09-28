@@ -12,6 +12,8 @@ test:
   stage: test
   script:
     - npm ci --cache .npm
+    - npm run lint
+    - npm run fmt
     - npm run test:coverage
     - curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
     - curl -Os https://uploader.codecov.io/latest/linux/codecov
