@@ -26,6 +26,8 @@ const samples = {
 describe('toc', () => {
   const getHeadlines = (doc, depth?) =>
     extractNestedHeadings(doc.content, depth)
+
+  // NOTE: Update mockRouterWithPath when id scheme is altered
   function* idGenerator() {
     let counter = 0
     while (true) {
@@ -41,7 +43,8 @@ describe('toc', () => {
           route: '/',
           pathName: '',
           query: '',
-          asPath: '',
+          // NOTE: Verify idGenerator is correct when test id is altered
+          asPath: `/#id:2`,
         }
       },
     }))
@@ -64,6 +67,7 @@ describe('toc', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
   it('renders maximally until depth 3', async () => {
     const gen = idGenerator()
     const next = () => gen.next().value
