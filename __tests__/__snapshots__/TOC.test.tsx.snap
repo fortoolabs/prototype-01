@@ -57,7 +57,7 @@ exports[`toc > renders 1`] = `
                 class="contents"
               >
                 <span
-                  class="hover:text-blue-300 cursor-pointer false"
+                  class="hover:text-blue-300 cursor-pointer text-blue-300"
                 >
                   Part 1.1 with a very long title that requires space
                 </span>
