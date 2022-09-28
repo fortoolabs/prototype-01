@@ -22,7 +22,7 @@ test:
     - gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
     - shasum -a 256 -c codecov.SHA256SUM
     - chmod +x codecov
-    - ./codecov -f coverage/tmp/*.json
+    - ./codecov -f coverage/coverage-final.json
   artifacts:
     paths:
       - coverage
