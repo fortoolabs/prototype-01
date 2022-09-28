@@ -31,7 +31,7 @@ exports[`toc > renders 1`] = `
           class="contents"
         >
           <span
-            class="hover:text-blue-300 cursor-pointer"
+            class="hover:text-blue-300 cursor-pointer false"
           >
             Part 1
           </span>
@@ -57,7 +57,7 @@ exports[`toc > renders 1`] = `
                 class="contents"
               >
                 <span
-                  class="hover:text-blue-300 cursor-pointer"
+                  class="hover:text-blue-300 cursor-pointer false"
                 >
                   Part 1.1 with a very long title that requires space
                 </span>
@@ -90,7 +90,7 @@ exports[`toc > renders 1`] = `
                 class="contents"
               >
                 <span
-                  class="hover:text-blue-300 cursor-pointer"
+                  class="hover:text-blue-300 cursor-pointer false"
                 >
                   Part 1.2
                 </span>
@@ -116,7 +116,7 @@ exports[`toc > renders 1`] = `
                       class="contents"
                     >
                       <span
-                        class="hover:text-blue-300 cursor-pointer"
+                        class="hover:text-blue-300 cursor-pointer false"
                       >
                         Part 1.2.1
                       </span>
@@ -142,7 +142,7 @@ exports[`toc > renders 1`] = `
           class="contents"
         >
           <span
-            class="hover:text-blue-300 cursor-pointer"
+            class="hover:text-blue-300 cursor-pointer false"
           >
             Part 2
           </span>
@@ -162,7 +162,7 @@ exports[`toc > renders 1`] = `
           class="contents"
         >
           <span
-            class="hover:text-blue-300 cursor-pointer"
+            class="hover:text-blue-300 cursor-pointer false"
           >
             Part 3
           </span>

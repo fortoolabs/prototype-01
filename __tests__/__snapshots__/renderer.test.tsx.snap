@@ -3,7 +3,7 @@
 exports[`heading > renders with id when slug is not present 1`] = `
 <DocumentFragment>
   <div
-    class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 md:flex text-2xl"
+    class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 target:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 target:ring-1 hover:ring-gray-300 target:ring-gray-300 md:flex text-2xl false"
   >
     <span
       class="inline-block align-baseline align-text-bottom mr-3 last:mr-0 text-ellipsis flex-none"
@@ -65,7 +65,7 @@ exports[`heading > renders with id when slug is not present 1`] = `
 exports[`heading > renders with slug as id when present 1`] = `
 <DocumentFragment>
   <div
-    class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300 md:flex text-2xl"
+    class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 target:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 target:ring-1 hover:ring-gray-300 target:ring-gray-300 md:flex text-2xl false"
   >
     <span
       class="inline-block align-baseline align-text-bottom mr-3 last:mr-0 text-ellipsis flex-none"

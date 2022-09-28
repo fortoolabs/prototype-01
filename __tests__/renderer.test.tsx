@@ -121,7 +121,7 @@ describe('paragraph', () => {
     ).toMatchInlineSnapshot(`
       <DocumentFragment>
         <div
-          class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300"
+          class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 target:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 target:ring-1 hover:ring-gray-300 target:ring-gray-300 false"
         >
           <p>
             The first part of the 
@@ -159,7 +159,7 @@ describe('paragraph', () => {
       ).toMatchInlineSnapshot(`
         <DocumentFragment>
           <div
-            class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 hover:ring-gray-300"
+            class="p-2 md:p-4 transition duration-0 hover:duration-150 hover:bg-gray-100 target:bg-gray-100 text-gray-600 hover:text-black rounded-md ring-inset hover:ring-1 target:ring-1 hover:ring-gray-300 target:ring-gray-300 false"
           >
             <p>
               Watching Penelope and Morgan solve crimes on 
