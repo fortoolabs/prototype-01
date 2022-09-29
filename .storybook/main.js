@@ -31,6 +31,9 @@ module.exports = {
   typescript: { check: false, reactDocgen: false },
   webpackFinal: async (config, { configType }) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
+    config.resolve.alias['base64url'] = require.resolve(
+      '../__mocks__/base64url.ts',
+    )
     return config
   },
 }
