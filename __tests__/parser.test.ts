@@ -623,6 +623,29 @@ Move along, nothing to see here.
   })
 })
 
+describe('source block', () => {
+  const dut = (x) => parse(x).content[0]
+
+  it('parses', () => {
+    const raw = `
+#+begin_src txt
+.......
+. .   .
+.......
+#+end_src
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+        {
+          "content": ".......
+        . .   .
+        .......
+        ",
+          "type": "{",
+        }
+      `)
+  })
+})
+
 describe('generateNextSlug', () => {
   it('uses the suggested text as an id', () => {
     expect(generateNextSlug({}, 'a')).toEqual('a')
