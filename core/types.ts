@@ -97,6 +97,11 @@ export type FCommentBlock = {
   content: string
 }
 
+export type FSourceBlock = {
+  type: '{'
+  content: string
+}
+
 export type FComment = {
   type: '/'
   content: string
@@ -117,7 +122,7 @@ export type FElement =
   //  | FNodeProperty
   //  | FListItemTag
   | FCommentBlock
-  //  | FSrcBlock
+  | FSourceBlock
   //  | FExampleBlock
   //  | FExportBlock
   //  | FKeyword

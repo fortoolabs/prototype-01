@@ -20,7 +20,7 @@ At this point, some untested and definitely missing features are:
 - footnotes
 - tags
 
-** TODO Determine on sensible name for this
+** TODO Determine a sensible name for this
 
 We call this the /Prose/ view because we use this to display content in prose style. It was previously /Linear/, but it was not an optimal name for the view either as there are other views that could offer linear presentations and thus the name is not sufficiently descriptive. As an example, a roadmap view or activity view could be one such linear views that we may need to support at some point in the future. Before Linear, this view was called /List/ and I needed to already rename in anticipation of real list that would need that name. Linear is not quite a proper noun for this view when looking at how clear of a name Board is but hey... naming is hard. 🤷🏿‍♂️😅
 
@@ -33,6 +33,34 @@ This wrapping pattern is demonstrated in the [[https://storybook.js.org/docs/rea
 * Playing with links
 
 Here are some [[links]] that we [[id:bundle]] together to verify that displaying of multiple links that are [[https://example.com][imaginary]], [[http://www.astro.uva.nl/=dominik][on the web]] and elsewhere and work well enough. The Hyperlink page of the Org manual lists examples such as [[id:B7423F4D-2E8A-471B-8810-C40F074717E9]], [[https://orgmode.org/guide/Hyperlinks.html][Hyperlinks]], [[file:/home/dominik/images/jupiter.jpg][file links]], [[./papers/last.pdf][internal links]] and [[mailto:adent@galaxy.net][mailto links]] but we can also link to the same locations without descriptions as in [[id:B7423F4D-2E8A-471B-8810-C40F074717E9]], [[https://orgmode.org/guide/Hyperlinks.html]], [[file:/home/dominik/images/jupiter.jpg]], [[./papers/last.pdf]] and [[mailto:adent@galaxy.net]].
+
+* Code Blocks
+
+#+begin_src typescript
+describe('source block', () => {
+  // Being meta and listing code inside of code 🤯
+  const dut = (x) => parse(x).content[0]
+
+  it('parses', () => {
+    const raw = \`
+,#+begin_src txt
+.......
+. .   .
+.......
+,#+end_src
+\`
+    expect(dut(raw)).toMatchInlineSnapshot(\`
+        {
+          "content": ".......
+        . .   .
+        .......
+        ",
+          "type": "{",
+        }
+      \`)
+  })
+})
+#+end_src
 `
 const multipleLinkInParaText = `
 *** TODO Replace uuidv4 with uuid
@@ -42,6 +70,8 @@ Use https://www.npmjs.com/package/uuid instead of https://www.npmjs.com/package/
 *** TODO Adapt parsing options based on document input
 
 The =defaultOptions= for the uniorg parser sets =todoKeywords= to =TODO= and =DONE= (see [[https://github.com/rasendubi/uniorg/blob/0970ebcb3040b10bea58aee7601b700320762420/packages/uniorg-parse/src/parse-options.ts#L31][src]]) which is in line with Org's defaults. Custom TODO keywords that are defined through the =TODO= keyword or its variants =TYP_TODO= are not being honored and thus these keywords are parsed as "just text".
+
+This is a trickier one than I anticipated. 😅
 `
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

@@ -126,8 +126,9 @@ export function extractText(
       return el.label
     case 'E':
     case 'e':
-    case '#':
-    case '/':
+    case '#': // comment
+    case '/': // comment
+    case '{': // code
       return el.content
     default:
       // TODO: Deal with empty content scenarios, e.g.: link [[https://www.example.com]]
@@ -166,6 +167,7 @@ export function extractFormattedText(
     case 'e':
     case '#':
     case '/':
+    case '{':
       // Ignore fallbacks
       return []
     default:
@@ -423,10 +425,11 @@ function unpackElementType(
       return [{ type: '#', content: x.value }]
     case 'comment':
       return [{ type: '/', content: x.value }]
+    case 'src-block':
+      return [{ type: '{', content: x.value }]
     case 'planning':
     case 'node-property':
     case 'list-item-tag':
-    case 'src-block':
     case 'example-block':
     case 'export-block':
     case 'keyword':
@@ -560,10 +563,14 @@ function convert(
         ...acc,
         content: [...acc.content, headline],
       }
+    case 'src-block':
+      return {
+        ...acc,
+        content: [...acc.content, ...unpackElementType(ctx, node)],
+      }
     case 'planning':
     case 'node-property':
     case 'list-item-tag':
-    case 'src-block':
     case 'example-block':
     case 'export-block':
       return acc // noop

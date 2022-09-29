@@ -573,25 +573,26 @@ describe('list', () => {
 describe('comment', () => {
   const dut = (x) => parse(x).content[0]
 
-  it('parses', () => {
-    const raw = `
+  describe('inline', () => {
+    it('parses', () => {
+      const raw = `
 # Just for your eyes only
 `
-    expect(dut(raw)).toMatchInlineSnapshot(`
+      expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Just for your eyes only",
         "type": "/",
       }
     `)
-  })
+    })
 
-  it('parses when multi-line', () => {
-    const raw = `
+    it('parses when multi-line', () => {
+      const raw = `
 # Just for your eyes only
 #
 # But over multiple lines
 `
-    expect(dut(raw)).toMatchInlineSnapshot(`
+      expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Just for your eyes only
 
@@ -599,9 +600,10 @@ describe('comment', () => {
         "type": "/",
       }
     `)
+    })
   })
 
-  describe('comment', () => {
+  describe('block', () => {
     it('parses', () => {
       const raw = `
 #+begin_comment
@@ -618,6 +620,29 @@ Move along, nothing to see here.
       }
     `)
     })
+  })
+})
+
+describe('source block', () => {
+  const dut = (x) => parse(x).content[0]
+
+  it('parses', () => {
+    const raw = `
+#+begin_src txt
+.......
+. .   .
+.......
+#+end_src
+`
+    expect(dut(raw)).toMatchInlineSnapshot(`
+        {
+          "content": ".......
+        . .   .
+        .......
+        ",
+          "type": "{",
+        }
+      `)
   })
 })
 
