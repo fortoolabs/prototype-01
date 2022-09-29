@@ -18,6 +18,9 @@ export default {
   component: Layout,
   parameters: {
     layout: 'fullscreen',
+    base64url: {
+      encoded: 'the-base64-encoded-url-of-the-page',
+    },
   },
 } as ComponentMeta<typeof Layout>
 
