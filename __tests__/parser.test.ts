@@ -234,6 +234,37 @@ describe('heading', () => {
         expect(dut('* COMMENT TODO Title')).toEqual(null)
       })
     })
+
+    describe('with workflow config', () => {
+      const configAtStart = (text) =>
+        ['#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE CANCELED', text].join(
+          '\n',
+        )
+      const configAtEnd = (text) =>
+        [text, '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE CANCELED'].join(
+          '\n',
+        )
+
+      it('recognizes new keywords', () => {
+        expect(dut('* IDEA Title')).toEqual(null)
+        expect(dut('* IN_DEV Title')).toEqual(null)
+
+        expect(dut(configAtStart('* IDEA Title'))).toEqual('IDEA')
+        expect(dut(configAtEnd('* IDEA Title'))).toEqual('IDEA')
+
+        expect(dut(configAtStart('* DONE Title'))).toEqual('DONE')
+        expect(dut(configAtEnd('* DONE Title'))).toEqual('DONE')
+
+        expect(dut(configAtStart('* CANCELED Title'))).toEqual('CANCELED')
+        expect(dut(configAtEnd('* CANCELED Title'))).toEqual('CANCELED')
+      })
+
+      it('still recognizes default keywords', () => {
+        expect(dut('* TODO Title')).toEqual('TODO')
+        expect(dut(configAtStart('* TODO Title'))).toEqual('TODO')
+        expect(dut(configAtEnd('* TODO Title'))).toEqual('TODO')
+      })
+    })
   })
 
   it('can be commented', () => {
