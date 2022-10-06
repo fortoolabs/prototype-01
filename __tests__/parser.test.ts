@@ -184,17 +184,17 @@ describe('heading', () => {
   // TODO: Pretty unsafe but this is test code 🤷🏿‍♂️
   const getFirstAsHeading = (x: FDocument): FHeading => x.content[0].content[0]
 
-  it('has title as content', () => {
+  it('has title text', () => {
     expect(getFirstAsHeading(parse('* How are you?')).content).toEqual([
       { type: 't', content: 'How are you?' },
     ])
   })
 
-  it('without title has empty content', () => {
+  it('can be empty', () => {
     expect(getFirstAsHeading(parse('* ')).content).toEqual([])
   })
 
-  it('extracts tags', () => {
+  it('can be tagged', () => {
     expect(getFirstAsHeading(parse('* Design share button')).tags).toHaveLength(
       0,
     )
@@ -207,7 +207,7 @@ describe('heading', () => {
     ).toHaveLength(3)
   })
 
-  it('extracts commented status', () => {
+  it('can be commented', () => {
     const isCommented = (x) => getFirstAsHeading(parse(x)).commented
     expect(isCommented('* Basic title')).toEqual(false)
     expect(isCommented('* COMMENTED Basic title')).toEqual(true)
@@ -221,7 +221,7 @@ describe('heading', () => {
     ).toEqual(true)
   })
 
-  it('extracts the level', () => {
+  it('has a level', () => {
     expect(getFirstAsHeading(parse('* How are you?'))).toHaveProperty(
       'level',
       1,
