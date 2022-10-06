@@ -207,6 +207,35 @@ describe('heading', () => {
     ).toHaveLength(3)
   })
 
+  describe('workflow state', () => {
+    const dut = (text) => getFirstAsHeading(parse(text)).todoKeyword
+
+    it('can be empty', () => {
+      expect(dut('* Title')).toEqual(null)
+    })
+
+    describe('without workflow config', () => {
+      it('recognizes TODO', () => {
+        expect(dut('* TODO Title')).toEqual('TODO')
+      })
+
+      it('recognizes DONE', () => {
+        expect(dut('* DONE Title')).toEqual('DONE')
+      })
+
+      it('does not recognize states that are neither TODO nor DONE', () => {
+        expect(dut('* CANCELED Title')).toEqual(null)
+        expect(dut('* CANCELLED Title')).toEqual(null)
+        expect(dut('* WIP Title')).toEqual(null)
+        expect(dut('* TEST Title')).toEqual(null)
+      })
+
+      it('does not recognize state keyword when incorrectly stated after COMMENT', () => {
+        expect(dut('* COMMENT TODO Title')).toEqual(null)
+      })
+    })
+  })
+
   it('can be commented', () => {
     const isCommented = (x) => getFirstAsHeading(parse(x)).commented
     expect(isCommented('* Basic title')).toEqual(false)
