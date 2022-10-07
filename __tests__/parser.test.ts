@@ -204,6 +204,8 @@ describe('generally', () => {
           [
             '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE SHIPPED',
             '#+TODO: TODO | DONE',
+            '#+TYP_TODO: KONZEPT IN_BEARBEITUNG | FERTIG',
+            '#+SEQ_TODO: START | CANCELED',
           ].join('\n'),
         ).todoStates,
       ).toEqual([
@@ -214,6 +216,11 @@ describe('generally', () => {
         'DONE',
         'SHIPPED',
         'TODO',
+        'KONZEPT',
+        'IN_BEARBEITUNG',
+        'FERTIG',
+        'START',
+        'CANCELED',
       ])
     })
   })

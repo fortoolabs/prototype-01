@@ -578,10 +578,11 @@ function convert(
       switch (node.key) {
         case 'TITLE':
           return { ...acc, title: node.value }
+        case 'TYP_TODO':
+        case 'SEQ_TODO':
         case 'TODO':
           // FIXME: Accomodate for multiple swimlanes
           // https://orgmode.org/manual/Per_002dfile-keywords.html
-          // TODO: Adapt for different TODO keyword types such as TYP_TODO and SEQ_TODO
           return {
             ...acc,
             todoStates: [
