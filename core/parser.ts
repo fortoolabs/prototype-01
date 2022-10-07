@@ -584,7 +584,12 @@ function convert(
           // TODO: Adapt for different TODO keyword types such as TYP_TODO and SEQ_TODO
           return {
             ...acc,
-            todoStates: node.value.split(' ').filter((x) => x != '|'),
+            todoStates: [
+              ...new Set([
+                ...acc.todoStates,
+                ...node.value.split(' ').filter((x) => x != '|'),
+              ]),
+            ],
           }
         default:
           return acc
