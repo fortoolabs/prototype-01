@@ -197,6 +197,25 @@ describe('generally', () => {
         ).todoStates,
       ).toEqual(['IDEA', 'IN_SCOPE', 'IN_DEV', 'IN_TEST', 'DONE', 'CANCELED'])
     })
+
+    it('contains TODO states from multiple TODO keyword lines', () => {
+      expect(
+        parse(
+          [
+            '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE SHIPPED',
+            '#+TODO: TODO | DONE',
+          ].join('\n'),
+        ).todoStates,
+      ).toEqual([
+        'IDEA',
+        'IN_SCOPE',
+        'IN_DEV',
+        'IN_TEST',
+        'DONE',
+        'SHIPPED',
+        'TODO',
+      ])
+    })
   })
 })
 
