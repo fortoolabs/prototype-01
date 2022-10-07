@@ -1,5 +1,8 @@
 import { unified } from 'unified'
-import parser from 'uniorg-parse'
+import uniorgParser from 'uniorg-parse'
+import { parse as uniorgBasicParse } from 'uniorg-parse/lib/parser'
+import { defaultOptions } from 'uniorg-parse/lib/parse-options'
+
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
 import {
@@ -634,7 +637,23 @@ export default function parse(
   text: string,
   nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
 ): FDocument {
-  const ast = unified().use(parser).parse(text) as OrgData
+  const earlyDoc = convert(
+    { text, nextId: () => 'this-is-not-a-valid-id', headingSlugToIdIndex: {} },
+    emptyDocument,
+    unified().use(uniorgParser).parse(text) as OrgData,
+    0,
+  )
+  const updatedOptions = {
+    todoKeywords: [
+      ...new Set([...earlyDoc.todoStates, ...defaultOptions.todoKeywords]),
+    ],
+  }
+
+  const ast = uniorgBasicParse(text, updatedOptions)
+
+  // FIXME: Debug why the parse pipeline breaks (see test output)
+  //const ast = unified().use(uniorgParser, updatedOptions).parse(text) as OrgData
+
   return updateHeadingsIndexInDocument(
     convert({ text, nextId, headingSlugToIdIndex: {} }, emptyDocument, ast, 0),
   )
