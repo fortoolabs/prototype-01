@@ -1,5 +1,8 @@
 import { unified } from 'unified'
-import parser from 'uniorg-parse'
+import uniorgParser from 'uniorg-parse'
+import { parse as uniorgBasicParse } from 'uniorg-parse/lib/parser'
+import { defaultOptions } from 'uniorg-parse/lib/parse-options'
+
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg/src/index.ts
 // https://github.com/rasendubi/uniorg/blob/master/packages/uniorg-parse/src/parser.ts#L4
 import {
@@ -578,13 +581,33 @@ function convert(
       switch (node.key) {
         case 'TITLE':
           return { ...acc, title: node.value }
+        case 'TYP_TODO':
+        case 'SEQ_TODO':
         case 'TODO':
-          // FIXME: Accomodate for multiple swimlanes
           // https://orgmode.org/manual/Per_002dfile-keywords.html
-          // TODO: Adapt for different TODO keyword types such as TYP_TODO and SEQ_TODO
+          const [activeStatesLabels, terminalStatesLabels] =
+            node.value.split('|')
+          const activeStates = (activeStatesLabels || '')
+            .trim()
+            .split(' ')
+            .map((x) => ({ label: unpackTodoKeyword(x).name, isActive: true }))
+          const terminalStates = (terminalStatesLabels || '')
+            .trim()
+            .split(' ')
+            .map((x) => ({ label: unpackTodoKeyword(x).name, isActive: false }))
+
           return {
             ...acc,
-            todoStates: node.value.split(' ').filter((x) => x != '|'),
+            todoStates: [
+              ...new Set([
+                ...acc.todoStates,
+                ...node.value
+                  .split(' ')
+                  .filter((x) => x != '|')
+                  .map((x) => unpackTodoKeyword(x).name),
+              ]),
+            ],
+            workflows: [...acc.workflows, [...activeStates, ...terminalStates]],
           }
         default:
           return acc
@@ -614,7 +637,23 @@ export default function parse(
   text: string,
   nextId: NextIdentifierGenerator = () => 'this-is-not-a-valid-id',
 ): FDocument {
-  const ast = unified().use(parser).parse(text) as OrgData
+  const earlyDoc = convert(
+    { text, nextId: () => 'this-is-not-a-valid-id', headingSlugToIdIndex: {} },
+    emptyDocument,
+    unified().use(uniorgParser).parse(text) as OrgData,
+    0,
+  )
+  const updatedOptions = {
+    todoKeywords: [
+      ...new Set([...earlyDoc.todoStates, ...defaultOptions.todoKeywords]),
+    ],
+  }
+
+  const ast = uniorgBasicParse(text, updatedOptions)
+
+  // FIXME: Debug why the parse pipeline breaks (see test output)
+  //const ast = unified().use(uniorgParser, updatedOptions).parse(text) as OrgData
+
   return updateHeadingsIndexInDocument(
     convert({ text, nextId, headingSlugToIdIndex: {} }, emptyDocument, ast, 0),
   )

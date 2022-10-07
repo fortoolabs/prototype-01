@@ -27,11 +27,11 @@ function readFixture(file: string): FDocument {
 }
 
 describe('generally', () => {
-  it('empty string returns empty document', () => {
+  it('extracts empty document for empty text', () => {
     expect(parse('')).toEqual(emptyDocument)
   })
 
-  it('single word returns document with single text entry', () => {
+  it('extracts single paragraph for single word text', () => {
     expect(parse('word').content).toEqual([
       { content: [{ content: 'word', type: 't' }], type: 'p' },
     ])
@@ -86,17 +86,19 @@ describe('generally', () => {
   })
 
   describe('table of contents', () => {
-    const raw = `#+TITLE: Demonstrating a Heading Tree
-* A
-** A1
-** A2
-* B
-* C
-* D
-*** D1
-********* Dx
-* E
-** E1`
+    const raw = [
+      '#+TITLE: Demonstrating a Heading Tree',
+      '* A',
+      '** A1',
+      '** A2',
+      '* B',
+      '* C',
+      '* D',
+      '*** D1',
+      '********* Dx',
+      '* E',
+      '** E1',
+    ].join('\n')
     describe('flat extraction', () => {
       it('extracts all headings', () => {
         expect(extractFlatHeadings(parse(raw).content)).toMatchSnapshot()
@@ -118,12 +120,14 @@ describe('generally', () => {
   })
 
   describe('heading slugs', () => {
-    const raw = `#+TITLE: Demonstrating Heading Sluggin
-* A
-** A
-** B
-* C
-* c`
+    const raw = [
+      '#+TITLE: Demonstrating Heading Sluggin',
+      '* A',
+      '** A',
+      '** B',
+      '* C',
+      '* c',
+    ].join('\n')
 
     it('contains all slug-ids', () => {
       expect(Object.keys(parse(raw).headingSlugToIdIndex)).toEqual([
@@ -155,14 +159,16 @@ describe('generally', () => {
   })
 
   describe('fuzzy links', () => {
-    const raw = `#+TITLE: Demonstrating a Heading Tree's Fuzzy Links
-* Chapter 1
-** Chapter 1.1
-** [%] Chapter 1.2
-* Section A
-* Subsection [%] A
-* Cookie [%] in the middle 🍪
-*** Chapter 1.1`
+    const raw = [
+      "#+TITLE: Demonstrating a Heading Tree's Fuzzy Links",
+      '* Chapter 1',
+      '** Chapter 1.1',
+      '** [%] Chapter 1.2',
+      '* Section A',
+      '* Subsection [%] A',
+      '* Cookie [%] in the middle 🍪',
+      '*** Chapter 1.1',
+    ].join('\n')
     const doc = parse(raw)
 
     it('renders the fuzzy headings index', () => {
@@ -178,23 +184,108 @@ describe('generally', () => {
       `)
     })
   })
+
+  describe('todoStates', () => {
+    it('is empty unless defined', () => {
+      expect(parse([].join('\n')).todoStates).toEqual([])
+    })
+
+    it('contains TODO states from TODO keyword line', () => {
+      expect(
+        parse(
+          ['#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE CANCELED'].join('\n'),
+        ).todoStates,
+      ).toEqual(['IDEA', 'IN_SCOPE', 'IN_DEV', 'IN_TEST', 'DONE', 'CANCELED'])
+    })
+
+    it('contains TODO states from multiple TODO keyword lines', () => {
+      expect(
+        parse(
+          [
+            '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST(!) | DONE SHIPPED',
+            '#+TODO: TODO(!) | DONE',
+            '#+TYP_TODO: KONZEPT IN_BEARBEITUNG | FERTIG',
+            '#+SEQ_TODO: START | CANCELED',
+          ].join('\n'),
+        ).todoStates,
+      ).toEqual([
+        'IDEA',
+        'IN_SCOPE',
+        'IN_DEV',
+        'IN_TEST',
+        'DONE',
+        'SHIPPED',
+        'TODO',
+        'KONZEPT',
+        'IN_BEARBEITUNG',
+        'FERTIG',
+        'START',
+        'CANCELED',
+      ])
+    })
+
+    it('recognizes custom state as heading todoKeyword', () => {
+      const doc = parse(
+        ['#+TODO: IDEA IN_DEV | SHIPPED', '* IDEA How so?'].join('\n'),
+      )
+
+      expect(doc.todoStates).toEqual(['IDEA', 'IN_DEV', 'SHIPPED'])
+      expect(doc.content[0].content[0].todoKeyword).toEqual('IDEA')
+    })
+
+    it('does not recognize undefined custom state, albeit correctly formatted', () => {
+      const doc = parse(['* IDEA How so?'].join('\n'))
+
+      expect(doc.todoStates).toEqual([])
+      expect(doc.content[0].content[0].todoKeyword).toEqual(null)
+    })
+  })
+
+  describe('workflows', () => {
+    it('are empty unless defined', () => {
+      expect(parse([].join('\n')).workflows).toEqual([])
+    })
+
+    it('are empty unless defined', () => {
+      expect(
+        parse(
+          [
+            '#+TODO: TODO | DONE',
+            '#+TYP_TODO: IN_SCOPE IN_DEV IN_TEST | DONE',
+            'How are you?',
+          ].join('\n'),
+        ).workflows,
+      ).toEqual([
+        [
+          { label: 'TODO', isActive: true },
+          { label: 'DONE', isActive: false },
+        ],
+        [
+          { label: 'IN_SCOPE', isActive: true },
+          { label: 'IN_DEV', isActive: true },
+          { label: 'IN_TEST', isActive: true },
+          { label: 'DONE', isActive: false },
+        ],
+      ])
+    })
+  })
 })
 
 describe('heading', () => {
   // TODO: Pretty unsafe but this is test code 🤷🏿‍♂️
   const getFirstAsHeading = (x: FDocument): FHeading => x.content[0].content[0]
 
-  it('has title as content', () => {
+  it('has title text', () => {
     expect(getFirstAsHeading(parse('* How are you?')).content).toEqual([
       { type: 't', content: 'How are you?' },
     ])
   })
 
-  it('without title has empty content', () => {
+  it('can be empty', () => {
     expect(getFirstAsHeading(parse('* ')).content).toEqual([])
   })
 
-  it('extracts tags', () => {
+  it('can be tagged', () => {
     expect(getFirstAsHeading(parse('* Design share button')).tags).toHaveLength(
       0,
     )
@@ -207,7 +298,69 @@ describe('heading', () => {
     ).toHaveLength(3)
   })
 
-  it('extracts commented status', () => {
+  describe('workflow state', () => {
+    const dut = (text) => getFirstAsHeading(parse(text)).todoKeyword
+
+    it('can be empty', () => {
+      expect(dut('* Title')).toEqual(null)
+    })
+
+    describe('without workflow config', () => {
+      it('recognizes TODO', () => {
+        expect(dut('* TODO Title')).toEqual('TODO')
+      })
+
+      it('recognizes DONE', () => {
+        expect(dut('* DONE Title')).toEqual('DONE')
+      })
+
+      it('does not recognize states that are neither TODO nor DONE', () => {
+        expect(dut('* CANCELED Title')).toEqual(null)
+        expect(dut('* CANCELLED Title')).toEqual(null)
+        expect(dut('* WIP Title')).toEqual(null)
+        expect(dut('* TEST Title')).toEqual(null)
+      })
+
+      it('does not recognize state keyword when incorrectly stated after COMMENT', () => {
+        expect(dut('* COMMENT TODO Title')).toEqual(null)
+      })
+    })
+
+    describe('with workflow config', () => {
+      const configAtStart = (text) =>
+        ['#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE CANCELED', text].join(
+          '\n',
+        )
+      const configAtEnd = (text) =>
+        [text, '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE CANCELED'].join(
+          '\n',
+        )
+
+      // FIXME: Uncomment configAtEnd cases
+      it('recognizes new keywords', () => {
+        expect(dut('* IDEA Title')).toEqual(null)
+        expect(dut('* IN_DEV Title')).toEqual(null)
+
+        console.log(JSON.stringify(parse(configAtStart('* IDEA Title'))))
+        expect(dut(configAtStart('* IDEA Title'))).toEqual('IDEA')
+        //expect(dut(configAtEnd('* IDEA Title'))).toEqual('IDEA')
+
+        expect(dut(configAtStart('* DONE Title'))).toEqual('DONE')
+        expect(dut(configAtEnd('* DONE Title'))).toEqual('DONE')
+
+        expect(dut(configAtStart('* CANCELED Title'))).toEqual('CANCELED')
+        //expect(dut(configAtEnd('* CANCELED Title'))).toEqual('CANCELED')
+      })
+
+      it('still recognizes default keywords', () => {
+        expect(dut('* TODO Title')).toEqual('TODO')
+        expect(dut(configAtStart('* TODO Title'))).toEqual('TODO')
+        expect(dut(configAtEnd('* TODO Title'))).toEqual('TODO')
+      })
+    })
+  })
+
+  it('can be commented', () => {
     const isCommented = (x) => getFirstAsHeading(parse(x)).commented
     expect(isCommented('* Basic title')).toEqual(false)
     expect(isCommented('* COMMENTED Basic title')).toEqual(true)
@@ -221,7 +374,7 @@ describe('heading', () => {
     ).toEqual(true)
   })
 
-  it('extracts the level', () => {
+  it('has a level', () => {
     expect(getFirstAsHeading(parse('* How are you?'))).toHaveProperty(
       'level',
       1,
@@ -400,10 +553,8 @@ describe('list', () => {
   const dut = (x) => parse(x).content[0]
 
   it('parses when unordered', () => {
-    const raw = `
-- A
-- B
-`
+    const raw = ['', '- A', '- B', ''].join('\n')
+
     expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": [
@@ -447,10 +598,7 @@ describe('list', () => {
   })
 
   it('parses when ordered', () => {
-    const raw = `
-1. one
-2. two
-`
+    const raw = ['', '1. one', '2. two', ''].join('\n')
     expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": [
@@ -494,10 +642,10 @@ describe('list', () => {
   })
 
   it('parses when descriptive', () => {
-    const raw = `
-- one :: first number
-- two :: 2nd number
-`
+    const raw = ['', '- one :: first number', '- two :: 2nd number', ''].join(
+      '\n',
+    )
+
     expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": [
@@ -541,31 +689,33 @@ describe('list', () => {
   })
 
   describe('of various types nested', () => {
-    const raw = `
-- fruits
-  1. apples
-
-    - Apple Computer :: a computer company
-
-    - Apple Records :: record label
-
-    - Grannie Smith :: green apple
-
-  - bananas
-
-    Bananas are a good source of electrolyte and potassium
-
-  - pears
-
-  - tomatoes
-
-- [-] vegetables
-  - [X] spinach
-  - [ ] broccoli
-  - [ ] cauliflower
-  - [X] cabbage
-  - [~] salat
-`
+    const raw = [
+      '',
+      '- fruits',
+      '  1. apples',
+      '',
+      '    - Apple Computer :: a computer company',
+      '',
+      '    - Apple Records :: record label',
+      '',
+      '    - Grannie Smith :: green apple',
+      '',
+      '  - bananas',
+      '',
+      '    Bananas are a good source of electrolyte and potassium',
+      '',
+      '  - pears',
+      '',
+      '  - tomatoes',
+      '',
+      '- [-] vegetables',
+      '  - [X] spinach',
+      '  - [ ] broccoli',
+      '  - [ ] cauliflower',
+      '  - [X] cabbage',
+      '  - [~] salat',
+      '',
+    ].join('\n')
     it('parses', () => expect(dut(raw)).toMatchSnapshot())
   })
 })
@@ -575,9 +725,8 @@ describe('comment', () => {
 
   describe('inline', () => {
     it('parses', () => {
-      const raw = `
-# Just for your eyes only
-`
+      const raw = ['', '# Just for your eyes only'].join('\n')
+
       expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Just for your eyes only",
@@ -587,11 +736,13 @@ describe('comment', () => {
     })
 
     it('parses when multi-line', () => {
-      const raw = `
-# Just for your eyes only
-#
-# But over multiple lines
-`
+      const raw = [
+        '',
+        '# Just for your eyes only',
+        '#',
+        '# But over multiple lines',
+      ].join('\n')
+
       expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Just for your eyes only
@@ -605,12 +756,14 @@ describe('comment', () => {
 
   describe('block', () => {
     it('parses', () => {
-      const raw = `
-#+begin_comment
-Move along, nothing to see here.
-...
-#+end_comment
-`
+      const raw = [
+        '',
+        '#+begin_comment',
+        'Move along, nothing to see here.',
+        '...',
+        '#+end_comment',
+      ].join('\n')
+
       expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Move along, nothing to see here.
@@ -627,13 +780,15 @@ describe('source block', () => {
   const dut = (x) => parse(x).content[0]
 
   it('parses', () => {
-    const raw = `
-#+begin_src txt
-.......
-. .   .
-.......
-#+end_src
-`
+    const raw = [
+      '',
+      '#+begin_src txt',
+      '.......',
+      '. .   .',
+      '.......',
+      '#+end_src',
+    ].join('\n')
+
     expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": ".......
@@ -952,7 +1107,7 @@ describe('Roadmap.org', () => {
       'SCOPE',
       'INSKETCH',
       'INDEV',
-      'DONE(d)',
+      'DONE',
     ])
   })
 

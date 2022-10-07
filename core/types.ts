@@ -168,6 +168,12 @@ export type FGreaterElement =
 export type FHeadingIndex = Record<string, string>
 export type FElementType = FElement | FGreaterElement
 
+export type FWorkflowState = {
+  label: string
+  isActive: boolean
+}
+export type FWorkflow = Array<FWorkflowState>
+
 export type FDocument = {
   title?: string
   source?: string
@@ -177,6 +183,7 @@ export type FDocument = {
   // TODO: Define Todo type? Has annotation (e.g.: comment, shortcut) removed?
   // TODO: Breakdown into list of Todo type items
   todoStates: Array<string>
+  workflows: Array<FWorkflow>
 
   // TODO: Compare Array vs Map
   // TODO: Design Map w/ a key-naming scheme for fast start/end/range lookup
@@ -206,4 +213,5 @@ export const emptyDocument = {
   headingIdToSlugIndex: {},
   headingFuzzyToIdIndex: {},
   todoStates: [],
+  workflows: [],
 }
