@@ -588,7 +588,10 @@ function convert(
             todoStates: [
               ...new Set([
                 ...acc.todoStates,
-                ...node.value.split(' ').filter((x) => x != '|'),
+                ...node.value
+                  .split(' ')
+                  .filter((x) => x != '|')
+                  .map((x) => unpackTodoKeyword(x).name),
               ]),
             ],
           }

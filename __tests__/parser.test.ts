@@ -202,8 +202,8 @@ describe('generally', () => {
       expect(
         parse(
           [
-            '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE SHIPPED',
-            '#+TODO: TODO | DONE',
+            '#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST(!) | DONE SHIPPED',
+            '#+TODO: TODO(!) | DONE',
             '#+TYP_TODO: KONZEPT IN_BEARBEITUNG | FERTIG',
             '#+SEQ_TODO: START | CANCELED',
           ].join('\n'),
@@ -1060,7 +1060,7 @@ describe('Roadmap.org', () => {
       'SCOPE',
       'INSKETCH',
       'INDEV',
-      'DONE(d)',
+      'DONE',
     ])
   })
 
