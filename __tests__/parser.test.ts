@@ -27,11 +27,11 @@ function readFixture(file: string): FDocument {
 }
 
 describe('generally', () => {
-  it('empty string returns empty document', () => {
+  it('extracts empty document for empty text', () => {
     expect(parse('')).toEqual(emptyDocument)
   })
 
-  it('single word returns document with single text entry', () => {
+  it('extracts single paragraph for single word text', () => {
     expect(parse('word').content).toEqual([
       { content: [{ content: 'word', type: 't' }], type: 'p' },
     ])
@@ -86,17 +86,19 @@ describe('generally', () => {
   })
 
   describe('table of contents', () => {
-    const raw = `#+TITLE: Demonstrating a Heading Tree
-* A
-** A1
-** A2
-* B
-* C
-* D
-*** D1
-********* Dx
-* E
-** E1`
+    const raw = [
+      '#+TITLE: Demonstrating a Heading Tree',
+      '* A',
+      '** A1',
+      '** A2',
+      '* B',
+      '* C',
+      '* D',
+      '*** D1',
+      '********* Dx',
+      '* E',
+      '** E1',
+    ].join('\n')
     describe('flat extraction', () => {
       it('extracts all headings', () => {
         expect(extractFlatHeadings(parse(raw).content)).toMatchSnapshot()
@@ -118,12 +120,14 @@ describe('generally', () => {
   })
 
   describe('heading slugs', () => {
-    const raw = `#+TITLE: Demonstrating Heading Sluggin
-* A
-** A
-** B
-* C
-* c`
+    const raw = [
+      '#+TITLE: Demonstrating Heading Sluggin',
+      '* A',
+      '** A',
+      '** B',
+      '* C',
+      '* c',
+    ].join('\n')
 
     it('contains all slug-ids', () => {
       expect(Object.keys(parse(raw).headingSlugToIdIndex)).toEqual([
@@ -155,14 +159,16 @@ describe('generally', () => {
   })
 
   describe('fuzzy links', () => {
-    const raw = `#+TITLE: Demonstrating a Heading Tree's Fuzzy Links
-* Chapter 1
-** Chapter 1.1
-** [%] Chapter 1.2
-* Section A
-* Subsection [%] A
-* Cookie [%] in the middle 🍪
-*** Chapter 1.1`
+    const raw = [
+      "#+TITLE: Demonstrating a Heading Tree's Fuzzy Links",
+      '* Chapter 1',
+      '** Chapter 1.1',
+      '** [%] Chapter 1.2',
+      '* Section A',
+      '* Subsection [%] A',
+      '* Cookie [%] in the middle 🍪',
+      '*** Chapter 1.1',
+    ].join('\n')
     const doc = parse(raw)
 
     it('renders the fuzzy headings index', () => {
@@ -176,6 +182,20 @@ describe('generally', () => {
           "Subsection A": "this-is-not-a-valid-id",
         }
       `)
+    })
+  })
+
+  describe('todoStates', () => {
+    it('is empty unless defined', () => {
+      expect(parse([].join('\n')).todoStates).toEqual([])
+    })
+
+    it('contains TODO states from TODO keyword line', () => {
+      expect(
+        parse(
+          ['#+TODO: IDEA IN_SCOPE IN_DEV IN_TEST | DONE CANCELED'].join('\n'),
+        ).todoStates,
+      ).toEqual(['IDEA', 'IN_SCOPE', 'IN_DEV', 'IN_TEST', 'DONE', 'CANCELED'])
     })
   })
 })
@@ -460,10 +480,8 @@ describe('list', () => {
   const dut = (x) => parse(x).content[0]
 
   it('parses when unordered', () => {
-    const raw = `
-- A
-- B
-`
+    const raw = ['', '- A', '- B', ''].join('\n')
+
     expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": [
@@ -507,10 +525,7 @@ describe('list', () => {
   })
 
   it('parses when ordered', () => {
-    const raw = `
-1. one
-2. two
-`
+    const raw = ['', '1. one', '2. two', ''].join('\n')
     expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": [
@@ -554,10 +569,10 @@ describe('list', () => {
   })
 
   it('parses when descriptive', () => {
-    const raw = `
-- one :: first number
-- two :: 2nd number
-`
+    const raw = ['', '- one :: first number', '- two :: 2nd number', ''].join(
+      '\n',
+    )
+
     expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": [
@@ -601,31 +616,33 @@ describe('list', () => {
   })
 
   describe('of various types nested', () => {
-    const raw = `
-- fruits
-  1. apples
-
-    - Apple Computer :: a computer company
-
-    - Apple Records :: record label
-
-    - Grannie Smith :: green apple
-
-  - bananas
-
-    Bananas are a good source of electrolyte and potassium
-
-  - pears
-
-  - tomatoes
-
-- [-] vegetables
-  - [X] spinach
-  - [ ] broccoli
-  - [ ] cauliflower
-  - [X] cabbage
-  - [~] salat
-`
+    const raw = [
+      '',
+      '- fruits',
+      '  1. apples',
+      '',
+      '    - Apple Computer :: a computer company',
+      '',
+      '    - Apple Records :: record label',
+      '',
+      '    - Grannie Smith :: green apple',
+      '',
+      '  - bananas',
+      '',
+      '    Bananas are a good source of electrolyte and potassium',
+      '',
+      '  - pears',
+      '',
+      '  - tomatoes',
+      '',
+      '- [-] vegetables',
+      '  - [X] spinach',
+      '  - [ ] broccoli',
+      '  - [ ] cauliflower',
+      '  - [X] cabbage',
+      '  - [~] salat',
+      '',
+    ].join('\n')
     it('parses', () => expect(dut(raw)).toMatchSnapshot())
   })
 })
@@ -635,9 +652,8 @@ describe('comment', () => {
 
   describe('inline', () => {
     it('parses', () => {
-      const raw = `
-# Just for your eyes only
-`
+      const raw = ['', '# Just for your eyes only'].join('\n')
+
       expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Just for your eyes only",
@@ -647,11 +663,13 @@ describe('comment', () => {
     })
 
     it('parses when multi-line', () => {
-      const raw = `
-# Just for your eyes only
-#
-# But over multiple lines
-`
+      const raw = [
+        '',
+        '# Just for your eyes only',
+        '#',
+        '# But over multiple lines',
+      ].join('\n')
+
       expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Just for your eyes only
@@ -665,12 +683,14 @@ describe('comment', () => {
 
   describe('block', () => {
     it('parses', () => {
-      const raw = `
-#+begin_comment
-Move along, nothing to see here.
-...
-#+end_comment
-`
+      const raw = [
+        '',
+        '#+begin_comment',
+        'Move along, nothing to see here.',
+        '...',
+        '#+end_comment',
+      ].join('\n')
+
       expect(dut(raw)).toMatchInlineSnapshot(`
       {
         "content": "Move along, nothing to see here.
@@ -687,13 +707,15 @@ describe('source block', () => {
   const dut = (x) => parse(x).content[0]
 
   it('parses', () => {
-    const raw = `
-#+begin_src txt
-.......
-. .   .
-.......
-#+end_src
-`
+    const raw = [
+      '',
+      '#+begin_src txt',
+      '.......',
+      '. .   .',
+      '.......',
+      '#+end_src',
+    ].join('\n')
+
     expect(dut(raw)).toMatchInlineSnapshot(`
         {
           "content": ".......
