@@ -224,6 +224,35 @@ describe('generally', () => {
       ])
     })
   })
+
+  describe('workflows', () => {
+    it('are empty unless defined', () => {
+      expect(parse([].join('\n')).workflows).toEqual([])
+    })
+
+    it('are empty unless defined', () => {
+      expect(
+        parse(
+          [
+            '#+TODO: TODO | DONE',
+            '#+TYP_TODO: IN_SCOPE IN_DEV IN_TEST | DONE',
+            'How are you?',
+          ].join('\n'),
+        ).workflows,
+      ).toEqual([
+        [
+          { label: 'TODO', isActive: true },
+          { label: 'DONE', isActive: false },
+        ],
+        [
+          { label: 'IN_SCOPE', isActive: true },
+          { label: 'IN_DEV', isActive: true },
+          { label: 'IN_TEST', isActive: true },
+          { label: 'DONE', isActive: false },
+        ],
+      ])
+    })
+  })
 })
 
 describe('heading', () => {

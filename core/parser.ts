@@ -581,8 +581,18 @@ function convert(
         case 'TYP_TODO':
         case 'SEQ_TODO':
         case 'TODO':
-          // FIXME: Accomodate for multiple swimlanes
           // https://orgmode.org/manual/Per_002dfile-keywords.html
+          const [activeStatesLabels, terminalStatesLabels] =
+            node.value.split('|')
+          const activeStates = (activeStatesLabels || [])
+            .trim()
+            .split(' ')
+            .map((x) => ({ label: unpackTodoKeyword(x).name, isActive: true }))
+          const terminalStates = (terminalStatesLabels || [])
+            .trim()
+            .split(' ')
+            .map((x) => ({ label: unpackTodoKeyword(x).name, isActive: false }))
+
           return {
             ...acc,
             todoStates: [
@@ -594,6 +604,7 @@ function convert(
                   .map((x) => unpackTodoKeyword(x).name),
               ]),
             ],
+            workflows: [...acc.workflows, [...activeStates, ...terminalStates]],
           }
         default:
           return acc
