@@ -2,13 +2,16 @@
 default:
   image: node:16.16.0
 
+stages:
+  - test
+
 cache:
   key: npm
   policy: pull-push
   paths:
     - .npm/
 
-test:
+codecov-test:
   stage: test
   script:
     - npm ci --cache .npm
@@ -26,3 +29,9 @@ test:
   artifacts:
     paths:
       - coverage
+
+chromatic-test:
+  stage: test
+
+  script:
+    - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN
