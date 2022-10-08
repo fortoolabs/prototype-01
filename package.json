@@ -15,7 +15,8 @@
     "test:coverage": "vitest run --coverage",
     "util:viz": "ts-node --esm utils/typeviz.ts",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "engines": {
     "npm": "8.x",
