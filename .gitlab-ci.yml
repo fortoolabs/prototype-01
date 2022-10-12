@@ -2,18 +2,30 @@
 default:
   image: node:16.16.0
 
+stages:
+  - test
+  - deploy
+
 cache:
-  key: npm
+  key:
+    files:
+      - package-lock.json
   policy: pull-push
   paths:
     - .npm/
 
-test:
+before_script:
+  - npm ci --cache .npm --prefer-offline
+
+test_code_quality:
   stage: test
   script:
-    - npm ci --cache .npm
     - npm run lint
     - npm run fmt
+
+test_and_track_coverage:
+  stage: test
+  script:
     - npm run test:coverage
     - curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
     - curl -Os https://uploader.codecov.io/latest/linux/codecov
@@ -26,3 +38,9 @@ test:
   artifacts:
     paths:
       - coverage
+
+build_and_deploy_storybook:
+  stage: deploy
+  script:
+    - npm run build-storybook
+    - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN
