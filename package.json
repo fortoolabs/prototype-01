@@ -16,7 +16,8 @@
     "util:viz": "ts-node --esm utils/typeviz.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "chromatic --exit-zero-on-changes"
+    "chromatic": "chromatic --exit-zero-on-changes",
+    "test:e2e": "playwright test"
   },
   "engines": {
     "npm": "8.x",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.6",
     "@mdx-js/react": "^2.1.3",
+    "@playwright/test": "^1.26.1",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",
     "@storybook/addon-interactions": "^6.5.10",

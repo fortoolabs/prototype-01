@@ -36,3 +36,7 @@ yarn-error.log*
 *.tsbuildinfo
 
 __fixtures__/*.dump.json
+/test-results/
+/playwright-report/
+/playwright/.cache/
+.env
