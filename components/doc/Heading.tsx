@@ -148,13 +148,17 @@ export default function HeadingLine({
   )
 
   return (
-    <Block
-      className={`${blockClasses} md:flex ${headingTypography}`}
-      active={isActive}
-    >
-      {todo}
-      {titleElement}
-      {tags}
-    </Block>
+    <>
+      <Block
+        className={`${blockClasses} md:flex relative ${headingTypography}`}
+        active={isActive}
+        id={id}
+      >
+        {todo}
+        {titleElement}
+        {tags}
+      </Block>
+      {showComment && <Comment className="2xl:hidden ml-2" />}
+    </>
   )
 }
