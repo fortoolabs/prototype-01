@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useRouter, NextRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { createElement, PropsWithChildren } from 'react'
 
 import { LinkIcon } from '@heroicons/react/20/solid'
@@ -69,12 +69,7 @@ const todoColor = (keyword: string) => {
       return 'yellow'
   }
 }
-export const isAtHeadingDestination = (
-  router: NextRouter,
-  id: string,
-): boolean => {
-  return router.asPath === `/#${id}`
-}
+
 const todoElement = (keyword: string | null) => {
   if (keyword === null || keyword === undefined || keyword === '') {
     return
@@ -120,7 +115,7 @@ export default function HeadingLine({
   const router = useRouter()
 
   const [headingTypography, elType] = getHeadingClasses(level)
-  const isActive = isAtHeadingDestination(router, id)
+  const isActive = router.asPath === `/#${id}`
   const todo = todoElement(todoKeyword)
   const title = createElement(
     elType,
