@@ -15,10 +15,12 @@ export interface CommentData {
   date: string
   comment: string
 }
+
 type CommentProps = {
   commentData: CommentData
 }
-function SingleComment({ commentData }: CommentProps) {
+
+function Comment({ commentData }: CommentProps) {
   const { name, avatar, date, comment } = commentData
   return (
     <div className="flex text-sm gap-3 items-start p-3 rounded-sm bg-gray-200 mb-2 last:mb-0">
@@ -46,7 +48,24 @@ function SingleComment({ commentData }: CommentProps) {
   )
 }
 
-function Comment({ className }: HTMLAttributes<'div'>) {
+const comments = [
+  {
+    name: 'David Asabina',
+    avatar: avatarPath,
+    date: '30/08/2022',
+    comment:
+      'Generalist-reading secondary markets buyer. Satoshi themed Macbook airapologist',
+  },
+  {
+    name: 'David Asabina',
+    avatar: avatarPath,
+    date: '30/08/2022',
+    comment:
+      'Solidity focused crypto mining installation. Python-learning destitute growth hacker.',
+  },
+]
+
+function CommentsBlock({ className }: HTMLAttributes<'div'>) {
   const [show, setShown] = useState(false)
 
   const handleClick = () => {
@@ -57,23 +76,6 @@ function Comment({ className }: HTMLAttributes<'div'>) {
       setShown(true)
     }
   }
-
-  const comments = [
-    {
-      name: 'David Asabina',
-      avatar: avatarPath,
-      date: '30/08/2022',
-      comment:
-        'Generalist-reading secondary markets buyer. Satoshi themed Macbook airapologist',
-    },
-    {
-      name: 'David Asabina',
-      avatar: avatarPath,
-      date: '30/08/2022',
-      comment:
-        'Solidity focused crypto mining installation. Python-learning destitute growth hacker.',
-    },
-  ]
   return (
     <div className={`${className} ${show ? 'z-10' : ''}`}>
       <Tab.Group
@@ -126,7 +128,7 @@ function Comment({ className }: HTMLAttributes<'div'>) {
         >
           <Tab.Panel as="div" className="mt-3">
             {comments.map((comment, index) => (
-              <SingleComment commentData={comment} key={index} />
+              <Comment commentData={comment} key={index} />
             ))}
           </Tab.Panel>
           <Tab.Panel
@@ -141,4 +143,4 @@ function Comment({ className }: HTMLAttributes<'div'>) {
   )
 }
 
-export default Comment
+export default CommentsBlock
