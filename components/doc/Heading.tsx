@@ -153,7 +153,6 @@ export default function HeadingLine({
         {titleElement}
         {tags}
       </Block>
-      {showComment && <Comment className="2xl:hidden ml-2" />}
     </>
   )
 }
