@@ -5,68 +5,51 @@ import { Tab } from '@headlessui/react'
 import CaretDown from 'components/icons/CaretDown'
 import { PlusCircleIcon, EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 
-const avatarPath =
-  // TODO: Remove images listing in next.config.js
-  'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg'
-
-export interface CommentData {
-  name: string
-  avatar: string
-  date: string
-  comment: string
-}
-
 type CommentProps = {
-  commentData: CommentData
+  author?: string
+  avatar?: string
+  date?: string
+  text: string
 }
 
-export function Comment({ commentData }: CommentProps) {
-  const { name, avatar, date, comment } = commentData
+export function Comment({ author, avatar, date, text }: CommentProps) {
   return (
     <div className="flex text-sm gap-3 items-start p-3 rounded-sm bg-gray-200 mb-2 last:mb-0">
-      <div className="shrink-0">
-        <Image
-          src={avatar}
-          alt={name}
-          width={32}
-          height={32}
-          objectFit="contain"
-          className="rounded-full"
-        />
-      </div>
+      {avatar && (
+        <div className="shrink-0">
+          <Image
+            src={avatar}
+            alt={author || 'Author named not specified'}
+            width={32}
+            height={32}
+            objectFit="contain"
+            className="rounded-full"
+          />
+        </div>
+      )}
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
           <div className="flex gap-2">
-            <h4>{name}</h4>
-            <h4 className="text-gray-500">{date}</h4>
+            {author && <h4>{author}</h4>}
+            {date && <h4 className="text-gray-500">{date}</h4>}
           </div>
           <EllipsisVerticalIcon className="h-4 w-4" />
         </div>
-        <div className="text-gray-600 font-normal">{comment}</div>
+        <div className="text-gray-600 font-normal">{text}</div>
       </div>
     </div>
   )
 }
 
-const comments = [
-  {
-    name: 'David Asabina',
-    avatar: avatarPath,
-    date: '30/08/2022',
-    comment:
-      'Generalist-reading secondary markets buyer. Satoshi themed Macbook airapologist',
-  },
-  {
-    name: 'David Asabina',
-    avatar: avatarPath,
-    date: '30/08/2022',
-    comment:
-      'Solidity focused crypto mining installation. Python-learning destitute growth hacker.',
-  },
-]
-
+export type CommentsBlockProps = {
+  comments: CommentProps[]
+}
 // FIXME: Define proper func sig
-export default function CommentsBlock({ className }: HTMLAttributes<'div'>) {
+export default function CommentsBlock({
+  id,
+  className,
+  comments,
+}: CommentsBlockProps & HTMLAttributes<'div'>) {
   const [show, setShown] = useState(false)
 
   const handleClick = () => {
@@ -78,7 +61,7 @@ export default function CommentsBlock({ className }: HTMLAttributes<'div'>) {
     }
   }
   return (
-    <div className={`${className} ${show ? 'z-10' : ''}`}>
+    <div className={`${className} ${show ? 'z-10' : ''}`} id={id}>
       <Tab.Group
         as="section"
         className="w-97 bg-gray-100 p-3 rounded-xs boder-bottom border-4 border-white"
@@ -129,7 +112,7 @@ export default function CommentsBlock({ className }: HTMLAttributes<'div'>) {
         >
           <Tab.Panel as="div" className="mt-3">
             {comments.map((comment, index) => (
-              <Comment commentData={comment} key={index} />
+              <Comment {...comment} key={`${id}-${index}`} />
             ))}
           </Tab.Panel>
           <Tab.Panel
