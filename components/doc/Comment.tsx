@@ -20,7 +20,7 @@ type CommentProps = {
   commentData: CommentData
 }
 
-function Comment({ commentData }: CommentProps) {
+export function Comment({ commentData }: CommentProps) {
   const { name, avatar, date, comment } = commentData
   return (
     <div className="flex text-sm gap-3 items-start p-3 rounded-sm bg-gray-200 mb-2 last:mb-0">
@@ -65,7 +65,8 @@ const comments = [
   },
 ]
 
-function CommentsBlock({ className }: HTMLAttributes<'div'>) {
+// FIXME: Define proper func sig
+export default function CommentsBlock({ className }: HTMLAttributes<'div'>) {
   const [show, setShown] = useState(false)
 
   const handleClick = () => {
@@ -142,5 +143,3 @@ function CommentsBlock({ className }: HTMLAttributes<'div'>) {
     </div>
   )
 }
-
-export default CommentsBlock
