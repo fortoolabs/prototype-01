@@ -70,14 +70,20 @@ const todoColor = (keyword: string) => {
   }
 }
 
-const todoElement = (keyword: string | null) => {
+// FIXME: Migrate out
+// Using in Kanban component, so it is not exclusively heading-related anymore
+export const todoElement = (keyword: string | null) => {
   if (keyword === null || keyword === undefined || keyword === '') {
     return
   }
 
   return (
     <span className={`${headingBlockClasses} flex-none`}>
-      <Tag color={todoColor(keyword)} content={keyword} shape="block" />
+      <Tag
+        color={todoColor(keyword)}
+        content={keyword.replaceAll('_', ' ').trim()}
+        shape="block"
+      />
     </span>
   )
 }
