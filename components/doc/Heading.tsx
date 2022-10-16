@@ -5,7 +5,7 @@ import { createElement, PropsWithChildren } from 'react'
 import { LinkIcon } from '@heroicons/react/20/solid'
 
 import { FDocument } from 'core/types'
-import { destinationForHeadingId } from 'core/renderer'
+import { colorForWorkflowState, destinationForHeadingId } from 'core/renderer'
 
 import Block, { blockClasses } from 'components/doc/Block'
 import Tag from 'components/doc/Tag'
@@ -72,7 +72,7 @@ const todoColor = (keyword: string) => {
 
 // FIXME: Migrate out
 // Using in Kanban component, so it is not exclusively heading-related anymore
-export const todoElement = (keyword: string | null) => {
+export const todoElement = (color?: string, keyword?: string) => {
   if (keyword === null || keyword === undefined || keyword === '') {
     return
   }
@@ -80,7 +80,7 @@ export const todoElement = (keyword: string | null) => {
   return (
     <span className={`${headingBlockClasses} flex-none`}>
       <Tag
-        color={todoColor(keyword)}
+        color={color}
         content={keyword.replaceAll('_', ' ').trim()}
         shape="block"
       />

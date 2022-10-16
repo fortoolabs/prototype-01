@@ -144,6 +144,17 @@ export function destinationForHeadingId(id: string, doc?: FDocument): string {
   return renderedId
 }
 
+export function colorForWorkflowState(state: string, doc?: FDocument): string {
+  switch (state) {
+    case 'TODO':
+      return 'red'
+    case 'DONE':
+      return 'green'
+    default:
+      return 'blue'
+  }
+}
+
 export function destinationForLink(link: FLink, doc?: FDocument): string {
   if (doc === undefined) {
     return link.target
