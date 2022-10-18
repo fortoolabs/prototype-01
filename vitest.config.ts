@@ -15,6 +15,12 @@ export default defineConfig({
     coverage: { reporter: ['text', 'json', 'html'] },
     environment: 'jsdom',
     includeSource: ['components/**/*.{js,jsx,ts,tsx}'],
-    exclude:['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/e2e/**']
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/cypress/**',
+      '**/.{idea,git,cache,output,temp}/**',
+      '**/e2e/**',
+    ],
   },
 })

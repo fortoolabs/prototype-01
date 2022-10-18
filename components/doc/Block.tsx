@@ -16,10 +16,14 @@ export default function Block({
   className = blockClasses,
   active = false,
   children,
+  id,
 }: PropsWithChildren<FallbackBlockProps> & HTMLAttributes<'div'>) {
   const activeClasses = 'bg-gray-100 text-black ring-1 ring-gray-300'
   return (
-    <div className={`p-2 md:p-4 ${className} ${active && activeClasses}`}>
+    <div
+      className={`p-2 md:p-4 ${className} ${active && activeClasses}`}
+      id={id}
+    >
       {children}
     </div>
   )

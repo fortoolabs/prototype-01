@@ -8,7 +8,6 @@ import {
 } from 'core/types'
 import { renderObject, destinationForHeadingId } from 'core/renderer'
 import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
-import { isAtHeadingDestination } from 'components/doc/Heading'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import CaretDown from 'components/icons/CaretDown'
@@ -40,21 +39,17 @@ function TableOfContentsEntry({
   depth,
   doc,
 }: TableOfContentsEntryProps) {
-  const router = useRouter()
-
   const [transMotion, transOpened, transClosed] = [
     'transition transition-[max-height] duration-300 ease-in-out delay-100',
     'transform max-h-screen',
     'transform max-h-0',
   ]
-
+  const router = useRouter()
   const { todoKeyword } = heading
   const hasChildren = children && children.length > 0
   const notComplete = todoKeyword !== 'DONE'
-  const isActive = isAtHeadingDestination(
-    router,
-    destinationForHeadingId(heading.id, doc),
-  )
+  const isActive =
+    router.asPath === `/#${destinationForHeadingId(heading.id, doc)}`
 
   return (
     <Disclosure as="li" defaultOpen={notComplete} className="max-w-prose">
@@ -92,7 +87,7 @@ function TableOfContentsEntry({
               href={`/#${destinationForHeadingId(heading.id, doc)}`}
               scroll={true}
             >
-              <div className="contents">
+              <a className="contents">
                 {todoKeyword && (
                   <Tag
                     content={todoKeyword}
@@ -105,12 +100,13 @@ function TableOfContentsEntry({
                 {/* TODO: Implement when headline linking works */}
                 <span
                   className={`hover:text-blue-300 cursor-pointer ${
-                    isActive && `text-blue-300`
+                    isActive && 'text-blue-300'
                   }`}
+                  id={destinationForHeadingId(heading.id, doc)}
                 >
                   {text.flatMap((el, i) => renderObject(el, i))}
                 </span>
-              </div>
+              </a>
             </Link>
           </div>
           {hasChildren && (

@@ -8,6 +8,7 @@ import {
 } from 'core/types'
 
 import Code, { CodeProps } from 'components/doc/Code'
+import CommentsBlock from 'components/doc/Comment'
 import Heading, { HeadingProps } from 'components/doc/Heading'
 import Paragraph, { ParagraphProps } from 'components/doc/Paragraph'
 import Link, { LinkProps } from 'components/doc/Link'
@@ -120,9 +121,11 @@ export function renderElement(
           )}
         </Paragraph>,
       ]
-    case 'E':
     case '#':
     case '/':
+      // TODO: Collect multiple comments to present them in a CommentBlock
+      return [<CommentsBlock key={`#${i}`} comments={[{ text: el.content }]} />]
+    case 'E':
     case '{':
       return [<FallbackBlock key={`E${i}`}>{el.content}</FallbackBlock>]
     case 'e':
