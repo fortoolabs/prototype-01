@@ -1,16 +1,8 @@
 import { HTMLAttributes } from 'react'
 
-type TagColor =
-  | 'blue'
-  | 'gray'
-  | 'red'
-  | 'green'
-  | 'yellow'
-  | 'indigo'
-  | 'purple'
-  | 'pink'
+import { WorkflowStateColor } from 'core/renderer'
 
-export function todoKeywordColorClasses(keyword: string): TagColor {
+export function todoKeywordColorClasses(keyword: string): WorkflowStateColor {
   switch (keyword) {
     case 'TODO':
       return 'red'
@@ -93,7 +85,7 @@ const circleColorClasses = (color: string) => {
 
 export type TagProps = {
   content: string
-  color: TagColor
+  color: WorkflowStateColor
   size?: 'small' | 'medium' | 'large'
   shape?: 'block' | 'pill' | 'circle'
 }

@@ -25,6 +25,7 @@ import {
   FTableOfContents,
   FNestedTableOfContents,
   FHeadingIndex,
+  FWorkflow,
   emptyDocument,
 } from 'core/types'
 
@@ -587,11 +588,11 @@ function convert(
           // https://orgmode.org/manual/Per_002dfile-keywords.html
           const [activeStatesLabels, terminalStatesLabels] =
             node.value.split('|')
-          const activeStates = (activeStatesLabels || '')
+          const activeStates: FWorkflow = (activeStatesLabels || '')
             .trim()
             .split(' ')
             .map((x) => ({ label: unpackTodoKeyword(x).name, isActive: true }))
-          const terminalStates = (terminalStatesLabels || '')
+          const terminalStates: FWorkflow = (terminalStatesLabels || '')
             .trim()
             .split(' ')
             .map((x) => ({ label: unpackTodoKeyword(x).name, isActive: false }))

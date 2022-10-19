@@ -1,7 +1,10 @@
 import KanbanTask from './Task'
 
 import type { TaskDataProps } from './data'
+
+import { colorForWorkflowState } from 'core/renderer'
 import { PlusIcon as SolidPlusIcon } from '@heroicons/react/20/solid'
+import { todoElement } from 'components/doc/Heading'
 
 export type KanbanColumnProps = {
   id: string
@@ -25,7 +28,7 @@ function KanbanColumn({
   return (
     <div className="w-72">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
-        {title}
+        {todoElement(title, colorForWorkflowState(title))}
       </div>
 
       <div id={`kanban-list-${id}`} className="mb-4 space-y-4 min-w-kanban">

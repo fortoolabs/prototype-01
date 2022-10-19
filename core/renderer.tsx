@@ -144,6 +144,29 @@ export function destinationForHeadingId(id: string, doc?: FDocument): string {
   return renderedId
 }
 
+export type WorkflowStateColor =
+  | 'blue'
+  | 'gray'
+  | 'red'
+  | 'green'
+  | 'yellow'
+  | 'indigo'
+  | 'purple'
+  | 'pink'
+
+export function colorForWorkflowState(
+  state: string,
+  doc?: FDocument,
+): WorkflowStateColor {
+  const colors: { [index: string]: WorkflowStateColor } = {
+    ['TODO']: 'red',
+    ['DONE']: 'green',
+    ['default']: 'yellow',
+  }
+
+  return colors[state] || colors['default']
+}
+
 export function destinationForLink(link: FLink, doc?: FDocument): string {
   if (doc === undefined) {
     return link.target
