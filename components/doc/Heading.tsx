@@ -5,7 +5,11 @@ import { createElement, PropsWithChildren } from 'react'
 import { LinkIcon } from '@heroicons/react/20/solid'
 
 import { FDocument } from 'core/types'
-import { colorForWorkflowState, destinationForHeadingId } from 'core/renderer'
+import {
+  colorForWorkflowState,
+  destinationForHeadingId,
+  WorkflowStateColor,
+} from 'core/renderer'
 
 import Block, { blockClasses } from 'components/doc/Block'
 import Tag from 'components/doc/Tag'
@@ -59,24 +63,8 @@ const tagsClasses = [
   'space-x-y space-y-reverse',
 ].join(' ')
 
-const todoColor = (keyword: string) => {
-  switch (keyword) {
-    case 'TODO':
-      return 'red'
-    case 'DONE':
-      return 'green'
-    default:
-      return 'yellow'
-  }
-}
-
-// FIXME: Migrate out
 // Using in Kanban component, so it is not exclusively heading-related anymore
-export const todoElement = (color?: string, keyword?: string) => {
-  if (keyword === null || keyword === undefined || keyword === '') {
-    return
-  }
-
+export const todoElement = (keyword: string, color: WorkflowStateColor) => {
   return (
     <span className={`${headingBlockClasses} flex-none`}>
       <Tag
@@ -122,7 +110,6 @@ export default function HeadingLine({
 
   const [headingTypography, elType] = getHeadingClasses(level)
   const isActive = router.asPath === `/#${id}`
-  const todo = todoElement(todoKeyword)
   const title = createElement(
     elType,
     {
@@ -155,7 +142,8 @@ export default function HeadingLine({
         active={isActive}
         id={id}
       >
-        {todo}
+        {todoKeyword &&
+          todoElement(todoKeyword, colorForWorkflowState(todoKeyword))}
         {titleElement}
         {tags}
       </Block>
