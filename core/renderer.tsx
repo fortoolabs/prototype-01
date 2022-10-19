@@ -158,14 +158,13 @@ export function colorForWorkflowState(
   state: string,
   doc?: FDocument,
 ): WorkflowStateColor {
-  switch (state) {
-    case 'TODO':
-      return 'red'
-    case 'DONE':
-      return 'green'
-    default:
-      return 'blue'
+  const colors: { [index: string]: WorkflowStateColor } = {
+    ['TODO']: 'red',
+    ['DONE']: 'green',
+    ['default']: 'yellow',
   }
+
+  return colors[state] || colors['default']
 }
 
 export function destinationForLink(link: FLink, doc?: FDocument): string {
