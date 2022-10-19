@@ -24,6 +24,7 @@ test_code_quality:
     - npm run fmt
   interruptible: true
 
+# For Codecov, see https://app.codecov.io/gitlab/formation.tools:eng/proto-01
 test_and_track_coverage:
   stage: test
   script:
@@ -41,6 +42,7 @@ test_and_track_coverage:
       - coverage
   interruptible: true
 
+# For Chromatic, see https://633eb19a9c0848aaa425cdee-kypdndgiwn.chromatic.com/
 build_and_deploy_storybook:
   stage: deploy
   script:
