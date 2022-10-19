@@ -43,4 +43,4 @@ build_and_deploy_storybook:
   stage: deploy
   script:
     - npm run build-storybook
-    - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN
+    - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN --exit-once-uploaded "*"
