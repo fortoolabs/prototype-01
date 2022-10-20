@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.react-resizable {
+  position: relative;
+}
+.react-resizable-handle {
+  position: absolute;
+  width: 6px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 3px;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  background-color: #eee;
+}
+
+.react-resizable-handle-w,
+.react-resizable-handle-e {
+  top: 0;
+  cursor: col-resize;
+}
+.react-resizable-handle-w {
+  left: -6px;
+}
+.react-resizable-handle-e {
+  right: 0px;
+}
+.react-resizable-handle-n {
+  display: none;
+}
