@@ -22,7 +22,9 @@ test_code_quality:
   script:
     - npm run lint
     - npm run fmt
+  interruptible: true
 
+# For Codecov, see https://app.codecov.io/gitlab/formation.tools:eng/proto-01
 test_and_track_coverage:
   stage: test
   script:
@@ -38,8 +40,11 @@ test_and_track_coverage:
   artifacts:
     paths:
       - coverage
+  interruptible: true
 
+# For Chromatic, see https://633eb19a9c0848aaa425cdee-kypdndgiwn.chromatic.com/
 build_and_deploy_storybook:
   stage: deploy
   script:
     - npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN --exit-once-uploaded "*"
+  interruptible: true
