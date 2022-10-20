@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 import { defaultTarget as target } from 'core/helpers'
 
-import { LinkIcon } from '@heroicons/react/20/solid'
+import { CodeBracketIcon } from '@heroicons/react/20/solid'
 
 import { extractNestedHeadings, FDocument } from 'core/parser'
 
@@ -53,12 +53,17 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
         <div className="flex items-center">
           <a
             className={
-              'inline-flex items-center rounded-md border border-transparent bg-c-blue-main px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-c-blue-hover focus:outline-none focus:ring-2 focus:ring-c-blue-hover focus:ring-offset-2'
+              'inline-flex items-center rounded-md border border-gray-200 px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2'
             }
             href={url}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            <LinkIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            Visit Source
+            <CodeBracketIcon
+              className="-ml-1 mr-2 h-5 w-5"
+              aria-hidden="true"
+            />
+            Source
           </a>
           <SwitchMode
             // TODO: Remove for tabs or something more appropriate

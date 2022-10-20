@@ -87,8 +87,8 @@ function DesktopInput({ label, placeholder, icon: Icon }: DesktopInputProps) {
   const [target, setTarget] = useState('')
 
   return (
-    <div className="min-w-0 flex-1">
-      <div className="relative max-w-2xl text-gray-400 focus-within:text-black">
+    <div className="min-w-0 flex-1 ml-4 ">
+      <div className="relative max-w-2xl text-gray-600">
         <label htmlFor="desktop-search" className="sr-only">
           {label}
         </label>
@@ -105,7 +105,7 @@ function DesktopInput({ label, placeholder, icon: Icon }: DesktopInputProps) {
             value={target}
             onChange={(event) => setTarget(event.target.value)}
             placeholder={placeholder}
-            className="block w-full border-transparent pl-12 placeholder-gray-400 focus:border-transparent focus:ring-0 sm:text-sm"
+            className="block w-full border-transparent py-2 px-2 bg-gray-100 sm:text-sm rounded-sm"
             autoComplete="off"
           />
         </form>
@@ -415,7 +415,6 @@ export default function Layout({
   //}))
 
   //const mode = 'bg-gray-100 text-white'
-  const mode = 'bg-[#1A1C1F] text-white'
 
   const navProps = {
     name,
@@ -431,12 +430,10 @@ export default function Layout({
   return (
     <div className="flex h-full flex-col">
       <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
-        <div
-          className={`absolute ${mode} inset-y-0 left-0 md:static md:flex-shrink-0`}
-        >
+        <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
           {/* TODO: Set href */}
           <Link href="/">
-            <a className="flex h-16 w-16 items-center lg:pl-5 justify-center lg:justify-start hover:text-gray-300 lg:w-97 gap-2 md:w-20">
+            <a className="flex h-16 w-16 items-center lg:pl-5 justify-center lg:justify-start hover:text-primary-hover lg:w-97 gap-2 md:w-20">
               <LogoIcon className="lg:h-10 lg:w-10" />
               <span className="hidden lg:inline">Formation-tools</span>
             </a>
