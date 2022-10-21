@@ -6,8 +6,12 @@ import {
   FNestedTableOfContents,
   FNestedTableOfContentsEntry,
 } from 'core/types'
-import { renderObject, destinationForHeadingId } from 'core/renderer'
-import Tag, { todoKeywordColorClasses } from 'components/doc/Tag'
+import {
+  renderObject,
+  colorForWorkflowState,
+  destinationForHeadingId,
+} from 'core/renderer'
+import Tag from 'components/doc/Tag'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import CaretDown from 'components/icons/CaretDown'
@@ -91,7 +95,7 @@ function TableOfContentsEntry({
                 {todoKeyword && (
                   <Tag
                     content={todoKeyword}
-                    color={todoKeywordColorClasses(todoKeyword)}
+                    color={colorForWorkflowState(todoKeyword)}
                     size="small"
                     shape="circle"
                     className="shrink-0 h-3 w-3 px-0 py-0 border-0 "
