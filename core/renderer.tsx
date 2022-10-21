@@ -161,6 +161,7 @@ export function colorForWorkflowState(
   const colors: { [index: string]: WorkflowStateColor } = {
     ['TODO']: 'red',
     ['DONE']: 'green',
+    ['CANCELED']: 'gray',
     ['default']: 'yellow',
   }
 
