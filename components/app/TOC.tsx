@@ -84,7 +84,7 @@ function TableOfContentsEntry({
               <div className="h-4 w-4 shrink-0" />
             )}
             <Link
-              href={`/#${destinationForHeadingId(heading.id, doc)}`}
+              href={`#${destinationForHeadingId(heading.id, doc)}`}
               scroll={true}
             >
               <a className="contents">
