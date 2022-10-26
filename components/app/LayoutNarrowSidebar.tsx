@@ -406,7 +406,7 @@ export function HorizontalDiptychWithAside({
           type="button"
           onClick={handleSideBarIconClick}
         >
-          <ChevronDoubleRightIcon className="w-6 h-6 absolute opacity-0 group-hover:opacity-100 transition group-hover:transition hover:fill-c-blue-main" />
+          <ChevronDoubleRightIcon className="w-6 h-6 absolute opacity-0 group-hover:opacity-100 transition group-hover:transition group-hover:fill-c-blue-main" />
           <EllipsisHorizontalIcon className="w-6 h-6 absolute group-hover:opacity-0 transition group-hover:transition" />
         </button>
         <div className="absolute left-11 top-3 p-2 rounded-md whitespace-nowrap -z-10 text-white text-xs bg-primary-main opacity-0 transiton group-hover:opacity-100 group-hover:transtion">
