@@ -2,19 +2,6 @@ import { HTMLAttributes } from 'react'
 
 import { WorkflowStateColor } from 'core/renderer'
 
-export function todoKeywordColorClasses(keyword: string): WorkflowStateColor {
-  switch (keyword) {
-    case 'TODO':
-      return 'red'
-    case 'DONE':
-    case 'CANCELLED':
-    case 'CANCELED':
-      return 'green'
-    default:
-      return 'yellow'
-  }
-}
-
 const tagSizeClasses = (size?: string) => {
   switch (size) {
     case 'small':
@@ -38,6 +25,7 @@ const shapeClasses = (val?: string) => {
   }
 }
 
+// TODO: Type to WorkflowStateColor?
 const colorClasses = (color: string) => {
   switch (color) {
     case 'blue':
@@ -60,6 +48,7 @@ const colorClasses = (color: string) => {
       return 'bg-pink-100 text-pink-900 border-pink-300'
   }
 }
+
 const circleColorClasses = (color: string) => {
   switch (color) {
     case 'blue':
