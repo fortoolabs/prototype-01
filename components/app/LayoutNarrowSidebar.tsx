@@ -13,7 +13,7 @@ import {
   SessionProps,
   DesktopMenu as DesktopSessionMenu,
   MobileMenu as MobileSessionMenu,
-} from 'components/app/Avatar'
+} from 'components/app/Menu'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
