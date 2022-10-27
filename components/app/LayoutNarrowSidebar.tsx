@@ -416,7 +416,6 @@ export function HorizontalDiptychWithAside({
       <ResizablePane
         handlePosition="e"
         visibleHandle={false}
-        width={showSideBar ? 350 : 400}
         maxWidth={700}
         className={[
           'hidden',

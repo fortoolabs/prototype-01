@@ -8,6 +8,10 @@ type ResizablePaneProps = {
   maxWidth?: number
   visibleHandle?: Boolean
 }
+
+// FIXME: @tijan allow for constraint scoping on non-px-basis
+// Since max-width-prose is defined in terms of ch units,
+// we may want to allow for that.
 function ResizablePane({
   handlePosition,
   width,
