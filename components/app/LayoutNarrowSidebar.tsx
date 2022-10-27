@@ -418,10 +418,22 @@ export function HorizontalDiptychWithAside({
         visibleHandle={false}
         width={showSideBar ? 350 : 400}
         maxWidth={700}
-        className={`hidden lg:order-first lg:flex lg:flex-col lg:flex-shrink-0 bg-primary-main pt-5 border-0 border-r-2 font-inter
-             gap-4 overflow-hidden transition-transform ${
-               showSideBar ? '' : '-translate-x-full transition-transform'
-             }`}
+        className={[
+          'hidden',
+          'lg:order-first',
+          'lg:flex',
+          'lg:flex-col',
+          'lg:flex-shrink-0',
+          'bg-primary-main',
+          'pt-5',
+          'border-0',
+          'border-r-2',
+          'font-inter',
+          'gap-4',
+          'overflow-hidden',
+          'transition-transform',
+          showSideBar ? '' : '-translate-x-full transition-transform',
+        ].join(' ')}
       >
         <aside className="contents">
           <div className="text-gray-400 font-semibold text-xs px-4 flex justify-between items-center relative ">
