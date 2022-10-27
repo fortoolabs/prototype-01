@@ -10,6 +10,7 @@ import {
 import Code, { CodeProps } from 'components/doc/Code'
 import CommentsBlock from 'components/doc/Comment'
 import Heading, { HeadingProps } from 'components/doc/Heading'
+import Section, { SectionProps } from 'components/doc/Section'
 import Paragraph, { ParagraphProps } from 'components/doc/Paragraph'
 import Link, { LinkProps } from 'components/doc/Link'
 import FallbackInline, {
@@ -35,10 +36,7 @@ export function renderElement(
 ): JSX.Element[] {
   switch (el.type) {
     case 'S':
-      // TODO: Render section in collapsible component
-      return el.content.flatMap((el, idx) =>
-        renderElement(el, `S${key}-${idx}`, doc),
-      )
+      return [<Section key={`S${key}`} data={el} doc={doc} />]
     case 'L':
       return [
         <List key={`L${key}`}>
