@@ -348,7 +348,7 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
   return (
     <nav
       aria-label="Sidebar"
-      className="hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-gray-800"
+      className="hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-gray-800 z-20"
     >
       <div className="relative flex w-20 flex-col space-y-3 p-3">
         {menuOptions.map(({ name, current, target, icon: Icon }) => {
@@ -436,7 +436,7 @@ export function HorizontalDiptychWithAside({
         ].join(' ')}
       >
         <aside className="contents">
-          <div className="text-gray-400 font-semibold text-xs px-4 flex justify-between items-center relative ">
+          <div className="text-gray-400 font-semibold text-xs px-4 flex justify-between items-center relative z-10">
             SPACES
             <button
               className="text-white shrink-0 hover:bg-primary-hover p-1 group"
