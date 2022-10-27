@@ -56,7 +56,7 @@ function TableOfContentsEntry({
     router.asPath === `/#${destinationForHeadingId(heading.id, doc)}`
 
   return (
-    <Disclosure as="li" defaultOpen={notComplete} className="max-w-prose">
+    <Disclosure as="li" defaultOpen={notComplete}>
       {({ open }) => (
         <>
           <div
@@ -103,7 +103,7 @@ function TableOfContentsEntry({
                 )}
                 {/* TODO: Implement when headline linking works */}
                 <span
-                  className={`hover:text-blue-300 cursor-pointer ${
+                  className={`hover:text-blue-300 cursor-pointer truncate ${
                     isActive && 'text-blue-300'
                   }`}
                   id={destinationForHeadingId(heading.id, doc)}

@@ -5,7 +5,12 @@ import Link from 'next/link'
 import { encodeTarget } from 'core/helpers'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+  ClockIcon,
+  ChevronDoubleRightIcon,
+} from '@heroicons/react/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { LogoSecond as LogoIcon } from 'components/app/Logo'
@@ -14,6 +19,7 @@ import {
   DesktopMenu as DesktopSessionMenu,
   MobileMenu as MobileSessionMenu,
 } from 'components/app/Menu'
+import ResizablePane from './ResizablePane'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -341,7 +347,7 @@ function DesktopSidebar({ menuOptions }: MenuProps) {
   return (
     <nav
       aria-label="Sidebar"
-      className="hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-gray-800"
+      className="hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-gray-800 z-20"
     >
       <div className="relative flex w-20 flex-col space-y-3 p-3">
         {menuOptions.map(({ name, current, target, icon: Icon }) => {
@@ -373,8 +379,16 @@ export function HorizontalDiptychWithAside({
   main: React.ReactNode
   aside: React.ReactNode
 }) {
+  const [showSideBar, setShowSideBar] = useState(true)
+
+  const handleSideBarIconClick = () => {
+    setShowSideBar((current) => !current)
+  }
+  const actionItemClasses =
+    'text-gray-400 font-semibold text-xs flex gap-2 px-4'
+  const iconClasses = 'w-4 h-4 shrink-0'
   return (
-    <main className="min-w-0 flex-1 lg:flex">
+    <main className="min-w-0 flex-1 lg:flex relative">
       {/* Primary column */}
       <section
         aria-labelledby="primary-heading"
@@ -384,9 +398,66 @@ export function HorizontalDiptychWithAside({
       </section>
 
       {/* Secondary column (hidden on smaller screens) */}
-      <aside className="hidden lg:order-first lg:block lg:flex-shrink-0 bg-primary-main pt-5 overflow-y-auto border-0 border-r-2 ">
-        <div className="relative flex h-full w-97 flex-col">{aside}</div>
-      </aside>
+
+      <div className={`absolute group ${showSideBar ? 'hidden' : ''}`}>
+        <button
+          className="pl-5 py-2 relative group"
+          type="button"
+          onClick={handleSideBarIconClick}
+        >
+          <ChevronDoubleRightIcon className="w-6 h-6 absolute" />
+        </button>
+        <div className="absolute left-11 top-3 p-2 rounded-md whitespace-nowrap -z-10 text-white text-xs bg-primary-main opacity-0 transiton group-hover:opacity-100 group-hover:transtion">
+          Open Sidebar
+        </div>
+      </div>
+      <ResizablePane
+        handlePosition="e"
+        visibleHandle={false}
+        maxWidth={700}
+        className={[
+          'hidden',
+          'lg:order-first',
+          'lg:flex',
+          'lg:flex-col',
+          'lg:flex-shrink-0',
+          'bg-primary-main',
+          'pt-5',
+          'border-0',
+          'border-r-2',
+          'font-inter',
+          'gap-4',
+          'overflow-hidden',
+          'transition-transform',
+          showSideBar ? '' : '-translate-x-full transition-transform',
+        ].join(' ')}
+      >
+        <aside className="contents">
+          <div className="text-gray-400 font-semibold text-xs px-4 flex justify-between items-center relative z-10">
+            SPACES
+            <button
+              className="text-white shrink-0 hover:bg-primary-hover p-1 group"
+              onClick={handleSideBarIconClick}
+            >
+              <ChevronDoubleRightIcon className="w-5 h-5 rotate-180 hover:fill-c-blue-main" />
+              <span className="absolute mx-1 top-0 right-11 p-2 -z-10 whitespace-nowrap bg-primary-hover text-white transtion group-hover:z-0">
+                {' '}
+                Close Sidebar
+              </span>
+            </button>
+          </div>
+          <div className="relative h-[80%] overflow-y-auto">{aside}</div>
+
+          <div className={actionItemClasses}>
+            <MagnifyingGlassIcon className={iconClasses} />
+            Search
+          </div>
+          <div className={actionItemClasses}>
+            <ClockIcon className={iconClasses} />
+            All Updates
+          </div>
+        </aside>
+      </ResizablePane>
     </main>
   )
 }
@@ -430,7 +501,7 @@ export default function Layout({
   return (
     <div className="flex h-full flex-col">
       <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
-        <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
+        <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0 border-b border-gray-200">
           {/* TODO: Set href */}
           <Link href="/">
             <a className="flex h-16 w-16 items-center lg:pl-5 justify-center lg:justify-start hover:text-primary-hover lg:w-97 gap-2 md:w-20">

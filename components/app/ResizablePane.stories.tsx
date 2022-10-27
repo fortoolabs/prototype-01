@@ -37,17 +37,19 @@ const Template: ComponentStory<typeof ResizablePane> = (args) => (
 
 export const RightResizablePane = Template.bind({})
 RightResizablePane.args = {
-  content: <ExampleContent />,
+  children: <ExampleContent />,
   handlePosition: 'e',
 }
 const LeftResizablePane = Template.bind({})
 LeftResizablePane.args = {
-  content: <ExampleContent />,
+  children: <ExampleContent />,
   handlePosition: 'w',
 }
 export const SidebySidePanes = () => (
-  <div className="flex gap-2">
-    <RightResizablePane content={<ExampleContent />} handlePosition="e" />
-    <RightResizablePane content={<ExampleContent />} />
+  <div className="flex ">
+    <ResizablePane handlePosition="e" width={600} className="shrink-0">
+      <ExampleContent />
+    </ResizablePane>
+    <ExampleContent />
   </div>
 )
