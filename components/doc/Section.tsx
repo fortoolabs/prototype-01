@@ -32,6 +32,8 @@ function Section({
     'h-4 w-4',
     'fill-current stroke-none hover:fill-c-blue-hover transition',
   ].join(' ')
+  // FIXME: @tijan: absolutely left-position CaretDown
+  // Note that section hierarchies should be aligned along the same y-pos
   return (
     <section className={['max-w-prose'].join(' ')}>
       {heading && (
