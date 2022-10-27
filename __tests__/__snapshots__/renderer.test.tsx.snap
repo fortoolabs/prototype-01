@@ -39,7 +39,6 @@ exports[`heading > renders with id when slug is not present 1`] = `
     >
       <h1
         class="inline"
-        id="hopefully-random-id"
       >
         Collect underpants
       </h1>
@@ -101,7 +100,6 @@ exports[`heading > renders with slug as id when present 1`] = `
     >
       <h1
         class="inline"
-        id="some-slug"
       >
         Collect underpants
       </h1>

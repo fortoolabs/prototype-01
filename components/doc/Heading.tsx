@@ -116,7 +116,6 @@ export default function HeadingLine({
   const title = createElement(
     elType,
     {
-      id,
       className: `inline`,
     },
     children,
