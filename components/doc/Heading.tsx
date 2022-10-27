@@ -80,7 +80,10 @@ const tagsElement = (tags: string[]) => {
   if (tags && tags.length > 0) {
     return (
       <span
-        className={`${headingBlockClasses} ${tagsClasses} flex flex-row-reverse flex-wrap w-2/6`}
+        className={[
+          `${headingBlockClasses} ${tagsClasses}`,
+          'flex flex-row-reverse flex-wrap w-2/6',
+        ].join(' ')}
       >
         {tags.map((tag, idx) => (
           <Tag key={`h${idx}-${tag}`} size="small" color="blue" content={tag} />
@@ -122,26 +125,32 @@ export default function HeadingLine({
 
   const copyLink = (
     <Link href={`/#${destinationForHeadingId(id, doc)}`}>
-      <a className="align-middle inline-block hover:text-c-blue-hover invisible group-hover:visible">
-        <LinkIcon className="h-5 rotate-45" />
+      <a
+        className={[
+          'align-middle inline-block',
+          `${headingBlockClasses} ${sharedTypography}`,
+          'hover:text-c-blue-hover invisible group-hover:visible',
+        ].join(' ')}
+      >
+        <LinkIcon className="h-5 rotate-45 inline" />
       </a>
     </Link>
   )
+
   const titleElement = (
-    <span
-      className={`${headingBlockClasses} ${sharedTypography} ${headingTypography} grow group`}
-    >
-      {title} {copyLink}
+    <span className={`${headingBlockClasses} ${sharedTypography} grow`}>
+      {title}
     </span>
   )
 
   return (
     <>
       <Block
-        className={`${blockClasses} md:flex relative ${headingTypography}`}
+        className={`${blockClasses} md:flex relative ${headingTypography} group`}
         active={isActive}
         id={id}
       >
+        {copyLink}
         {todoKeyword &&
           todoElement(todoKeyword, colorForWorkflowState(todoKeyword))}
         {titleElement}
