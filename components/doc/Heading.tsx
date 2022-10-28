@@ -127,11 +127,12 @@ export default function HeadingLine({
       <a
         className={[
           'align-middle inline-block',
-          `${headingBlockClasses} ${sharedTypography}`,
+          headingBlockClasses,
+          sharedTypography,
           'hover:text-c-blue-hover invisible group-hover:visible',
         ].join(' ')}
       >
-        <LinkIcon className="h-5 inline" />
+        <LinkIcon className="h-5 w-5 inline" />
       </a>
     </Link>
   )
