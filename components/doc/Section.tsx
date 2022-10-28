@@ -26,19 +26,19 @@ function Section({
   const content = data.content.filter((el) => el.type !== 'h')
 
   const shownClasses =
-    'max-h-[1000rem] transition-[max-height] duration-500 ease-in'
+    'max-h-[10000rem] transition-[max-height] duration-500 ease-in'
   const hiddenClasses = 'max-h-0 transition-[max-height] duration-300 ease-out'
   const arrowClass = [
-    'h-4 w-4',
+    'h-4 w-4 ',
     'fill-current stroke-none hover:fill-c-blue-hover transition',
   ].join(' ')
   // FIXME: @tijan: absolutely left-position CaretDown
   // Note that section hierarchies should be aligned along the same y-pos
   return (
-    <section className={['max-w-prose'].join(' ')}>
+    <section className={[' '].join(' ')}>
       {heading && (
         <div className="relative">
-          <button className="shrink-0 -left-5" onClick={handleClick}>
+          <button className="absolute top-[40%] -left-4" onClick={handleClick}>
             <CaretDown
               className={[arrowClass, show ? '' : '-rotate-90 transition'].join(
                 ' ',

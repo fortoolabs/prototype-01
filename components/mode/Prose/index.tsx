@@ -40,6 +40,8 @@ export default function Prose({ isSerif, doc }: LinearProps) {
         'text-base max-w-prose',
         'overflow-wrap',
         'leading-loose',
+        'p-5',
+        'md:p-3',
       ].join(' ')}
     >
       <Breadcrumbs pages={[]} />

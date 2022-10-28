@@ -82,7 +82,7 @@ const tagsElement = (tags: string[]) => {
       <span
         className={[
           `${headingBlockClasses} ${tagsClasses}`,
-          'flex flex-row-reverse flex-wrap w-2/6',
+          'flex flex-row-reverse flex-wrap shrink-0',
         ].join(' ')}
       >
         {tags.map((tag, idx) => (
@@ -131,7 +131,7 @@ export default function HeadingLine({
           'hover:text-c-blue-hover invisible group-hover:visible',
         ].join(' ')}
       >
-        <LinkIcon className="h-5 rotate-45 inline" />
+        <LinkIcon className="h-5 inline" />
       </a>
     </Link>
   )
@@ -139,6 +139,7 @@ export default function HeadingLine({
   const titleElement = (
     <span className={`${headingBlockClasses} ${sharedTypography} grow`}>
       {title}
+      {copyLink}
     </span>
   )
 
@@ -149,10 +150,10 @@ export default function HeadingLine({
         active={isActive}
         id={id}
       >
-        {copyLink}
         {todoKeyword &&
           todoElement(todoKeyword, colorForWorkflowState(todoKeyword))}
         {titleElement}
+
         {tags}
       </Block>
     </>
