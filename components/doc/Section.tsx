@@ -29,16 +29,24 @@ function Section({
     'max-h-[10000rem] transition-[max-height] duration-500 ease-in'
   const hiddenClasses = 'max-h-0 transition-[max-height] duration-300 ease-out'
   const arrowClass = [
-    'h-4 w-4 ',
-    'fill-current stroke-none hover:fill-c-blue-hover transition',
+    'h-4 w-4',
+    // FIXME: @tijan how do we show the caret when hovering over the heading?
+    // I looked at Tailwind group but can't figure it out?
+    'opacity-10',
+    'fill-current hover:fill-c-blue-hover',
+    'stroke-none',
+    'transition',
   ].join(' ')
-  // FIXME: @tijan: absolutely left-position CaretDown
-  // Note that section hierarchies should be aligned along the same y-pos
+  // FIXME: @tijan: I can't manage to move CaretDown left of the Block
+  // the overflow-hidden inside of the body div seems to be a blocker here
   return (
-    <section className={[' '].join(' ')}>
+    <section className="max-w-prose">
       {heading && (
         <div className="relative">
-          <button className="absolute top-[40%] -left-4" onClick={handleClick}>
+          <button
+            className={['absolute', 'top-6', 'h-4', 'w-4'].join(' ')}
+            onClick={handleClick}
+          >
             <CaretDown
               className={[arrowClass, show ? '' : '-rotate-90 transition'].join(
                 ' ',
@@ -52,7 +60,6 @@ function Section({
 
       <div
         className={[
-          'relative',
           show ? shownClasses : hiddenClasses,
           'overflow-hidden',
         ].join(' ')}
