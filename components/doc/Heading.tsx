@@ -144,18 +144,21 @@ export default function HeadingLine({
   )
 
   return (
-    <>
-      <Block
-        className={`${blockClasses} md:flex relative ${headingTypography} group`}
-        active={isActive}
-        id={id}
-      >
-        {todoKeyword &&
-          todoElement(todoKeyword, colorForWorkflowState(todoKeyword))}
-        {titleElement}
-
-        {tags}
-      </Block>
-    </>
+    <Block
+      className={[
+        blockClasses,
+        headingTypography,
+        'group',
+        'static',
+        'md:flex',
+      ].join(' ')}
+      active={isActive}
+      id={id}
+    >
+      {todoKeyword &&
+        todoElement(todoKeyword, colorForWorkflowState(todoKeyword))}
+      {titleElement}
+      {tags}
+    </Block>
   )
 }
