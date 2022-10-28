@@ -1,12 +1,20 @@
+// TODO: @vidbina stub test
 import { useState, PropsWithChildren, HTMLAttributes } from 'react'
+
+import { FSection, FDocument } from 'core/types'
+import { renderElement } from 'core/renderer'
 
 import CaretDown from 'components/icons/CaretDown'
 
-export type SectionProps = {}
+export type SectionProps = {
+  doc?: FDocument
+  data: FSection
+}
 
+// @tijan: Why don't we use a Disclosure here?
 function Section({
-  children,
-  className,
+  doc,
+  data,
 }: PropsWithChildren<SectionProps> & HTMLAttributes<'section'>) {
   const [show, setShow] = useState(true)
 
@@ -14,45 +22,52 @@ function Section({
     setShow((current) => !current)
   }
 
+  const heading = data.content.find((el) => el.type === 'h')
+  const content = data.content.filter((el) => el.type !== 'h')
+
   const shownClasses =
-    'max-h-[1000rem] transition-[max-height] duration-500 ease-in'
+    'max-h-[10000rem] transition-[max-height] duration-500 ease-in'
   const hiddenClasses = 'max-h-0 transition-[max-height] duration-300 ease-out'
-  const arrowClass = 'h-4 w-4 hover:fill-c-blue-hover transition'
+  const arrowClass = [
+    'h-4 w-4',
+    // FIXME: @tijan how do we show the caret when hovering over the heading?
+    // I looked at Tailwind group but can't figure it out?
+    'opacity-10',
+    'fill-current hover:fill-c-blue-hover',
+    'stroke-none',
+    'transition',
+  ].join(' ')
+  // FIXME: @tijan: I can't manage to move CaretDown left of the Block
+  // the overflow-hidden inside of the body div seems to be a blocker here
   return (
-    <section className={`${className}`}>
-      <div className="flex items-center gap-1 mb-3">
-        <button className="shrink-0" onClick={handleClick}>
-          {' '}
-          <CaretDown
-            className={`${arrowClass} ${show ? '' : '-rotate-90 transition'}`}
-          />
-        </button>
-        <h1 className="text-xl font-bold">Dummy Heading</h1>
-      </div>
+    <section className="max-w-prose">
+      {heading && (
+        <div className="relative">
+          <button
+            className={['absolute', 'top-6', 'h-4', 'w-4'].join(' ')}
+            onClick={handleClick}
+          >
+            <CaretDown
+              className={[arrowClass, show ? '' : '-rotate-90 transition'].join(
+                ' ',
+              )}
+            />
+          </button>
+          {/* TODO: WTF to do with the key arg (2nd) below? */}
+          {renderElement(heading, 'figureoutsomeid', doc)}
+        </div>
+      )}
 
       <div
-        className={`${className} ${
-          show ? shownClasses : hiddenClasses
-        } overflow-hidden pl-2`}
+        className={[
+          show ? shownClasses : hiddenClasses,
+          'overflow-hidden',
+        ].join(' ')}
       >
-        {children}
+        {content.flatMap((el, i) => renderElement(el, `prose-${i}`, doc))}
       </div>
     </section>
   )
 }
 
 export default Section
-
-{
-  /* <section className={`${className} px-3 relative`}>
-<button className="absolute top-1 -left-2" onClick={handleClick}>
-  {' '}
-  <CaretDown className={`${arrowClass}`} />
-</button>
-<div
-  className={`${className} ${clip ? clippedClasses : notClippedClasses}`}
->
-  {children}
-</div>
-</section> */
-}

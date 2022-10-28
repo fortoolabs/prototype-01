@@ -10,6 +10,7 @@ import {
 import Code, { CodeProps } from 'components/doc/Code'
 import CommentsBlock from 'components/doc/Comment'
 import Heading, { HeadingProps } from 'components/doc/Heading'
+import Section, { SectionProps } from 'components/doc/Section'
 import Paragraph, { ParagraphProps } from 'components/doc/Paragraph'
 import Link, { LinkProps } from 'components/doc/Link'
 import FallbackInline, {
@@ -28,22 +29,19 @@ function assertExhaustive(
 
 export function renderElement(
   el: FElementType,
-  i: number | string,
+  key: number | string,
   // FIXME: The optional doc arg is a nasty hack to get context into the
   // rendering stage
   doc?: FDocument,
 ): JSX.Element[] {
   switch (el.type) {
     case 'S':
-      // TODO: Render section in collapsible component
-      return el.content.flatMap((el, idx) =>
-        renderElement(el, `S${i}-${idx}`, doc),
-      )
+      return [<Section key={`S${key}`} data={el} doc={doc} />]
     case 'L':
       return [
-        <List key={`L${i}`}>
+        <List key={`L${key}`}>
           {el.content.flatMap((x, idx) =>
-            renderElement(x, `L${i}-I${idx}`, doc),
+            renderElement(x, `L${key}-I${idx}`, doc),
           )}
         </List>,
       ]
@@ -61,16 +59,18 @@ export function renderElement(
       }
 
       const headObjects = head.content.flatMap((x, idx) =>
-        renderObject(x, `${i}-label-${idx}`, doc),
+        renderObject(x, `${key}-label-${idx}`, doc),
       )
 
       const restObjects =
         rest && rest.length > 0
-          ? rest.flatMap((x, idx) => renderElement(x, `${i}-body=${idx}`, doc))
+          ? rest.flatMap((x, idx) =>
+              renderElement(x, `${key}-body=${idx}`, doc),
+            )
           : []
 
       return [
-        <ListChild key={i} label={headObjects}>
+        <ListChild key={key} label={headObjects}>
           {restObjects}
         </ListChild>,
       ]
@@ -97,7 +97,7 @@ export function renderElement(
 
             <Heading
               id={renderedId}
-              key={`h${i}`}
+              key={`h${key}`}
               level={level}
               todoKeyword={todoKeyword}
               priority={priority}
@@ -105,7 +105,7 @@ export function renderElement(
               tags={tags}
             >
               {el.content.flatMap((el, idx) =>
-                renderObject(el, `h${i}-${idx}`, doc),
+                renderObject(el, `h${key}-${idx}`, doc),
               )}
             </Heading>,
           ]
@@ -115,21 +115,23 @@ export function renderElement(
       }
     case 'p':
       return [
-        <Paragraph key={`p${i}`}>
+        <Paragraph key={`p${key}`}>
           {el.content.flatMap((el, idx) =>
-            renderObject(el, `p${i}-${idx}`, doc),
+            renderObject(el, `p${key}-${idx}`, doc),
           )}
         </Paragraph>,
       ]
     case '#':
     case '/':
       // TODO: Collect multiple comments to present them in a CommentBlock
-      return [<CommentsBlock key={`#${i}`} comments={[{ text: el.content }]} />]
+      return [
+        <CommentsBlock key={`#${key}`} comments={[{ text: el.content }]} />,
+      ]
     case 'E':
     case '{':
-      return [<FallbackBlock key={`E${i}`}>{el.content}</FallbackBlock>]
+      return [<FallbackBlock key={`E${key}`}>{el.content}</FallbackBlock>]
     case 'e':
-      return [<FallbackInline key={`e${i}`}>{el.content}</FallbackInline>]
+      return [<FallbackInline key={`e${key}`}>{el.content}</FallbackInline>]
     default:
       assertExhaustive(el)
   }

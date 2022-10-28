@@ -141,7 +141,7 @@ type FGreaterElementFallback = {
   content: string
 }
 
-type FSection = {
+export type FSection = {
   type: 'S'
   content: FElementType[]
 }
