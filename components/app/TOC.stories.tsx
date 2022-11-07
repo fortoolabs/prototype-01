@@ -88,7 +88,7 @@ const toc = [
 const nonNestedToc = ['* Part 1', '* Part 2', '* Part 3'].join('\n')
 
 export default {
-  title: 'Application/TOC',
+  title: 'Application/Molecules/TOC',
   component: TOC,
 } as ComponentMeta<typeof TOC>
 

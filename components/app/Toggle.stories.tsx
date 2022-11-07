@@ -4,7 +4,7 @@ import useState from 'storybook-addon-state'
 import Toggle from './Toggle'
 
 export default {
-  title: 'Application/Toggle',
+  title: 'Application/Atoms/Toggle',
   component: Toggle,
 } as ComponentMeta<typeof Toggle>
 

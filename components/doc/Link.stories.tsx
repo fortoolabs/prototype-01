@@ -5,7 +5,7 @@ import Link from './Link'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Document/Link',
+  title: 'Document/Atoms/Link',
   component: Link,
 } as ComponentMeta<typeof Link>
 

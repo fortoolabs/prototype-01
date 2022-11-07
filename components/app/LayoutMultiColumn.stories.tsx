@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import Layout from './LayoutMultiColumn'
 
 export default {
-  title: 'Application/Layouts/Multi-Column',
+  title: 'Application/Organisms/Layouts/Multi-Column',
   component: Layout,
   parameters: {
     layout: 'fullscreen',

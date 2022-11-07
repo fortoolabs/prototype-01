@@ -48,7 +48,7 @@ This is an important one. Just to give viewers a decent top-level overview.
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Containers/Board',
+  title: 'Modes/Board/Organisms',
   component: Board,
   argTypes: {
     doc: {

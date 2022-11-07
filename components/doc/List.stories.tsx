@@ -46,7 +46,7 @@ const mixedList = `
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Document/List',
+  title: 'Document/Molecules/List',
   component: List,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {

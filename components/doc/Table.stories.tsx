@@ -34,7 +34,7 @@ const tableData = {
 }
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Document/Table',
+  title: 'Document/Molecules/Table',
 } as ComponentMeta<typeof Table>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args

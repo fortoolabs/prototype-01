@@ -27,7 +27,7 @@ const ExampleContent = () => (
 )
 
 export default {
-  title: 'Application/Resizable',
+  title: 'Application/Atoms/Resizable',
   component: ResizablePane,
 } as ComponentMeta<typeof ResizablePane>
 
