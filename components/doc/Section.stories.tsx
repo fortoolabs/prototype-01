@@ -8,7 +8,7 @@ import Section from 'components/doc/Section'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Document/Section',
+  title: 'Document/Organism/Section',
   component: Section,
 } as ComponentMeta<typeof Section>
 

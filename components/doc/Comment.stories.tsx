@@ -19,7 +19,7 @@ const exampleComments = [
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Application/Comment',
+  title: 'Document/Molecules/Comment',
   component: CommentsBlock,
 } as ComponentMeta<typeof CommentsBlock>
 

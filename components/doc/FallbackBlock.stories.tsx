@@ -23,7 +23,7 @@ const randomCode = `
 `
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Document/FallbackBlock',
+  title: 'Document/Atoms/FallbackBlock',
   component: FallbackBlock,
 } as ComponentMeta<typeof FallbackBlock>
 

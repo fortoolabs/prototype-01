@@ -4,7 +4,7 @@ import Breadcrumbs from './Breadcrumbs'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Containers/Linear/Breadcrumbs',
+  title: 'Modes/Linear/Molecules/Breadcrumbs',
   component: Breadcrumbs,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 } as ComponentMeta<typeof Breadcrumbs>

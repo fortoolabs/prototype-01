@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import Layout from './LayoutSidebar'
 
 export default {
-  title: 'Application/Layouts/Sidebar',
+  title: 'Application/Organisms/Layouts/Sidebar',
   component: Layout,
   parameters: {
     layout: 'fullscreen',

@@ -4,7 +4,7 @@ import useState from 'storybook-addon-state'
 import SwitchMode from './SwitchMode'
 
 export default {
-  title: 'Application/ModeSwitch',
+  title: 'Application/Molecules/ModeSwitch',
   component: SwitchMode,
 } as ComponentMeta<typeof SwitchMode>
 
