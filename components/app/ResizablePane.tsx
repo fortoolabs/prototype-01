@@ -1,5 +1,5 @@
-import { PropsWithChildren, HTMLAttributes } from 'react'
-import { ResizableBox } from 'react-resizable'
+import { PropsWithChildren, HTMLAttributes, SyntheticEvent } from 'react'
+import { ResizableBox, ResizeCallbackData } from 'react-resizable'
 
 type ResizablePaneProps = {
   handlePosition?: 'e' | 'w'
@@ -7,6 +7,8 @@ type ResizablePaneProps = {
   minWidth?: number
   maxWidth?: number
   visibleHandle?: Boolean
+  handleResizeStop?: // eslint-disable-next-line no-unused-vars
+  ((e: SyntheticEvent, data: ResizeCallbackData) => any) | undefined
 }
 
 // FIXME: @tijan allow for constraint scoping on non-px-basis
@@ -20,6 +22,7 @@ function ResizablePane({
   visibleHandle = true,
   children,
   className,
+  handleResizeStop,
 }: PropsWithChildren<ResizablePaneProps> & HTMLAttributes<'div'>) {
   return (
     <ResizableBox
@@ -29,6 +32,7 @@ function ResizablePane({
       minConstraints={[minWidth || 315, 100]}
       maxConstraints={[maxWidth || 930, 300]}
       resizeHandles={[handlePosition ? handlePosition : 'n']}
+      onResizeStop={handleResizeStop}
     >
       {children}
     </ResizableBox>
