@@ -16,10 +16,17 @@ import { extractNestedHeadings, FDocument } from 'core/parser'
 
 export type ContentContaierProps = {
   doc?: FDocument
+  initialSideBar?: Boolean
 }
 
-export function SideBarContainer({ toc }: { toc: React.ReactNode }) {
-  const [showSideBar, setShowSideBar] = useState(true)
+export function SideBarContainer({
+  toc,
+  initialSideBar = true,
+}: {
+  toc: React.ReactNode
+  initialSideBar?: Boolean
+}) {
+  const [showSideBar, setShowSideBar] = useState(initialSideBar)
 
   const handleSideBarIconClick = () => {
     setShowSideBar((current) => !current)
@@ -166,10 +173,10 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
         </div>
       </section>
       <aside
-        className={`bg-gray-50 border-l border-gray-300 h-full w-[25ch] transition shadow-lg ${
+        className={`bg-gray-50 border-gray-300 h-full w-[25ch] transition ${
           showComments
-            ? 'xl:static'
-            : 'absolute right-0 translate-x-full transition'
+            ? 'shadow-lg shadow-black/50 border-l'
+            : 'translate-x-full transition'
         } hidden md:flex md:absolute md:right-0 flex-col shrink-0 grow-0 pt-2 `}
       >
         <div className="border-b px-2 flex justify-between items-center py-1">
@@ -211,14 +218,18 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
   )
 }
 
-function ContentContainer({ doc }: ContentContaierProps) {
+function ContentContainer({
+  doc,
+  initialSideBar = true,
+}: ContentContaierProps) {
   if (doc === undefined) {
     return <span>This scrappy prototype stinks!</span>
   }
   const { content } = doc
   return (
-    <div className="flex h-full overflow-hidden gap-2 relative">
+    <div className="flex h-full overflow-hidden gap-2 relative grow">
       <SideBarContainer
+        initialSideBar={initialSideBar}
         toc={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
       />
       <div className="grow flex overflow-x-scroll">

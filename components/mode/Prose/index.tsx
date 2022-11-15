@@ -38,7 +38,7 @@ export default function Prose({ isSerif, doc }: LinearProps) {
       className={[
         isSerif ? 'font-robotoSerif' : 'font-inter',
         'text-base max-w-prose',
-        'overflow-wrap',
+        'overflow-x-scroll',
         'leading-loose',
         'p-5',
         'md:p-3',

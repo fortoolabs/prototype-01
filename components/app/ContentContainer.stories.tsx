@@ -2,6 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import parse from 'core/parser'
+import ResizablePane from './ResizablePane'
 import ContentContainer from './ContentContainer'
 
 const text = `This is just a *sample* text for testing in a Storybook.
@@ -79,6 +80,10 @@ export default {
       control: 'text',
       description: 'Raw Org text',
     },
+    initialSideBar: {
+      control: 'boolean',
+      description: 'whether to show side bar at the start',
+    },
   },
   parameters: {
     layout: 'fullscreen',
@@ -94,3 +99,20 @@ export const DefaultContentView = Template.bind({})
 DefaultContentView.args = {
   doc: parse(text),
 }
+
+export const SideBySideView = () => (
+  // Todo: implement layout that contains split panes
+  <div className="container mx-auto">
+    <div className="flex h-screen">
+      <ResizablePane
+        handlePosition="e"
+        width={800}
+        maxWidth={2000}
+        minWidth={500}
+      >
+        <ContentContainer doc={parse(text)} initialSideBar={false} />
+      </ResizablePane>
+      <ContentContainer doc={parse(text)} initialSideBar={false} />
+    </div>
+  </div>
+)
