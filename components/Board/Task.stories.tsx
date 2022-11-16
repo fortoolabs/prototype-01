@@ -1,4 +1,5 @@
 import React from 'react'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
@@ -7,6 +8,13 @@ import KanbanTask from './Task'
 export default {
   title: 'Modes/Board/Molecules/Task',
   component: KanbanTask,
+  decorators: [
+    (Story) => (
+      <Droppable>
+        <Story />
+      </Droppable>
+    ),
+  ],
 } as ComponentMeta<typeof KanbanTask>
 
 const Template: ComponentStory<typeof KanbanTask> = (args) => (
@@ -21,6 +29,7 @@ Primary.args = {
   index: 123,
   task: {
     id: '456',
+    attachment: 'file-path',
     columnId: '678',
     name: 'This Task',
     description: 'Accurate but concise description',
@@ -35,14 +44,14 @@ Primary.args = {
 Primary.args = {
   index: 789,
   task: {
-    id: '111',
+    id: '678',
     columnId: '222',
     name: 'Second Task',
     description: 'An other description',
     completed: false,
     daysLeft: 5,
     tags: ['storybook', 'busywork'],
-    members: [{ id: 456, name: 'David', avatar: 'this url' }],
+    members: [{ id: 668, name: 'Stefano', avatar: 'this url' }],
   },
   onEditTask: 'whatever',
 }
