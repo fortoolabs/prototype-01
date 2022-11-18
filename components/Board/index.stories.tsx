@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import parse from 'core/parser'
 
-import Board from 'components/Board'
+import KanbanSpace from './index'
 
 const text = `#+TITLE: Business Plan 📊
 #+TODO: TODO | DONE
@@ -48,19 +48,19 @@ This is an important one. Just to give viewers a decent top-level overview.
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Modes/Board/Organisms',
-  component: Board,
+  title: 'Modes/Board/Organisms/KanbanSpace',
+  component: KanbanSpace,
   argTypes: {
     doc: {
       control: 'text',
       description: 'Raw Org text',
     },
   },
-} as ComponentMeta<typeof Board>
+} as ComponentMeta<typeof KanbanSpace>
 
 // Based on ./Linear.stories.tsx
 const OrgBoard = ({ doc, ...args }: { doc: string }) => (
-  <Board doc={parse(doc)} {...args} />
+  <KanbanSpace doc={parse(doc)} {...args} />
 )
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
@@ -68,7 +68,7 @@ const WrappedTemplate: ComponentStory<typeof OrgBoard> = (args) => (
   <OrgBoard {...args} />
 )
 
-// const Template: ComponentStory<typeof Board> = (args) => <Board {...args} />
+// const Template: ComponentStory<typeof KanbanSpace> = (args) => <KanbanSpace {...args} />
 
 export const MockBoard = WrappedTemplate.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
