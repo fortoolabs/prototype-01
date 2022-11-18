@@ -105,7 +105,6 @@ export function SideBarContainer({
       >
         <aside className="contents">
           <div className="text-gray-400 font-semibold text-xs px-4 flex justify-between items-center relative">
-            SPACES
             <button
               className="text-white shrink-0 hover:bg-primary-hover p-1 group"
               onClick={handleSideBarIconClick}
@@ -121,14 +120,14 @@ export function SideBarContainer({
             {toc}
           </div>
 
-          <div className={actionItemClasses}>
+          {/*<div className={actionItemClasses}>
             <MagnifyingGlassIcon className={iconClasses} />
             Search
           </div>
           <div className={actionItemClasses}>
             <ClockIcon className={iconClasses} />
             All Updates
-          </div>
+          </div>*/}
         </aside>
       </ResizablePane>
     </>
@@ -205,7 +204,6 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
                 'group-hover:z-0',
               ].join(' ')}
             >
-              {' '}
               Close Comments
             </span>
           </button>
