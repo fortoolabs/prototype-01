@@ -134,7 +134,16 @@ export function SideBarContainer({
   )
 }
 
-export function MainContentContainer({ doc }: { doc: FDocument }) {
+function ContentContainer({
+  doc,
+  initialSideBar = true,
+  className,
+}: ContentContaierProps & HTMLAttributes<HTMLDivElement>) {
+  if (doc === undefined) {
+    return <span>This scrappy prototype stinks!</span>
+  }
+  const { content } = doc
+
   const [mode, setMode] = useState('prose')
   const [showComments, setShowComments] = useState(false)
 
@@ -152,83 +161,6 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
   }
 
   return (
-    <>
-      <section className="flex-1 flex flex-col">
-        <div
-          className={[
-            'self-end mb-1 flex justify-end',
-            // TODO: @Edris float this element
-            'border-2 border-green-400', // TODO: Remove after floating
-          ].join(' ')}
-        >
-          <SwitchMode enabled={mode} setEnabled={(value) => setMode(value)} />
-          <div
-            className={`hidden md:flex bg-gray-100 rounded-md px-2 hover:text-c-blue-hover ${
-              showComments ? 'text-c-blue-main' : ''
-            }`}
-          >
-            <button onClick={handleCommentClick}>
-              <ChatBubbleLeftEllipsisIcon className="w-5 shrink-0" />
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-row h-full">{main()}</div>
-      </section>
-      <aside
-        className={`bg-gray-50 border-gray-300 h-full w-[25ch] transition ${
-          showComments
-            ? 'shadow-lg shadow-black/50 border-l'
-            : 'translate-x-full transition'
-        } hidden md:flex md:absolute md:right-0 flex-col shrink-0 grow-0 pt-2 `}
-      >
-        <div className="border-b px-2 flex justify-between items-center py-1">
-          <h3 className="font-bold">Comments</h3>
-          <button
-            onClick={handleCommentClick}
-            className="shrink-0 group hover:bg-gray-200 px-2 rounded-md py-1 relative w-fit"
-          >
-            <ChevronDoubleRightIcon className="w-5 h-5 hover:fill-c-blue-main" />
-            <span
-              className={[
-                'absolute',
-                'right-0',
-                'top-8',
-                'p-2',
-                'rounded-md',
-                'whitespace-nowrap ',
-                '-z-10',
-                'text-white',
-                'text-xs',
-                'bg-primary-main',
-                'invisible',
-                'transiton',
-                'group-hover:visible',
-                'group-hover:transtion',
-                'group-hover:z-0',
-              ].join(' ')}
-            >
-              Close Comments
-            </span>
-          </button>
-        </div>
-        <div className="px-2 py-2 text-xs">
-          <p>The quick brown fox jumps over the lazy dog</p>
-        </div>
-      </aside>
-    </>
-  )
-}
-
-function ContentContainer({
-  doc,
-  initialSideBar = true,
-  className,
-}: ContentContaierProps & HTMLAttributes<HTMLDivElement>) {
-  if (doc === undefined) {
-    return <span>This scrappy prototype stinks!</span>
-  }
-  const { content } = doc
-  return (
     <div
       className={[
         className,
@@ -242,8 +174,71 @@ function ContentContainer({
         initialSideBar={initialSideBar}
         toc={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
       />
-      <div className="grow flex overflow-x-scroll">
-        <MainContentContainer doc={doc} />
+
+      <div className="flex flex-row h-full w-full overflow-auto border-2 border-green-200">
+        {main()}
+      </div>
+
+      {/*<div className="grow flex overflow-x-scroll">
+        <aside
+          className={`bg-gray-50 border-gray-300 h-full w-[25ch] transition ${
+            showComments
+              ? 'shadow-lg shadow-black/50 border-l'
+              : 'translate-x-full transition'
+          } hidden md:flex md:absolute md:right-0 flex-col shrink-0 grow-0 pt-2 `}
+        >
+          <div className="border-b px-2 flex justify-between items-center py-1">
+            <h3 className="font-bold">Comments</h3>
+            <button
+              onClick={handleCommentClick}
+              className="shrink-0 group hover:bg-gray-200 px-2 rounded-md py-1 relative w-fit"
+            >
+              <ChevronDoubleRightIcon className="w-5 h-5 hover:fill-c-blue-main" />
+              <span
+                className={[
+                  'absolute',
+                  'right-0',
+                  'top-8',
+                  'p-2',
+                  'rounded-md',
+                  'whitespace-nowrap ',
+                  '-z-10',
+                  'text-white',
+                  'text-xs',
+                  'bg-primary-main',
+                  'invisible',
+                  'transiton',
+                  'group-hover:visible',
+                  'group-hover:transtion',
+                  'group-hover:z-0',
+                ].join(' ')}
+              >
+                Close Comments
+              </span>
+            </button>
+          </div>
+          <div className="px-2 py-2 text-xs">
+            <p>The quick brown fox jumps over the lazy dog</p>
+          </div>
+        </aside>
+        </div>*/}
+
+      <div
+        className={[
+          'absolute top-2 right-2',
+          'self-end mb-1 flex justify-end',
+        ].join(' ')}
+      >
+        <SwitchMode enabled={mode} setEnabled={(value) => setMode(value)} />
+        <div
+          className={`hidden md:flex bg-gray-100 rounded-md px-2 hover:text-c-blue-hover ${
+            showComments ? 'text-c-blue-main' : ''
+          }`}
+        >
+          <button onClick={handleCommentClick}>
+            <ChatBubbleLeftEllipsisIcon className="w-5 shrink-0" />
+          </button>
+        </div>
       </div>
     </div>
   )
