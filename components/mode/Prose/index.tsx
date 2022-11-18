@@ -36,6 +36,8 @@ export default function Prose({ isSerif, doc }: LinearProps) {
   return (
     <div
       className={[
+        'border-2 border-blue-300',
+        // TODO: make full-width such that scrollbars show up in correct place
         isSerif ? 'font-robotoSerif' : 'font-inter',
         'text-base max-w-prose',
         'overflow-x-scroll',

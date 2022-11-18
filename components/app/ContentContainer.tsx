@@ -154,7 +154,13 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
   return (
     <>
       <section className="flex-1 flex flex-col  pt-2 px-2  overflow-y-auto">
-        <div className="self-end mb-1 flex gap-3 justify-end">
+        <div
+          className={[
+            'self-end mb-1 flex gap-3 justify-end',
+            // TODO: @Edris float this element
+            'border-2 border-green-400', // TODO: Remove after floating
+          ].join(' ')}
+        >
           <SwitchMode enabled={mode} setEnabled={(value) => setMode(value)} />
           <div
             className={`hidden md:flex bg-gray-100 rounded-md px-2 hover:text-c-blue-hover ${
@@ -166,8 +172,13 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
             </button>
           </div>
         </div>
-        <div className="flex justify-center h-full overflow-y-auto">
-          {' '}
+        <div
+          className={[
+            'flex justify-center h-full overflow-y-auto',
+            // TODO: Remove after making prose fill container.
+            'border-2 border-orange-400',
+          ].join(' ')}
+        >
           {main()}
         </div>
       </section>
@@ -219,18 +230,30 @@ export function MainContentContainer({ doc }: { doc: FDocument }) {
 function ContentContainer({
   doc,
   initialSideBar = true,
-}: ContentContaierProps) {
+  className,
+}: ContentContaierProps & HTMLAttributes<HTMLDivElement>) {
   if (doc === undefined) {
     return <span>This scrappy prototype stinks!</span>
   }
   const { content } = doc
   return (
-    <div className="flex h-full overflow-hidden gap-2 relative grow">
+    <div
+      className={[className, 'flex h-full overflow-hidden gap-2 relative'].join(
+        ' ',
+      )}
+    >
       <SideBarContainer
         initialSideBar={initialSideBar}
         toc={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
       />
-      <div className="grow flex overflow-x-scroll">
+      <div
+        className={[
+          'grow flex overflow-x-scroll',
+          'border-2 border-red-400',
+          // TODO: Remove when styling issues are resolved
+          // - [ ] Remove x-overflow, let Prose handle this
+        ].join(' ')}
+      >
         <MainContentContainer doc={doc} />
       </div>
     </div>

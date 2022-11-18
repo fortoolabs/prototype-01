@@ -112,7 +112,12 @@ export const SideBySideView = () => (
       >
         <ContentContainer doc={parse(text)} initialSideBar={false} />
       </ResizablePane>
-      <ContentContainer doc={parse(text)} initialSideBar={false} />
+      {/* TODO: Fix jumping width when toggling sidebar */}
+      <ContentContainer
+        className="bg-pink-200"
+        doc={parse(text)}
+        initialSideBar={false}
+      />
     </div>
   </div>
 )
