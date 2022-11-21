@@ -10,9 +10,18 @@ export default {
   component: KanbanTask,
   decorators: [
     (Story) => (
-      <Droppable>
-        <Story />
-      </Droppable>
+      // since we are rendering just one component that doesn't need to be reordered we don't need to write a proper onDragEnd function.
+      <DragDropContext
+        onDragEnd={() => {
+          console.log('Hallo onDragEnd!')
+        }}
+      >
+        <Droppable droppableId="1">
+          {(provided) => (
+            <Story ref={provided.innerRef} {...provided.droppableProps} />
+          )}
+        </Droppable>
+      </DragDropContext>
     ),
   ],
 } as ComponentMeta<typeof KanbanTask>
@@ -41,7 +50,7 @@ Primary.args = {
   onEditTask: 'whatever',
 }
 
-Primary.args = {
+Secondary.args = {
   index: 789,
   task: {
     id: '678',
