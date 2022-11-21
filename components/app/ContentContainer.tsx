@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { ResizeCallbackData } from 'react-resizable'
 import {
-  MagnifyingGlassIcon,
-  ClockIcon,
+  //MagnifyingGlassIcon,
+  //ClockIcon,
   ChevronDoubleRightIcon,
   ChatBubbleLeftEllipsisIcon,
 } from '@heroicons/react/20/solid'
@@ -39,9 +39,9 @@ export function SideBarContainer({
     // anytime dragging stops the width is saved to the localstorage
     localStorage.setItem('tocWidth', resizableData.size.width.toString())
   }
-  const actionItemClasses =
-    'text-gray-400 font-semibold text-xs flex gap-2 px-4'
-  const iconClasses = 'w-4 h-4 shrink-0'
+  //const actionItemClasses =
+  //  'text-gray-400 font-semibold text-xs flex gap-2 px-4'
+  //const iconClasses = 'w-4 h-4 shrink-0'
 
   return (
     <>
@@ -138,14 +138,14 @@ function ContentContainer({
   doc,
   initialSideBar = true,
   className,
-}: ContentContaierProps & HTMLAttributes<HTMLDivElement>) {
+}: ContentContaierProps & React.HTMLAttributes<HTMLDivElement>) {
+  const [mode, setMode] = useState('prose')
+  const [showComments, setShowComments] = useState(false)
+
   if (doc === undefined) {
     return <span>This scrappy prototype stinks!</span>
   }
   const { content } = doc
-
-  const [mode, setMode] = useState('prose')
-  const [showComments, setShowComments] = useState(false)
 
   const main = () => {
     switch (mode) {

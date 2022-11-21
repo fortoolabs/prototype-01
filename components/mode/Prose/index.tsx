@@ -4,7 +4,7 @@ import { FDocument } from 'core/types'
 
 import { LightBulbIcon } from '@heroicons/react/24/outline'
 
-import Breadcrumbs from './Breadcrumbs'
+//import Breadcrumbs from './Breadcrumbs'
 export type LinearProps = {
   doc: FDocument
   // TODO: Remove in preference of theming (as outlined below)
