@@ -13,7 +13,7 @@ export default {
       // since we are rendering just one component that doesn't need to be reordered we don't need to write a proper onDragEnd function.
       <DragDropContext
         onDragEnd={() => {
-          console.log('Hallo onDragEnd!')
+          console.log('Hello, onDragEnd!')
         }}
       >
         <Droppable droppableId="1">
@@ -45,7 +45,14 @@ Primary.args = {
     completed: false,
     daysLeft: 5,
     tags: ['storybook', 'busywork'],
-    members: [{ id: 456, name: 'David', avatar: 'this url' }],
+    members: [
+      {
+        id: 1,
+        name: 'David',
+        avatar:
+          'https://pbs.twimg.com/profile_images/1276458607702241282/eAH3B2eT_400x400.jpg',
+      },
+    ],
   },
   onEditTask: 'whatever',
 }
@@ -60,7 +67,14 @@ Secondary.args = {
     completed: false,
     daysLeft: 5,
     tags: ['storybook', 'busywork'],
-    members: [{ id: 668, name: 'Stefano', avatar: 'this url' }],
+    members: [
+      {
+        id: 2,
+        name: 'Lex',
+        avatar:
+          'https://pbs.twimg.com/profile_images/956331551435960322/OaqR8pAB_400x400.jpg',
+      },
+    ],
   },
   onEditTask: 'whatever',
 }
