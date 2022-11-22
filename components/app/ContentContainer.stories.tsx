@@ -109,6 +109,7 @@ export const SideBySideView = () => (
         width={800}
         maxWidth={2000}
         minWidth={500}
+        className="overflow-auto w-[100%]"
       >
         <ContentContainer doc={parse(text)} initialSideBar={false} />
       </ResizablePane>
