@@ -115,6 +115,7 @@ export const SideBySideView = () => (
       </ResizablePane>
       {/* TODO: Fix jumping width when toggling sidebar */}
       <ContentContainer
+        className="w-full"
         doc={parse(text)}
         initialSideBar={false}
       />
