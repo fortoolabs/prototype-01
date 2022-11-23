@@ -9,7 +9,7 @@ import KanbanEditTaskModal from './EditTaskModal'
 import parse, { extractTasks, unpackTodoKeyword } from 'core/parser'
 
 // Extraction of Kanban data is component-specific so it belongs in the component implementation
-function extractKanbanData({ todoStates, content }: FDocument) {
+export function extractKanbanData({ todoStates, content }: FDocument) {
   // TODO: Source default states from settings
   const defaultStates = ['TODO', 'DONE']
 
