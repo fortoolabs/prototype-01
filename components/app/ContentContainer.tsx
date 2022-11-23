@@ -174,7 +174,7 @@ function ContentContainer({
         toc={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
       />
 
-      <div className="flex flex-row h-full w-full overflow-auto">
+      <div className="flex flex-row h-full w-full overflow-auto pt-14">
         {main()}
       </div>
 
