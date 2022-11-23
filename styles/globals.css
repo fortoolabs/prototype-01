@@ -7,16 +7,33 @@
 }
 .react-resizable-handle {
   position: absolute;
-  width: 6px;
+  width: 3px;
   height: 100%;
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 3px;
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-  background-color: #eee;
+  background-color: #39a7fd;
+  -webkit-transition: background-color 200ms linear, width 200ms linear;
+  -ms-transition: background-color 200ms linear, width 200ms linear;
+  transition: background-color 200ms linear, width 200ms linear;
 }
 .invisible-handle .react-resizable-handle {
-  background: transparent;
+  width: 3px;
+  background-image: none;
+  background-color: transparent;
+}
+.invisible-handle .react-resizable-handle:hover {
+  width: 3px;
+  background-color: #157efb;
+}
+.react-resizable-handle:hover {
+  background-color: #39a7fd;
+  width: 4px;
+  -webkit-transition: background-color 200ms linear, width 200ms linear,
+    width 200ms linear;
+  -ms-transition: background-color 200ms linear, width 200ms linear;
+  transition: background-color 200ms linear, width 200ms linear;
 }
 
 .react-resizable-handle-w,
@@ -25,7 +42,7 @@
   cursor: col-resize;
 }
 .react-resizable-handle-w {
-  left: -6px;
+  left: 0px;
 }
 .react-resizable-handle-e {
   right: 0px;

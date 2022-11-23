@@ -4,7 +4,7 @@ import { FDocument } from 'core/types'
 
 import { LightBulbIcon } from '@heroicons/react/24/outline'
 
-import Breadcrumbs from './Breadcrumbs'
+//import Breadcrumbs from './Breadcrumbs'
 export type LinearProps = {
   doc: FDocument
   // TODO: Remove in preference of theming (as outlined below)
@@ -37,14 +37,11 @@ export default function Prose({ isSerif, doc }: LinearProps) {
     <div
       className={[
         isSerif ? 'font-robotoSerif' : 'font-inter',
-        'text-base max-w-prose',
-        'overflow-wrap',
-        'leading-loose',
-        'p-5',
-        'md:p-3',
+        'basis-full',
+        'text-base',
       ].join(' ')}
     >
-      <Breadcrumbs pages={[]} />
+      {/*<Breadcrumbs pages={[]} />*/}
       {/* iterate over json, build right component */}
       {content.flatMap((el, i) => renderElement(el, `prose-${i}`, doc))}
     </div>
