@@ -165,7 +165,6 @@ function ContentContainer({
       className={[
         className,
         'flex h-full overflow-hidden relative',
-        'border-2 border-red-400',
         // TODO: Remove when styling issues are resolved
         // - [ ] Remove x-overflow, let Prose handle this
       ].join(' ')}
@@ -175,7 +174,7 @@ function ContentContainer({
         toc={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
       />
 
-      <div className="flex flex-row h-full w-full overflow-auto border-2 border-green-200">
+      <div className="flex flex-row h-full w-full overflow-auto">
         {main()}
       </div>
 
