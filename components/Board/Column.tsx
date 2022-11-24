@@ -31,7 +31,10 @@ function KanbanColumn({
         {todoElement(title, colorForWorkflowState(title))}
       </div>
 
-      <div id={`kanban-list-${id}`} className="mb-4 space-y-4 min-w-kanban">
+      <div
+        id={`kanban-list-${id}`}
+        className="mb-4 h-[400px] overflow-y-auto flex-grow space-y-4 min-w-kanban bg-red-100 p-4 rounded"
+      >
         {tasks.map((task, index) => {
           return (
             <KanbanTask
