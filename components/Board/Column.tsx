@@ -55,7 +55,7 @@ function KanbanColumn({
   console.log('handle id', id)
   const color = colorForWorkflowState(title)
   return (
-    <div className="w-72">
+    <div className="w-72 max-h-full">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
         {todoElement(title, color)}
       </div>
@@ -63,6 +63,7 @@ function KanbanColumn({
       <div
         id={`kanban-list-${id}`}
         className={[
+          // @edris, we need to grow this div to fill the container
           'h-[400px] min-w-kanban', // dimensioning
           'mb-4 space-y-4 p-4', // spacing
           columnColor(color), // background coloring
