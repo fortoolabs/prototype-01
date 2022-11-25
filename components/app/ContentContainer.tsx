@@ -51,22 +51,23 @@ export function SideBarContainer({
           showSideBar ? 'hidden' : ''
         }`}
       >
-        <button
-          className={`pl-5 py-2 relative group ${showSideBar ? '' : 'z-10'}`}
-          type="button"
-          onClick={handleSideBarIconClick}
-        >
-          <ChevronDoubleRightIcon className="w-6 h-6 absolute" />
-        </button>
+        <ContentContainerButton
+          iconStyles="w-6 h-6"
+          Icon={ChevronDoubleRightIcon}
+          onClickEvent={handleSideBarIconClick}
+          className={`px-4 mt-2 ml-3 opacity-[0.8] hover:opacity-[1]  relative group ${
+            showSideBar ? '' : 'z-10'
+          }`}
+        />
         <div
           className={[
             'absolute ',
-            'left-11',
-            'top-3',
+            'left-20',
+            'top-4',
             'p-2',
             'rounded-md ',
             'whitespace-nowrap',
-            '-z-10',
+            'z-10',
             'text-white',
             'text-xs',
             'bg-primary-main',
