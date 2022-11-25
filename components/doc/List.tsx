@@ -8,7 +8,7 @@ import {
 
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
-//import { Disclosure } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 
 import { blockClasses } from 'components/doc/Block'
 
@@ -21,9 +21,16 @@ export type ListChildProps = {
 // TODO: Revision the API, should List take ReactNode children or a list data struct?
 export function List({ children, className }: PropsWithChildren<ListProps>) {
   return (
-    <ul className={`${blockClasses} p-4 pl-8 list-disc ${className}`}>
-      {children}
-    </ul>
+    <Disclosure>
+      <Disclosure.Button
+        as="ul"
+        className={`${blockClasses} p-4 pl-8 list-disc ${className}`}
+      >
+        {/* <ul className={`${blockClasses} p-4 pl-8 list-disc ${className}`}> */}
+        {children}
+        {/* </ul> */}
+      </Disclosure.Button>
+    </Disclosure>
   )
 }
 
@@ -63,6 +70,7 @@ export function ListChild({
   //)
 
   return (
+    // <Disclosure.Panel as="li" className={itemClasses}>
     <li className={itemClasses}>
       {label}
       {Children.count(children) > 0 && (
@@ -86,5 +94,6 @@ export function ListChild({
         </div>
       )}
     </li>
+    // </Disclosure.Panel>
   )
 }
