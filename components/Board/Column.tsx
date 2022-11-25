@@ -27,6 +27,17 @@ function columnColor(color: WorkflowStateColor): string {
   }
 }
 
+function ringColor(color: WorkflowStateColor): string {
+  switch (color) {
+    case 'red':
+      return 'hover:ring-red-300'
+    case 'green':
+      return 'hover:ring-green-300'
+    default:
+      return 'ring-gray'
+  }
+}
+
 function KanbanColumn({
   id,
   title,
@@ -48,9 +59,10 @@ function KanbanColumn({
         className={[
           'h-[400px] min-w-kanban', // dimensioning
           'mb-4 space-y-4 p-4', // spacing
-          columnColor(color), // coloring
+          columnColor(color), // background coloring
           'overflow-y-auto flex-grow', // flowing
-          'rounded', // shaping/contouring
+          'rounded ring-0 hover:ring-2', // shaping/contouring
+          ringColor(color), // contour/ring coloring
         ].join(' ')}
       >
         {tasks.map((task, index) => {
