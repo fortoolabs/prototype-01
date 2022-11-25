@@ -12,6 +12,7 @@ import Board from '../Board'
 import SwitchMode from './SwitchMode'
 import Prose from 'components/mode/Prose'
 import ResizablePane from './ResizablePane'
+import ContentContainerButton from './ContentContainerButton'
 import { extractNestedHeadings, FDocument } from 'core/parser'
 
 export type ContentContaierProps = {
@@ -225,18 +226,21 @@ function ContentContainer({
       <div
         className={[
           'absolute top-2 right-2',
-          'self-end mb-1 flex justify-end',
+          'self-end mb-1 flex justify-end gap-3',
         ].join(' ')}
       >
         <SwitchMode enabled={mode} setEnabled={(value) => setMode(value)} />
         <div
-          className={`hidden md:flex bg-gray-100 rounded-md px-2 hover:text-c-blue-hover ${
+          className={`hidden md:flex hover:text-c-blue-hover mr-3 ${
             showComments ? 'text-c-blue-main' : ''
           }`}
         >
-          <button onClick={handleCommentClick}>
-            <ChatBubbleLeftEllipsisIcon className="w-5 shrink-0" />
-          </button>
+          <ContentContainerButton
+            className="px-4 opacity-[0.5] hover:opacity-[1]"
+            iconStyles="w-5 shrink-0"
+            onClickEvent={handleCommentClick}
+            Icon={ChatBubbleLeftEllipsisIcon}
+          />
         </div>
       </div>
     </div>

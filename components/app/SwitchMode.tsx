@@ -1,6 +1,7 @@
 import React from 'react'
 import ColumnTriple from 'components/icons/ColumnTriple'
 import FileLines from 'components/icons/FileLines'
+import ContentContainerButton from './ContentContainerButton'
 
 type SwitchProps = {
   enabled?: string
@@ -20,20 +21,22 @@ export default function SwitchMode({
   const activeSvg = 'fill-c-blue-main scale-110 transition'
   return (
     <div className={`flex bg-gray-100 p-1 rounded-md w-fit ${className}`}>
-      <button
-        className={`${buttonClasses} ${kanbanActive && 'bg-white'}`}
-        onClick={() => setEnabled('kanban')}
-      >
-        <ColumnTriple
-          className={`${svgClasses} ${kanbanActive && activeSvg}`}
-        />
-      </button>
-      <button
-        className={`${buttonClasses}  ${proseActive && 'bg-white'}`}
-        onClick={() => setEnabled('prose')}
-      >
-        <FileLines className={`${svgClasses} ${proseActive && activeSvg}`} />
-      </button>
+      <ContentContainerButton
+        Icon={ColumnTriple}
+        onClickEvent={() => setEnabled('kanban')}
+        iconStyles={`${svgClasses} ${kanbanActive && activeSvg}`}
+        className={`${buttonClasses} ${
+          kanbanActive && 'bg-white'
+        } opacity-[0.5] hover:opacity-[1]`}
+      />
+      <ContentContainerButton
+        Icon={FileLines}
+        onClickEvent={() => setEnabled('prose')}
+        iconStyles={`${svgClasses} ${proseActive && activeSvg}`}
+        className={`${buttonClasses}  ${
+          proseActive && 'bg-white'
+        } opacity-[0.5] hover:opacity-[1]`}
+      />
     </div>
   )
 }
