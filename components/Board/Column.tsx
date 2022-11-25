@@ -2,7 +2,7 @@ import KanbanTask from './Task'
 
 import type { TaskDataProps } from './data'
 
-import { colorForWorkflowState } from 'core/renderer'
+import { colorForWorkflowState, WorkflowStateColor } from 'core/renderer'
 import { PlusIcon as SolidPlusIcon } from '@heroicons/react/20/solid'
 import { todoElement } from 'components/doc/Heading'
 
@@ -16,6 +16,17 @@ export type KanbanColumnProps = {
   placeholder: any
 }
 
+function columnColor(color: WorkflowStateColor): string {
+  switch (color) {
+    case 'red':
+      return 'bg-red-50'
+    case 'green':
+      return 'bg-green-50'
+    default:
+      return 'bg-none'
+  }
+}
+
 function KanbanColumn({
   id,
   title,
@@ -25,15 +36,22 @@ function KanbanColumn({
   placeholder,
 }: KanbanColumnProps) {
   console.log('handle id', id)
+  const color = colorForWorkflowState(title)
   return (
     <div className="w-72">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
-        {todoElement(title, colorForWorkflowState(title))}
+        {todoElement(title, color)}
       </div>
 
       <div
         id={`kanban-list-${id}`}
-        className="mb-4 h-[400px] overflow-y-auto flex-grow space-y-4 min-w-kanban bg-red-100 p-4 rounded"
+        className={[
+          'h-[400px] min-w-kanban', // dimensioning
+          'mb-4 space-y-4 p-4', // spacing
+          columnColor(color), // coloring
+          'overflow-y-auto flex-grow', // flowing
+          'rounded', // shaping/contouring
+        ].join(' ')}
       >
         {tasks.map((task, index) => {
           return (
