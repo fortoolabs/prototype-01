@@ -8,9 +8,10 @@ import {
 
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
-import { Disclosure } from '@headlessui/react'
+// import { Disclosure } from '@headlessui/react'
 
 import { blockClasses } from 'components/doc/Block'
+import { Disclosure } from '@headlessui/react';
 
 export type ListWithClassNames = HTMLAttributes<'ol'> | HTMLAttributes<'ul'>
 export type ListProps = ListWithClassNames
@@ -21,16 +22,11 @@ export type ListChildProps = {
 // TODO: Revision the API, should List take ReactNode children or a list data struct?
 export function List({ children, className }: PropsWithChildren<ListProps>) {
   return (
-    <Disclosure>
-      <Disclosure.Button
-        as="ul"
-        className={`${blockClasses} p-4 pl-8 list-disc ${className}`}
-      >
-        {/* <ul className={`${blockClasses} p-4 pl-8 list-disc ${className}`}> */}
-        {children}
-        {/* </ul> */}
-      </Disclosure.Button>
-    </Disclosure>
+      <>
+        <ul className={`${blockClasses} p-4 pl-8 list-disc ${className}`}>
+          {children}
+        </ul>
+      </>
   )
 }
 
@@ -70,30 +66,51 @@ export function ListChild({
   //)
 
   return (
-    <Disclosure.Panel as="li" className={itemClasses}>
-      {/* <li className={itemClasses}> */}
-      {label}
-      {Children.count(children) > 0 && (
-        <div className="">
-          {children}
-          {false && (
-            <ChevronUpIcon
-              className={[
-                'absolute',
-                'top-0',
-                'h-5',
-                'w-5',
-                'cursor-pointer',
-                'select-none',
-                'transition',
-                showChildren ? '' : 'rotate-180 transition duration-100',
-              ].join(' ')}
-              onClick={handleClick}
-            />
+    <>
+
+      <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                <span>{label}</span>
+                <ChevronUpIcon
+                  className={`${
+                    open ? 'rotate-180 transform' : ''
+                  } h-5 w-5 text-purple-500`}
+                />
+              </Disclosure.Button>
+              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                {children}
+              </Disclosure.Panel>
+            </>
           )}
-        </div>
-      )}
-      {/* </li> */}
-    </Disclosure.Panel>
+        </Disclosure>
+
+      {/* <li className={itemClasses}>
+        {label}
+        {Children.count(children) > 0 && (
+          <div className="">
+            {children}
+            {false && (
+              <ChevronUpIcon
+                className={[
+                  'absolute',
+                  'top-0',
+                  'h-5',
+                  'w-5',
+                  'cursor-pointer',
+                  'select-none',
+                  'transition',
+                  showChildren ? '' : 'rotate-180 transition duration-100',
+                ].join(' ')}
+                onClick={handleClick}
+              />
+            )}
+          </div>
+        )}
+      </li> */}
+    </>
+
+
   )
 }
