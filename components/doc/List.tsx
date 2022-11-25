@@ -70,8 +70,8 @@ export function ListChild({
   //)
 
   return (
-    // <Disclosure.Panel as="li" className={itemClasses}>
-    <li className={itemClasses}>
+    <Disclosure.Panel as="li" className={itemClasses}>
+      {/* <li className={itemClasses}> */}
       {label}
       {Children.count(children) > 0 && (
         <div className="">
@@ -93,7 +93,7 @@ export function ListChild({
           )}
         </div>
       )}
-    </li>
-    // </Disclosure.Panel>
+      {/* </li> */}
+    </Disclosure.Panel>
   )
 }
