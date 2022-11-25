@@ -22,8 +22,11 @@ function columnColor(color: WorkflowStateColor): string {
       return 'bg-red-50'
     case 'green':
       return 'bg-green-50'
+    case 'gray':
+      return 'bg-gray-50'
     default:
-      return 'bg-none'
+      // FIXME: Extend range to cover all WorkflowStateColor options
+      return 'bg-yellow-50'
   }
 }
 
@@ -33,8 +36,11 @@ function ringColor(color: WorkflowStateColor): string {
       return 'hover:ring-red-300'
     case 'green':
       return 'hover:ring-green-300'
+    case 'gray':
+      return 'hover:ring-gray-300'
     default:
-      return 'ring-gray'
+      // FIXME: Extend range to cover all WorkflowStateColor options
+      return 'hover:ring-yellow-300'
   }
 }
 
