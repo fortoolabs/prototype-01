@@ -25,7 +25,7 @@ function columnColor(color: WorkflowStateColor): string {
     case 'gray':
       return 'bg-gray-50'
     default:
-      return 'bg-red-50'
+      return 'bg-yellow-50'
   }
 }
 
@@ -38,7 +38,7 @@ function ringColor(color: WorkflowStateColor): string {
     case 'gray':
       return 'hover:ring-gray-300'
     default:
-      return 'hover:ring-red-300'
+      return 'hover:ring-yellow-300'
   }
 }
 
@@ -61,7 +61,6 @@ function KanbanColumn({
       <div
         id={`kanban-list-${id}`}
         className={[
-          // @edris, we need to grow this div to fill the container
           'h-[calc(100vh_-_278px)] min-w-kanban', // dimensioning
           'mb-4 space-y-4 p-4', // spacing
           columnColor(color), // background coloring
