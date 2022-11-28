@@ -25,7 +25,6 @@ function columnColor(color: WorkflowStateColor): string {
     case 'gray':
       return 'bg-gray-50'
     default:
-      // FIXME: Extend range to cover all WorkflowStateColor options
       return 'bg-yellow-50'
   }
 }
@@ -39,7 +38,6 @@ function ringColor(color: WorkflowStateColor): string {
     case 'gray':
       return 'hover:ring-gray-300'
     default:
-      // FIXME: Extend range to cover all WorkflowStateColor options
       return 'hover:ring-yellow-300'
   }
 }
@@ -55,7 +53,7 @@ function KanbanColumn({
   console.log('handle id', id)
   const color = colorForWorkflowState(title)
   return (
-    <div className="w-72">
+    <div className="w-72 h-[calc(100vh_-_64px)]">
       <div className="py-4 text-base font-semibold text-gray-900 dark:text-gray-300">
         {todoElement(title, color)}
       </div>
@@ -63,7 +61,7 @@ function KanbanColumn({
       <div
         id={`kanban-list-${id}`}
         className={[
-          'h-[400px] min-w-kanban', // dimensioning
+          'h-[calc(100vh_-_278px)] min-w-kanban', // dimensioning
           'mb-4 space-y-4 p-4', // spacing
           columnColor(color), // background coloring
           'overflow-y-auto flex-grow', // flowing
@@ -81,8 +79,8 @@ function KanbanColumn({
             />
           )
         })}
+        {placeholder}
       </div>
-      {placeholder}
       {/* TODO: Remove data-modal-toggle */}
       <button
         type="button"

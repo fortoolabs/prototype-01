@@ -82,15 +82,16 @@ export default function KanbanBoard({
       onDragEnd={(result: any) => onDragEnd(result, columns, setColumns)}
     >
       <div className="flex w-full flex-col mt-2">
-        <div className="overflow-x-auto overflow-y-auto">
+        <div className="overflow-x-auto w-full overflow-y-hidden">
           <div className="inline-block min-w-full align-middle">
-            <div className="overflow-hidden shadow">
+            <div className="overflow-x-auto shadow">
               <div className="flex items-start justify-start px-4 mb-6 space-x-4">
                 {Object.entries(columns).map(([columnId, column], index) => {
                   return (
                     <Droppable key={columnId} droppableId={columnId}>
                       {(provided, snapshot) => (
                         <div
+                          className="h-full"
                           ref={provided.innerRef}
                           {...provided.droppableProps}
                         >
