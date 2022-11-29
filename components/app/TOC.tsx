@@ -35,7 +35,7 @@ type TableOfContentsEntryProps = {
   doc?: FDocument
 }
 
-const textClasses = 'text-sm text-white'
+const textClasses = 'text-sm text-black'
 //@vidbina let me know if Toc is going to be used somewhere else
 //so I can make the styling and colors dynamic
 function TableOfContentsEntry({
@@ -78,7 +78,7 @@ function TableOfContentsEntry({
               <Disclosure.Button as="span" className="shrink-0">
                 <CaretDown
                   className={[
-                    'transition-all fill-white',
+                    'transition-all fill-slate-500',
                     open ? '' : '-rotate-90 transform',
                     'h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none',
                   ].join(' ')}
@@ -103,8 +103,8 @@ function TableOfContentsEntry({
                 )}
                 {/* TODO: Implement when headline linking works */}
                 <span
-                  className={`hover:text-blue-300 cursor-pointer truncate ${
-                    isActive && 'text-blue-300'
+                  className={`hover:text-c-blue-main cursor-pointer truncate ${
+                    isActive && 'text-c-blue-main'
                   }`}
                   id={destinationForHeadingId(heading.id, doc)}
                 >

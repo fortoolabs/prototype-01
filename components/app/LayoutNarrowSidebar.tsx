@@ -407,7 +407,7 @@ export function HorizontalDiptychWithAside({
         >
           <ChevronDoubleRightIcon className="w-6 h-6 absolute" />
         </button>
-        <div className="absolute left-11 top-3 p-2 rounded-md whitespace-nowrap -z-10 text-white text-xs bg-primary-main opacity-0 transiton group-hover:opacity-100 group-hover:transtion">
+        <div className="absolute left-11 top-3 p-2 rounded-md whitespace-nowrap -z-10 text-black text-xs bg-primary-main opacity-0 transition group-hover:opacity-100 group-hover:transition">
           Open Sidebar
         </div>
       </div>

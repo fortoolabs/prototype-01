@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+const { white } = require('tailwindcss/colors')
+
 //@vidbina let us only abstract custom tailwind properties here that is reused
 //will work on abstracting everything later
 module.exports = {
@@ -13,8 +15,11 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          main: '#1a1c1f',
-          hover: '#282A2F',
+          // main: '#1a1c1f',
+          // slate-50,
+          main: '#f8fafc',
+          // hover: '#282A2F',
+          hover: '#f1f5f9',
         },
         'c-blue': {
           main: '#157EFB',
