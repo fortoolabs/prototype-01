@@ -73,7 +73,7 @@ describe('source block', () => {
 #+end_src
 `
 export default {
-  title: 'Application/Layouts/ContentContainer',
+  title: 'Application/Organisms/Layouts/ContentContainer',
   component: ContentContainer,
   argTypes: {
     doc: {
