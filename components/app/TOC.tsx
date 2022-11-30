@@ -60,7 +60,7 @@ function TableOfContentsEntry({
         <>
           <div
             className={[
-              isActive ? 'bg-black' : 'bg-transparent hover:bg-slate-100',
+              isActive ? 'bg-black' : 'bg-transparent hover:bg-primary-main',
               isActive ? 'text-white' : 'text-black',
               'border-r-4',
               'border-transparent',
