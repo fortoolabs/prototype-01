@@ -3,11 +3,11 @@
 exports[`toc > renders 1`] = `
 <DocumentFragment>
   <ul
-    class="text-sm text-white"
+    class="h-full overflow-y-scroll text-sm"
   >
     <li>
       <div
-        class="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
+        class="bg-transparent hover:bg-primary-main text-black border-r-4 border-transparent hover:border-black transition hover:transition py-2 px-4 flex items-center gap-3"
       >
         <span
           aria-controls="headlessui-disclosure-panel-:r1:"
@@ -16,7 +16,7 @@ exports[`toc > renders 1`] = `
           id="headlessui-disclosure-button-:r0:"
         >
           <svg
-            class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none"
+            class="transition-all fill-black  h-4 w-4 cursor-pointer select-none"
             viewBox="0 0 320 512"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -30,7 +30,7 @@ exports[`toc > renders 1`] = `
           href="/#id:1"
         >
           <span
-            class="hover:text-blue-300 cursor-pointer truncate false"
+            class="cursor-pointer truncate"
             id="id:1"
           >
             Part 1
@@ -46,7 +46,7 @@ exports[`toc > renders 1`] = `
         >
           <li>
             <div
-              class="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
+              class="bg-black text-white border-r-4 border-transparent hover:border-white transition hover:transition py-2 px-4 flex items-center gap-3"
             >
               <div
                 class="h-4 w-4 shrink-0"
@@ -56,7 +56,7 @@ exports[`toc > renders 1`] = `
                 href="/#id:2"
               >
                 <span
-                  class="hover:text-blue-300 cursor-pointer truncate text-blue-300"
+                  class="cursor-pointer truncate"
                   id="id:2"
                 >
                   Part 1.1 with a very long title that requires space
@@ -66,7 +66,7 @@ exports[`toc > renders 1`] = `
           </li>
           <li>
             <div
-              class="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
+              class="bg-transparent hover:bg-primary-main text-black border-r-4 border-transparent hover:border-black transition hover:transition py-2 px-4 flex items-center gap-3"
             >
               <span
                 aria-controls="headlessui-disclosure-panel-:r6:"
@@ -75,7 +75,7 @@ exports[`toc > renders 1`] = `
                 id="headlessui-disclosure-button-:r5:"
               >
                 <svg
-                  class="transition-all fill-white  h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none"
+                  class="transition-all fill-black  h-4 w-4 cursor-pointer select-none"
                   viewBox="0 0 320 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -89,7 +89,7 @@ exports[`toc > renders 1`] = `
                 href="/#id:3"
               >
                 <span
-                  class="hover:text-blue-300 cursor-pointer truncate false"
+                  class="cursor-pointer truncate"
                   id="id:3"
                 >
                   Part 1.2
@@ -105,7 +105,7 @@ exports[`toc > renders 1`] = `
               >
                 <li>
                   <div
-                    class="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
+                    class="bg-transparent hover:bg-primary-main text-black border-r-4 border-transparent hover:border-black transition hover:transition py-2 px-4 flex items-center gap-3"
                   >
                     <div
                       class="h-4 w-4 shrink-0"
@@ -115,7 +115,7 @@ exports[`toc > renders 1`] = `
                       href="/#id:4"
                     >
                       <span
-                        class="hover:text-blue-300 cursor-pointer truncate false"
+                        class="cursor-pointer truncate"
                         id="id:4"
                       >
                         Part 1.2.1
@@ -131,7 +131,7 @@ exports[`toc > renders 1`] = `
     </li>
     <li>
       <div
-        class="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
+        class="bg-transparent hover:bg-primary-main text-black border-r-4 border-transparent hover:border-black transition hover:transition py-2 px-4 flex items-center gap-3"
       >
         <div
           class="h-4 w-4 shrink-0"
@@ -141,7 +141,7 @@ exports[`toc > renders 1`] = `
           href="/#id:5"
         >
           <span
-            class="hover:text-blue-300 cursor-pointer truncate false"
+            class="cursor-pointer truncate"
             id="id:5"
           >
             Part 2
@@ -151,7 +151,7 @@ exports[`toc > renders 1`] = `
     </li>
     <li>
       <div
-        class="hover:bg-primary-hover border-r-4 border-transparent transition hover:transition hover:border-c-blue-main py-2 px-4 flex items-center gap-3"
+        class="bg-transparent hover:bg-primary-main text-black border-r-4 border-transparent hover:border-black transition hover:transition py-2 px-4 flex items-center gap-3"
       >
         <div
           class="h-4 w-4 shrink-0"
@@ -161,7 +161,7 @@ exports[`toc > renders 1`] = `
           href="/#id:6"
         >
           <span
-            class="hover:text-blue-300 cursor-pointer truncate false"
+            class="cursor-pointer truncate"
             id="id:6"
           >
             Part 3
