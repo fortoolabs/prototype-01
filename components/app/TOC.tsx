@@ -43,7 +43,7 @@ function TableOfContentsEntry({
   doc,
 }: TableOfContentsEntryProps) {
   const [transMotion, transOpened, transClosed] = [
-    'transition transition-[max-height] duration-300 ease-in-out delay-100',
+    'transition transition-[max-height] duration-300 ease-in-out',
     'transform max-h-screen',
     'transform max-h-0',
   ]
