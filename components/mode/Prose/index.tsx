@@ -36,9 +36,10 @@ export default function Prose({ isSerif, doc }: LinearProps) {
   return (
     <div
       className={[
+        'w-full h-full',
         isSerif ? 'font-robotoSerif' : 'font-inter',
-        'basis-full',
         'text-base',
+        'overflow-y-auto',
       ].join(' ')}
     >
       {/*<Breadcrumbs pages={[]} />*/}
