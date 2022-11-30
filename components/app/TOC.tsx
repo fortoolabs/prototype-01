@@ -35,7 +35,6 @@ type TableOfContentsEntryProps = {
   doc?: FDocument
 }
 
-const textClasses = 'text-sm text-black'
 //@vidbina let me know if Toc is going to be used somewhere else
 //so I can make the styling and colors dynamic
 function TableOfContentsEntry({
@@ -146,7 +145,9 @@ export default function TOC({ headings, doc }: TOCProps) {
   if (!headings.length) return null
 
   return (
-    <ul className={`${textClasses}`}>
+    <ul
+      className={['h-full overflow-y-scroll', 'text-sm text-black'].join(' ')}
+    >
       {headings.map((heading, idx) => (
         <TableOfContentsEntry doc={doc} key={idx} entry={heading} depth={1} />
       ))}
