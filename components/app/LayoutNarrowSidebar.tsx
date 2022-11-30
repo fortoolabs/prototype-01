@@ -436,14 +436,15 @@ export function HorizontalDiptychWithAside({
         ].join(' ')}
       >
         <aside className="contents">
-          <div className="text-gray-400 font-semibold text-xs px-4 flex justify-between items-center relative z-10">
-            SPACES
+          <div className="text-gray-400 text-xs px-4 flex justify-between items-center relative z-10">
+            <span className="uppercase font-semibold">Spaces</span>
             <button
-              className="text-white shrink-0 hover:bg-primary-hover p-1 group"
+              className="text-white shrink-0 p-1 group"
               onClick={handleSideBarIconClick}
             >
-              <ChevronDoubleRightIcon className="w-5 h-5 rotate-180 hover:fill-c-blue-main" />
-              <span className="absolute mx-1 top-0 right-11 p-2 -z-10 whitespace-nowrap bg-primary-hover text-white transtion group-hover:z-0">
+              <ChevronDoubleRightIcon className="w-5 h-5 rotate-180 fill-gray-200 group-hover:fill-black" />
+              {/* FIXME: @stefano unify styling between open sidebar and close sidebar el */}
+              <span className="absolute mx-1 top-0 right-11 p-2 rounded-md -z-10 whitespace-nowrap text-black bg-primary-main opacity-0 transition group-hover:opacity-100 group-hover:z-0">
                 {' '}
                 Close Sidebar
               </span>
