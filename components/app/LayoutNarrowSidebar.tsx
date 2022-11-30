@@ -446,8 +446,10 @@ export function HorizontalDiptychWithAside({
               </span>
             </button>
           </div>
+          {/* FIXME: @edris instead of h-80%, can we fill as much as possible? */}
           <div className="relative h-[80%] overflow-y-auto">{aside}</div>
 
+          {/* FIXME: @edris, ensure the following blocks are bottom-aligned */}
           <div className={actionItemClasses}>
             <MagnifyingGlassIcon className={iconClasses} />
             Search
