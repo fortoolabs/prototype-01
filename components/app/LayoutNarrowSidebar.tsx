@@ -416,15 +416,18 @@ export function HorizontalDiptychWithAside({
         visibleHandle={false}
         maxWidth={700}
         className={[
+          'opacity-30 hover:opacity-100',
+          'hover:transition duration-1000 ease-in-out',
           'hidden',
           'lg:order-first',
           'lg:flex',
           'lg:flex-col',
           'lg:flex-shrink-0',
-          'bg-primary-main',
+          'bg-white',
           'pt-5',
           'border-0',
           'border-r-2',
+          'border-gray-200',
           'font-inter',
           'gap-4',
           'overflow-hidden',
