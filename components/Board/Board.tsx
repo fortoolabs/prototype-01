@@ -81,7 +81,7 @@ export default function KanbanBoard({
     <DragDropContext
       onDragEnd={(result: any) => onDragEnd(result, columns, setColumns)}
     >
-      <div className="flex w-full flex-col mt-2">
+      <div className="flex w-full flex-col">
         <div className="overflow-x-auto w-full overflow-y-hidden">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-x-auto shadow">
