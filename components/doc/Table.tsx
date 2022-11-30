@@ -57,7 +57,7 @@ function TableRow({ rowData }: any) {
 export default function Table({ data }: any) {
   const { title, content } = data
   return (
-    <div className="px-4  max-w-prose sm:px-6 lg:px-8">
+    <div className="px-4 sm:px-6 lg:px-8">
       {title && (
         <h1 className="text-xl font-semibold text-gray-900">{title}</h1>
       )}
