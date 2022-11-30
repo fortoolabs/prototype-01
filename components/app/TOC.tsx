@@ -60,12 +60,13 @@ function TableOfContentsEntry({
         <>
           <div
             className={[
-              'hover:bg-primary-hover',
+              isActive ? 'bg-black' : 'bg-transparent hover:bg-slate-100',
+              isActive ? 'text-white' : 'text-black',
               'border-r-4',
               'border-transparent',
-              'transition',
-              'hover:transition',
-              'hover:border-c-blue-main',
+              // NOTE: Border can be settings-determined
+              isActive ? 'hover:border-white' : 'hover:border-black',
+              'transition hover:transition',
               'py-2',
               'px-4',
               'flex',
@@ -77,9 +78,11 @@ function TableOfContentsEntry({
               <Disclosure.Button as="span" className="shrink-0">
                 <CaretDown
                   className={[
-                    'transition-all fill-slate-500',
+                    'transition-all',
+                    isActive ? 'fill-white' : 'fill-black',
                     open ? '' : '-rotate-90 transform',
-                    'h-4 w-4 cursor-pointer hover:fill-c-blue-main select-none',
+                    'h-4 w-4',
+                    'cursor-pointer select-none',
                   ].join(' ')}
                 />
               </Disclosure.Button>
@@ -90,6 +93,7 @@ function TableOfContentsEntry({
               href={`#${destinationForHeadingId(heading.id, doc)}`}
               scroll={true}
             >
+              {/* TODO: @edris make full width of link clickable */}
               <a className="contents">
                 {todoKeyword && (
                   <Tag
@@ -102,9 +106,7 @@ function TableOfContentsEntry({
                 )}
                 {/* TODO: Implement when headline linking works */}
                 <span
-                  className={`hover:text-c-blue-main cursor-pointer truncate ${
-                    isActive && 'text-c-blue-main'
-                  }`}
+                  className="cursor-pointer truncate"
                   id={destinationForHeadingId(heading.id, doc)}
                 >
                   {text.flatMap((el, i) => renderObject(el, i))}
@@ -145,9 +147,7 @@ export default function TOC({ headings, doc }: TOCProps) {
   if (!headings.length) return null
 
   return (
-    <ul
-      className={['h-full overflow-y-scroll', 'text-sm text-black'].join(' ')}
-    >
+    <ul className={['h-full overflow-y-scroll', 'text-sm'].join(' ')}>
       {headings.map((heading, idx) => (
         <TableOfContentsEntry doc={doc} key={idx} entry={heading} depth={1} />
       ))}
