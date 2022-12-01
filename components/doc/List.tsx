@@ -8,8 +8,6 @@ import {
 
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 
-// import { Disclosure } from '@headlessui/react'
-
 import { blockClasses } from 'components/doc/Block'
 import { Disclosure } from '@headlessui/react'
 
@@ -34,6 +32,8 @@ export function ListChild({
   label,
   children,
 }: PropsWithChildren<ListChildProps>) {
+  /* stefano commented this out cause they are never used - their purpose was to implement Discslosure manually
+
   const [showChildren, setShowChildren] = useState(true)
 
   const animation =
@@ -50,6 +50,7 @@ export function ListChild({
   const handleClick = () => {
     setShowChildren(!showChildren)
   }
+  */
 
   // TODO: @tijan let's discuss whether we use Disclosure here or not.
   // The div-transition magic is too complicated for my brain to quickly debug. 😅
