@@ -61,7 +61,7 @@ function KanbanColumn({
       <div
         id={`kanban-list-${id}`}
         className={[
-          'h-[calc(100vh_-_278px)] min-w-kanban', // dimensioning
+          'h-[calc(100vh_-_218px)] min-w-kanban', // dimensioning
           'mb-4 space-y-4 p-4', // spacing
           columnColor(color), // background coloring
           'overflow-y-auto flex-grow', // flowing
