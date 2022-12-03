@@ -10,9 +10,13 @@ export default function FallbackBlock({
 }: PropsWithChildren<FallbackBlockProps>) {
   return (
     <pre
-      className={`overflow-auto p-2 rounded bg-gray-300/30 ${
-        border ? 'border border-gray-400/40' : ''
-      }`}
+      className={[
+        'overflow-auto',
+        'max-h-[50vh]',
+        'p-2 rounded',
+        'bg-gray-300/30',
+        border ? 'border border-gray-400/40' : '',
+      ].join(' ')}
     >
       {children}
     </pre>

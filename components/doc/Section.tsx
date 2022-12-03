@@ -40,7 +40,7 @@ function Section({
   // FIXME: @tijan: I can't manage to move CaretDown left of the Block
   // the overflow-hidden inside of the body div seems to be a blocker here
   return (
-    <section className="max-w-prose">
+    <section>
       {heading && (
         <div className="relative">
           <button
