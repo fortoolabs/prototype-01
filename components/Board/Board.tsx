@@ -81,54 +81,52 @@ export default function KanbanBoard({
     <DragDropContext
       onDragEnd={(result: any) => onDragEnd(result, columns, setColumns)}
     >
-      <div className="flex w-full flex-col mt-2">
-        <div className="overflow-x-auto w-full overflow-y-hidden">
+      <div className="flex flex-col w-full h-full overflow-x-auto overflow-y-hidden">
+        <div className="w-full h-full">
           <div className="inline-block min-w-full align-middle">
-            <div className="overflow-x-auto shadow">
-              <div className="flex items-start justify-start px-4 mb-6 space-x-4">
-                {Object.entries(columns).map(([columnId, column], index) => {
-                  return (
-                    <Droppable key={columnId} droppableId={columnId}>
-                      {(provided, snapshot) => (
-                        <div
-                          className="h-full"
-                          ref={provided.innerRef}
-                          {...provided.droppableProps}
-                        >
-                          <KanbanColumn
-                            key={index}
-                            id={columnId}
-                            index={index}
-                            title={column.title}
-                            tasks={column.tasks}
-                            onAddTask={(columnId: string) =>
-                              handleAddTask(columnId)
-                            }
-                            onEditTask={(taskId: string) =>
-                              handleEditTask(taskId)
-                            }
-                            placeholder={provided.placeholder}
-                          />
-                        </div>
-                      )}
-                    </Droppable>
-                  )
-                })}
+            <div className="flex items-start justify-start px-4 space-x-4">
+              {Object.entries(columns).map(([columnId, column], index) => {
+                return (
+                  <Droppable key={columnId} droppableId={columnId}>
+                    {(provided, snapshot) => (
+                      <div
+                        className="h-full"
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        <KanbanColumn
+                          key={index}
+                          id={columnId}
+                          index={index}
+                          title={column.title}
+                          tasks={column.tasks}
+                          onAddTask={(columnId: string) =>
+                            handleAddTask(columnId)
+                          }
+                          onEditTask={(taskId: string) =>
+                            handleEditTask(taskId)
+                          }
+                          placeholder={provided.placeholder}
+                        />
+                      </div>
+                    )}
+                  </Droppable>
+                )
+              })}
 
-                <div className="w-72">
-                  <div className="py-4 text-base font-semibold text-gray-900">
-                    Add another group
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      addTask(true)
-                    }}
-                    className="flex items-center justify-center w-full h-32 py-2 m-0 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
-                  >
-                    <PlusIcon className="w-10 h-10" fill="none" />
-                  </button>
+              <div className="w-72">
+                <div className="py-4 text-base font-semibold text-gray-900">
+                  Add another group
                 </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    addTask(true)
+                  }}
+                  className="flex items-center justify-center w-full h-32 py-2 m-0 font-semibold text-gray-500 border-2 border-gray-200 border-dashed rounded-lg hover:bg-gray-100 hover:text-gray-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white"
+                >
+                  <PlusIcon className="w-10 h-10" fill="none" />
+                </button>
               </div>
             </div>
           </div>
