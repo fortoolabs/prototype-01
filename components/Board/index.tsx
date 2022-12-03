@@ -145,7 +145,7 @@ export default function KanbanSpace({ doc }: { doc: FDocument }) {
   const [columns, setColumns] = useState(data)
 
   return (
-    <div className="flex w-full h-full">
+    <div className="flex w-full h-full overflow-hidden">
       <KanbanBoard
         columns={columns}
         setColumns={setColumns}
