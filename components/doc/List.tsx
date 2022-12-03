@@ -66,6 +66,8 @@ export function ListChild({
   //  </Disclosure>
   //)
 
+  const hasChildren = children?.length > 0
+
   return (
     <>
       <Disclosure>
@@ -75,7 +77,7 @@ export function ListChild({
               <ChevronUpIcon
                 className={`${
                   open ? 'rotate-180 transform' : ''
-                } h-5 w-5 text-black `}
+                } h-5 w-5 text-black ${!hasChildren && 'invisible'}`}
               />
               <span>{label}</span>
             </Disclosure.Button>
