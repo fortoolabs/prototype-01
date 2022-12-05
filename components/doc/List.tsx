@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Children,
   PropsWithChildren,
@@ -66,7 +67,8 @@ export function ListChild({
   //  </Disclosure>
   //)
 
-  const hasChildren = children?.length > 0
+  // const hasChildren = children?.length > 0
+  const hasChildren = React.Children.count(children) > 0
 
   return (
     <>
