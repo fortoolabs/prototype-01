@@ -21,12 +21,13 @@ export type ListChildProps = {
 
 // TODO: Revision the API, should List take ReactNode children or a list data struct?
 export function List({ children, className }: PropsWithChildren<ListProps>) {
+  // FIXME: Implement ordered and definition lists
   return (
-    <>
-      <ul className={`${blockClasses} p-4 pl-8 list-disc ${className}`}>
-        {children}
-      </ul>
-    </>
+    <ul className={`${blockClasses} p-4 pl-8 list-disc ${className}`}>
+      {React.Children.map(children, (x) => (
+        <li>{x}</li>
+      ))}
+    </ul>
   )
 }
 
