@@ -3,6 +3,7 @@ import {
   Children,
   PropsWithChildren,
   ReactNode,
+  Fragment,
   useState,
   HTMLAttributes,
 } from 'react'
@@ -35,27 +36,32 @@ export function ListChild({
   label,
   children,
 }: PropsWithChildren<ListChildProps>) {
-  const hasChildren = React.Children.count(children) > 0
+  if (React.Children.count(children) == 0) {
+    return <span>{label}</span>
+  }
 
   return (
-    <>
-      <Disclosure>
-        {({ open }) => (
-          <>
-            <Disclosure.Button className="flex w-full justify-start items-center rounded-lg  px-4 py-2 text-left text-sm font-medium text-black hover:bg-slate-200 ">
-              <ChevronUpIcon
-                className={`${
-                  open ? 'rotate-180 transform' : ''
-                } h-5 w-5 text-black ${!hasChildren && 'invisible'}`}
-              />
-              <span>{label}</span>
-            </Disclosure.Button>
-            <Disclosure.Panel className="px-2  text-sm text-gray-500">
-              {children}
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
-    </>
+    <Disclosure>
+      {({ open }) => (
+        <>
+          <Disclosure.Button className="flex w-full justify-start items-center rounded-lg  px-4 py-2 text-left text-sm font-medium text-black hover:bg-slate-200 ">
+            <span>{label}</span>
+
+            <ChevronUpIcon
+              className={`${
+                open ? 'rotate-180 transform' : ''
+              } ml-5 h-5 w-5 text-black`}
+            />
+          </Disclosure.Button>
+          <Disclosure.Panel
+            as={Fragment}
+            className="px-2  text-sm text-gray-500"
+          >
+            {/* FIXME: Pass single child into ListChild instead of collection */}
+            {children[0]}
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   )
 }
