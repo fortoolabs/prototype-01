@@ -65,7 +65,7 @@ export function renderElement(
       const restObjects =
         rest && rest.length > 0
           ? rest.flatMap((x, idx) =>
-              renderElement(x, `${key}-body=${idx}`, doc),
+              renderElement(x, `${key}-body-${idx}`, doc),
             )
           : []
 
