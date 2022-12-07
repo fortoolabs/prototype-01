@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  Children,
-  PropsWithChildren,
-  ReactNode,
-  Fragment,
-  useState,
-  HTMLAttributes,
-} from 'react'
+import { PropsWithChildren, ReactNode, Fragment, HTMLAttributes } from 'react'
+
+import { FListItem } from 'core/types'
 
 import { Disclosure } from '@headlessui/react'
 
@@ -17,6 +12,7 @@ import { blockClasses } from 'components/doc/Block'
 export type ListWithClassNames = HTMLAttributes<'ol'> | HTMLAttributes<'ul'>
 export type ListProps = ListWithClassNames
 export type ListChildProps = {
+  checkbox: FListItem['checkbox']
   label: ReactNode
 }
 
@@ -53,12 +49,8 @@ export function ListChild({
               } ml-5 h-5 w-5 text-black`}
             />
           </Disclosure.Button>
-          <Disclosure.Panel
-            as={Fragment}
-            className="px-2  text-sm text-gray-500"
-          >
-            {/* FIXME: Pass single child into ListChild instead of collection */}
-            {children[0]}
+          <Disclosure.Panel className="px-2 text-sm text-gray-500">
+            {children}
           </Disclosure.Panel>
         </>
       )}
