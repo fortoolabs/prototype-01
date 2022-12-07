@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Children,
-  PropsWithChildren,
-  ReactNode,
-  Fragment,
-  useState,
-  HTMLAttributes,
-} from 'react'
+import { PropsWithChildren, ReactNode, Fragment, HTMLAttributes } from 'react'
 
 import { Disclosure } from '@headlessui/react'
 
