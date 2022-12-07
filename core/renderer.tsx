@@ -58,6 +58,8 @@ export function renderElement(
         return []
       }
 
+      const checkbox = el.checkbox
+
       const headObjects = head.content.flatMap((x, idx) =>
         renderObject(x, `${key}-label-${idx}`, doc),
       )
@@ -70,7 +72,7 @@ export function renderElement(
           : []
 
       return [
-        <ListChild key={key} label={headObjects}>
+        <ListChild key={key} label={headObjects} checkbox={checkbox}>
           {restObjects}
         </ListChild>,
       ]

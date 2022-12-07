@@ -1,6 +1,8 @@
 import React from 'react'
 import { PropsWithChildren, ReactNode, Fragment, HTMLAttributes } from 'react'
 
+import { FListItem } from 'core/types'
+
 import { Disclosure } from '@headlessui/react'
 
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
@@ -10,6 +12,7 @@ import { blockClasses } from 'components/doc/Block'
 export type ListWithClassNames = HTMLAttributes<'ol'> | HTMLAttributes<'ul'>
 export type ListProps = ListWithClassNames
 export type ListChildProps = {
+  checkbox: FListItem['checkbox']
   label: ReactNode
 }
 
