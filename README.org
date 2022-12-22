@@ -92,3 +92,17 @@ Run =npm run test= in order to run the tests. The test runner is pretty convenie
 *** Analytics
 
 We are using Plausible for analytics and load the necessary script using the =afterInteractive= strategy to improve the load performance.
+
+* Supabase
+
+** Tooling
+
+You can install the Supabase CLI from npm using the following command:
+
+#+begin_src bash
+npm install --save-dev supabase
+#+end_src
+
+You can use the cli through the =npx supabase= command.
+
+Note that the npm-install binary not reliably work in NixOS because it attempts to resolve libs to FHS paths which are not resolvable on some Nix systems. There is a commit that packages supabase for Nix that we've pulled into our nix shell config to install nix on NixOS. So a nix shell should bundle supabase through the =supabase= command.
