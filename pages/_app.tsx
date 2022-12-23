@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import Script from 'next/script'
 
 import { useEffect, useState } from 'react'
 
@@ -6,6 +7,7 @@ import '../styles/globals.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [isDark, setDarkMode] = useState(false)
+  const [twimojiLoaded, setTwimojiLoaded] = useState(false)
 
   useEffect(() => {
     // Check window and document existentce to limit logic to the client-side
@@ -25,6 +27,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     // TODO: Expose this to the children such that they can control dark-mode settings
     <>
+      {/* @david this uses the opensource twitter emoji project please take a a look at https://twemoji.twitter.com/ for Licensing */}
+      <Script
+        src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"
+        crossOrigin="anonymous"
+        onLoad={() => setTwimojiLoaded(true)}
+      />
+      {twimojiLoaded && (
+        <Script id="parse-page">{`twemoji.parse(document.body)`}</Script>
+      )}
       <Component
         className="bg-white dark:bg-black dark:text-white"
         {...pageProps}
