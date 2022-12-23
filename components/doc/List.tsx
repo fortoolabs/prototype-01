@@ -40,18 +40,16 @@ export function ListChild({
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex w-full justify-start items-center rounded-lg  px-4 py-2 text-left text-sm font-medium text-black hover:bg-slate-200 ">
+          <Disclosure.Button className="flex w-full justify-start items-center rounded-lg py-2 text-left  text-gray-600 transition hover:transition hover:text-black font-medium group">
             <span>{label}</span>
 
             <ChevronUpIcon
               className={`${
-                open ? 'rotate-180 transform' : ''
-              } ml-5 h-5 w-5 text-black`}
+                open ? 'rotate-180 transform transition' : ''
+              } ml-5 h-5 w-5 text-black shrink-0 transition group-hover:-translate-y-px group-hover:transition`}
             />
           </Disclosure.Button>
-          <Disclosure.Panel className="px-2 text-sm text-gray-500">
-            {children}
-          </Disclosure.Panel>
+          <Disclosure.Panel className="px-2">{children}</Disclosure.Panel>
         </>
       )}
     </Disclosure>
