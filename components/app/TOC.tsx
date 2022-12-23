@@ -147,7 +147,9 @@ export default function TOC({ headings, doc }: TOCProps) {
   if (!headings.length) return null
 
   return (
-    <ul className={['h-full overflow-y-scroll', 'text-sm'].join(' ')}>
+    <ul
+      className={['h-full overflow-y-scroll', 'text-xs lg:text-sm'].join(' ')}
+    >
       {headings.map((heading, idx) => (
         <TableOfContentsEntry doc={doc} key={idx} entry={heading} depth={1} />
       ))}

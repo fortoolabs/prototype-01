@@ -42,6 +42,7 @@ type MenuOption = {
 
 type MenuProps = {
   menuOptions: MenuOption[]
+  toc?: React.ReactNode
 }
 
 function MobilePicker({
@@ -134,7 +135,7 @@ function DesktopNav({
   children,
 }: MenuProps & SessionProps & React.PropsWithChildren) {
   return (
-    <div className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between">
+    <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:items-center lg:justify-between">
       <DesktopInput
         label="Enter your target URL here"
         placeholder="Enter your target, like: https://gitlab.com/formation.tools/eng/engineering/-/raw/main/README.org"
@@ -180,6 +181,7 @@ function MobileNav({
   name,
   handle,
   avatarPath,
+  toc,
   menuOptions,
   sessionOptions,
 }: MenuProps & SessionProps) {
@@ -187,7 +189,7 @@ function MobileNav({
 
   return (
     <>
-      <div className="absolute inset-y-0 right-0 flex items-center pr-4 sm:pr-6 md:hidden">
+      <div className="absolute inset-y-0 right-0 flex items-center pr-4 sm:pr-6 lg:hidden">
         <MobileMenuButton onClick={() => setIsOpen(true)} />
       </div>
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -233,6 +235,17 @@ function MobileNav({
             </React.Fragment>
           ))}
         </div>
+        {toc && (
+          <>
+            <div className="relative h-[68%] overflow-y-auto mb-1">
+              <h4 className="ml-3 mb-1 truncate text-sm font-medium text-gray-800">
+                Table of Contents
+              </h4>
+              <hr />
+              {toc}
+            </div>
+          </>
+        )}
         <MobileSessionMenu
           name={name}
           handle={handle}
@@ -264,7 +277,7 @@ function MobileMenu({
     <Transition.Root show={isOpen} as={React.Fragment}>
       <Dialog
         as="div"
-        className="relative z-40 md:hidden"
+        className="relative z-40 lg:hidden"
         open={isOpen}
         onClose={() => setIsOpen(false)}
       >
@@ -392,7 +405,7 @@ export function HorizontalDiptychWithAside({
       {/* Primary column */}
       <section
         aria-labelledby="primary-heading"
-        className="flex h-full min-w-0 flex-1 flex-col border-t border-gray-200 overflow-y-auto lg:order-last p-0"
+        className="flex justify-center h-full min-w-0 lg:flex-1 lg:flex-col border-t border-gray-200 overflow-y-auto lg:order-last p-2 lg:p-0"
       >
         {main}
       </section>
@@ -473,6 +486,7 @@ type LayoutProps = React.PropsWithChildren &
     viewControl?: React.ReactNode
     menuOptions: MenuOption[]
     navigationOptions: MenuOption[]
+    toc?: React.ReactNode
   }
 
 export default function Layout({
@@ -482,6 +496,7 @@ export default function Layout({
   menuOptions,
   navigationOptions,
   sessionOptions,
+  toc,
   children,
   viewControl,
 }: LayoutProps) {
@@ -517,8 +532,12 @@ export default function Layout({
           </Link>
         </div>
         <DesktopNav {...navProps}> {viewControl} </DesktopNav>
-        <MobileNav {...navProps} />
-        <MobilePicker menuOptions={menuOptions} className="md:hidden" />
+        <MobileNav {...navProps} toc={toc} />
+        <MobilePicker
+          menuOptions={menuOptions}
+          toc={toc}
+          className="lg:hidden"
+        />
       </header>
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <DesktopSidebar menuOptions={menuOptions} />

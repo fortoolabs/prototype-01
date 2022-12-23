@@ -77,6 +77,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
       sessionOptions={[]}
       navigationOptions={[]}
       menuOptions={[]}
+      toc={<TOC doc={doc} headings={extractNestedHeadings(content)} />}
     >
       <HorizontalDiptychWithAside
         main={(() => {
