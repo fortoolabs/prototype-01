@@ -3,9 +3,17 @@ import Script from 'next/script'
 
 import { useEffect, useState } from 'react'
 
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
+
 import '../styles/globals.css'
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({
+  Component,
+  pageProps,
+}: AppProps<{ initialSession: Session }>) => {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+
   const [isDark, setDarkMode] = useState(false)
   const [twimojiLoaded, setTwimojiLoaded] = useState(false)
 
@@ -26,7 +34,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     // TODO: Expose this to the children such that they can control dark-mode settings
-    <>
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
       {/* @david this uses the opensource twitter emoji project please take a a look at https://twemoji.twitter.com/ for Licensing */}
       <Script
         src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"
@@ -51,7 +62,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           height: 100%;
         }
       `}</style>
-    </>
+    </SessionContextProvider>
   )
 }
 
