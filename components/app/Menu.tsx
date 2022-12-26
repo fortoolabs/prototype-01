@@ -39,6 +39,7 @@ export function Avatar({
   )
 }
 
+// TODO: Remove as removed from LayoutNarrowSidebar and no longer in use
 export function DesktopMenu({
   name,
   handle,

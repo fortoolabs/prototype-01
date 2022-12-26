@@ -66,13 +66,13 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
             />
             Source
           </a>
-          <AuthControl />
           <SwitchMode
             // TODO: Remove for tabs or something more appropriate
             className="ml-4"
             enabled={mode}
             setEnabled={(value) => setMode(value)}
           />
+          <AuthControl />
         </div>
       }
       {...session}
