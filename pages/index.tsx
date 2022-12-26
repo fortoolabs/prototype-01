@@ -9,6 +9,7 @@ import { CodeBracketIcon } from '@heroicons/react/20/solid'
 
 import { extractNestedHeadings, FDocument } from 'core/parser'
 
+import AuthControl from 'components/app/AuthControl'
 import Board from 'components/Board'
 import Prose from 'components/mode/Prose'
 
@@ -65,6 +66,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
             />
             Source
           </a>
+          <AuthControl />
           <SwitchMode
             // TODO: Remove for tabs or something more appropriate
             className="ml-4"
