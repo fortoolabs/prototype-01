@@ -2,7 +2,7 @@ import React from 'react'
 import CodeMirror from '@uiw/react-codemirror'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 
-export type CodeEditorProps = {
+export type SourceEditorProps = {
   initialValue: string
   height?: number
   width?: number
@@ -10,13 +10,13 @@ export type CodeEditorProps = {
   // eslint-disable-next-line no-unused-vars
   handleChange?: (value: string) => void
 }
-function CodeEditor({
+function SourceEditor({
   initialValue,
   height,
   width,
   theme,
   handleChange,
-}: CodeEditorProps) {
+}: SourceEditorProps) {
   // eslint-disable-next-line no-unused-vars
   const onChange = React.useCallback(
     (value: string, viewUpdate: any) => {
@@ -35,4 +35,4 @@ function CodeEditor({
     />
   )
 }
-export default CodeEditor
+export default SourceEditor

@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { PlayableProse } from 'components/mode/Prose/index.stories'
 import useState from 'storybook-addon-state'
 
-import CodeEditor from './CodeEditor'
+import SourceEditor from './SourceEditor'
 
 const text = `This is just a *sample* text for testing in a Storybook.
 
@@ -63,8 +63,8 @@ describe('source block', () => {
 `
 
 export default {
-  title: 'Modes/Code',
-  component: CodeEditor,
+  title: 'Modes/Source',
+  component: SourceEditor,
   argTypes: {
     initialValue: {
       control: 'text',
@@ -82,21 +82,21 @@ export default {
       control: { type: 'number', min: 100, step: 25 },
     },
   },
-} as ComponentMeta<typeof CodeEditor>
+} as ComponentMeta<typeof SourceEditor>
 
-const Template: ComponentStory<typeof CodeEditor> = (args) => (
-  <CodeEditor {...args} />
+const Template: ComponentStory<typeof SourceEditor> = (args) => (
+  <SourceEditor {...args} />
 )
 
 // FIX: This is broken, the addon state doesn't seem to respond
-const SidebySideTemplate: ComponentStory<typeof CodeEditor> = ({
+const SidebySideTemplate: ComponentStory<typeof SourceEditor> = ({
   initialValue,
   ...args
 }) => {
   const [code, setMode] = useState('code', initialValue)
   return (
     <div className="flex gap-5">
-      <CodeEditor
+      <SourceEditor
         initialValue={code}
         handleChange={(value) => setMode(value)}
         width={700}
