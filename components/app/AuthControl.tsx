@@ -3,16 +3,32 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import { Popover } from '@headlessui/react'
 
+import { Avatar } from 'components/app/Menu'
+
+import { UserIcon as UserIcon } from '@heroicons/react/20/solid'
+
 function AuthControl() {
   const session = useSession()
   const supabase = useSupabaseClient()
 
   return (
     <Popover className="relative">
-      <Popover.Button>avatar</Popover.Button>
+      <Popover.Button className="rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 mx-2 mt-1">
+        {!session ? (
+          <UserIcon className="w-8 h-8" />
+        ) : (
+          <Avatar
+            name={session.user.user_metadata.full_name}
+            handle={session.user.user_metadata.user_name}
+            avatarPath={session.user.user_metadata.avatar_url}
+          />
+        )}
+      </Popover.Button>
 
       <Popover.Panel
         className={[
+          // TODO: @tijan position this correctly
+          // sloppily based on https://headlessui.com/react/popover
           'absolute',
           'left-1/2 z-10',
           'w-96 max-w-sm',
