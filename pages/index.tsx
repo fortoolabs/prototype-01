@@ -127,7 +127,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
               url: 'https://github.com/rasendubi/uniorg',
             },
           ]}
-          version={process.env.VERCEL_GIT_COMMIT_SHA || 'unknown version'}
+          version={process.env.VERCEL_GIT_COMMIT_SHA || 'unknown version 🤷🏿‍♂️'}
         />
       )}
     </Layout>
