@@ -1,6 +1,5 @@
 import React from 'react'
 import CodeMirror from '@uiw/react-codemirror'
-import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 
 export type SourceEditorProps = {
   initialValue: string
@@ -29,7 +28,6 @@ function SourceEditor({
       value={initialValue}
       height={height ? `${height}px` : 'auto'}
       width={width ? `${width}px` : 'auto'}
-      extensions={[markdown({ base: markdownLanguage })]}
       theme={theme || 'dark'}
       onChange={onChange}
     />
