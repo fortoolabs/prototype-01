@@ -112,7 +112,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
                 'We tend to use the latest tenchnologies on these project. And they are reactjs, nextjs etc.',
             },
           ]}
-          version={process.env?.VERCEL_GIT_COMMIT_SHA || 'unknown version'}
+          version={process.env.VERCEL_GIT_COMMIT_SHA || 'unknown version'}
         />
       )}
     </Layout>
