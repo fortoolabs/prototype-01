@@ -20,6 +20,7 @@ import { getDoc } from 'pages/api/doc/index'
 import Layout, {
   HorizontalDiptychWithAside,
 } from 'components/app/LayoutNarrowSidebar'
+import About from 'components/app/About'
 
 type HomePageProps = {
   url?: string
@@ -32,6 +33,7 @@ type HomePageProps = {
 // TODO: Add button with link to URL
 export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
   const [mode, setMode] = useState('prose')
+  const [showModal, setShowModal] = useState(false)
 
   const session = {
     name: 'David Asabina',
@@ -49,6 +51,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
 
   return (
     <Layout
+      setShowModal={setShowModal}
       viewControl={
         <div className="flex items-center">
           <a
@@ -93,6 +96,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
       />
 
       <Head>{title && <title>{title}</title>}</Head>
+      {showModal && <About showModal={showModal} setShowModal={setShowModal} />}
     </Layout>
   )
 }

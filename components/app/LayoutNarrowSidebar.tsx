@@ -133,6 +133,7 @@ function DesktopNav({
   menuOptions,
   sessionOptions,
   children,
+  setShowModal,
 }: MenuProps & SessionProps & React.PropsWithChildren) {
   return (
     <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:items-center lg:justify-between">
@@ -160,6 +161,7 @@ function DesktopNav({
           handle={handle}
           avatarPath={avatarPath}
           sessionOptions={sessionOptions}
+          setShowModal={setShowModal}
           sessionToggle={
             <a
               // TODO: Set href
@@ -184,6 +186,7 @@ function MobileNav({
   toc,
   menuOptions,
   sessionOptions,
+  setShowModal,
 }: MenuProps & SessionProps) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -247,6 +250,7 @@ function MobileNav({
           </>
         )}
         <MobileSessionMenu
+          setShowModal={setShowModal}
           name={name}
           handle={handle}
           avatarPath={avatarPath}
@@ -487,6 +491,7 @@ type LayoutProps = React.PropsWithChildren &
     menuOptions: MenuOption[]
     navigationOptions: MenuOption[]
     toc?: React.ReactNode
+    setShowModal?: any
   }
 
 export default function Layout({
@@ -496,6 +501,7 @@ export default function Layout({
   menuOptions,
   navigationOptions,
   sessionOptions,
+  setShowModal,
   toc,
   children,
   viewControl,
@@ -514,6 +520,7 @@ export default function Layout({
     avatarPath,
     menuOptions: navigationOptions,
     sessionOptions,
+    setShowModal,
   }
 
   // TODO: Set Sidebar and Logo bg color through prop

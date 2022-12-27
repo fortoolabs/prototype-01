@@ -1,5 +1,6 @@
 import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
+import { InformationCircleIcon } from '@heroicons/react/24/outline'
 
 type SessionMenuOption = {
   name: string
@@ -15,6 +16,7 @@ type SessionMemberProps = {
 type SessionOptionProps = {
   sessionOptions: SessionMenuOption[]
   sessionToggle?: JSX.Element
+  setShowModal: any
 }
 
 export type SessionProps = SessionMemberProps & SessionOptionProps
@@ -45,12 +47,23 @@ export function DesktopMenu({
   avatarPath,
   sessionOptions,
   sessionToggle,
+  setShowModal,
 }: SessionProps) {
   return (
     <div className="flex items-center space-x-2">
       {sessionToggle}
+      <button
+        type="button"
+        className={
+          'inline-flex items-center border-none rounded-md border text-gray-400 hover:text-gray-500'
+        }
+        onClick={() => setShowModal(true)}
+      >
+        <span className="sr-only">Info about formation tools</span>
+        <InformationCircleIcon className="h-6 w-6" aria-hidden="true" />
+      </button>
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 ml-3">
           <span className="sr-only">Open user menu</span>
           <Avatar name={name} handle={handle} avatarPath={avatarPath} />
         </Menu.Button>
@@ -100,6 +113,7 @@ export function MobileMenu({
   avatarPath,
   sessionOptions,
   sessionToggle,
+  setShowModal,
 }: SessionProps) {
   return (
     <div className="border-t border-gray-200 pt-4 pb-3">
@@ -121,17 +135,29 @@ export function MobileMenu({
           </div>
         </div>
         {sessionToggle}
+        <button
+          type="button"
+          className={
+            'inline-flex items-center border-none rounded-md border text-gray-400 hover:text-gray-500'
+          }
+          onClick={() => setShowModal(true)}
+        >
+          <span className="sr-only">Info about formation tools</span>
+          <InformationCircleIcon className="h-6 w-6" aria-hidden="true" />
+        </button>
       </div>
-      <div className="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
-        {sessionOptions.map((item, idx) => (
-          <a
-            key={idx}
-            href={item.target}
-            className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50"
-          >
-            {item.name}
-          </a>
-        ))}
+      <div className="flex items-center">
+        <div className="max-w-8xl mx-auto mt-3 space-y-1 px-2 sm:px-4">
+          {sessionOptions.map((item, idx) => (
+            <a
+              key={idx}
+              href={item.target}
+              className="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   )
