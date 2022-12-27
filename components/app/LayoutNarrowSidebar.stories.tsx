@@ -58,6 +58,7 @@ const navigationOptions = [
 export const Primary: ComponentStory<typeof Layout> = () => (
   <Layout
     {...session}
+    setShowModal={() => {}}
     viewControl={
       <div className="flex items-center">
         <button
