@@ -11,6 +11,7 @@ export default {
 
 const Template: ComponentStory<typeof About> = (args) => {
   const [showModal, setShowModal] = useState('Show About', true)
+
   return (
     <div>
       <button
@@ -23,7 +24,15 @@ const Template: ComponentStory<typeof About> = (args) => {
         <span className="sr-only">Info about formation tools</span>
         <InformationCircleIcon className="h-6 w-6" aria-hidden="true" />
       </button>
-      <About {...args} showModal={showModal} setShowModal={setShowModal} />
+      <About
+        {...args}
+        showModal={showModal}
+        setShowModal={() => {
+          setShowModal(!showModal)
+        }}
+        entries={[]}
+        version={'v0.1.0'}
+      />
     </div>
   )
 }

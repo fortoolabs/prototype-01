@@ -2,6 +2,8 @@ import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 
+import { ShowAboutModalProps } from 'components/app/About'
+
 type SessionMenuOption = {
   name: string
   target: string
@@ -16,10 +18,6 @@ type SessionMemberProps = {
 type SessionOptionProps = {
   sessionOptions: SessionMenuOption[]
   sessionToggle?: JSX.Element
-}
-
-type ShowAboutModalProps = {
-  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type SessionProps = SessionMemberProps &

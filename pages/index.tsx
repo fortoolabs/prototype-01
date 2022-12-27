@@ -96,7 +96,25 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
       />
 
       <Head>{title && <title>{title}</title>}</Head>
-      {showModal && <About showModal={showModal} setShowModal={setShowModal} />}
+      {showModal && (
+        <About
+          showModal={showModal}
+          setShowModal={setShowModal}
+          entries={[
+            {
+              title: 'Our legal obligations?',
+              content:
+                "If you're unhappy with your purchase for any reason, email us within 90 days and we'll refund you in full, no questions asked.",
+            },
+            {
+              title: 'What are the tools involved?',
+              content:
+                'We tend to use the latest tenchnologies on these project. And they are reactjs, nextjs etc.',
+            },
+          ]}
+          version={process.env?.VERCEL_GIT_COMMIT_SHA || 'unknown version'}
+        />
+      )}
     </Layout>
   )
 }

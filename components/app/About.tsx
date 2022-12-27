@@ -2,13 +2,35 @@ import { Fragment } from 'react'
 import { Dialog, Transition, Disclosure } from '@headlessui/react'
 import { ChevronUpIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-const About = ({ setShowModal, showModal }: any) => {
+export type ShowAboutModalProps = {
+  showModal?: boolean
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+type AboutListProps = {
+  entries: Array<{ title: string; content: string }>
+}
+
+type AboutMetadataProps = {
+  version: string
+}
+
+const About = ({
+  setShowModal,
+  showModal,
+  entries,
+  version,
+}: ShowAboutModalProps & AboutListProps & AboutMetadataProps) => {
   return (
     <Transition appear show={showModal} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-50"
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          if (setShowModal) {
+            setShowModal(false)
+          }
+        }}
       >
         <Transition.Child
           as={Fragment}
@@ -39,12 +61,16 @@ const About = ({ setShowModal, showModal }: any) => {
                     as="h3"
                     className="text-xl font-bold leading-6 text-gray-900"
                   >
-                    Formation Tools
+                    formation.tools
                   </Dialog.Title>
                   <button
                     type="button"
                     className="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      if (setShowModal) {
+                        setShowModal(false)
+                      }
+                    }}
                   >
                     <span className="sr-only">Close main menu</span>
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -60,49 +86,33 @@ const About = ({ setShowModal, showModal }: any) => {
 
                 <div className="w-full px-0 pt-10">
                   <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
-                    <Disclosure>
-                      {({ open }) => (
-                        <>
-                          <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium  hover:bg-gray-200 ">
-                            <span>Our legal obligations?</span>
-                            <ChevronUpIcon
-                              className={`${
-                                open ? 'rotate-180 transform' : ''
-                              } h-5 w-5`}
-                            />
-                          </Disclosure.Button>
-                          <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                            If you&apos;re unhappy with your purchase for any
-                            reason, email us within 90 days and we&apos;ll
-                            refund you in full, no questions asked.
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                    <Disclosure as="div" className="mt-2">
-                      {({ open }) => (
-                        <>
-                          <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium hover:bg-gray-200">
-                            <span>What are the tools involved?</span>
-                            <ChevronUpIcon
-                              className={`${
-                                open ? 'rotate-180 transform' : ''
-                              } h-5 w-5`}
-                            />
-                          </Disclosure.Button>
-                          <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                            We tend to use the latest tenchnologies on these
-                            project. And they are reactjs, nextjs etc.
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
+                    {entries.map((x, id) => {
+                      return (
+                        <Disclosure key={id} as="div" className="mt-2">
+                          {({ open }) => (
+                            <>
+                              <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium  hover:bg-gray-200 ">
+                                <span>{x.title}</span>
+                                <ChevronUpIcon
+                                  className={`${
+                                    open ? 'rotate-180 transform' : ''
+                                  } h-5 w-5`}
+                                />
+                              </Disclosure.Button>
+                              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                                {x.content}
+                              </Disclosure.Panel>
+                            </>
+                          )}
+                        </Disclosure>
+                      )
+                    })}
                   </div>
                 </div>
 
                 <div className="mt-4 bottom-0 sticky top-[100vh]">
                   <div className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium hover:bg-gray-200">
-                    Version 1.1
+                    {version}
                   </div>
                 </div>
               </Dialog.Panel>
