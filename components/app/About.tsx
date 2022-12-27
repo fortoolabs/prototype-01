@@ -2,13 +2,20 @@ import { Fragment } from 'react'
 import { Dialog, Transition, Disclosure } from '@headlessui/react'
 import { ChevronUpIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
+import Link from 'components/doc/Link'
+
 export type ShowAboutModalProps = {
   showModal?: boolean
   setShowModal?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type AboutListProps = {
-  entries: Array<{ title: string; content: string }>
+  entries: Array<{
+    title: string
+    content: string
+    url?: string
+    license?: string
+  }>
 }
 
 type AboutMetadataProps = {
@@ -100,7 +107,17 @@ const About = ({
                                 />
                               </Disclosure.Button>
                               <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                                {x.content}
+                                <div>{x.content}</div>
+                                {x.license && <div>{x.license}</div>}
+                                {x.url && (
+                                  <div>
+                                    <Link
+                                      url={x.url}
+                                      linkType={'https'}
+                                      label={'URL'}
+                                    />
+                                  </div>
+                                )}
                               </Disclosure.Panel>
                             </>
                           )}

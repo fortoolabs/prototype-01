@@ -35,6 +35,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
   const [mode, setMode] = useState('prose')
   const [showModal, setShowModal] = useState(false)
 
+  // TODO: Remove
   const session = {
     name: 'David Asabina',
     handle: 'vid@bina.me',
@@ -110,6 +111,20 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
               title: 'What are the tools involved?',
               content:
                 'We tend to use the latest tenchnologies on these project. And they are reactjs, nextjs etc.',
+            },
+            {
+              title: 'Emojis powered by Twemoji',
+              content:
+                'We use Twemoji project by Twitter to render those beautiful emojis. ☺️',
+              license: 'CC-BY 4.0',
+              url: 'https://github.com/twitter/twemoji#attribution-requirements',
+            },
+            {
+              title: 'Orgdown parsing by uniorg',
+              content:
+                'We use uniorg by rasendubi to parse Org text. The uniorg project basically mimics part of the log in org-element.el in Emacs which is the authoritative source for Org parsing (with all its quirks). Because uniorg is licensed under GPL3.0, we have also licensed this project under GPL3.0.',
+              license: 'GPL-3.0',
+              url: 'https://github.com/rasendubi/uniorg',
             },
           ]}
           version={process.env.VERCEL_GIT_COMMIT_SHA || 'unknown version'}
