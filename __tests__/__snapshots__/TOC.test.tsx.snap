@@ -3,7 +3,7 @@
 exports[`toc > renders 1`] = `
 <DocumentFragment>
   <ul
-    class="h-full overflow-y-scroll text-sm"
+    class="h-full overflow-y-scroll text-xs lg:text-sm"
   >
     <li>
       <div
