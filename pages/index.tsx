@@ -21,6 +21,7 @@ import { getDoc } from 'pages/api/doc/index'
 import Layout, {
   HorizontalDiptychWithAside,
 } from 'components/app/LayoutNarrowSidebar'
+import About from 'components/app/About'
 
 type HomePageProps = {
   url?: string
@@ -33,7 +34,9 @@ type HomePageProps = {
 // TODO: Add button with link to URL
 export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
   const [mode, setMode] = useState('prose')
+  const [showModal, setShowModal] = useState(false)
 
+  // TODO: Remove
   const session = {
     name: 'David Asabina',
     handle: 'vid@bina.me',
@@ -50,6 +53,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
 
   return (
     <Layout
+      setShowModal={setShowModal}
       viewControl={
         <div className="flex items-center">
           <a
@@ -95,6 +99,39 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
       />
 
       <Head>{title && <title>{title}</title>}</Head>
+      {showModal && (
+        <About
+          showModal={showModal}
+          setShowModal={setShowModal}
+          entries={[
+            {
+              title: 'Our legal obligations?',
+              content:
+                "If you're unhappy with your purchase for any reason, email us within 90 days and we'll refund you in full, no questions asked.",
+            },
+            {
+              title: 'What are the tools involved?',
+              content:
+                'We tend to use the latest tenchnologies on these project. And they are reactjs, nextjs etc.',
+            },
+            {
+              title: 'Emojis powered by Twemoji',
+              content:
+                'We use Twemoji project by Twitter to render those beautiful emojis. ☺️',
+              license: 'CC-BY 4.0',
+              url: 'https://github.com/twitter/twemoji#attribution-requirements',
+            },
+            {
+              title: 'Orgdown parsing by uniorg',
+              content:
+                'We use uniorg by rasendubi to parse Org text. The uniorg project basically mimics part of the log in org-element.el in Emacs which is the authoritative source for Org parsing (with all its quirks). Because uniorg is licensed under GPL3.0, we have also licensed this project under GPL3.0.',
+              license: 'GPL-3.0',
+              url: 'https://github.com/rasendubi/uniorg',
+            },
+          ]}
+          version={process.env.VERCEL_GIT_COMMIT_SHA || 'unknown version 🤷🏿‍♂️'}
+        />
+      )}
     </Layout>
   )
 }
