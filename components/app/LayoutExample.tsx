@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 // TODO: Pick one of these layouts and decompose into the needed view e.g.: Sidebar, Navbar, Menu, etc.
 
@@ -99,7 +100,7 @@ export default function Example() {
                   </Transition.Child>
                   <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                     <div className="flex-shrink-0 flex items-center px-4">
-                      <img
+                      <Image
                         className="h-8 w-auto"
                         src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
                         alt="Workflow"
@@ -137,7 +138,7 @@ export default function Example() {
                     <a href="#" className="flex-shrink-0 group block">
                       <div className="flex items-center">
                         <div>
-                          <img
+                          <Image
                             className="inline-block h-10 w-10 rounded-full"
                             src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
                             alt=""
@@ -170,7 +171,7 @@ export default function Example() {
             <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-gray-100">
               <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                 <div className="flex items-center flex-shrink-0 px-4">
-                  <img
+                  <Image
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
                     alt="Workflow"
@@ -208,7 +209,7 @@ export default function Example() {
                 <a href="#" className="flex-shrink-0 w-full group block">
                   <div className="flex items-center">
                     <div>
-                      <img
+                      <Image
                         className="inline-block h-9 w-9 rounded-full"
                         src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
                         alt=""
@@ -232,7 +233,7 @@ export default function Example() {
           <div className="lg:hidden">
             <div className="flex items-center justify-between bg-gray-50 border-b border-gray-200 px-4 py-1.5">
               <div>
-                <img
+                <Image
                   className="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
                   alt="Workflow"

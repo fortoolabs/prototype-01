@@ -1,5 +1,6 @@
 import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
+import Image from 'next/image'
 
 type SessionMenuOption = {
   name: string
@@ -31,7 +32,7 @@ export function Avatar({
   const sizeClasses = className ? className : 'h-8 w-8'
 
   return (
-    <img
+    <Image
       className={`${sizeClasses} rounded-full`}
       src={avatarPath}
       alt={`Avatar for user ${name} with handle ${handle}`}

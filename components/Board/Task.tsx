@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
+import Image from 'next/image'
 
 //import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
 //import { PencilIcon as SolidPencilAltIcon } from '@heroicons/react/20/solid'
@@ -65,7 +66,7 @@ export default function KanbanTask({
             </div>
             {task.attachment && (
               <div className="flex items-center justify-center pb-4">
-                <img
+                <Image
                   className="bg-contain rounded-lg"
                   src={`https://flowbite.com/application-ui/demo${task.attachment}`}
                   alt="attachment"
@@ -92,7 +93,7 @@ export default function KanbanTask({
                           data-tooltip-target={`user_${taskId}_${id}`}
                           className="-mr-3"
                         >
-                          <img
+                          <Image
                             className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
                             src={`https://flowbite.com/application-ui/demo/images/users/${avatar}`}
                             alt={member.name}

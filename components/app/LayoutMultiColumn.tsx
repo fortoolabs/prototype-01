@@ -26,6 +26,7 @@ import {
   StarIcon,
 } from '@heroicons/react/20/solid'
 import { Bars3CenterLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -95,7 +96,7 @@ export default function Example() {
                   {/* Logo section */}
                   <div className="flex items-center px-2 lg:px-0 xl:w-64">
                     <div className="flex-shrink-0">
-                      <img
+                      <Image
                         className="h-8 w-auto"
                         src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=300"
                         alt="Workflow"
@@ -163,7 +164,7 @@ export default function Example() {
                         <div>
                           <Menu.Button className="flex rounded-full bg-indigo-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-700">
                             <span className="sr-only">Open user menu</span>
-                            <img
+                            <Image
                               className="h-8 w-8 rounded-full"
                               src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
                               alt=""
@@ -254,7 +255,7 @@ export default function Example() {
                       {/* Profile */}
                       <div className="flex items-center space-x-3">
                         <div className="h-12 w-12 flex-shrink-0">
-                          <img
+                          <Image
                             className="h-12 w-12 rounded-full"
                             src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
                             alt=""
@@ -521,7 +522,7 @@ export default function Example() {
                   {activityItems.map((item) => (
                     <li key={item.commit} className="py-4">
                       <div className="flex space-x-3">
-                        <img
+                        <Image
                           className="h-6 w-6 rounded-full"
                           src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
                           alt=""
