@@ -7,6 +7,7 @@ import {
   PlusCircleIcon,
   EllipsisVerticalIcon,
   ChatBubbleLeftEllipsisIcon,
+  XCircleIcon,
 } from '@heroicons/react/20/solid'
 
 type CommentProps = {
@@ -65,7 +66,7 @@ export default function CommentsBlock({
   }
   return (
     <div
-      className={`${className} boder-bottom border-2 border-white ${
+      className={`${className} m-3 boder-bottom border-2 border-white ${
         show ? 'z-10' : ''
       }`}
       id={id}
@@ -88,16 +89,18 @@ export default function CommentsBlock({
       ) : (
         <Tab.Group
           as="section"
-          className={`w-full bg-gray-100 mx-2 p-3 rounded-xs ${
-            show
-              ? 'max-h-screen transition-[max-height] duration-300 ease-in z-10'
-              : 'opacity-0 max-h-0'
-          } overflow-hidden`}
+          className={`w-full bg-gray-100 p-3 transiton rounded-xs relative group`}
         >
           <Tab.List as="div" className="flex justify-between items-center">
             <div
               className={`flex gap-1 items-center cursor-pointer transition`}
             >
+              <button onClick={handleClick}>
+                {' '}
+                <XCircleIcon
+                  className={`h-5 w-5 hover:fill-c-blue-hover opacity-0 absolute -right-1 -top-2 transition group-hover:opacity-100 group-hover:transition`}
+                />
+              </button>
               <button onClick={handleClick}>
                 {' '}
                 <CaretDown
@@ -138,7 +141,7 @@ export default function CommentsBlock({
               show
                 ? 'max-h-screen transition-[max-height] duration-300 ease-in z-10'
                 : 'opacity-0 max-h-0'
-            } overflow-hidden`}
+            } overflow-y-scroll`}
           >
             <Tab.Panel as="div" className="mt-3">
               {comments.map((comment, index) => (
