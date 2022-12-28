@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 import Toggle from 'components/app/Toggle'
 import { LogoSecond as Logo } from 'components/app/Logo'
@@ -151,7 +152,7 @@ export default function Example({
             <div className="pt-4 pb-3 border-t border-gray-200">
               <div className="flex items-center px-4">
                 <div className="flex-shrink-0">
-                  <img
+                  <Image
                     className="h-10 w-10 rounded-full"
                     src={user.imageUrl}
                     alt=""

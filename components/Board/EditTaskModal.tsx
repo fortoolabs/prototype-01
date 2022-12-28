@@ -1,5 +1,6 @@
 // import type { KanbanModalProps } from './Modal'
 import KanbanModal from './Modal'
+import Image from 'next/image'
 
 import {
   ArchiveBoxIcon as SolidArchiveIcon,
@@ -55,7 +56,7 @@ export default function KanbanEditTaskModal({
                 data-tooltip-target="bonnie-tooltip"
                 className="-mr-3"
               >
-                <img
+                <Image
                   className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
                   src="https://flowbite.com/application-ui/demo/images/users/bonnie-green.png"
                   alt="Bonnie Green"
@@ -74,7 +75,7 @@ export default function KanbanEditTaskModal({
                 data-tooltip-target="roberta-tooltip"
                 className="-mr-3"
               >
-                <img
+                <Image
                   className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
                   src="https://flowbite.com/application-ui/demo/images/users/roberta-casas.png"
                   alt="Roberta Casas"
@@ -93,7 +94,7 @@ export default function KanbanEditTaskModal({
                 data-tooltip-target="michael-tooltip"
                 className="-mr-3"
               >
-                <img
+                <Image
                   className="border-2 border-white rounded-full h-7 w-7 dark:border-gray-800"
                   src="https://flowbite.com/application-ui/demo/images/users/michael-gough.png"
                   alt="Michael Gough"
@@ -184,7 +185,7 @@ export default function KanbanEditTaskModal({
         <div className="flex flex-col space-y-2">
           <div className="flex items-center space-x-3">
             <a href="#" className="flex-shrink-0">
-              <img
+              <Image
                 className="rounded-full h-7 w-7"
                 src="https://flowbite.com/application-ui/demo/images/users/michael-gough.png"
                 alt="Micheal Gough"
