@@ -5,7 +5,7 @@ import CommentsBlock from './Comment'
 
 const exampleComments = [
   {
-    text: 'Generalist-reading secondary markets buyer. Satoshi themed Macbook airapologist',
+    text: 'Generalist-reading ',
   },
   {
     author: 'David Asabina',
@@ -25,7 +25,9 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof CommentsBlock> = () => (
-  <CommentsBlock comments={exampleComments} />
+  <div className="max-w-prose mx-auto">
+    <CommentsBlock comments={exampleComments} />
+  </div>
 )
 
 export const DefaultComment = Template.bind({})
