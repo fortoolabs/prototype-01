@@ -1,5 +1,6 @@
 import React from 'react'
 import CodeMirror from '@uiw/react-codemirror'
+import { ViewUpdate } from '@codemirror/view'
 
 export type SourceEditorProps = {
   initialValue: string
@@ -16,10 +17,12 @@ function SourceEditor({
   theme,
   handleChange,
 }: SourceEditorProps) {
-  // eslint-disable-next-line no-unused-vars
   const onChange = React.useCallback(
-    (value: string, viewUpdate: any) => {
-      handleChange ? handleChange(value) : null
+    // eslint-disable-next-line no-unused-vars
+    (value: string, viewUpdate: ViewUpdate) => {
+      if (handleChange) {
+        handleChange(value)
+      }
     },
     [handleChange],
   )
