@@ -92,3 +92,27 @@ Run =npm run test= in order to run the tests. The test runner is pretty convenie
 *** Analytics
 
 We are using Plausible for analytics and load the necessary script using the =afterInteractive= strategy to improve the load performance.
+
+* Supabase
+
+** Tooling
+
+You can install the Supabase CLI from npm using the following command:
+
+#+begin_src bash
+npm install --save-dev supabase
+#+end_src
+
+You can use the cli through the =npx supabase= command.
+
+Note that the npm-install binary not reliably work in NixOS because it attempts to resolve libs to FHS paths which are not resolvable on some Nix systems. There is a commit that packages supabase for Nix that we've pulled into our nix shell config to install nix on NixOS. So a nix shell should bundle supabase through the =supabase= command.
+
+** Auth
+
+After trying to setup Ory for a long time (on-and-off) and even with some help from the Ory team (Vincent and the CTO have been more than helpful), I have to conclude that I am still too much of an idiot to get it working, so I'm opting for Supabase to move things along. Would like to revisit the Ory topic at a later point in time since I think that their Auth stack is pretty rich but definitely more of a "nice to have" atm.
+
+For now, we're just moving ahead with [[https://supabase.com/docs/guides/auth/overview][Supabase Auth]].
+
+Configure Supabase by:
+1. configuring a [[https://supabase.com/docs/guides/auth/social-login/auth-github][GitHub OAuth app]] and a [[https://supabase.com/docs/guides/auth/social-login/auth-gitlab][GitLab OAuth app]]
+2. set =NEXT_PUBLIC_VERCEL_URL= (in your [[file:.env.local][.env.local]]) to =http://localhost:3000= for local development or the actual app URL otherwise

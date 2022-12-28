@@ -1,6 +1,9 @@
+// TODO: Refactor to use as component for code blocks
 import type { FC } from 'react'
 import { useContext } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+
+// FIXME: Remove grommet remnants
 import { Box, ThemeContext } from 'grommet'
 
 export type CodeProps = {

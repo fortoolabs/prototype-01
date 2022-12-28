@@ -11,12 +11,11 @@ import {
   ClockIcon,
   ChevronDoubleRightIcon,
 } from '@heroicons/react/20/solid'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { LogoSecond as LogoIcon } from 'components/app/Logo'
 import {
   SessionProps,
-  DesktopMenu as DesktopSessionMenu,
   MobileMenu as MobileSessionMenu,
 } from 'components/app/Menu'
 import ResizablePane from './ResizablePane'
@@ -155,22 +154,6 @@ function DesktopNav({
           </nav>
         )}
         {children}
-        <DesktopSessionMenu
-          name={name}
-          handle={handle}
-          avatarPath={avatarPath}
-          sessionOptions={sessionOptions}
-          sessionToggle={
-            <a
-              // TODO: Set href
-              href="#"
-              className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500"
-            >
-              <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true" />
-            </a>
-          }
-        />
       </div>
     </div>
   )
@@ -252,15 +235,6 @@ function MobileNav({
           avatarPath={avatarPath}
           // FIX: Remove referencing of top-scope var userNavigation
           sessionOptions={sessionOptions}
-          //sessionToggle={
-          //  <a
-          //    href="#"
-          //    className="rounded-full bg-white p-2 text-gray-400 hover:text-gray-500"
-          //  >
-          //    <span className="sr-only">View notifications</span>
-          //    <BellIcon className="h-6 w-6" aria-hidden="true" />
-          //  </a>
-          //}
         />
       </MobileMenu>
     </>

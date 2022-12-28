@@ -9,6 +9,7 @@ import { CodeBracketIcon } from '@heroicons/react/20/solid'
 
 import { extractNestedHeadings, FDocument } from 'core/parser'
 
+import AuthControl from 'components/app/AuthControl'
 import Board from 'components/Board'
 import Prose from 'components/mode/Prose'
 
@@ -71,6 +72,7 @@ export const HomePage: NextPage<HomePageProps> = ({ url, doc }) => {
             enabled={mode}
             setEnabled={(value) => setMode(value)}
           />
+          <AuthControl />
         </div>
       }
       {...session}
