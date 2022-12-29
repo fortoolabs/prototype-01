@@ -123,7 +123,7 @@ export default function HeadingLine({
   const tags = tagsElement(tagLabels)
 
   const copyLink = (
-    <Link href={`/#${destinationForHeadingId(id, doc)}`}>
+    <Link href={`${router.asPath}/#${destinationForHeadingId(id, doc)}`}>
       <a
         className={[
           'align-middle inline-block',
