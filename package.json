@@ -30,7 +30,7 @@
     "@supabase/auth-helpers-nextjs": "^0.5.2",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/auth-ui-react": "^0.2.6",
-    "@supabase/supabase-js": "^2.2.2",
+    "@supabase/supabase-js": "^2.38.0",
     "base64url": "^3.0.1",
     "codemirror": "^6.0.1",
     "dayjs": "^1.11.3",
